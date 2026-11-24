@@ -16,6 +16,8 @@ Windows 也可用 `py -3 -B scripts/dev.py`。命令从 GitHub 下载并校验�
 
 ## 从哪开始改
 
+修改界面、HUD 或交互时，可以用本机开发预览运行候选代码，不影响已发布版本。先运行 `python -B scripts/dev.py --list-editable`，再看[预览步骤](docs/local-build.md#修改自有界面并在本机预览)。
+
 | 目录 | 用途 |
 | --- | --- |
 | [apps/pages](apps/pages) | 公开入口页，不是游戏引擎 |

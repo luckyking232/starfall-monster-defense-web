@@ -13,6 +13,7 @@ from urllib.parse import quote, urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from setup_local_replica import materialize, read_lock, replica_source, BUILDER
+from editable_preview import ALLOWED as EDITABLE, PREFIX as EDITABLE_PREFIX, derive, read_edits
 
 PAGES = '/play/'
 HOST = '127.0.0.1'
@@ -58,24 +59,24 @@ def load_builder(tree):
         sys.path.pop(0)
 
 
-def static_routes(entries):
+def static_routes(entries, prefix=PAGES):
     root='xingluo-monsters-defense/'
     mapped={}
     for member,data in entries.items():
         if not member.startswith(root):
             raise ValueError('Built entry outside wrapper')
-        k=PAGES+quote(member[len(root):],safe='/')
+        k=prefix+quote(member[len(root):],safe='/')
         ext=Path(member).suffix
         mime={'.mjs':'text/javascript','.js':'text/javascript','.wasm':'application/wasm',
               '.lua':'text/plain; charset=utf-8','.otf':'font/otf'}.get(ext) or mimetypes.guess_type(member)[0]
         if k in mapped:
             raise ValueError('Duplicate serving path')
         mapped[k]=(mime or 'application/octet-stream',data)
-    mapped[PAGES]=mapped[PAGES+'index.html']
+    mapped[prefix]=mapped[prefix+'index.html']
     return mapped
 
 
-def server(routes, port):
+def server(routes, port, *, editable=False):
     class Local(ThreadingHTTPServer):
         daemon_threads=True
     class Handler(BaseHTTPRequestHandler):
@@ -96,6 +97,7 @@ def server(routes, port):
             self.send_header('Cache-Control','no-store')
             self.send_header('X-Content-Type-Options','nosniff')
             self.send_header('X-Frame-Options','DENY')
+            if editable: self.send_header('X-Starfall-Mode','local-editable-preview')
             self.end_headers()
             if body: self.wfile.write(data)
     return Local((HOST,port),Handler)
@@ -106,13 +108,19 @@ def main():
     args.add_argument('--overlay',type=Path,help='use an already downloaded overlay; no network')
     args.add_argument('--source',type=Path,default=replica_source())
     args.add_argument('--port',type=int,default=8000,help='loopback port; keep the same port for the same local save')
+    args.add_argument('--list-editable',action='store_true',help='list author-controlled development routes')
     output=args.add_mutually_exclusive_group()
+    output.add_argument('--edit',action='append',default=[],metavar='RUNTIME_PATH=LOCAL_FILE',help='apply an authored source replacement; loopback only')
     output.add_argument('--verify-only',action='store_true')
     output.add_argument('--package',type=Path,help='write a new verified ZIP instead of serving')
     a=args.parse_args()
     if not (a.port==0 or 1024<=a.port<=65535):
         args.error('port must be 0 or 1024–65535')
+    if a.list_editable:
+        print('\n'.join(sorted(EDITABLE)))
+        return 0
     try:
+        edits=read_edits(a.edit)
         lock=read_lock()
         incoming=a.overlay
         if incoming is None:
@@ -154,9 +162,18 @@ def main():
                 return 0
             if a.verify_only:
                 return 0
-            routes=static_routes(entries)
-        with server(routes,a.port) as s:
-            print(f'Open http://{HOST}:{s.server_port}{PAGES}   (Ctrl+C to stop)',flush=True)
+            if edits:
+                authored=set((a.source/'PUBLIC-SOURCE-LIST.txt').read_text(encoding='utf-8').splitlines())
+                sys.path.insert(0,str((tree/BUILDER).parent))
+                try:
+                    entries=derive(entries,module.ROOT,sys.modules['plan'],tree,edits,authored)
+                finally:
+                    sys.path.pop(0)
+                print(f'Editable local-only preview: {len(edits)} override(s), no package or release output.',flush=True)
+            prefix=EDITABLE_PREFIX if edits else PAGES
+            routes=static_routes(entries,prefix)
+        with server(routes,a.port,editable=bool(edits)) as s:
+            print(f'Open http://{HOST}:{s.server_port}{prefix}   (Ctrl+C to stop)',flush=True)
             try: s.serve_forever()
             except KeyboardInterrupt: pass
     except (OSError, KeyError, ValueError, AssertionError) as e:

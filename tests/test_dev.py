@@ -50,3 +50,13 @@ class DevCLI(TestCase):
             self.assertEqual(request('GET','/play/',{'Host':'wrong.test'})[0],403)
             self.assertEqual(request('GET','/play/',{'Origin':'https://outside.test'})[0],403)
             self.assertNotEqual(request('POST','/play/')[0],200)
+
+    def test_editable_marker_cannot_pass_taptap_check(self):
+        from check_zip import check
+        from zipfile import ZipFile
+        f=io.BytesIO()
+        with ZipFile(f,'w') as z:
+            z.writestr('app/index.html','<meta name="starfall-local-editable-preview">')
+        verdict=check(f,len(f.getbuffer()))
+        self.assertEqual(verdict['status'],'FAIL')
+        self.assertTrue(any('cannot be packaged' in s for s in verdict['errors']))
