@@ -124,6 +124,10 @@ def check(source, byte_count):
                 errors.append('Exceeds local safe streaming budget (768 MiB).')
             if errors:
                 return result()
+            with jar.open(files[entry]) as html:
+                if b'starfall-local-editable-preview' in html.read(65536):
+                    errors.append('Local editable preview cannot be packaged or deployed.')
+                    return result()
 
             def ref(origin, kind, value):
                 value = value.strip()
