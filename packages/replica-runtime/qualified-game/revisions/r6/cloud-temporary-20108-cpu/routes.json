@@ -1,0 +1,2110 @@
+{
+  "/activity-flow/activity-catalog.json": {
+    "file": "activity-flow/activity-catalog.json",
+    "sha256": "f9f105c5f43dc829eb968ddd5abaaaf2acb6f0ea138f671a2211ed4d19823669"
+  },
+  "/activity-flow/activity-flow.mjs": {
+    "file": "activity-flow/activity-flow.mjs",
+    "sha256": "2be4d21d2b8375035966d0b19d230c7b2f2136100f0513a7a050e41b98d7cc52"
+  },
+  "/actor-bridge/actor-bridge.mjs": {
+    "file": "actor-bridge/actor-bridge.mjs",
+    "sha256": "89743da69c36ec3b9d1bc7accc968c870b4bcd89e09512006c37d6fcf67e8acd"
+  },
+  "/animation-evidence/trace.lua": {
+    "file": "animation-evidence/trace.lua",
+    "sha256": "1aee69cee348bb0c79662b030ff8c88521854e2272f39c935f06978311177bc5"
+  },
+  "/base-native-audit/animator-requests.mjs": {
+    "file": "base-native-audit/animator-requests.mjs",
+    "sha256": "b964ea645a28e8b28df677a272944d051b38e5c08d49a60cb2eb9c81226db9b3"
+  },
+  "/battle-hud-presentation/LAYOUT.json": {
+    "file": "battle-hud-presentation/LAYOUT.json",
+    "sha256": "c5be1d92913db571514b17f2603c58f5462ccb217fedc28ffd0398b8369bdcf7"
+  },
+  "/battle-hud-presentation/LOWER-GLES.json": {
+    "file": "battle-hud-presentation/LOWER-GLES.json",
+    "sha256": "14c65a6bd38221c246d14b6f1c8d84a8bec8b86b5efee26bca67c8da0aae6113"
+  },
+  "/battle-hud-presentation/dps-preview.mjs": {
+    "file": "battle-hud-presentation/dps-preview.mjs",
+    "sha256": "db0c5d55c84ecdf14c3b8d18932ca1291b5af56b79aa9dba63957964cde50747"
+  },
+  "/battle-hud-presentation/join.mjs": {
+    "file": "battle-hud-presentation/join.mjs",
+    "sha256": "64b3b3d93b15bcacb3f9c613539b589b790ae34ce7035d62c6992dc8f7c4461a"
+  },
+  "/battle-hud-presentation/lower-frame.mjs": {
+    "file": "battle-hud-presentation/lower-frame.mjs",
+    "sha256": "73ce0d484ec4796e584aa313149fd5aff496fff10030a8198810581c3497fb7d"
+  },
+  "/battle-hud-presentation/oracle.lua": {
+    "file": "battle-hud-presentation/oracle.lua",
+    "sha256": "d80ba2330358fbea431ed41cccc1948c794acf9da005db4af6ca05f0cad8c204"
+  },
+  "/battle-hud-presentation/paint.mjs": {
+    "file": "battle-hud-presentation/paint.mjs",
+    "sha256": "4ecffdaec01b6c948f4398b031775e359670dc1da08508331ba2d0501cfb8069"
+  },
+  "/battle-hud-presentation/plan.mjs": {
+    "file": "battle-hud-presentation/plan.mjs",
+    "sha256": "d1ee124b05dd4e82840f2614ba1ebe47ad5cc5d04c12ca9be7de1c5819b92fa6"
+  },
+  "/battle-hud-presentation/portrait-mask.mjs": {
+    "file": "battle-hud-presentation/portrait-mask.mjs",
+    "sha256": "39096965f99ccf9f627add15e7400c137e9c98acbdab56244296fb7c018a125c"
+  },
+  "/blur-presentation/programs.json": {
+    "file": "blur-presentation/programs.json",
+    "sha256": "43b5251dbd9e5de9df12c7d0fc7d524b6f55f5dbece4c256c103712cc6ba8aa3"
+  },
+  "/blur-presentation/webgl.mjs": {
+    "file": "blur-presentation/webgl.mjs",
+    "sha256": "39785cedd6c0003a66082645603c55430fc8b93db93ba9573a5be7f828421767"
+  },
+  "/browser-stage1-dina/VERIFICATION.json": {
+    "file": "browser-stage1-dina/VERIFICATION.json",
+    "sha256": "59f464cb3f3cd1f43c20b5c0d78fc860a25f5ba733c206b1e509c72ff2e36547"
+  },
+  "/browser-stage1/transport-controls.lua": {
+    "file": "browser-stage1/transport-controls.lua",
+    "sha256": "457b433d3b663992f91c0275c32b92e3e0c0a0c15fea487daa523efac6a34038"
+  },
+  "/core-worker/combat-prefix/bridge.lua": {
+    "file": "core-worker/combat-prefix/bridge.lua",
+    "sha256": "039bdd4b357484086362741b285f0921e84a48acbc813e2b608d63d562db668a"
+  },
+  "/core-worker/combat-prefix/inputs/BaseAttribute.lua": {
+    "file": "core-worker/combat-prefix/inputs/BaseAttribute.lua",
+    "sha256": "b37e995b33e71be2f7ae0bc420484fa1d6b8346f04b8493ade738ec39abca149"
+  },
+  "/core-worker/combat-prefix/inputs/BaseShootSkill.lua": {
+    "file": "core-worker/combat-prefix/inputs/BaseShootSkill.lua",
+    "sha256": "41d9eed0b48cb55b14f56a67b464ffcaa396c7e7f0ef1de2ec2deadded28b326"
+  },
+  "/core-worker/combat-prefix/inputs/BaseShootSkillBuff.lua": {
+    "file": "core-worker/combat-prefix/inputs/BaseShootSkillBuff.lua",
+    "sha256": "daff3e9958b29678bcd557765f3b334cb5d9878b36b0adf944ebd6c191acc5a1"
+  },
+  "/core-worker/combat-prefix/inputs/BaseSkillParameter.lua": {
+    "file": "core-worker/combat-prefix/inputs/BaseSkillParameter.lua",
+    "sha256": "c24484ee96b48e99898c7c86fda076911a081844a5c8bb99569536d19e240ff3"
+  },
+  "/core-worker/combat-prefix/inputs/CardAttribute.lua": {
+    "file": "core-worker/combat-prefix/inputs/CardAttribute.lua",
+    "sha256": "c7b1186e515a0178afbecb9e973ce2680cdbf297fdde1d257dd7363a9a309886"
+  },
+  "/core-worker/combat-prefix/inputs/MathUtil.lua": {
+    "file": "core-worker/combat-prefix/inputs/MathUtil.lua",
+    "sha256": "fd53b51b7e9c8ba9f6104f284e6a95164c813d35bcb34debd04a6e85cb3f4d2c"
+  },
+  "/core-worker/combat-prefix/inputs/MiniGameBattleAction.lua": {
+    "file": "core-worker/combat-prefix/inputs/MiniGameBattleAction.lua",
+    "sha256": "fbc610b63ebac9142ec4b104ea94cc12a6f62cde2797bca1c19218f24654cfcb"
+  },
+  "/core-worker/combat-prefix/inputs/MiniGameBattleBuff.lua": {
+    "file": "core-worker/combat-prefix/inputs/MiniGameBattleBuff.lua",
+    "sha256": "a640e4b170e21dfbc2d7c3354f5969105b47429e0719ed02722e5f00bec314de"
+  },
+  "/core-worker/combat-prefix/inputs/MiniGameBattleBuffEffect.lua": {
+    "file": "core-worker/combat-prefix/inputs/MiniGameBattleBuffEffect.lua",
+    "sha256": "d4e0dc77579a5be1cd6489e5ee04866cbd21c1080cdaf1b7c10cdc34f8c48562"
+  },
+  "/core-worker/combat-prefix/inputs/MiniGameBattleBuffMgr.lua": {
+    "file": "core-worker/combat-prefix/inputs/MiniGameBattleBuffMgr.lua",
+    "sha256": "95cc6e33e87058a2a109d498f1443380bc21ed30bdc2a1ed0bc19cc5a92d9d5b"
+  },
+  "/core-worker/combat-prefix/inputs/MiniGameBattleBullet.lua": {
+    "file": "core-worker/combat-prefix/inputs/MiniGameBattleBullet.lua",
+    "sha256": "9168d76ac04dc6d147f7f9157c8791126e63a928831921a5433cfd1471f0a5a8"
+  },
+  "/core-worker/combat-prefix/inputs/MiniGameBattleChoose.lua": {
+    "file": "core-worker/combat-prefix/inputs/MiniGameBattleChoose.lua",
+    "sha256": "7018271973dee4607f26c6ad014bd20f0cd8872d359e67c967e8955aba078c5b"
+  },
+  "/core-worker/combat-prefix/inputs/MiniGameBattleDataCount.lua": {
+    "file": "core-worker/combat-prefix/inputs/MiniGameBattleDataCount.lua",
+    "sha256": "10fc34c3bed4f8728eaae8a63aa5761f2059c9c79be03d23b34854bc7010a37e"
+  },
+  "/core-worker/combat-prefix/inputs/MiniGameBattleUnit.lua": {
+    "file": "core-worker/combat-prefix/inputs/MiniGameBattleUnit.lua",
+    "sha256": "e18081368fedad46b3f89c8056a83a6af78b4366c947a6d2ff93c8f9952fb102"
+  },
+  "/core-worker/combat-prefix/inputs/native-prefabs.lua": {
+    "file": "core-worker/combat-prefix/inputs/native-prefabs.lua",
+    "sha256": "c714430692bb0e1df358d931dc92fb48db0a60325320fada1cfb032dc6c2e274"
+  },
+  "/core-worker/combat-prefix/inputs/source-derived-helpers.lua": {
+    "file": "core-worker/combat-prefix/inputs/source-derived-helpers.lua",
+    "sha256": "a938eb65342fbefaafef3f90069e132f039c43abc18cb6d6a933d65270098e5e"
+  },
+  "/core-worker/combat-prefix/prefix-pins.json": {
+    "file": "core-worker/combat-prefix/prefix-pins.json",
+    "sha256": "c0255906f291041a579a6e318d2f35136cfd05af56fbc90b98bd04c589c09e1f"
+  },
+  "/core-worker/inputs/lua/BaseShootCard.lua": {
+    "file": "core-worker/inputs/lua/BaseShootCard.lua",
+    "sha256": "22173232d883e98e22204d547c317ff438ed9b7ed7239b826ead9ff4f0fae2fa"
+  },
+  "/core-worker/inputs/lua/BaseShootMonsterGroup.lua": {
+    "file": "core-worker/inputs/lua/BaseShootMonsterGroup.lua",
+    "sha256": "b5b5370d37638ec48144f78a5c54ae6d0aafacab576d79c336a8729530ad93ba"
+  },
+  "/core-worker/inputs/lua/BaseShootStage.lua": {
+    "file": "core-worker/inputs/lua/BaseShootStage.lua",
+    "sha256": "eecc8359bd92e74f43b52819b4e6a42c6108bde46e442e1c0e71957085f1419c"
+  },
+  "/core-worker/inputs/lua/BattleConst.lua": {
+    "file": "core-worker/inputs/lua/BattleConst.lua",
+    "sha256": "60e140aa7faf9ea58571743d550edc67e489afce0722bc7d6397000ba29a4e84"
+  },
+  "/core-worker/inputs/lua/MiniGameBattleConst.lua": {
+    "file": "core-worker/inputs/lua/MiniGameBattleConst.lua",
+    "sha256": "d29a4904a532579003d51d953ea075122b4c8b975b9a556d5ad51f5a46747270"
+  },
+  "/core-worker/inputs/lua/MiniGameBattleControl.lua": {
+    "file": "core-worker/inputs/lua/MiniGameBattleControl.lua",
+    "sha256": "0b2c9256f25602103b511b6bab67a09bbb107d9857818d709254fbe052dd0262"
+  },
+  "/core-worker/inputs/lua/MiniGameBattleData.lua": {
+    "file": "core-worker/inputs/lua/MiniGameBattleData.lua",
+    "sha256": "ee063223c7235ff74230987f64948b7cc215a0f6049ffa092494b01df8994b2d"
+  },
+  "/core-worker/inputs/lua/MiniGameBattleMgr.lua": {
+    "file": "core-worker/inputs/lua/MiniGameBattleMgr.lua",
+    "sha256": "62f0cf37131c63bba5df711282220687560fc13414b7f79c530ae7bbf4a648db"
+  },
+  "/core-worker/inputs/lua/MiniGameBattleScene.lua": {
+    "file": "core-worker/inputs/lua/MiniGameBattleScene.lua",
+    "sha256": "c8799e601b5fb89e64938edc6187204c627aa864681f6e7de39a3b489c772dab"
+  },
+  "/core-worker/inputs/vendor/glue.wasm": {
+    "file": "core-worker/inputs/vendor/glue.wasm",
+    "sha256": "95f3f19ddb740125883bc41d5ec670cd0828e7b58c8bdad385323cbff497b55c"
+  },
+  "/core-worker/inputs/vendor/index.js": {
+    "file": "core-worker/inputs/vendor/index.js",
+    "sha256": "dc2dcf019449008bb224370052473dc760db28b3ba14fc604e1ca3e8646af35d"
+  },
+  "/core-worker/pins.json": {
+    "file": "core-worker/pins.json",
+    "sha256": "20bc763d3c06432825102fbb6d2fb7ce6c38f6838541f87e7bd344a6061cfd3d"
+  },
+  "/core-worker/skill-choice/QUALIFICATION.json": {
+    "file": "core-worker/skill-choice/QUALIFICATION.json",
+    "sha256": "25f7045c4bd2f9c70aee6d793d2caca9c1447623b9bded24542d1a99d7a9e827"
+  },
+  "/core-worker/skill-choice/driver.lua": {
+    "file": "core-worker/skill-choice/driver.lua",
+    "sha256": "24db8c55343c40595f16497aeb8fd6609230af60c2f6aae51de863f17a66058a"
+  },
+  "/core-worker/skill-choice/engine.lua": {
+    "file": "core-worker/skill-choice/engine.lua",
+    "sha256": "097e05817f1e0636553e7134ff81f834440de1661f7781ffc0446a789363a961"
+  },
+  "/core-worker/skill-choice/inputs/MiniGameSkillChoiceWindow.lua": {
+    "file": "core-worker/skill-choice/inputs/MiniGameSkillChoiceWindow.lua",
+    "sha256": "9980dd5a27f4c73c785f44a9a54dd70388419f91572e51a10af3109d1ad4a8b5"
+  },
+  "/core-worker/skill-choice/inputs/choice-original-helpers.lua": {
+    "file": "core-worker/skill-choice/inputs/choice-original-helpers.lua",
+    "sha256": "7dc2df385725fda60320ef4cb70891897ba907a78401902c84b14cd548c57edf"
+  },
+  "/core-worker/skill-choice/snapshot-codec.js": {
+    "file": "core-worker/skill-choice/snapshot-codec.js",
+    "sha256": "227cb39ee784391958d17be2598b134111778554184831182b114e3aff41d716"
+  },
+  "/core-worker/spawn-audit-bridge.lua": {
+    "file": "core-worker/spawn-audit-bridge.lua",
+    "sha256": "b17be0a1d82ed6646f34b3c4fa92c4023f94804cc198448d867dbb19e7132b3b"
+  },
+  "/hud-choice/choice-data.json": {
+    "file": "hud-choice/choice-data.json",
+    "sha256": "bb83df2e9047aaa56053db3eec4392a23e99ddeeedc1a3e583259f40fd75bbe6"
+  },
+  "/hud-renderer/bindings.json": {
+    "file": "hud-renderer/bindings.json",
+    "sha256": "1b06eb5d2c4684b59f7644c1000337b329493b9366c09a0559140fea86d1a837"
+  },
+  "/hud-renderer/exact-inputs/images/tey9g4p9_ket6rm45.png": {
+    "file": "hud-renderer/exact-inputs/images/tey9g4p9_ket6rm45.png",
+    "sha256": "b37ede99dfa1454aff1812d189baa4d7d3e43055124dcd632c018270a2626ebc"
+  },
+  "/hud-renderer/hud-base.mjs": {
+    "file": "hud-renderer/hud-base.mjs",
+    "sha256": "2d208a7b37fe266ddaadee75b26cbe62ec5ae450d4539995c334e5617940f72f"
+  },
+  "/hud-renderer/hud-fields.mjs": {
+    "file": "hud-renderer/hud-fields.mjs",
+    "sha256": "4e44a2691719b6384af1c8beddd4576119f11ccb874f53ff8e751dcb2f1de3e8"
+  },
+  "/map3-evidence/MAP3-NATIVE.json": {
+    "file": "map3-evidence/MAP3-NATIVE.json",
+    "sha256": "77accbe9d0f5a8d9bc90f600b8b93048dacaf30662c1299e5ddd0feea956bd50"
+  },
+  "/native-assets/sprite-key.mjs": {
+    "file": "native-assets/sprite-key.mjs",
+    "sha256": "75dbba18915c9b792a4692aa79ab286755b61a7b3de6f5fbd103ecb940e8fd32"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E4%B8%8A%E6%96%B9%E5%BA%95%E6%A0%8F__0d1798361b52f6f9ac22.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u4e0a\u65b9\u5e95\u680f__0d1798361b52f6f9ac22.png",
+    "sha256": "b41313ea61876964fc9b237004983ad394d33f61df01a9fdea1a430902c0eb8e"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E4%B8%8A%E6%96%B9%E7%BB%8F%E9%AA%8C%E8%BF%9B%E5%BA%A6%E9%87%8C__48d3cbbf1e98e72fa995.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u4e0a\u65b9\u7ecf\u9a8c\u8fdb\u5ea6\u91cc__48d3cbbf1e98e72fa995.png",
+    "sha256": "1c37460ee3d80616a015e6491b214857da4f8dca955589942d62c3c657649b40"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E4%B8%8A%E6%96%B9%E7%BB%8F%E9%AA%8C%E8%BF%9B%E5%BA%A6__7cf9a98ecd3dc627ba6c.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u4e0a\u65b9\u7ecf\u9a8c\u8fdb\u5ea6__7cf9a98ecd3dc627ba6c.png",
+    "sha256": "752cdcaeb4443f245263b4149194a4c12dc3c5751c9b31931a46580fb0f4bbf5"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E4%B8%8B%E6%96%B9%E5%BA%95%E6%A0%8F%E5%88%86%E5%89%B2__7752d3d27ab05e318732.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u4e0b\u65b9\u5e95\u680f\u5206\u5272__7752d3d27ab05e318732.png",
+    "sha256": "7b3873a275b0d05f3a8d000047aaa6fc71d3b1b7829ab3a44ac1e2b5a51cac55"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E4%B8%8B%E6%96%B9%E5%BA%95%E6%A0%8F__9d8983dd149052d83b5a.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u4e0b\u65b9\u5e95\u680f__9d8983dd149052d83b5a.png",
+    "sha256": "58535adbb5212ac7063f2b497898e0421f7b3033d96f3dba5a05f2e476d5c7d9"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E4%BA%BA%E7%89%A9%E6%A0%8F%E4%BD%8D_%E5%B7%B2%E6%8B%A5%E6%9C%89___3697e518834e741d1497.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u4eba\u7269\u680f\u4f4d_\u5df2\u62e5\u6709___3697e518834e741d1497.png",
+    "sha256": "908c74e9a793b686714905752dea573310a39703a77a863c82e70d0705dd448c"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E4%BA%BA%E7%89%A9%E6%A0%8F%E4%BD%8D_%E6%8A%80%E8%83%BD%E9%94%81___2184809d41ff10504a09.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u4eba\u7269\u680f\u4f4d_\u6280\u80fd\u9501___2184809d41ff10504a09.png",
+    "sha256": "01d7cdb1a9acca3c54f447acd5e91b695605e6c047cce9a766f31f6befd4fb34"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E4%BA%BA%E7%89%A9%E6%A0%8F%E4%BD%8D_%E8%92%99%E7%89%88___4476a9b1aff9be8a5422.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u4eba\u7269\u680f\u4f4d_\u8499\u7248___4476a9b1aff9be8a5422.png",
+    "sha256": "e5463cf7393b81b4caced49de03b8d012430bacb57180f05a2e0d804d5c79d8d"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E4%BA%BA%E7%89%A9%E6%A0%8F%E4%BD%8D__8d1a42fe74e4ed8362da.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u4eba\u7269\u680f\u4f4d__8d1a42fe74e4ed8362da.png",
+    "sha256": "c06cc587c10955388be11cedf5b9b97c44472ddfea0116b946d075ac5b612ad6"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E4%BB%A3%E5%B8%81%E5%9B%BE%E6%A0%87__18938f193c1389f2726a.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u4ee3\u5e01\u56fe\u6807__18938f193c1389f2726a.png",
+    "sha256": "7fc4a11ddc4cadac2f43d89ac6ea33429ba818aa77a9d27f07d78f312915398f"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E4%BC%A4%E5%AE%B3%E5%A4%B4%E5%83%8F%E6%9C%AA%E6%8B%A5%E6%9C%89__227ef02360308d1638b9.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u4f24\u5bb3\u5934\u50cf\u672a\u62e5\u6709__227ef02360308d1638b9.png",
+    "sha256": "74cde28f926029686e402b4f8fbf6faea0badba576f372044548c6fed23c9003"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E4%BC%A4%E5%AE%B3%E8%BF%9B%E5%BA%A6%E6%9D%A1%E9%87%8C__3b80a3780c1907040c04.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u4f24\u5bb3\u8fdb\u5ea6\u6761\u91cc__3b80a3780c1907040c04.png",
+    "sha256": "c56342da09ed30b9a1a2aa26ccf55068e47cb296007c7ea3ac22b97969567d9c"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E4%BC%A4%E5%AE%B3%E8%BF%9B%E5%BA%A6%E6%9D%A1__1aefd701484dcfce02c5.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u4f24\u5bb3\u8fdb\u5ea6\u6761__1aefd701484dcfce02c5.png",
+    "sha256": "060f48567021cb2673c2664c6379f039cb54a8bc2e68e040111e39e192a9a1cb"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E5%80%92%E8%AE%A1%E6%97%B6%E7%BA%BF%E6%9D%A1__17ff672a02d707b21f64.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u5012\u8ba1\u65f6\u7ebf\u6761__17ff672a02d707b21f64.png",
+    "sha256": "8f8804cab55a6fb2680dfb4c9a09fdcd66698065c54ce58a8516975d1fe66124"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E5%87%BB%E9%80%80%E5%9B%BE%E6%A0%87__8d7de4beea9cf9336857.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u51fb\u9000\u56fe\u6807__8d7de4beea9cf9336857.png",
+    "sha256": "ec16c06541e07c229125f0ab6756293e1442ae9e83d4c8c282756cc2c7295bf2"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E5%87%BB%E9%80%80%E5%BA%95%E6%A0%8F__1f5b355c91bd41997852.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u51fb\u9000\u5e95\u680f__1f5b355c91bd41997852.png",
+    "sha256": "f90e0a44224229a3b6eee7fd47dbb4275678a5ed95781a1ffd05975f54d63943"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E5%8A%A0%E9%80%9F%E5%9B%BE%E6%A0%87__b4f1e80205a257931023.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u52a0\u901f\u56fe\u6807__b4f1e80205a257931023.png",
+    "sha256": "171c44e6cedf50fe8b38b3e9016e7755eec4cad4b35d9e8cf7e68b28aeaefa2d"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E5%BA%95%E6%A1%86__7b91ce4565f726fa8ad5.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u5e95\u6846__7b91ce4565f726fa8ad5.png",
+    "sha256": "9d0175973a7b220cb368f4ecc692bc8f379cc304951d720cf51e79f467228204"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E5%BB%BA%E7%AD%91%E5%9B%BE%E6%A0%87__008c8833762c5312d4ce.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u5efa\u7b51\u56fe\u6807__008c8833762c5312d4ce.png",
+    "sha256": "cc90ff01c340ff7f3eab49a76bf0ea15a16ee481b7c7308cadd92b715666d014"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E5%BE%BD%E7%AB%A0_%E6%A8%AA%E6%9D%A1%E5%A4%B4%E5%83%8F%E5%BA%95__e24f1770203f8a26f4c2.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u5fbd\u7ae0_\u6a2a\u6761\u5934\u50cf\u5e95__e24f1770203f8a26f4c2.png",
+    "sha256": "fc6534f6259f3d800716a30cd2fdc8d3a12df0748840d7d9e630a999cfa29cfa"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E5%BE%BD%E7%AB%A0_%E6%A8%AA%E6%9D%A1%E5%A4%B4%E5%83%8F%E9%81%AE%E7%BD%A9__ac53700b172f4ba3f03d.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u5fbd\u7ae0_\u6a2a\u6761\u5934\u50cf\u906e\u7f69__ac53700b172f4ba3f03d.png",
+    "sha256": "65b9cf6fd38dfed70ba11436914244f3f44c2be792a76db19b0097d8798d8576"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E6%8A%80%E8%83%BDcd__c00b2e4d3b16dea393d6.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u6280\u80fdcd__c00b2e4d3b16dea393d6.png",
+    "sha256": "c83cef9c4f3a0a8e18b003237e8e9875c0771b90bce3e024ef2a189239d563cf"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E6%97%B6%E9%97%B4%E5%85%B3%E5%8D%A1%E5%BA%95__e05b2e687ab0fcb5d6d2.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u65f6\u95f4\u5173\u5361\u5e95__e05b2e687ab0fcb5d6d2.png",
+    "sha256": "9d76b32938e39c6489c7aa7f9739f5b9cf6c101d1b7567ce3f8b475b71e16136"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E6%97%B6%E9%97%B4%E6%B2%99%E6%BC%8F%E5%9B%BE%E6%A0%87__7b6700e22c8a4c26bb04.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u65f6\u95f4\u6c99\u6f0f\u56fe\u6807__7b6700e22c8a4c26bb04.png",
+    "sha256": "350d18f28fd22c2ae4c90734729305904773230b2b30d8ad06f37c5f473c0306"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E6%9A%82%E5%81%9C%E5%9B%BE%E6%A0%87__bb2a2f26d787ec4a0a97.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u6682\u505c\u56fe\u6807__bb2a2f26d787ec4a0a97.png",
+    "sha256": "2a5944bbc3cd172881445de0c5322ca74c5f7669b6b6c74279b54e673d4fd254"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E7%A1%AE%E8%AE%A4%E9%80%89%E6%8B%A9%E6%8C%89%E9%92%AE__59462120497d49e8154f.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u786e\u8ba4\u9009\u62e9\u6309\u94ae__59462120497d49e8154f.png",
+    "sha256": "4b9220bf21593a75660fa456d6d1bc224d7c6c93da6afe9d3a1681b325e0b6d9"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E7%BB%93%E6%9D%9F%E5%88%86%E5%89%B2%E7%BA%BF__cdb1bb92c4d7ffd10edd.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u7ed3\u675f\u5206\u5272\u7ebf__cdb1bb92c4d7ffd10edd.png",
+    "sha256": "559458d5addd62d2190c238f1dc50907d0a8b145e06360973122d40529b44071"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E7%BB%93%E6%9D%9F%E6%8C%89%E9%92%AE__525b635951ad0d423fff.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u7ed3\u675f\u6309\u94ae__525b635951ad0d423fff.png",
+    "sha256": "c517dbbc85e2c6bd4475f7453baa95f93c577c8b06471c8bf8e1c9ae767e6c4e"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E7%BB%93%E6%9D%9F%E9%9D%A2%E6%9D%BF__567a5e1261accaeaf2be.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u7ed3\u675f\u9762\u677f__567a5e1261accaeaf2be.png",
+    "sha256": "e9d2fd6e8716ef06ffca096d5fdce0dd47357b217fe75d27c25aed568c2b24a9"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E8%B7%AF%E9%9A%9C%E8%A1%80%E6%9D%A1%E9%87%8C__f6db839a3a3221c20679.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u8def\u969c\u8840\u6761\u91cc__f6db839a3a3221c20679.png",
+    "sha256": "4f6c1622553fff59f764b58857d6f63743238993212bcf7dd368861fd9f1ca85"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E8%B7%AF%E9%9A%9C%E8%A1%80%E6%9D%A1__a78e751093b5f8bb1fd0.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u8def\u969c\u8840\u6761__a78e751093b5f8bb1fd0.png",
+    "sha256": "1625e70eae19684b5068d40dae40303f8d81d421921bd5bea7bfa4f5702ae13d"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E9%80%80%E5%87%BA%E5%9B%BE%E6%A0%87__d1e320a25e519e31f087.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u9000\u51fa\u56fe\u6807__d1e320a25e519e31f087.png",
+    "sha256": "a057e155f1f86b7aaf31acd228968514e197ab65a9a7a279af48bd4015bd253d"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/%E9%80%89%E4%B8%AD%E5%BA%95%E6%A1%86__4dde85be0c81a44500c5.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/\u9009\u4e2d\u5e95\u6846__4dde85be0c81a44500c5.png",
+    "sha256": "5c017fe7c2b6887af5a624cacde23d5df808459721eb8667e30877148ab2b066"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/B_10001__bd91d0896aeea45fe9eb.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/B_10001__bd91d0896aeea45fe9eb.png",
+    "sha256": "ffb9bbbe39c24feb19920375e22324402c8db55b7e367acbc6d07cf8d5fbd027"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/B_10004__6823d4fe4a0e7d0764de.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/B_10004__6823d4fe4a0e7d0764de.png",
+    "sha256": "cf0f1747714102fb0f29634aba393e7aab686499d02213e1c0de257d80b0f0f7"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/B_10018__2725fee1a2d1eec1ad5d.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/B_10018__2725fee1a2d1eec1ad5d.png",
+    "sha256": "dac6b85753436613930ee4aeffec38fe06b146f413829efbc380a41e61d6e780"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/B_10034__cd8eb5b46eac63177043.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/B_10034__cd8eb5b46eac63177043.png",
+    "sha256": "3738e3f731b966fa791a51b5bdb04ac8748ea46854485d6ce819105628ad32a1"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/B_10098__ca13f5efce4a42c35b5a.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/B_10098__ca13f5efce4a42c35b5a.png",
+    "sha256": "4e57d830fc8c56b1f338ddad586f8240bdd4ad77a01a7f7d02d6624dc1b81f2f"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/NEW__7ec52763e855d808566d.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/NEW__7ec52763e855d808566d.png",
+    "sha256": "270ba0b04dc46c15573f76f92f84518c12613c145d3e0692c70f35d50f90a9db"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/S_10001__ccdd0cc65d3d52bfb6e9.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/S_10001__ccdd0cc65d3d52bfb6e9.png",
+    "sha256": "53f8d449ea4ec285912bc61959ca33cf39241389bf57b70d478a73c7e6735d0d"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/S_10004__b2c0ba366c2c3ec95582.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/S_10004__b2c0ba366c2c3ec95582.png",
+    "sha256": "42496d5b1f3fdd38e2193c6703a0842cc081dbc31d0869c5ac55f5aed868cc27"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/S_10018__6e72bcf7dcb033c2cd96.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/S_10018__6e72bcf7dcb033c2cd96.png",
+    "sha256": "efd4ab39179b2efc68a049bdc8454a9c8a210a1464ce37188290da33b0479f69"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/S_10034__afb9e45f6ccdd867810d.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/S_10034__afb9e45f6ccdd867810d.png",
+    "sha256": "59b8f15afe62bc4ca31ce00e3856caa0dedede39776321315a39084c37397beb"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/S_10098__33f00c9eb996d918e2b6.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/S_10098__33f00c9eb996d918e2b6.png",
+    "sha256": "b97e229eca95a174616ea49f672b515082135b75ee61012de074975162649518"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10001_1__c37f96bc739191384f4b.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10001_1__c37f96bc739191384f4b.png",
+    "sha256": "96bc3eba7423c221e82ee8934103eedea4e5ce587d18a6d510a84162bde79a80"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10001_2__d71802704d6ddf113a0d.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10001_2__d71802704d6ddf113a0d.png",
+    "sha256": "bd4572cf2edb8fb3f94f351f4f9c035f070169bb1e6052f3a89222ff5161a6e5"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10001_3__2d9cfbfad0819b3b3390.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10001_3__2d9cfbfad0819b3b3390.png",
+    "sha256": "7563dcc0b5bfdb8e3a4e17a897aedd23ed098cfb23b03c178e5813ff8a7ad00b"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10004_1__453ca6dd041cd0ef3daf.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10004_1__453ca6dd041cd0ef3daf.png",
+    "sha256": "d11935accd7f2f35c869a70f7ba699d5d76463770ae272ffc0d7c768f6caa8d2"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10004_2__adb5a1b85a85e3fb3ad2.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10004_2__adb5a1b85a85e3fb3ad2.png",
+    "sha256": "f29dabca4026f804b4baa0464f8287e06453d0904a8e1e7c81fb7f1d939a7bc3"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10004_3__1f261c399d554d6f2ca7.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10004_3__1f261c399d554d6f2ca7.png",
+    "sha256": "153450ea0ea0856ad83bd799ac5f91617b2ca27686c5450f850391371c3f5807"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10018_1__ac483f3770cf3e237889.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10018_1__ac483f3770cf3e237889.png",
+    "sha256": "c077de7a37b7573265d716c2168c8acfa1ae8b45c5f93e7c6a973fdd8c9092b1"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10018_2__5840de42bde9a5f6cea1.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10018_2__5840de42bde9a5f6cea1.png",
+    "sha256": "ab64ef7c8ff9eac44a868553ce2d617b11a2df059f4391381c95a45c641fedaa"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10018_3__952e0839c113831f91c2.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10018_3__952e0839c113831f91c2.png",
+    "sha256": "32ecb877d75f5ef80a3949185bce4912341fa729a9a39a917656ed851a53db1e"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10034_1__e364fbfe0517de1e8808.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10034_1__e364fbfe0517de1e8808.png",
+    "sha256": "8cc405a0e16b63d483a68adf629644c0daf17206e11aab3fcfa3ae6d17fb466b"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10034_2__c680124a4a9591f051d0.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10034_2__c680124a4a9591f051d0.png",
+    "sha256": "802d8b868d2aa5d08189e34eea1fe7192c04dc9736811c1d4e3ea81fbc361b92"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10034_3__02691cd05fd37331b7a7.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10034_3__02691cd05fd37331b7a7.png",
+    "sha256": "cc05e6399e7a8318c724e698d57c8278e62c51080c5f38607071e9f623372c81"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10098_1__30e1959a5a7be45de43a.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10098_1__30e1959a5a7be45de43a.png",
+    "sha256": "fbcba2ccfab49f0dcba76c505313a13f405b3c3461eaf210b4e85666683b0c4e"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10098_2__d5189b33f7791e29e9ef.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10098_2__d5189b33f7791e29e9ef.png",
+    "sha256": "2f19347e66ff978b001c7b000dcaebaf9d0d4a450e94ae516b82ebcfd65dae18"
+  },
+  "/native-assets/stage1-exact-inputs/hud/images/Skill_10098_3__7dc8347a11a4b3b2e755.png": {
+    "file": "native-assets/stage1-exact-inputs/hud/images/Skill_10098_3__7dc8347a11a4b3b2e755.png",
+    "sha256": "3d7e02524ae4c7adf5c11655fc219e955724c88cbd0980c4af9d460da9280160"
+  },
+  "/native-assets/stage1-exact-inputs/stage-inputs.json": {
+    "file": "native-assets/stage1-exact-inputs/stage-inputs.json",
+    "sha256": "52f95b62602e2381e01af438e3ea293bbd003ddd57ded8ab2b7066448b53674d"
+  },
+  "/native-assets/stage1-exact-inputs/textures/0553b6c60dc4a68e44c2ff16ad4692bc_-6150132144196167375.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/0553b6c60dc4a68e44c2ff16ad4692bc_-6150132144196167375.png",
+    "sha256": "639bcae9548b969da2764f9d2660b2c97e7628e01312b2c3e0039b61fb4eefa3"
+  },
+  "/native-assets/stage1-exact-inputs/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png",
+    "sha256": "884530d8335507d0960be190f7a6e32b8cdfa89c434230c0d593a352116164ef"
+  },
+  "/native-assets/stage1-exact-inputs/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png",
+    "sha256": "8c9308d48618a3a730c7c21e87ff3c7e1878c7dabb632a10ff40e761b575f08e"
+  },
+  "/native-assets/stage1-exact-inputs/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png",
+    "sha256": "c38bd6c7fc4544fd7cfe6fb704f8a8a49e6e94758b6b45eb5d71904e4c8d7ddd"
+  },
+  "/native-assets/stage1-exact-inputs/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png",
+    "sha256": "a64507f32508bd0a25e7e29859e3bef70cc8cac54c7c2aacf213e6b3159b2076"
+  },
+  "/native-assets/stage1-exact-inputs/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png",
+    "sha256": "c3a6c60feb4393ec697e11b7614dae6c3c8ff8851a16d952b34189fba98420ec"
+  },
+  "/native-font-shell/FONT-GATE.json": {
+    "file": "native-font-shell/FONT-GATE.json",
+    "sha256": "fd94e7d2dd477065e2e730a6d4c1093f162db064414f643bd34f6bce43dee109"
+  },
+  "/native-font-shell/SOURCEHANSANSSC-NORMAL-2.otf": {
+    "file": "native-font-shell/SOURCEHANSANSSC-NORMAL-2.otf",
+    "sha256": "c43383a8ac94024203f062537b5b3a0d0a5bf056172eff78673636ea8fb3c039"
+  },
+  "/native-font-shell/native-labels.mjs": {
+    "file": "native-font-shell/native-labels.mjs",
+    "sha256": "e47ac1006b1600b98ea5348d5528365be56c92456d40a1529d0bfeed9ee70e62"
+  },
+  "/offline-shell/paint.mjs": {
+    "file": "offline-shell/paint.mjs",
+    "sha256": "134e72d47d46520cee93cd52b11d53dcdabfe981505b85e1ef439f89fb708872"
+  },
+  "/offline-shell/private.css": {
+    "file": "offline-shell/private.css",
+    "sha256": "9adc859fe61dc0df80f1c3d64ce22fc61885ac4d0559b0b238206be52d12c412"
+  },
+  "/particle-presentation/slowmotion-lifecycle/source-tap.lua": {
+    "file": "particle-presentation/slowmotion-lifecycle/source-tap.lua",
+    "sha256": "e94a180c718aaa1e5acdd15cbc88965b14ab0032cae7c3910792d3fb68b18688"
+  },
+  "/presentation-blur-bridge/bridge.mjs": {
+    "file": "presentation-blur-bridge/bridge.mjs",
+    "sha256": "8bc89e69bd3512a9a491f9175ad5728ead804fbc4a79f96687f7d7f7fd898276"
+  },
+  "/presentation-clock/presentation-clock.mjs": {
+    "file": "presentation-clock/presentation-clock.mjs",
+    "sha256": "042c4fd5c1f9c27a269a1ba2c8e8403a943f28fb6d38cf7fecfa71584a59575e"
+  },
+  "/presentation-clock/source-tap.mjs": {
+    "file": "presentation-clock/source-tap.mjs",
+    "sha256": "665880fbbd25a1ab292bd7d4422aee99c9dd30120235f9bf608d4a1872a46f68"
+  },
+  "/qualified-game/": {
+    "file": "qualified-game/revisions/r6/cloud-temporary-20108-cpu/index.html",
+    "sha256": "6452160c0e6065308077792b6904d88e7ffe868a229e8c4ac6b45bb4452ab25f"
+  },
+  "/qualified-game/finite-late-qa/": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to20-cpu/qa.html",
+    "sha256": "90bc685f30467440d9735d8466c0e85322fc04f5d13369f8de3b4cb36c2d05c2"
+  },
+  "/qualified-game/presentation-capability/original-display.lua": {
+    "file": "qualified-game/presentation-capability/original-display.lua",
+    "sha256": "0c83419feda468808c4cd7be6093b6d751af90cb5ae1864adf966faca78f0d5d"
+  },
+  "/qualified-game/presentation-capability/scene-profiles/actor-bridge.mjs": {
+    "file": "qualified-game/presentation-capability/scene-profiles/actor-bridge.mjs",
+    "sha256": "319a9fcdb7ff1c25498be6c79a8fbcc1dc0c02a160e5e0ce9c4aecd31eb9c69a"
+  },
+  "/qualified-game/presentation-capability/scene-profiles/presentation-clock.mjs": {
+    "file": "qualified-game/presentation-capability/scene-profiles/presentation-clock.mjs",
+    "sha256": "061185a38b0a6fdc343ab39abbcdfa969a9a4af47eca443b4ee8a610e9314705"
+  },
+  "/qualified-game/presentation-capability/scene-profiles/scene-profiles.mjs": {
+    "file": "qualified-game/presentation-capability/scene-profiles/scene-profiles.mjs",
+    "sha256": "c598d039286ed36587b9cb79f1a3d6f40c2c103b136d6f3f1cde2902632312e1"
+  },
+  "/qualified-game/presentation-capability/scene-profiles/stage1-hud/PRESENTER-GLES.json": {
+    "file": "qualified-game/presentation-capability/scene-profiles/stage1-hud/PRESENTER-GLES.json",
+    "sha256": "b131491a7cdd91c6786a8e277336cfd424b63d6a9bbf935c40ba1249a097cb9b"
+  },
+  "/qualified-game/presentation-capability/scene-profiles/stage1-hud/captions.lua": {
+    "file": "qualified-game/presentation-capability/scene-profiles/stage1-hud/captions.lua",
+    "sha256": "8b06baea1cd5a4fefa98286a84cebe67fe513ba216c8f88ba4bc2440d938a30b"
+  },
+  "/qualified-game/presentation-capability/scene-profiles/stage1-hud/gl-state.mjs": {
+    "file": "qualified-game/presentation-capability/scene-profiles/stage1-hud/gl-state.mjs",
+    "sha256": "3581582f6c721d81d148ccb30862f6221e042d39004971d807d3ea848e5f659e"
+  },
+  "/qualified-game/presentation-capability/scene-profiles/stage1-hud/hud-authority.mjs": {
+    "file": "qualified-game/presentation-capability/scene-profiles/stage1-hud/hud-authority.mjs",
+    "sha256": "09c13a541219ab0228ad024f24ca5a583a37bcae4c256c7531e6c373660c8fc7"
+  },
+  "/qualified-game/presentation-capability/scene-profiles/stage1-hud/hud-original.lua": {
+    "file": "qualified-game/presentation-capability/scene-profiles/stage1-hud/hud-original.lua",
+    "sha256": "61604a632913795c4406561331f914923cd22dc2bd3d1a1f45fbcca9f911929b"
+  },
+  "/qualified-game/presentation-capability/scene-profiles/stage1-hud/hud-time.lua": {
+    "file": "qualified-game/presentation-capability/scene-profiles/stage1-hud/hud-time.lua",
+    "sha256": "5c3a6db2442946d2d6629586d274f8784120c2a7b89cff156c4043272b7513c2"
+  },
+  "/qualified-game/presentation-capability/scene-profiles/stage1-hud/hud.css": {
+    "file": "qualified-game/presentation-capability/scene-profiles/stage1-hud/hud.css",
+    "sha256": "51b5eee9664afe97c97c049316aab4f5476bfab3ea4be5b7dc9107342656b5ed"
+  },
+  "/qualified-game/presentation-capability/scene-profiles/stage1-hud/live-layer.mjs": {
+    "file": "qualified-game/presentation-capability/scene-profiles/stage1-hud/live-layer.mjs",
+    "sha256": "40e0490f8546ad98aa3c016aad6308e22d6b32e97173a594192711910669855b"
+  },
+  "/qualified-game/presentation-capability/scene-profiles/stage1-hud/parse-ops.mjs": {
+    "file": "qualified-game/presentation-capability/scene-profiles/stage1-hud/parse-ops.mjs",
+    "sha256": "b54577d4787bd4e2a8951c17d173163c9f20f590cfdfbd1d3831f0b12744af47"
+  },
+  "/qualified-game/presentation-capability/site-layer.css": {
+    "file": "qualified-game/presentation-capability/site-layer.css",
+    "sha256": "693b646c7349d1b5b1298f4b29c10c135727aa4e1c66465a168b61153e97806c"
+  },
+  "/qualified-game/profiles.mjs": {
+    "file": "qualified-game/profiles.mjs",
+    "sha256": "98a5b72a29b033a6f41b661dc9f8a24ccd801f1488fbad0c8108732715beb70c"
+  },
+  "/qualified-game/revisions/r6/adapters/boss-20411.lua": {
+    "file": "qualified-game/revisions/r6/adapters/boss-20411.lua",
+    "sha256": "3f512cea1996c72ecd5e8c330ab3fd79d3f4d62aa0e99dca7cf795d46a848d5a"
+  },
+  "/qualified-game/revisions/r6/adapters/endless21-source.lua": {
+    "file": "qualified-game/revisions/r6/adapters/endless21-source.lua",
+    "sha256": "c7acab30d3dfdf0de57b07eb8742160906a0eea0969cd18ae7df39c960d92039"
+  },
+  "/qualified-game/revisions/r6/adapters/enemy-20306.lua": {
+    "file": "qualified-game/revisions/r6/adapters/enemy-20306.lua",
+    "sha256": "c876ee37553fb468b54f1dd18fcd37c6ecf233bd044275a261efe47bd7a88811"
+  },
+  "/qualified-game/revisions/r6/adapters/enemy-20506.lua": {
+    "file": "qualified-game/revisions/r6/adapters/enemy-20506.lua",
+    "sha256": "45bc832a9a73b8e544418669ce570fcfb6c9a756446286de28362388e995ce87"
+  },
+  "/qualified-game/revisions/r6/adapters/feinisi.lua": {
+    "file": "qualified-game/revisions/r6/adapters/feinisi.lua",
+    "sha256": "cdda4797a3d037805da8700a563bad474d7e2ce8cb1e6ca3651d40b76c6f76b4"
+  },
+  "/qualified-game/revisions/r6/adapters/finite11-source.lua": {
+    "file": "qualified-game/revisions/r6/adapters/finite11-source.lua",
+    "sha256": "b968c965df55df0b7fe6265284dc149a370bf714af7c7d1758a4b0d27067e8e4"
+  },
+  "/qualified-game/revisions/r6/adapters/finite12-source.lua": {
+    "file": "qualified-game/revisions/r6/adapters/finite12-source.lua",
+    "sha256": "293c9d83d1be5b9f1e95735e38684fd825407b09ee078c5110a625f3cfc00f85"
+  },
+  "/qualified-game/revisions/r6/adapters/finite13-source.lua": {
+    "file": "qualified-game/revisions/r6/adapters/finite13-source.lua",
+    "sha256": "d5df65811f6f24d09afb01380d705f84a9d1e110dd83b8e25c3528421010e5cd"
+  },
+  "/qualified-game/revisions/r6/adapters/finite14-source.lua": {
+    "file": "qualified-game/revisions/r6/adapters/finite14-source.lua",
+    "sha256": "b231b060e4875aadea84fdc50c502494be643d65f18c94849af54fb8f20360f6"
+  },
+  "/qualified-game/revisions/r6/adapters/finite15-source.lua": {
+    "file": "qualified-game/revisions/r6/adapters/finite15-source.lua",
+    "sha256": "b83bb4fb7b975b01a8114ca5053b9058d6884f83ffc06ae3bb4220766b627390"
+  },
+  "/qualified-game/revisions/r6/adapters/finite16-source.lua": {
+    "file": "qualified-game/revisions/r6/adapters/finite16-source.lua",
+    "sha256": "61da6a0d4d83ae98bdd077e2b4a611bc4fd7c487088b7e6d417496a194d75864"
+  },
+  "/qualified-game/revisions/r6/adapters/finite17-source.lua": {
+    "file": "qualified-game/revisions/r6/adapters/finite17-source.lua",
+    "sha256": "6bf0c883df3a0d3027c7ebb92e85fec16f663fbe8264ac311a55ef121d3bacca"
+  },
+  "/qualified-game/revisions/r6/adapters/finite18-source.lua": {
+    "file": "qualified-game/revisions/r6/adapters/finite18-source.lua",
+    "sha256": "b09a0636189a05a69ecea1a72f8a7bcbbc539f6691f525f93f3e2f6550a7c677"
+  },
+  "/qualified-game/revisions/r6/adapters/finite19-source.lua": {
+    "file": "qualified-game/revisions/r6/adapters/finite19-source.lua",
+    "sha256": "d7a61d97ddb9e51841f863c43197a0d463dbd3fd2d21fa52e1fb12d83e5d4f00"
+  },
+  "/qualified-game/revisions/r6/adapters/finite20-source.lua": {
+    "file": "qualified-game/revisions/r6/adapters/finite20-source.lua",
+    "sha256": "c660d484fd1d224b2543bdc3972d4b02beb711b3c51abbd392ef90867d0458aa"
+  },
+  "/qualified-game/revisions/r6/adapters/liedixiya-elite-opaque.lua": {
+    "file": "qualified-game/revisions/r6/adapters/liedixiya-elite-opaque.lua",
+    "sha256": "cfd01e155c539b77b719143d2cf1cd5c058e0ba5abad63f57d5713dafd8f864f"
+  },
+  "/qualified-game/revisions/r6/adapters/nilisha.lua": {
+    "file": "qualified-game/revisions/r6/adapters/nilisha.lua",
+    "sha256": "edf87f48084866e897d196132fb12b74335e926df76c41fe4a05b4470a1ac8bf"
+  },
+  "/qualified-game/revisions/r6/adapters/stage10-boss-20411.lua": {
+    "file": "qualified-game/revisions/r6/adapters/stage10-boss-20411.lua",
+    "sha256": "1be63eabb2a381013ef33220e7c5639dd79752730496b65ac89cc9aa31e34b71"
+  },
+  "/qualified-game/revisions/r6/adapters/stage910-liedixiya-20108.lua": {
+    "file": "qualified-game/revisions/r6/adapters/stage910-liedixiya-20108.lua",
+    "sha256": "cef364b831e132837af1cf2f1ec58d0356ad8d40b5e9e58e7d373bbd42141a22"
+  },
+  "/qualified-game/revisions/r6/art-profile.mjs": {
+    "file": "qualified-game/revisions/r6/art-profile.mjs",
+    "sha256": "f42d333546ef6474e58a68dcf1ba67658ae4e07e2e2341befc669f900e4c78b9"
+  },
+  "/qualified-game/revisions/r6/client.mjs": {
+    "file": "qualified-game/revisions/r6/client.mjs",
+    "sha256": "f5499133632c6b62bc08f6855ec4932970befacfec149d11e39de0e98e37326f"
+  },
+  "/qualified-game/revisions/r6/cloud-early-fx-only-cpu/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-early-fx-only-cpu/site-layer.mjs",
+    "sha256": "9092e3f9c0cbcff4f0cc6528ed7a6a8b805ca881133c75fbe6d72df8a9990cc9"
+  },
+  "/qualified-game/revisions/r6/cloud-early-fx-only-cpu/ui.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-early-fx-only-cpu/ui.mjs",
+    "sha256": "073a1524a918d6949a11d8362b9ae17e95879abcdbb63dbf711dc0f2c0b9295b"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1-canvas2d/admission.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1-canvas2d/admission.mjs",
+    "sha256": "946dc5ebe0cd5c19f023dab2b8f16850282ac5ad0985d18779d26fbf27330891"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1-canvas2d/scope.css": {
+    "file": "qualified-game/revisions/r6/cloud-stage1-canvas2d/scope.css",
+    "sha256": "de7d61499d16b53b54f08d8830718d8c0210cd91d4b996284e227bd88e8e403d"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1-canvas2d/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1-canvas2d/site-layer.mjs",
+    "sha256": "ef4aa6a1386545088c87137be876f39c16ecc23683791a281a1b55a030d27642"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1-canvas2d/ui.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1-canvas2d/ui.mjs",
+    "sha256": "d2e0afe614bb3dfcff4f5d1c3655d41b1f5acffff40086be8a0a47a7f4c4cb9b"
+  },
+  "/qualified-game/revisions/r6/cloud-stage12-canvas2d/scope.css": {
+    "file": "qualified-game/revisions/r6/cloud-stage12-canvas2d/scope.css",
+    "sha256": "9a86c172654914e81644c8252d5c45a0e58976158d49a746294fcf8561b1c33e"
+  },
+  "/qualified-game/revisions/r6/cloud-stage12-canvas2d/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage12-canvas2d/site-layer.mjs",
+    "sha256": "909b25b20e4388d343b3d1344e51bb48e7e610f48167ef7971d4486b4a7c8ab6"
+  },
+  "/qualified-game/revisions/r6/cloud-stage12-canvas2d/stage2-admission.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage12-canvas2d/stage2-admission.mjs",
+    "sha256": "7face59bd68b7c71e1a39e83b172175e469a9d9b73d0ba2024db6715dcab9b45"
+  },
+  "/qualified-game/revisions/r6/cloud-stage12-canvas2d/ui.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage12-canvas2d/ui.mjs",
+    "sha256": "37f57cc405ecb1cd41831d3998ad821da63431a394c4134546aae00f32de2dd6"
+  },
+  "/qualified-game/revisions/r6/cloud-stage12-no-flash/attachment.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage12-no-flash/attachment.mjs",
+    "sha256": "8261b14507b21f89f58af8bfe711dd8b346706f290a958416c88f7cba7265542"
+  },
+  "/qualified-game/revisions/r6/cloud-stage12-no-flash/hold.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage12-no-flash/hold.mjs",
+    "sha256": "bfdc5e75753b98033f44bd583b7c8da4d45769e80bd2bd157c01ab710f6ee9b8"
+  },
+  "/qualified-game/revisions/r6/cloud-stage12-no-flash/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage12-no-flash/site-layer.mjs",
+    "sha256": "0248cfa1e146c11410b76120074c40f55b4ca37543998e0c74d35c214f1bb7e4"
+  },
+  "/qualified-game/revisions/r6/cloud-stage12-no-flash/ui.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage12-no-flash/ui.mjs",
+    "sha256": "0f2b0fd002c682f248b04a662961984c45cb0a929932daee417453f05b2166e5"
+  },
+  "/qualified-game/revisions/r6/cloud-stage12-stable-tools/controls.css": {
+    "file": "qualified-game/revisions/r6/cloud-stage12-stable-tools/controls.css",
+    "sha256": "37a007c6b3023f59eef1a8ffee9067de45dfb1c71f0513e505a6b6ce0ce65967"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to20-cpu/group-admission.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to20-cpu/group-admission.mjs",
+    "sha256": "135c40d99d54ae5160ca0fb579c7595a7bf6cfe871ae4cd28c2ace5f1eb16d50"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to20-cpu/hold.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to20-cpu/hold.mjs",
+    "sha256": "309d697a6fa8c11bd20fcaf7dc54c05084b9875c3667c28bc489a6bc8600e48c"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to20-cpu/qa-entry.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to20-cpu/qa-entry.mjs",
+    "sha256": "28a858b2aa0b28cae2ff759a8d2eed49d2a2bc8afb077b051ff53f3a7086180c"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to20-cpu/qa-observer20.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to20-cpu/qa-observer20.mjs",
+    "sha256": "434415c61b96b0b863be1facf0e655bb1858bcea0082df9c5289bf888b06aa34"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to20-cpu/qa-observer9.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to20-cpu/qa-observer9.mjs",
+    "sha256": "6622c21c5ccce7caefc407ae9e1881b59fd0dc093e05cd5f6eacb0685e560ca2"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to20-cpu/qa-ui.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to20-cpu/qa-ui.mjs",
+    "sha256": "92e741afdaa0501729bcef4db96bb2cd4fd533c3a78a4aacb1872b179a3879ce"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to20-cpu/qa.css": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to20-cpu/qa.css",
+    "sha256": "2108419832222ad03c451abb972fdcf20e75f78d51a511d0ddd30a3890d5f9f1"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to20-cpu/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to20-cpu/site-layer.mjs",
+    "sha256": "9c42f3875b18ab14298d0f396ed8672473185cf596163e2fa46a6bfa4225db71"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to20-cpu/ui.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to20-cpu/ui.mjs",
+    "sha256": "576030308456d1ff55ed35bfa2666a81c63340172f356231e2ad822f79b3cb0d"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to20-input-priority/pointer-priority.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to20-input-priority/pointer-priority.mjs",
+    "sha256": "ff93f62995343d1c73bd10b6cdf176ee6ecf8272e0e38e55404dfd657edab101"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to20-input-priority/ui.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to20-input-priority/ui.mjs",
+    "sha256": "daf36d8517574fea7c40ea19b5bdd360c8efbbc54d25a674f5bade67440865ce"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to6-generic-cpu/group-admission.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to6-generic-cpu/group-admission.mjs",
+    "sha256": "007f25754f3c65dfb7b84b3baa362111545c277e527ead1059e955864fc3e33b"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to6-generic-cpu/hold.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to6-generic-cpu/hold.mjs",
+    "sha256": "ae86cbd3c12b3466eedfde98a0a0ea077ddd03352c6ba0e399d87790ecddd6aa"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to6-generic-cpu/scope.css": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to6-generic-cpu/scope.css",
+    "sha256": "043c4b538d4048d0237cd672c4a9a7108a2f90dcfcb5e638bdb4eb2d39d465f6"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to6-generic-cpu/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to6-generic-cpu/site-layer.mjs",
+    "sha256": "fb337b947b4f23c69c9921d0f807527e8f053080f60b7ca9c5b28e47fa24b856"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to6-generic-cpu/ui.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to6-generic-cpu/ui.mjs",
+    "sha256": "30257759a189965627ff47908a9bf54c4b435b555f1d37286118fa1bb8d28fb2"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to8-cpu/group-admission.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to8-cpu/group-admission.mjs",
+    "sha256": "46d7f45125c2f0268fa7210481c64fcc9ffb448b6da271fa1d2994b245ac862e"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to8-cpu/hold.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to8-cpu/hold.mjs",
+    "sha256": "6f422f459b384ce5a5f0514b6856c4a4f7c55a8876c0dde976b30d74b264af84"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to8-cpu/qa-entry.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to8-cpu/qa-entry.mjs",
+    "sha256": "d9d73a9e05444dc95421f5e84d25ec299bf7512a01f25ee51daa1e3ec387f7b5"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to8-cpu/qa-observer3.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to8-cpu/qa-observer3.mjs",
+    "sha256": "4634a9d514dbcde58d75c258685b53b656284785a46d1e250e63b75224cd44e8"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to8-cpu/qa-observer8.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to8-cpu/qa-observer8.mjs",
+    "sha256": "5fd9762dbdf57790ab247aad51769d49bd7644f40de0087dba6c22cca9cb9236"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to8-cpu/qa-ui.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to8-cpu/qa-ui.mjs",
+    "sha256": "3fe94d45142b590a47e79a92e7e3ab7d42286c6a76df3be92442888846944855"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to8-cpu/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to8-cpu/site-layer.mjs",
+    "sha256": "14e071e1be2b1981f076f3700a6de7bf32bb779d0da7e7d0a3b17331e9296a4b"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to8-cpu/stock.css": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to8-cpu/stock.css",
+    "sha256": "a25bdf89c6fb96ec865d30d26f7203bea217ed378382821873510b7cb784213b"
+  },
+  "/qualified-game/revisions/r6/cloud-stage1to8-cpu/ui.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to8-cpu/ui.mjs",
+    "sha256": "7438d8f5db5a5e6e7319310d8669135597eecfc5cd8ea201c58427abd14e6615"
+  },
+  "/qualified-game/revisions/r6/cloud-stage2-2011-cpu/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage2-2011-cpu/site-layer.mjs",
+    "sha256": "c440a1839b16432925efbf6a7cff84bdd254124802f71b3ef053d3c0eafee643"
+  },
+  "/qualified-game/revisions/r6/cloud-stage2-2011-cpu/ui.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage2-2011-cpu/ui.mjs",
+    "sha256": "073a1524a918d6949a11d8362b9ae17e95879abcdbb63dbf711dc0f2c0b9295b"
+  },
+  "/qualified-game/revisions/r6/cloud-stage2-qa/qa-observer.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage2-qa/qa-observer.mjs",
+    "sha256": "d51e4336ebb2b13e9a2c4b43ff439d7f168cf7ad1ef5665f616eb8905b9c325e"
+  },
+  "/qualified-game/revisions/r6/cloud-stage2-qa/qa-ui.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage2-qa/qa-ui.mjs",
+    "sha256": "0e65647c3cd16b31b680b5c46d10cd5b90817001f9ef4c3688edcda651725ec0"
+  },
+  "/qualified-game/revisions/r6/cloud-stage2-qa/stage2-entry.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-stage2-qa/stage2-entry.mjs",
+    "sha256": "2ad1865f9ac9f606ea198e3abbacd69e77d8a176a347e81d59e126dcf23f7120"
+  },
+  "/qualified-game/revisions/r6/cloud-temporary-20108-cpu/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-temporary-20108-cpu/site-layer.mjs",
+    "sha256": "1a9e6179981b75f7d228e32f185ccbd124b4bff08725c091552da1fa99f7f320"
+  },
+  "/qualified-game/revisions/r6/cloud-temporary-20108-cpu/ui.mjs": {
+    "file": "qualified-game/revisions/r6/cloud-temporary-20108-cpu/ui.mjs",
+    "sha256": "073a1524a918d6949a11d8362b9ae17e95879abcdbb63dbf711dc0f2c0b9295b"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-body/canonical-attachment.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-body/canonical-attachment.mjs",
+    "sha256": "6f4cf3fc5da5d0709f5960576304ce27e0bf9c745149ca2e08c64efeaa9befbf"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-body/scene-profiles.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-body/scene-profiles.mjs",
+    "sha256": "7f7d8d531668211e0685659f68320590012c1d2c15e4051d96d960e75253673a"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-body/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-body/site-layer.mjs",
+    "sha256": "b9849b152d27ff9606d13083f6d55d4ba3e69a7ade131dfda997be3eb94a0133"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-body/ui.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-body/ui.mjs",
+    "sha256": "25f988866ab748ee8fdc276e388248921fe4b6032711cdc3b04f58179d79733d"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-edge-fix/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-edge-fix/site-layer.mjs",
+    "sha256": "a3441fde5a31b7100a971f8f26a291dff0519f4c14fce0412e68ee8ab57072d8"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-edge-fix/status-copy.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-edge-fix/status-copy.mjs",
+    "sha256": "0f537534575b6ebbaa1333801450970f55a81b6ce3eb99dc9f4814b0c2d44a6c"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-edge-fix/ui.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-edge-fix/ui.mjs",
+    "sha256": "91f5ed1641801102641c0940740e028a609672410723a941fe33b146beca0b15"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-edge-hp-stage1-2011/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-edge-hp-stage1-2011/site-layer.mjs",
+    "sha256": "99c2ba6e01fe92fff2d9ff74646e8f41c7ed0d131fb1cbcbf4f764a0425553af"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-edge-hp-stage1-2011/ui.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-edge-hp-stage1-2011/ui.mjs",
+    "sha256": "f8a58d9c16fd2e5261632b8a5e84c62d4b9773b4960ac0c4b3de9258403350df"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-edge-hp/finite-wall-clip.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-edge-hp/finite-wall-clip.mjs",
+    "sha256": "4b0ba58b443dda480d446a48d0bb2531b47656e6986aa3b092701c57c8ac1255"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-edge-hp/live-78.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-edge-hp/live-78.mjs",
+    "sha256": "c205f586b7513e6b8f969aa4250b4c56ff1dcea370d493b074237f2e259ce972"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-edge-hp/live-early.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-edge-hp/live-early.mjs",
+    "sha256": "c5b03c3a8211ecb3d3f4d40cf62d3077126223d8397e27ec09c4cf754fd789bf"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-edge-hp/live-finite.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-edge-hp/live-finite.mjs",
+    "sha256": "1ce564720d2890b1e08ed3b49066cf6d64fad98442206f5b0da993dc30981f0e"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-edge-hp/paint-finite.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-edge-hp/paint-finite.mjs",
+    "sha256": "060e960a97fb4a8764326b962be28e056276bd42e6e9549cacf577d92f5f26f6"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-edge-hp/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-edge-hp/site-layer.mjs",
+    "sha256": "7de37d9ab53ac38151b21e6875090cc6e97f8b0b3865271ff92edfe7b2489b4a"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-edge-hp/ui.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-edge-hp/ui.mjs",
+    "sha256": "f8a58d9c16fd2e5261632b8a5e84c62d4b9773b4960ac0c4b3de9258403350df"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-finite-hud/canonical-attachment.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-finite-hud/canonical-attachment.mjs",
+    "sha256": "6f4cf3fc5da5d0709f5960576304ce27e0bf9c745149ca2e08c64efeaa9befbf"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-finite-hud/live-layer-finite.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-finite-hud/live-layer-finite.mjs",
+    "sha256": "13a622052888760490bb32bc2ff6731faf3e18e346d624d57188aaf2cafccc25"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-finite-hud/presenter-finite.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-finite-hud/presenter-finite.mjs",
+    "sha256": "d9c8cf51ca8e94ae0c59387d53b7b0ad6a38ba8c5d49a03a9970bde2e5d9c656"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-finite-hud/scene-profiles.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-finite-hud/scene-profiles.mjs",
+    "sha256": "7f7d8d531668211e0685659f68320590012c1d2c15e4051d96d960e75253673a"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-finite-hud/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-finite-hud/site-layer.mjs",
+    "sha256": "5aa50d92ddb0f668ef6cc9374dd948ef3c2fafd7efb1adfbd2d65011706f4726"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-finite-hud/ui.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-finite-hud/ui.mjs",
+    "sha256": "f4b0a9f46ff554bd303c2f553d7e1724457dd4c8c23583f83bae4603ce928b56"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-full-early-hud/canonical-attachment.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-full-early-hud/canonical-attachment.mjs",
+    "sha256": "6f4cf3fc5da5d0709f5960576304ce27e0bf9c745149ca2e08c64efeaa9befbf"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-full-early-hud/live-layer-early.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-full-early-hud/live-layer-early.mjs",
+    "sha256": "b77ba9568afe3f4dfc544c6cc4631936d5e961182afa3f9eb425e4c377fd7ad4"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-full-early-hud/presenter-early.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-full-early-hud/presenter-early.mjs",
+    "sha256": "4cf44bf43139fc340d4a12a671648bd3672823bd71e2b75b82f0da4a6d212e41"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-full-early-hud/scene-profiles.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-full-early-hud/scene-profiles.mjs",
+    "sha256": "7f7d8d531668211e0685659f68320590012c1d2c15e4051d96d960e75253673a"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-full-early-hud/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-full-early-hud/site-layer.mjs",
+    "sha256": "3a381e8db57ac039094cebefdb5322bcfacb993e8a173e7fee8a8f78e8a35e48"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-full-early-hud/ui.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-full-early-hud/ui.mjs",
+    "sha256": "f4b0a9f46ff554bd303c2f553d7e1724457dd4c8c23583f83bae4603ce928b56"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-stage78-hud/canonical-attachment.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-stage78-hud/canonical-attachment.mjs",
+    "sha256": "6f4cf3fc5da5d0709f5960576304ce27e0bf9c745149ca2e08c64efeaa9befbf"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-stage78-hud/hud.css": {
+    "file": "qualified-game/revisions/r6/composed-stage20-stage78-hud/hud.css",
+    "sha256": "1a5e08fdd81987661b225bbffb2989d3b83adb7dcb50ea0922f21f4aa5897aa2"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-stage78-hud/live-layer.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-stage78-hud/live-layer.mjs",
+    "sha256": "422efa1bc7411aac35b4b31a5156d786b820f4710256672c3868972cee72850f"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-stage78-hud/painter.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-stage78-hud/painter.mjs",
+    "sha256": "9c225e70fb86741df0262af58cf234bb0f97ecf872f2cc3963ee85f861208a27"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-stage78-hud/presenter.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-stage78-hud/presenter.mjs",
+    "sha256": "17cfaf54d357528120ae02554807fe26326ad9d3e9be9f24705abaeb7a1934fa"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-stage78-hud/scene-profiles.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-stage78-hud/scene-profiles.mjs",
+    "sha256": "7f7d8d531668211e0685659f68320590012c1d2c15e4051d96d960e75253673a"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-stage78-hud/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-stage78-hud/site-layer.mjs",
+    "sha256": "2ac67672859aa7f22fc323daa53d0004c2a6974055dd03276b486971265851c5"
+  },
+  "/qualified-game/revisions/r6/composed-stage20-stage78-hud/ui.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage20-stage78-hud/ui.mjs",
+    "sha256": "f4b0a9f46ff554bd303c2f553d7e1724457dd4c8c23583f83bae4603ce928b56"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/actor-bridge.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/actor-bridge.mjs",
+    "sha256": "d177a06b70f7b59627396ce9c7b00938d78c60c0933daf9b2165a844cf61f058"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/canonical-attachment.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/canonical-attachment.mjs",
+    "sha256": "6f4cf3fc5da5d0709f5960576304ce27e0bf9c745149ca2e08c64efeaa9befbf"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/hud-observer.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/hud-observer.mjs",
+    "sha256": "dc6da742ccd6afe0dd202369fb270b489a96f584f5bea2c9f6d7e7e482ce3ed4"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/hud-source-companion.js": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/hud-source-companion.js",
+    "sha256": "83936703e4120a2883437b8a589e5f8d788b59564d6c6d66fd43476375ea77cb"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/presentation-clock.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/presentation-clock.mjs",
+    "sha256": "5b5283be94dba898825d9a88a230750331877ac241db7984bbea4afecaa1391f"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/scene-profiles.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/scene-profiles.mjs",
+    "sha256": "38260902471c4b098c5469049c3588d8f68a28396b15c4959e151a8cf2a69531"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/site-layer.mjs",
+    "sha256": "d74a887eb9daa83a194b1204b603e0655dfa06183345360154a057206362db32"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/slow-non-drawable.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/slow-non-drawable.mjs",
+    "sha256": "a3992ef28a402d51f3f6c92f32fa3666cbcbaee60d8fd612cd370e4dbbeb0343"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/slow-stock-observer.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/slow-stock-observer.mjs",
+    "sha256": "5db1518a46e3f59adaaa5ff472586c1624a6c3050e114bf7873ab4412a35c373"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/slow-stock-source-companion.js": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/slow-stock-source-companion.js",
+    "sha256": "e39b3f4736224f0db1a6e49cde7b948fcf3ba5d8efa05e2245de7c5ad27f683b"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/slow-threshold.lua": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/slow-threshold.lua",
+    "sha256": "bdaa61b434b44e314f6a4a8d08ca3c6e42da8d80b28e3b93adb43b30fa4a8a85"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/stock-bindings.json": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/stock-bindings.json",
+    "sha256": "cd762a89e909ff52842b53ba860df6a822f7da39356f601fad1da883a97912bb"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/stock-observer.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/stock-observer.mjs",
+    "sha256": "181c9f4c06122d63928935b352eb25a4ecfb77da5e5eaf01bb0e21617afab9b2"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/stock-source-companion.js": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/stock-source-companion.js",
+    "sha256": "8267bfe48ebd79edefc30a386b4df7fb44e5e0df1c60fca1d82bb12d0e769fef"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/stock-stage78.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/stock-stage78.mjs",
+    "sha256": "e821c99a9705728db9facff0081cb5b458b08a72a347522a16035ecbef5944a9"
+  },
+  "/qualified-game/revisions/r6/composed-stage78-body/ui.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/ui.mjs",
+    "sha256": "25f988866ab748ee8fdc276e388248921fe4b6032711cdc3b04f58179d79733d"
+  },
+  "/qualified-game/revisions/r6/composed-stage910-body/canonical-attachment.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage910-body/canonical-attachment.mjs",
+    "sha256": "6f4cf3fc5da5d0709f5960576304ce27e0bf9c745149ca2e08c64efeaa9befbf"
+  },
+  "/qualified-game/revisions/r6/composed-stage910-body/scene-profiles.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage910-body/scene-profiles.mjs",
+    "sha256": "373671f4c00f99f72e001bc861a7666747cbcf96ec8cadbd9709c2ab6bceebb7"
+  },
+  "/qualified-game/revisions/r6/composed-stage910-body/site-layer.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage910-body/site-layer.mjs",
+    "sha256": "2911265dcfc1f64e839812a4bd25ba73b1b351861ca6c35235c897ef3d21eb01"
+  },
+  "/qualified-game/revisions/r6/composed-stage910-body/ui.mjs": {
+    "file": "qualified-game/revisions/r6/composed-stage910-body/ui.mjs",
+    "sha256": "25f988866ab748ee8fdc276e388248921fe4b6032711cdc3b04f58179d79733d"
+  },
+  "/qualified-game/revisions/r6/early-fx-only-summons/companion.js": {
+    "file": "qualified-game/revisions/r6/early-fx-only-summons/companion.js",
+    "sha256": "b2518c7d9cc1b5056ab50485c1a2a41c4e10e1ab5538cfd5230a1e6cfc114cd1"
+  },
+  "/qualified-game/revisions/r6/early-fx-only-summons/ledger.mjs": {
+    "file": "qualified-game/revisions/r6/early-fx-only-summons/ledger.mjs",
+    "sha256": "d164a3312513d81e75fc5504a752492bcb1ed00875083ff35cb4ca8540fbd9fa"
+  },
+  "/qualified-game/revisions/r6/early-fx-only-summons/observer.mjs": {
+    "file": "qualified-game/revisions/r6/early-fx-only-summons/observer.mjs",
+    "sha256": "f1b3cc85c395f2960edbc2eea81a0919cea5881cd47ff59b2d7ddb5c2346c5ea"
+  },
+  "/qualified-game/revisions/r6/early-fx-only-summons/source-tap.lua": {
+    "file": "qualified-game/revisions/r6/early-fx-only-summons/source-tap.lua",
+    "sha256": "d60f73a769175ceaf32cf9d37365a1d551b8b0f8f9dadf839ff92a92074170eb"
+  },
+  "/qualified-game/revisions/r6/endless-settlement.mjs": {
+    "file": "qualified-game/revisions/r6/endless-settlement.mjs",
+    "sha256": "5c783da430c79888ca6466f72e96a80c1398faa63ac01c4dd3549f538cb3643c"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/actor-bridge.mjs": {
+    "file": "qualified-game/revisions/r6/later-body-probe/actor-bridge.mjs",
+    "sha256": "d177a06b70f7b59627396ce9c7b00938d78c60c0933daf9b2165a844cf61f058"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/presentation-clock.mjs": {
+    "file": "qualified-game/revisions/r6/later-body-probe/presentation-clock.mjs",
+    "sha256": "5b5283be94dba898825d9a88a230750331877ac241db7984bbea4afecaa1391f"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/scene-profiles.mjs": {
+    "file": "qualified-game/revisions/r6/later-body-probe/scene-profiles.mjs",
+    "sha256": "88a07df04261f0d763c9c8002ec04cdbae913726f561d8c1094a54cdacd56ac2"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/stage-78000013.json": {
+    "file": "qualified-game/revisions/r6/later-body-probe/stage-78000013.json",
+    "sha256": "e11b58d35a14f79a19685f379071317125e013c1481b64388eabb9653760572f"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/stage-78000015.json": {
+    "file": "qualified-game/revisions/r6/later-body-probe/stage-78000015.json",
+    "sha256": "9f86c861be763d0f16a1fc14afe6c436ec5b3b0aeb50868916794d7cae6b2185"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/stage-78000018.json": {
+    "file": "qualified-game/revisions/r6/later-body-probe/stage-78000018.json",
+    "sha256": "2132a3dab81e08489069ddc7cc30e356f649bbc93b9d85b25541f017080d5cc2"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/stage-78000020.json": {
+    "file": "qualified-game/revisions/r6/later-body-probe/stage-78000020.json",
+    "sha256": "6051188ea3328092fedd5e7238f5d1ae5278be404493cc10ece07507d53f01cd"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/stock-bindings.json": {
+    "file": "qualified-game/revisions/r6/later-body-probe/stock-bindings.json",
+    "sha256": "54e07367cc6c9c7c45f3d38f62a69abd01676e886996f06b6b333037e0bf1fcf"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/stock-later.mjs": {
+    "file": "qualified-game/revisions/r6/later-body-probe/stock-later.mjs",
+    "sha256": "c5ce8de2d8c1a1f53f823dd3fe2c53c6b0c1ab85be8620bbba7d2debe37686cd"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/stock-observer.mjs": {
+    "file": "qualified-game/revisions/r6/later-body-probe/stock-observer.mjs",
+    "sha256": "f857527053de2f869406b0ae847fb2f052fd4ec3721e6490b3bf48a2d9a01498"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/stock-source-companion.js": {
+    "file": "qualified-game/revisions/r6/later-body-probe/stock-source-companion.js",
+    "sha256": "7c571c1006a4ebbdb8158bd14ef643cb05c89290190e241fc808cce46acc15bf"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png": {
+    "file": "qualified-game/presentation-capability/scene-profiles/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png",
+    "sha256": "7411a4f50c30a3ee62fb5f3761287291fa2c2fa686102dccb54c92973956247b"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/21a2c8ff7c36d030ba0cd87133ca1726_3331486752895101702.png": {
+    "file": "stage3-qualification/enemy-art/atlas.png",
+    "sha256": "0121dce2ad967dd3bbc290bd484654da97c505feee4a788bb36b2a4adfbda048"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/2843322b24ca395a0f5423508a8aa16f_-5284648999673397809.png": {
+    "file": "stage3-qualification/nilisha-art/atlas.png",
+    "sha256": "66c12149436d9123912b78f70ec809b13070098e56ec80ee96a338e1602aeef9"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/4112b4323c3bbb2ef13890ce5197ee45_-7653672547146017021.png": {
+    "file": "offline-shell/multistage-v4/assets/map3.png",
+    "sha256": "e4776d23b1333c162ba43851dcd9fdb708ccf8ad26ea83dc4d2cf69e2ab3dea3"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png",
+    "sha256": "884530d8335507d0960be190f7a6e32b8cdfa89c434230c0d593a352116164ef"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png",
+    "sha256": "8c9308d48618a3a730c7c21e87ff3c7e1878c7dabb632a10ff40e761b575f08e"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png",
+    "sha256": "c38bd6c7fc4544fd7cfe6fb704f8a8a49e6e94758b6b45eb5d71904e4c8d7ddd"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png",
+    "sha256": "a64507f32508bd0a25e7e29859e3bef70cc8cac54c7c2aacf213e6b3159b2076"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/84c63f1a28dcc746b573a764fb661c40_-6640086172647524613.png": {
+    "file": "stage910-qualification/visual-frontier/ATLAS.png",
+    "sha256": "9bcb9455abdc7a0bcfe1a6aacb986fddd264cb5e3157302521227b3ba6899b21"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/a042d4ecec90517e097896afaf6a2a0d_1002181009127008805.png": {
+    "file": "stage5-qualification/visual-readiness/scenes/boss-atlas.png",
+    "sha256": "62033ad60551822f2ad10f9eb96560d9527bca76e465b432bf762f6ec1fc5b1f"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/a1dd0a7ea46319138e6c63a7853c07d3_-8856734077853841553.png": {
+    "file": "stage78-qualification/visual-frontier/atlas-78000205.png",
+    "sha256": "66f8584492ed1e12c816a68140ed2485bbe0f45c14fa8a24b6d973ef0e19268d"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png",
+    "sha256": "c3a6c60feb4393ec697e11b7614dae6c3c8ff8851a16d952b34189fba98420ec"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/cb13a6e0b1c702ce3b364cc3c7ded074_8067455297545508230.png": {
+    "file": "stage5-qualification/visual-readiness/feinisi/atlas.png",
+    "sha256": "79f43b8780c903cea0b823c6146d04c200410311c49b4af408f70da7bb0a81db"
+  },
+  "/qualified-game/revisions/r6/later-body-probe/textures/ec2728fe719e6898eb495aa4d60c2c07_-5158771036136154436.png": {
+    "file": "stage78-qualification/visual-frontier/atlas-78000105.png",
+    "sha256": "6bad77fa729116f4ee65db6b1819100a68a399414897b6875a70ddefaeeb1692"
+  },
+  "/qualified-game/revisions/r6/later-body-six/actor-bridge.mjs": {
+    "file": "qualified-game/revisions/r6/later-body-six/actor-bridge.mjs",
+    "sha256": "d177a06b70f7b59627396ce9c7b00938d78c60c0933daf9b2165a844cf61f058"
+  },
+  "/qualified-game/revisions/r6/later-body-six/presentation-clock.mjs": {
+    "file": "qualified-game/revisions/r6/later-body-six/presentation-clock.mjs",
+    "sha256": "5b5283be94dba898825d9a88a230750331877ac241db7984bbea4afecaa1391f"
+  },
+  "/qualified-game/revisions/r6/later-body-six/scene-profiles.mjs": {
+    "file": "qualified-game/revisions/r6/later-body-six/scene-profiles.mjs",
+    "sha256": "0b6fd2363338c0b71ac332997d5cc6046e33c14b599a77bc63293eb5302180c2"
+  },
+  "/qualified-game/revisions/r6/later-body-six/stage-78000011.json": {
+    "file": "qualified-game/revisions/r6/later-body-six/stage-78000011.json",
+    "sha256": "741239b65e066f82049eac0a9e8db5737e1928a159b2a906186bd7858c8f200b"
+  },
+  "/qualified-game/revisions/r6/later-body-six/stage-78000012.json": {
+    "file": "qualified-game/revisions/r6/later-body-six/stage-78000012.json",
+    "sha256": "c6076a23eecafbe77380abe4654d52b72865b420c6a899032e34866cdbc4a01f"
+  },
+  "/qualified-game/revisions/r6/later-body-six/stage-78000014.json": {
+    "file": "qualified-game/revisions/r6/later-body-six/stage-78000014.json",
+    "sha256": "dc1e166e8a86a024418b3ebf90eb727b12e7b5967a2f9081f8a1841bea5e7320"
+  },
+  "/qualified-game/revisions/r6/later-body-six/stage-78000016.json": {
+    "file": "qualified-game/revisions/r6/later-body-six/stage-78000016.json",
+    "sha256": "24b73b5a0e04f7ae1b4994b39e90dd31df5a9b6928309d1b5e745cb43edc122e"
+  },
+  "/qualified-game/revisions/r6/later-body-six/stage-78000017.json": {
+    "file": "qualified-game/revisions/r6/later-body-six/stage-78000017.json",
+    "sha256": "451ff8329c0135ea1402aa15a36e44c5e9187a1546cfc89d8dc3a114c3ed95df"
+  },
+  "/qualified-game/revisions/r6/later-body-six/stage-78000019.json": {
+    "file": "qualified-game/revisions/r6/later-body-six/stage-78000019.json",
+    "sha256": "c67ea1d669b56c27eab272763fd226a90d17df262a1fa377b92bd09ed9f64205"
+  },
+  "/qualified-game/revisions/r6/later-body-six/stock-bindings.json": {
+    "file": "qualified-game/revisions/r6/later-body-six/stock-bindings.json",
+    "sha256": "14be9c6bce579ab3fb4a9c5ef6c7d40340b24483e906bd0b56d2344adede86ea"
+  },
+  "/qualified-game/revisions/r6/later-body-six/stock-later.mjs": {
+    "file": "qualified-game/revisions/r6/later-body-six/stock-later.mjs",
+    "sha256": "67e6a499108a5fadc428a57c8755bca8fc253b4665cc4ef12ad39adedd7bc225"
+  },
+  "/qualified-game/revisions/r6/later-body-six/stock-observer.mjs": {
+    "file": "qualified-game/revisions/r6/later-body-six/stock-observer.mjs",
+    "sha256": "e3e0feb0ad92dff89f91c6f3a93daff61b7a27443d65a7a5f09e175cbdda4785"
+  },
+  "/qualified-game/revisions/r6/later-body-six/stock-source-companion.js": {
+    "file": "qualified-game/revisions/r6/later-body-six/stock-source-companion.js",
+    "sha256": "caf0a56c652f7d166b78df7609e9da4049fc9b9bb011330411714da7fb996c6c"
+  },
+  "/qualified-game/revisions/r6/later-body-six/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png": {
+    "file": "qualified-game/presentation-capability/scene-profiles/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png",
+    "sha256": "7411a4f50c30a3ee62fb5f3761287291fa2c2fa686102dccb54c92973956247b"
+  },
+  "/qualified-game/revisions/r6/later-body-six/textures/21a2c8ff7c36d030ba0cd87133ca1726_3331486752895101702.png": {
+    "file": "stage3-qualification/enemy-art/atlas.png",
+    "sha256": "0121dce2ad967dd3bbc290bd484654da97c505feee4a788bb36b2a4adfbda048"
+  },
+  "/qualified-game/revisions/r6/later-body-six/textures/2843322b24ca395a0f5423508a8aa16f_-5284648999673397809.png": {
+    "file": "stage3-qualification/nilisha-art/atlas.png",
+    "sha256": "66c12149436d9123912b78f70ec809b13070098e56ec80ee96a338e1602aeef9"
+  },
+  "/qualified-game/revisions/r6/later-body-six/textures/4112b4323c3bbb2ef13890ce5197ee45_-7653672547146017021.png": {
+    "file": "offline-shell/multistage-v4/assets/map3.png",
+    "sha256": "e4776d23b1333c162ba43851dcd9fdb708ccf8ad26ea83dc4d2cf69e2ab3dea3"
+  },
+  "/qualified-game/revisions/r6/later-body-six/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png",
+    "sha256": "884530d8335507d0960be190f7a6e32b8cdfa89c434230c0d593a352116164ef"
+  },
+  "/qualified-game/revisions/r6/later-body-six/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png",
+    "sha256": "8c9308d48618a3a730c7c21e87ff3c7e1878c7dabb632a10ff40e761b575f08e"
+  },
+  "/qualified-game/revisions/r6/later-body-six/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png",
+    "sha256": "c38bd6c7fc4544fd7cfe6fb704f8a8a49e6e94758b6b45eb5d71904e4c8d7ddd"
+  },
+  "/qualified-game/revisions/r6/later-body-six/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png",
+    "sha256": "a64507f32508bd0a25e7e29859e3bef70cc8cac54c7c2aacf213e6b3159b2076"
+  },
+  "/qualified-game/revisions/r6/later-body-six/textures/84c63f1a28dcc746b573a764fb661c40_-6640086172647524613.png": {
+    "file": "stage910-qualification/visual-frontier/ATLAS.png",
+    "sha256": "9bcb9455abdc7a0bcfe1a6aacb986fddd264cb5e3157302521227b3ba6899b21"
+  },
+  "/qualified-game/revisions/r6/later-body-six/textures/a1dd0a7ea46319138e6c63a7853c07d3_-8856734077853841553.png": {
+    "file": "stage78-qualification/visual-frontier/atlas-78000205.png",
+    "sha256": "66f8584492ed1e12c816a68140ed2485bbe0f45c14fa8a24b6d973ef0e19268d"
+  },
+  "/qualified-game/revisions/r6/later-body-six/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png",
+    "sha256": "c3a6c60feb4393ec697e11b7614dae6c3c8ff8851a16d952b34189fba98420ec"
+  },
+  "/qualified-game/revisions/r6/later-body-six/textures/cb13a6e0b1c702ce3b364cc3c7ded074_8067455297545508230.png": {
+    "file": "stage5-qualification/visual-readiness/feinisi/atlas.png",
+    "sha256": "79f43b8780c903cea0b823c6146d04c200410311c49b4af408f70da7bb0a81db"
+  },
+  "/qualified-game/revisions/r6/later-body-six/textures/ec2728fe719e6898eb495aa4d60c2c07_-5158771036136154436.png": {
+    "file": "stage78-qualification/visual-frontier/atlas-78000105.png",
+    "sha256": "6bad77fa729116f4ee65db6b1819100a68a399414897b6875a70ddefaeeb1692"
+  },
+  "/qualified-game/revisions/r6/pins.json": {
+    "file": "qualified-game/revisions/r6/pins.json",
+    "sha256": "3a76072af92f41917f25fe47250e6197c0c78aa97b1c6bda6f871b16dd027654"
+  },
+  "/qualified-game/revisions/r6/profiles.mjs": {
+    "file": "qualified-game/revisions/r6/profiles.mjs",
+    "sha256": "ebdc97559ab745257d95b95e5c414c44df38874f522f683b61e091ea6e75f739"
+  },
+  "/qualified-game/revisions/r6/site/art/map2.png": {
+    "file": "offline-shell/multistage-v4/assets/map2.png",
+    "sha256": "b4394d19343421a679596e9e610af48bc22f4760e97305afc8b698996d614051"
+  },
+  "/qualified-game/revisions/r6/site/art/map3.png": {
+    "file": "offline-shell/multistage-v4/assets/map3.png",
+    "sha256": "e4776d23b1333c162ba43851dcd9fdb708ccf8ad26ea83dc4d2cf69e2ab3dea3"
+  },
+  "/qualified-game/revisions/r6/site/choice-hud.mjs": {
+    "file": "qualified-game/revisions/r6/site/choice-hud.mjs",
+    "sha256": "b28e88bf956484c9ab553b9ff23ed2e2fe3d935deb87c67750a30419e4a1cc4a"
+  },
+  "/qualified-game/revisions/r6/site/lane-config.json": {
+    "file": "qualified-game/revisions/r6/composed-stage78-body/lane-config.json",
+    "sha256": "309277fb0f906eebca4d0582c1ae3761e24a57acd713724b71bc86423dc92905"
+  },
+  "/qualified-game/revisions/r6/site/session-gates.mjs": {
+    "file": "qualified-game/revisions/r6/site/session-gates.mjs",
+    "sha256": "99a423f1054bf4b31fd5a2416102619328ccb529300fd9949320bf12f0be9043"
+  },
+  "/qualified-game/revisions/r6/site/session.mjs": {
+    "file": "qualified-game/revisions/r6/site/session.mjs",
+    "sha256": "ec08e105190693ba0f20f30657780f61007fb5e3559a986c544d4eff0b2228f0"
+  },
+  "/qualified-game/revisions/r6/site/shell.mjs": {
+    "file": "qualified-game/revisions/r6/site/shell.mjs",
+    "sha256": "1a40e2b9d1880fad423ed651839088c087f1a5ddbc1aafc60e677b7601219cec"
+  },
+  "/qualified-game/revisions/r6/site/static-maps.mjs": {
+    "file": "qualified-game/revisions/r6/site/static-maps.mjs",
+    "sha256": "5b3767bc9b30b0df314b333bd5a1d9797dd1f62e80df694cafd4c180357ca6b2"
+  },
+  "/qualified-game/revisions/r6/stage1-2011-companion-probe/companion.js": {
+    "file": "qualified-game/revisions/r6/stage1-2011-companion-probe/companion.js",
+    "sha256": "dfd29d0dc4d3842b9324a15d1ed7b2aa48e392a1da4cd2445f3e7b0204251a34"
+  },
+  "/qualified-game/revisions/r6/stage1-2011-companion-probe/observer.mjs": {
+    "file": "qualified-game/revisions/r6/stage1-2011-companion-probe/observer.mjs",
+    "sha256": "ee10f00946c01bc43ed074d827b591c22e3f319c4ec6ce2f3b752946ee9a6184"
+  },
+  "/qualified-game/revisions/r6/stage1-2011-companion-probe/slow-audit.mjs": {
+    "file": "qualified-game/revisions/r6/stage1-2011-companion-probe/slow-audit.mjs",
+    "sha256": "85d1c0a95d611e746f6de391c58be93bd5bd4df5f0f39ece4f5e067e5a2727ce"
+  },
+  "/qualified-game/revisions/r6/stage1-blur-repair/stage1-live-layer.mjs": {
+    "file": "qualified-game/revisions/r6/stage1-blur-repair/stage1-live-layer.mjs",
+    "sha256": "ae20664b2f3635da9bfce0659d258d5e01a183523188ec7bf7894eb0fa5f653f"
+  },
+  "/qualified-game/revisions/r6/stage1-hp-autosize/hp-clip.mjs": {
+    "file": "qualified-game/revisions/r6/stage1-hp-autosize/hp-clip.mjs",
+    "sha256": "dbc62d7ba0ef5eb37d44986738c76f58dae3c82df75527190856724581c4a306"
+  },
+  "/qualified-game/revisions/r6/stage1-hp-autosize/paint-stage1.mjs": {
+    "file": "qualified-game/revisions/r6/stage1-hp-autosize/paint-stage1.mjs",
+    "sha256": "65aba8029da062c22bf5544f351e0f26b8cad3a57da7c8db152b81b65f717d5c"
+  },
+  "/qualified-game/revisions/r6/stage1-hp-autosize/stage1-live-layer.mjs": {
+    "file": "qualified-game/revisions/r6/stage1-hp-autosize/stage1-live-layer.mjs",
+    "sha256": "0b6642e5fdbbd64bfcca56d71be76973e3f30fda40d8a6e9c5e1107fa1642f30"
+  },
+  "/qualified-game/revisions/r6/stage2-2011-source-witness/companion.js": {
+    "file": "qualified-game/revisions/r6/stage2-2011-source-witness/companion.js",
+    "sha256": "91df6f42e5b3c030d6f253e07ef90dbe906dfb51020fcfbe40a8d4b4aeff7c85"
+  },
+  "/qualified-game/revisions/r6/stage2-2011-source-witness/observer.mjs": {
+    "file": "qualified-game/revisions/r6/stage2-2011-source-witness/observer.mjs",
+    "sha256": "4f7f4de4f874051da1c8b5d66da36bb05a8718d77271390ca11404d3cf225953"
+  },
+  "/qualified-game/revisions/r6/stage2-2011-source-witness/slow-audit.mjs": {
+    "file": "qualified-game/revisions/r6/stage2-2011-source-witness/slow-audit.mjs",
+    "sha256": "65ae833bf07e2403b292646828c5cfe98af8b6ec505c73b8fd133dd5700c421e"
+  },
+  "/qualified-game/revisions/r6/stage2to6-hud-live/actor-bridge.mjs": {
+    "file": "qualified-game/revisions/r6/stage2to6-hud-live/actor-bridge.mjs",
+    "sha256": "d177a06b70f7b59627396ce9c7b00938d78c60c0933daf9b2165a844cf61f058"
+  },
+  "/qualified-game/revisions/r6/stage2to6-hud-live/authority.mjs": {
+    "file": "qualified-game/revisions/r6/stage2to6-hud-live/authority.mjs",
+    "sha256": "b8a6bc920af1792087732888593661a4779cef587a69599013678fcf43f573dc"
+  },
+  "/qualified-game/revisions/r6/stage2to6-hud-live/hud-observer.mjs": {
+    "file": "qualified-game/revisions/r6/stage2to6-hud-live/hud-observer.mjs",
+    "sha256": "b2c6f61a20c75d4e58ce404b209f5826210f935ddb7dba8d7505a5d8256d6288"
+  },
+  "/qualified-game/revisions/r6/stage2to6-hud-live/hud-source-companion.js": {
+    "file": "qualified-game/revisions/r6/stage2to6-hud-live/hud-source-companion.js",
+    "sha256": "ea7e7d5ddd1ce6a816d91927f08875e8e46d5797ce9861332bb650629a746ebb"
+  },
+  "/qualified-game/revisions/r6/stage2to6-hud-live/presentation-clock.mjs": {
+    "file": "qualified-game/revisions/r6/stage2to6-hud-live/presentation-clock.mjs",
+    "sha256": "5b5283be94dba898825d9a88a230750331877ac241db7984bbea4afecaa1391f"
+  },
+  "/qualified-game/revisions/r6/stage2to6-hud-live/scene-profiles.mjs": {
+    "file": "qualified-game/revisions/r6/stage2to6-hud-live/scene-profiles.mjs",
+    "sha256": "8a984b506ec33e1be2ef71eeacaee6d62b4c9f2d50cf38c4bfd97baa15003d2f"
+  },
+  "/qualified-game/revisions/r6/stage2to6-hud/VERIFICATION.json": {
+    "file": "qualified-game/revisions/r6/stage2to6-hud/VERIFICATION.json",
+    "sha256": "af5e7dc0147efe5a9ccc22a23ff2946444bbc9e8d47c832142fae1190758603e"
+  },
+  "/qualified-game/revisions/r6/stage78-hud-live/authority.mjs": {
+    "file": "qualified-game/revisions/r6/stage78-hud-live/authority.mjs",
+    "sha256": "99373bbe1c86491e5da03eb974a95c613aace76cf7c6fd403c00eaf9f2357582"
+  },
+  "/qualified-game/revisions/r6/stage78-hud-live/hud-observer.mjs": {
+    "file": "qualified-game/revisions/r6/stage78-hud-live/hud-observer.mjs",
+    "sha256": "1a9998ad515d10f622791abfdedf587f7645f30892be72619454356360fd161f"
+  },
+  "/qualified-game/revisions/r6/stage78-hud-live/hud-source-companion.js": {
+    "file": "qualified-game/revisions/r6/stage78-hud-live/hud-source-companion.js",
+    "sha256": "fde8a02ff1f37fffc60ea7fa79b31678e17566bedc1c6e9bddf7244148daafc6"
+  },
+  "/qualified-game/revisions/r6/stage78-hud-probe/VERIFICATION.json": {
+    "file": "qualified-game/revisions/r6/stage78-hud-probe/VERIFICATION.json",
+    "sha256": "fd5b7266b2f76b9b31adff21a1a8a878c55287d15e20085d651ba1a044734916"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/actor-bridge.mjs": {
+    "file": "qualified-game/revisions/r6/stage910-body-probe/actor-bridge.mjs",
+    "sha256": "d177a06b70f7b59627396ce9c7b00938d78c60c0933daf9b2165a844cf61f058"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/presentation-clock.mjs": {
+    "file": "qualified-game/revisions/r6/stage910-body-probe/presentation-clock.mjs",
+    "sha256": "5b5283be94dba898825d9a88a230750331877ac241db7984bbea4afecaa1391f"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/scene-profiles.mjs": {
+    "file": "qualified-game/revisions/r6/stage910-body-probe/scene-profiles.mjs",
+    "sha256": "e0da55c305e9285e0b479e34ea229944b58dca8bd52bd0cd402ba2b0d7dfa71d"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/stage-78000009.json": {
+    "file": "qualified-game/revisions/r6/stage910-body-probe/stage-78000009.json",
+    "sha256": "e6c3a6cb52709956d0a6e5bbd9fd3bceb00fca35b49a79eee030a6c1cfb2cff1"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/stage-78000010.json": {
+    "file": "qualified-game/revisions/r6/stage910-body-probe/stage-78000010.json",
+    "sha256": "88045dcbc679a51bc4f34e60c660d57d5c4ddf6f34277e8f087c496ce0e95433"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/stock-bindings.json": {
+    "file": "qualified-game/revisions/r6/stage910-body-probe/stock-bindings.json",
+    "sha256": "f97aa3e0da26f9b351c323c3d15d2cd3c73983eb1682932b2977ac298ff258c2"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/stock-observer.mjs": {
+    "file": "qualified-game/revisions/r6/stage910-body-probe/stock-observer.mjs",
+    "sha256": "cbf405a391690d603fef781e8b6dfab8e515fa46f93082ab11a94cd0c28ac7ca"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/stock-source-companion.js": {
+    "file": "qualified-game/revisions/r6/stage910-body-probe/stock-source-companion.js",
+    "sha256": "e1b99fb1663a4c3be6ea84688a9435a34da0e6870393068b28cc6cf63b512d84"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/stock-stage910.mjs": {
+    "file": "qualified-game/revisions/r6/stage910-body-probe/stock-stage910.mjs",
+    "sha256": "c2f750b0e0d97379070823ce7d614d1e764411204b5692725f694f01e0024d5b"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png": {
+    "file": "qualified-game/presentation-capability/scene-profiles/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png",
+    "sha256": "7411a4f50c30a3ee62fb5f3761287291fa2c2fa686102dccb54c92973956247b"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/textures/21a2c8ff7c36d030ba0cd87133ca1726_3331486752895101702.png": {
+    "file": "stage3-qualification/enemy-art/atlas.png",
+    "sha256": "0121dce2ad967dd3bbc290bd484654da97c505feee4a788bb36b2a4adfbda048"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/textures/2843322b24ca395a0f5423508a8aa16f_-5284648999673397809.png": {
+    "file": "stage3-qualification/nilisha-art/atlas.png",
+    "sha256": "66c12149436d9123912b78f70ec809b13070098e56ec80ee96a338e1602aeef9"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/textures/4112b4323c3bbb2ef13890ce5197ee45_-7653672547146017021.png": {
+    "file": "offline-shell/multistage-v4/assets/map3.png",
+    "sha256": "e4776d23b1333c162ba43851dcd9fdb708ccf8ad26ea83dc4d2cf69e2ab3dea3"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png",
+    "sha256": "884530d8335507d0960be190f7a6e32b8cdfa89c434230c0d593a352116164ef"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png",
+    "sha256": "8c9308d48618a3a730c7c21e87ff3c7e1878c7dabb632a10ff40e761b575f08e"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png",
+    "sha256": "c38bd6c7fc4544fd7cfe6fb704f8a8a49e6e94758b6b45eb5d71904e4c8d7ddd"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png",
+    "sha256": "a64507f32508bd0a25e7e29859e3bef70cc8cac54c7c2aacf213e6b3159b2076"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/textures/84c63f1a28dcc746b573a764fb661c40_-6640086172647524613.png": {
+    "file": "stage910-qualification/visual-frontier/ATLAS.png",
+    "sha256": "9bcb9455abdc7a0bcfe1a6aacb986fddd264cb5e3157302521227b3ba6899b21"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/textures/a042d4ecec90517e097896afaf6a2a0d_1002181009127008805.png": {
+    "file": "stage5-qualification/visual-readiness/scenes/boss-atlas.png",
+    "sha256": "62033ad60551822f2ad10f9eb96560d9527bca76e465b432bf762f6ec1fc5b1f"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png",
+    "sha256": "c3a6c60feb4393ec697e11b7614dae6c3c8ff8851a16d952b34189fba98420ec"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/textures/cb13a6e0b1c702ce3b364cc3c7ded074_8067455297545508230.png": {
+    "file": "stage5-qualification/visual-readiness/feinisi/atlas.png",
+    "sha256": "79f43b8780c903cea0b823c6146d04c200410311c49b4af408f70da7bb0a81db"
+  },
+  "/qualified-game/revisions/r6/stage910-body-probe/textures/ec2728fe719e6898eb495aa4d60c2c07_-5158771036136154436.png": {
+    "file": "stage78-qualification/visual-frontier/atlas-78000105.png",
+    "sha256": "6bad77fa729116f4ee65db6b1819100a68a399414897b6875a70ddefaeeb1692"
+  },
+  "/qualified-game/revisions/r6/stage9to20-hud-live/actor-bridge.mjs": {
+    "file": "qualified-game/revisions/r6/stage9to20-hud-live/actor-bridge.mjs",
+    "sha256": "d177a06b70f7b59627396ce9c7b00938d78c60c0933daf9b2165a844cf61f058"
+  },
+  "/qualified-game/revisions/r6/stage9to20-hud-live/authority.mjs": {
+    "file": "qualified-game/revisions/r6/stage9to20-hud-live/authority.mjs",
+    "sha256": "390da2cbcd3fb900d5d380d75af0aa52e1197d85a28b8b9edf5b18cab18f8035"
+  },
+  "/qualified-game/revisions/r6/stage9to20-hud-live/hud-observer.mjs": {
+    "file": "qualified-game/revisions/r6/stage9to20-hud-live/hud-observer.mjs",
+    "sha256": "e12be30c9848694633382d136313f8c0489eb7859ba7b3d127b29ef026dde70a"
+  },
+  "/qualified-game/revisions/r6/stage9to20-hud-live/hud-source-companion.js": {
+    "file": "qualified-game/revisions/r6/stage9to20-hud-live/hud-source-companion.js",
+    "sha256": "d81a4ef7a6ae45597c327f3bdb5368986841ab22e3fda54cb3506ad9707808ae"
+  },
+  "/qualified-game/revisions/r6/stage9to20-hud-live/presentation-clock.mjs": {
+    "file": "qualified-game/revisions/r6/stage9to20-hud-live/presentation-clock.mjs",
+    "sha256": "5b5283be94dba898825d9a88a230750331877ac241db7984bbea4afecaa1391f"
+  },
+  "/qualified-game/revisions/r6/stage9to20-hud-live/scene-profiles.mjs": {
+    "file": "qualified-game/revisions/r6/stage9to20-hud-live/scene-profiles.mjs",
+    "sha256": "8a984b506ec33e1be2ef71eeacaee6d62b4c9f2d50cf38c4bfd97baa15003d2f"
+  },
+  "/qualified-game/revisions/r6/stage9to20-hud/VERIFICATION.json": {
+    "file": "qualified-game/revisions/r6/stage9to20-hud/VERIFICATION.json",
+    "sha256": "b7e6c5105744dff06436b5b1c28f81ddf56c75f6bfc54d86076a92b50e623042"
+  },
+  "/qualified-game/revisions/r6/temporary-20108-die/clock.mjs": {
+    "file": "qualified-game/revisions/r6/temporary-20108-die/clock.mjs",
+    "sha256": "94bfdc38fdacd93edca18bb07524afd8870d65625f4eb447fe5087934ff6c03d"
+  },
+  "/qualified-game/revisions/r6/temporary-20108-die/companion.js": {
+    "file": "qualified-game/revisions/r6/temporary-20108-die/companion.js",
+    "sha256": "fce9bc3fb56a51ba2730ac7e6354bfdc4768eae1a457d4412e1554525b11ea1c"
+  },
+  "/qualified-game/revisions/r6/temporary-20108-die/death.mjs": {
+    "file": "qualified-game/revisions/r6/temporary-20108-die/death.mjs",
+    "sha256": "1701d319cf4c8643cb6e21706ef16a2990b1c1d4413dadbbf0d50fbd74435b80"
+  },
+  "/qualified-game/revisions/r6/temporary-20108-die/observer.mjs": {
+    "file": "qualified-game/revisions/r6/temporary-20108-die/observer.mjs",
+    "sha256": "30c4b1469cf98b26534e7d921c7f61eb2f907355a970f9ef27cc1b96fb79380c"
+  },
+  "/qualified-game/revisions/r6/worker.js": {
+    "file": "qualified-game/revisions/r6/worker.js",
+    "sha256": "03de3649b9fc189c7482150a473ddc64624be0493ced01792bec669d6ae77d6f"
+  },
+  "/qualified-game/stage2-qa/": {
+    "file": "qualified-game/revisions/r6/cloud-stage2-qa/index.html",
+    "sha256": "76f744805aeb6347414f79e3caf7140b3fbfe85057918e0c97d0df058bcf4685"
+  },
+  "/qualified-game/stage3-8-qa/": {
+    "file": "qualified-game/revisions/r6/cloud-stage1to8-cpu/qa.html",
+    "sha256": "1333621ad62149080a996c703b00d4f30ec80ef137bf6dce2a539958f749386e"
+  },
+  "/screen-shell/assets/h8pjiy.png": {
+    "file": "screen-shell/assets/h8pjiy.png",
+    "sha256": "a20652436cc59d753ceea2b04c88fed51e2cf4f6373daade363b47f378e8e507"
+  },
+  "/screen-shell/assets/h8pjiz.png": {
+    "file": "screen-shell/assets/h8pjiz.png",
+    "sha256": "b7ae3e7aefa647e7855a22fc654cfab63582c73418c04c017af80640236cb2d2"
+  },
+  "/screen-shell/assets/q3oheq.png": {
+    "file": "screen-shell/assets/q3oheq.png",
+    "sha256": "86660607e010708ec4112ebe55416ee49cfb36ebf427dc99703f4df43594aa53"
+  },
+  "/screen-shell/assets/q3ohev.png": {
+    "file": "screen-shell/assets/q3ohev.png",
+    "sha256": "09340964624b53fd948dbb5b51b1cefda88f6325fadcc53e153f055e192e637a"
+  },
+  "/screen-shell/assets/q3ohgy.png": {
+    "file": "screen-shell/assets/q3ohgy.png",
+    "sha256": "9d75798f4af97dca07e86cdbe8a18b69c544d6d2324186f5dcf6a8bdb7a2855e"
+  },
+  "/screen-shell/assets/q3ohgz.png": {
+    "file": "screen-shell/assets/q3ohgz.png",
+    "sha256": "2c18f0008e1a266f6f51cd464c95d1e53d42b7b8d04ca9696e537bac11c1673b"
+  },
+  "/screen-shell/assets/q3ohh0.png": {
+    "file": "screen-shell/assets/q3ohh0.png",
+    "sha256": "ed1e74a895841c8d2ece62c711a71801d328a065e55918dadd158c58b273e78d"
+  },
+  "/screen-shell/assets/q3ohh1.png": {
+    "file": "screen-shell/assets/q3ohh1.png",
+    "sha256": "53cf1ce68d57a06c311a4c26e2040cb9b56b13ed79c4ed0d3aaea57d72406432"
+  },
+  "/screen-shell/assets/q3ohh2.png": {
+    "file": "screen-shell/assets/q3ohh2.png",
+    "sha256": "ea56566705b45d97e99470f9ec854c132bd03c4643b105d2813dfe53b5eb0ceb"
+  },
+  "/screen-shell/assets/q3ohh3.png": {
+    "file": "screen-shell/assets/q3ohh3.png",
+    "sha256": "898e73337aa1c3914c85f92d28fcdf2a1b9b2bcc77e1f3f393f10c66635d9be2"
+  },
+  "/screen-shell/assets/q3ohh7.png": {
+    "file": "screen-shell/assets/q3ohh7.png",
+    "sha256": "6f57aef17fcaaae312f6b936d232b0581a2ca4b7ad3871de38c8fe0f77b5e804"
+  },
+  "/screen-shell/assets/q3ohh8.png": {
+    "file": "screen-shell/assets/q3ohh8.png",
+    "sha256": "deac59e303d256a2adfeda5b06219dbfa070f9f94b022058a95198c2c8130db3"
+  },
+  "/screen-shell/assets/q3ohh9.png": {
+    "file": "screen-shell/assets/q3ohh9.png",
+    "sha256": "8bfcf214730570e071d11ce8596f7a1c721ab8bd6804177d2944cb0dd3579857"
+  },
+  "/screen-shell/assets/q3ohhb.png": {
+    "file": "screen-shell/assets/q3ohhb.png",
+    "sha256": "f9da3d83ab383206add78a905120c129ef25894eb96ecdcfefd73b99547e6b2a"
+  },
+  "/screen-shell/assets/q3ohhc.png": {
+    "file": "screen-shell/assets/q3ohhc.png",
+    "sha256": "229a0a1981b1f7e7fbe64f1fd91adc19ce3741cb997bd8991780a33ad368c6fb"
+  },
+  "/screen-shell/assets/q3ohhe.png": {
+    "file": "screen-shell/assets/q3ohhe.png",
+    "sha256": "cb0a6506630708cb7536eb30839f2b9e9dff395fba0a5ac2a44ea5d32d99c3b0"
+  },
+  "/screen-shell/assets/q3ohhg.png": {
+    "file": "screen-shell/assets/q3ohhg.png",
+    "sha256": "b0f81a0ceeb0aa05e3cc08d1c2158ad25c16ea168d8547c6e97263945887d699"
+  },
+  "/screen-shell/assets/spxeib.png": {
+    "file": "screen-shell/assets/spxeib.png",
+    "sha256": "696ec2766cd26a3a35e6a2fca3643879656c265bc2b4d337cd6c680f2187aec8"
+  },
+  "/screen-shell/assets/spxeic.png": {
+    "file": "screen-shell/assets/spxeic.png",
+    "sha256": "7ccff2cc5b3d763b03efa20bc8c8765b67a19199fec0163b0ae9ff7085abc12b"
+  },
+  "/screen-shell/assets/spxeid.png": {
+    "file": "screen-shell/assets/spxeid.png",
+    "sha256": "5131426a0081ba55293c3ecaf3489a522c213336a4950878d48a9c9918b58361"
+  },
+  "/screen-shell/assets/spxeie.png": {
+    "file": "screen-shell/assets/spxeie.png",
+    "sha256": "e54849288b697f3e0c95a7d8c359da175ac5cf341dc2250618e3a3b702d11774"
+  },
+  "/screen-shell/assets/spxeif.png": {
+    "file": "screen-shell/assets/spxeif.png",
+    "sha256": "2420bce4203c09e09ee0845403e93f357ec117917e5a1c5e1e0302836e18008d"
+  },
+  "/screen-shell/screen.mjs": {
+    "file": "screen-shell/screen.mjs",
+    "sha256": "c0cd1b0bba616cc8576987f0cbdcbe4a6b62d73ce4c395a3deb902950dc0d82b"
+  },
+  "/screen-shell/shell-data.json": {
+    "file": "screen-shell/shell-data.json",
+    "sha256": "0b253f839b86dc9eed4e5e89cfb2010a7d492bb55c4b978799844178bd4d38c6"
+  },
+  "/source-runtime/stage-config.json": {
+    "file": "source-runtime/stage-config.json",
+    "sha256": "663e0421e80f077094b8ad13ded7f9f7070629bec3ae81f3738c71c0182b6ab4"
+  },
+  "/stage-renderer/native-stage.mjs": {
+    "file": "stage-renderer/native-stage.mjs",
+    "sha256": "4c88861d5d4206b277e40936471ef1c179fb21f939a171d38d7e1079f5605ec8"
+  },
+  "/stage1-cpu-canvas/stage1-cpu.mjs": {
+    "file": "stage1-cpu-canvas/stage1-cpu.mjs",
+    "sha256": "48b469210871ba896d09593d25525883aa0e00c76a4798f7c5bddaf63c30897e"
+  },
+  "/stage1116-qualification/FINITE-11-20.json": {
+    "file": "stage1116-qualification/FINITE-11-20.json",
+    "sha256": "a7eaac7d09edf00e125d03e212aacdb4bd070cbc4c7aef65bad16e7b64717f43"
+  },
+  "/stage1116-qualification/STAGE-11.json": {
+    "file": "stage1116-qualification/STAGE-11.json",
+    "sha256": "cebc9510e957658664ea72e9fde1a6f9aaca83339d1213524360b395c77ccdd1"
+  },
+  "/stage1116-qualification/STAGE-12.json": {
+    "file": "stage1116-qualification/STAGE-12.json",
+    "sha256": "ae204eba7854582ce0b4f7c2dcc93c76503bd9c982942c698021201ecf1df151"
+  },
+  "/stage1116-qualification/STAGE-14.json": {
+    "file": "stage1116-qualification/STAGE-14.json",
+    "sha256": "f8264fcf9402ad195236c3788494e28b70e51caa897a0db4e3bda99308cdb64b"
+  },
+  "/stage1116-qualification/STAGE-15-WIN.json": {
+    "file": "stage1116-qualification/STAGE-15-WIN.json",
+    "sha256": "a066a43447655f16fe65f29b45d7ec8f5273877a4e160d89ebaaa9e8975f5fdf"
+  },
+  "/stage1116-qualification/STAGE-16.json": {
+    "file": "stage1116-qualification/STAGE-16.json",
+    "sha256": "10cdbe3c9782dd366247836e9c150b54e8bf19595a191ea6a9293a204563e3a3"
+  },
+  "/stage1116-qualification/STAGE-17-WIN.json": {
+    "file": "stage1116-qualification/STAGE-17-WIN.json",
+    "sha256": "4b1a0849c8983fdfc6df5fa50b8212823e53c99d36533d7aa536cab5c0267a28"
+  },
+  "/stage1116-qualification/STAGE-18.json": {
+    "file": "stage1116-qualification/STAGE-18.json",
+    "sha256": "46daf2b6e318534bfa53a5aecd50ae350d561e7dc223a71ed544a55f85564176"
+  },
+  "/stage1116-qualification/STAGE-19.json": {
+    "file": "stage1116-qualification/STAGE-19.json",
+    "sha256": "d6381a8c7a8f13d02669b655844602cf94724848bf4f54d5fcf726ea1c708d12"
+  },
+  "/stage1116-qualification/STAGE-20.json": {
+    "file": "stage1116-qualification/STAGE-20.json",
+    "sha256": "a1da1075d74bdd4c2088cc4285a6af063500c941bc6c09d4108ecade4b504cd2"
+  },
+  "/stage11to20-cpu-canvas/stage11to20-cpu.mjs": {
+    "file": "stage11to20-cpu-canvas/stage11to20-cpu.mjs",
+    "sha256": "f20774b7524db03a580221cf07239c326a7ee26e649bea3949ced1feaacf2fed"
+  },
+  "/stage13-qualification/VERIFICATION.json": {
+    "file": "stage13-qualification/VERIFICATION.json",
+    "sha256": "f872f33abd710090cc0331629f5f66bac7858541b14c0f7f4f94d1eeaf10aa06"
+  },
+  "/stage2-cpu-canvas/stage2-cpu.mjs": {
+    "file": "stage2-cpu-canvas/stage2-cpu.mjs",
+    "sha256": "15e38e273d64222f9193bb3084f774cb1a666c0ec37e3b603c624ee05effedd6"
+  },
+  "/stage2-cpu-canvas/triangles.mjs": {
+    "file": "stage2-cpu-canvas/triangles.mjs",
+    "sha256": "92bb24d1ec633fd748415cea0dbbe7b00cd1904c695253a898e851b032a16e73"
+  },
+  "/stage2-qualification/VERIFICATION.json": {
+    "file": "stage2-qualification/VERIFICATION.json",
+    "sha256": "eb29fd36b51868bc74a52910c7622001d2d5d25dc1f49fb9ceee05c7245ba71f"
+  },
+  "/stage2-qualification/materials/live/STOCK.json": {
+    "file": "stage2-qualification/materials/live/STOCK.json",
+    "sha256": "ac78ec28e7f3375e13c2eecbcd8f470d0ee7b619dc926ca75cae42bed222ebe8"
+  },
+  "/stage2-qualification/materials/live/renderer.mjs": {
+    "file": "stage2-qualification/materials/live/renderer.mjs",
+    "sha256": "ed6288a792b926cadbd4ed32f0b3f1795a317f62a56327865a90738913fcbfd8"
+  },
+  "/stage2-qualification/visuals/stage-inputs.json": {
+    "file": "stage2-qualification/visuals/stage-inputs.json",
+    "sha256": "2ca7f8d88ae43fc5cf6411f16158a8bfb00badd0143f8ff7891f709129403ae2"
+  },
+  "/stage2-qualification/visuals/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png": {
+    "file": "qualified-game/presentation-capability/scene-profiles/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png",
+    "sha256": "7411a4f50c30a3ee62fb5f3761287291fa2c2fa686102dccb54c92973956247b"
+  },
+  "/stage2-qualification/visuals/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png": {
+    "file": "qualified-game/presentation-capability/scene-profiles/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png",
+    "sha256": "884530d8335507d0960be190f7a6e32b8cdfa89c434230c0d593a352116164ef"
+  },
+  "/stage2-qualification/visuals/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png": {
+    "file": "qualified-game/presentation-capability/scene-profiles/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png",
+    "sha256": "8c9308d48618a3a730c7c21e87ff3c7e1878c7dabb632a10ff40e761b575f08e"
+  },
+  "/stage2-qualification/visuals/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png": {
+    "file": "qualified-game/presentation-capability/scene-profiles/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png",
+    "sha256": "c38bd6c7fc4544fd7cfe6fb704f8a8a49e6e94758b6b45eb5d71904e4c8d7ddd"
+  },
+  "/stage2-qualification/visuals/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png": {
+    "file": "qualified-game/presentation-capability/scene-profiles/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png",
+    "sha256": "a64507f32508bd0a25e7e29859e3bef70cc8cac54c7c2aacf213e6b3159b2076"
+  },
+  "/stage2-qualification/visuals/textures/be94419ee51256c1cf06c416e47807c1_-7961507333047029614.png": {
+    "file": "qualified-game/presentation-capability/scene-profiles/textures/be94419ee51256c1cf06c416e47807c1_-7961507333047029614.png",
+    "sha256": "b4394d19343421a679596e9e610af48bc22f4760e97305afc8b698996d614051"
+  },
+  "/stage21-qualification/BOSS-TERMINAL.json": {
+    "file": "stage21-qualification/BOSS-TERMINAL.json",
+    "sha256": "723f7a85acdde358cad2fdad7a55fe53ba727b406aa97a49d8f1fada58655da6"
+  },
+  "/stage21-qualification/SCREEN-1-12000.json": {
+    "file": "stage21-qualification/SCREEN-1-12000.json",
+    "sha256": "1a5a702d0ec850845622ab5b2e0f589fe448592d878ff81ec09c1709d36d69b4"
+  },
+  "/stage21-qualification/TERMINAL.json": {
+    "file": "stage21-qualification/TERMINAL.json",
+    "sha256": "149f1fd8ad2ac41784fdd6da4225e8fb97ea4f117b2b506daf7c0241f0d2063e"
+  },
+  "/stage21-qualification/VERIFICATION.json": {
+    "file": "stage21-qualification/VERIFICATION.json",
+    "sha256": "4bf8494758901b3570e64c3fb5c52c0455f966f3af51e0e5d13e18fae1018ea2"
+  },
+  "/stage3-cpu-canvas/stage3-cpu.mjs": {
+    "file": "stage3-cpu-canvas/stage3-cpu.mjs",
+    "sha256": "44e73402aee463efe211f80e420fe01f645856ece337ab57c2cabffef0b86ffb"
+  },
+  "/stage3-qualification/ENEMY-NATIVE.json": {
+    "file": "stage3-qualification/ENEMY-NATIVE.json",
+    "sha256": "0f9fadba3c75a458ddbdadc028ac32b8a9b23414c82b3d8eac7c8f3e39c78c9c"
+  },
+  "/stage3-qualification/NILISHA-NATIVE.json": {
+    "file": "stage3-qualification/NILISHA-NATIVE.json",
+    "sha256": "31060574e1c724b7683cc981c6cc6fd2ab7d1909b934db9ffb9d70449b56b454"
+  },
+  "/stage3-qualification/PROJECTILE-NATIVE.json": {
+    "file": "stage3-qualification/PROJECTILE-NATIVE.json",
+    "sha256": "d9b70dcccda14e1a12cabc9d13e90933d880a8dd070d60bb595e5270cee60a6b"
+  },
+  "/stage3-qualification/READINESS.json": {
+    "file": "stage3-qualification/READINESS.json",
+    "sha256": "569b569d454afd813af30924b47551ec1182a6767311d572a6490b6adbe348f3"
+  },
+  "/stage3-qualification/SPLIT-NATIVE.json": {
+    "file": "stage3-qualification/SPLIT-NATIVE.json",
+    "sha256": "a0f692efdb3dd6c5229d692dc3d969352faa14f1fe35ec619fe0b9c5aadeeeb2"
+  },
+  "/stage3-qualification/SUMMON-COMBAT.json": {
+    "file": "stage3-qualification/SUMMON-COMBAT.json",
+    "sha256": "65055d7f1ee3460f43c8583f08a031973f302aafcd5f0e958cdfdf67b0e08ea1"
+  },
+  "/stage3-qualification/SUMMON-NATIVE.json": {
+    "file": "stage3-qualification/SUMMON-NATIVE.json",
+    "sha256": "906ac01e7ac99388b57df904a6f25f59e2336ecfac6849897cab1007480ef087"
+  },
+  "/stage3-qualification/shared-sprites/stage-78000003.json": {
+    "file": "stage3-qualification/shared-sprites/stage-78000003.json",
+    "sha256": "bcb8bfdfc8b9835bf14379dd8ceaa438790d4c114274204f442148b46c8324e0"
+  },
+  "/stage3-qualification/shared-sprites/stage-78000004.json": {
+    "file": "stage3-qualification/shared-sprites/stage-78000004.json",
+    "sha256": "aa2b2765f2f8335f3ba864f2571479aa9ff3a4668f31a7b370fb99a409c731f3"
+  },
+  "/stage3-qualification/shared-sprites/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png": {
+    "file": "qualified-game/presentation-capability/scene-profiles/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png",
+    "sha256": "7411a4f50c30a3ee62fb5f3761287291fa2c2fa686102dccb54c92973956247b"
+  },
+  "/stage3-qualification/shared-sprites/textures/21a2c8ff7c36d030ba0cd87133ca1726_3331486752895101702.png": {
+    "file": "stage3-qualification/enemy-art/atlas.png",
+    "sha256": "0121dce2ad967dd3bbc290bd484654da97c505feee4a788bb36b2a4adfbda048"
+  },
+  "/stage3-qualification/shared-sprites/textures/2843322b24ca395a0f5423508a8aa16f_-5284648999673397809.png": {
+    "file": "stage3-qualification/nilisha-art/atlas.png",
+    "sha256": "66c12149436d9123912b78f70ec809b13070098e56ec80ee96a338e1602aeef9"
+  },
+  "/stage3-qualification/shared-sprites/textures/4112b4323c3bbb2ef13890ce5197ee45_-7653672547146017021.png": {
+    "file": "offline-shell/multistage-v4/assets/map3.png",
+    "sha256": "e4776d23b1333c162ba43851dcd9fdb708ccf8ad26ea83dc4d2cf69e2ab3dea3"
+  },
+  "/stage3-qualification/shared-sprites/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png",
+    "sha256": "884530d8335507d0960be190f7a6e32b8cdfa89c434230c0d593a352116164ef"
+  },
+  "/stage3-qualification/shared-sprites/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png",
+    "sha256": "8c9308d48618a3a730c7c21e87ff3c7e1878c7dabb632a10ff40e761b575f08e"
+  },
+  "/stage3-qualification/shared-sprites/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png",
+    "sha256": "c38bd6c7fc4544fd7cfe6fb704f8a8a49e6e94758b6b45eb5d71904e4c8d7ddd"
+  },
+  "/stage3-qualification/shared-sprites/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png",
+    "sha256": "a64507f32508bd0a25e7e29859e3bef70cc8cac54c7c2aacf213e6b3159b2076"
+  },
+  "/stage3-qualification/shared-sprites/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png",
+    "sha256": "c3a6c60feb4393ec697e11b7614dae6c3c8ff8851a16d952b34189fba98420ec"
+  },
+  "/stage4-qualification/VERIFICATION.json": {
+    "file": "stage4-qualification/VERIFICATION.json",
+    "sha256": "3be2151637972254d021ec210849ede65b47c9829484a6214b3147652410212f"
+  },
+  "/stage456-generic-cpu/stage456-cpu.mjs": {
+    "file": "stage456-generic-cpu/stage456-cpu.mjs",
+    "sha256": "22deb4ca543aefc07bbe2cd68740c5ebde6759a7b19526b0fbdd1abaf48ddaf6"
+  },
+  "/stage5-qualification/BOSS-NATIVE.json": {
+    "file": "stage5-qualification/BOSS-NATIVE.json",
+    "sha256": "b9fc621be9bd853449ac6192d4714faee8aaba97f979001ad46ead9707b19809"
+  },
+  "/stage5-qualification/FEINISI-NATIVE.json": {
+    "file": "stage5-qualification/FEINISI-NATIVE.json",
+    "sha256": "d23b6e032f2cbca6273da1db91c792150acb580565296058bd9030d61ecf221f"
+  },
+  "/stage5-qualification/FEINISI-PROJECTILE.json": {
+    "file": "stage5-qualification/FEINISI-PROJECTILE.json",
+    "sha256": "2fd1391d20c8fe88f5653e65e9168bb7694abe9f5c0c2905bf3d818a5bd281ce"
+  },
+  "/stage5-qualification/FEINISI-SUMMON.json": {
+    "file": "stage5-qualification/FEINISI-SUMMON.json",
+    "sha256": "e54c2e9d2c8f1f2d89c340f2a4cc6033d63d766e70ff76c9d537ddbed7e87916"
+  },
+  "/stage5-qualification/STAGE5-AFTER-BOSS.json": {
+    "file": "stage5-qualification/STAGE5-AFTER-BOSS.json",
+    "sha256": "679a77a2d1b2a7730fbd5d5b6df0a7f2b2f10f95c5ee6e58f073549403df0aee"
+  },
+  "/stage5-qualification/STAGE56-AFTER-SUMMON.json": {
+    "file": "stage5-qualification/STAGE56-AFTER-SUMMON.json",
+    "sha256": "5fcd1bc5d557e266a01fdde20e9ef350bae13af5de723a6607dfa01f8c0f4fbc"
+  },
+  "/stage5-qualification/VERIFICATION.json": {
+    "file": "stage5-qualification/VERIFICATION.json",
+    "sha256": "5861c2ea3f2282bebd7d83314945082d92378c2ba91f84ae89040db4ecce4dc8"
+  },
+  "/stage5-qualification/visual-readiness/scenes/stage-78000005.json": {
+    "file": "stage5-qualification/visual-readiness/scenes/stage-78000005.json",
+    "sha256": "f79b1ddf82e4edf4758d9684fb8c6e1b4d7d4a927159ced3769ad2a7309a703c"
+  },
+  "/stage5-qualification/visual-readiness/scenes/stage-78000006.json": {
+    "file": "stage5-qualification/visual-readiness/scenes/stage-78000006.json",
+    "sha256": "fc288220ebe9b5a34f4f0cb91bb1ce3419c7518d721936648e12c911a8c301c0"
+  },
+  "/stage5-qualification/visual-readiness/scenes/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png": {
+    "file": "qualified-game/presentation-capability/scene-profiles/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png",
+    "sha256": "7411a4f50c30a3ee62fb5f3761287291fa2c2fa686102dccb54c92973956247b"
+  },
+  "/stage5-qualification/visual-readiness/scenes/textures/21a2c8ff7c36d030ba0cd87133ca1726_3331486752895101702.png": {
+    "file": "stage3-qualification/enemy-art/atlas.png",
+    "sha256": "0121dce2ad967dd3bbc290bd484654da97c505feee4a788bb36b2a4adfbda048"
+  },
+  "/stage5-qualification/visual-readiness/scenes/textures/2843322b24ca395a0f5423508a8aa16f_-5284648999673397809.png": {
+    "file": "stage3-qualification/nilisha-art/atlas.png",
+    "sha256": "66c12149436d9123912b78f70ec809b13070098e56ec80ee96a338e1602aeef9"
+  },
+  "/stage5-qualification/visual-readiness/scenes/textures/4112b4323c3bbb2ef13890ce5197ee45_-7653672547146017021.png": {
+    "file": "offline-shell/multistage-v4/assets/map3.png",
+    "sha256": "e4776d23b1333c162ba43851dcd9fdb708ccf8ad26ea83dc4d2cf69e2ab3dea3"
+  },
+  "/stage5-qualification/visual-readiness/scenes/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png",
+    "sha256": "884530d8335507d0960be190f7a6e32b8cdfa89c434230c0d593a352116164ef"
+  },
+  "/stage5-qualification/visual-readiness/scenes/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png",
+    "sha256": "8c9308d48618a3a730c7c21e87ff3c7e1878c7dabb632a10ff40e761b575f08e"
+  },
+  "/stage5-qualification/visual-readiness/scenes/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png",
+    "sha256": "c38bd6c7fc4544fd7cfe6fb704f8a8a49e6e94758b6b45eb5d71904e4c8d7ddd"
+  },
+  "/stage5-qualification/visual-readiness/scenes/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png",
+    "sha256": "a64507f32508bd0a25e7e29859e3bef70cc8cac54c7c2aacf213e6b3159b2076"
+  },
+  "/stage5-qualification/visual-readiness/scenes/textures/a042d4ecec90517e097896afaf6a2a0d_1002181009127008805.png": {
+    "file": "stage5-qualification/visual-readiness/scenes/boss-atlas.png",
+    "sha256": "62033ad60551822f2ad10f9eb96560d9527bca76e465b432bf762f6ec1fc5b1f"
+  },
+  "/stage5-qualification/visual-readiness/scenes/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png",
+    "sha256": "c3a6c60feb4393ec697e11b7614dae6c3c8ff8851a16d952b34189fba98420ec"
+  },
+  "/stage5-qualification/visual-readiness/scenes/textures/cb13a6e0b1c702ce3b364cc3c7ded074_8067455297545508230.png": {
+    "file": "stage5-qualification/visual-readiness/feinisi/atlas.png",
+    "sha256": "79f43b8780c903cea0b823c6146d04c200410311c49b4af408f70da7bb0a81db"
+  },
+  "/stage78-cpu-canvas/stage78-cpu.mjs": {
+    "file": "stage78-cpu-canvas/stage78-cpu.mjs",
+    "sha256": "9b9bcb005edcff628e18d7543e5607aafea4c172df23e0c990d462562b2627ae"
+  },
+  "/stage78-qualification/AFTER-OPAQUE-TALENT.json": {
+    "file": "stage78-qualification/AFTER-OPAQUE-TALENT.json",
+    "sha256": "5c9975dcae729b648975eb3392b23b939711e74c3ec66cfe8ba02896fad3bb51"
+  },
+  "/stage78-qualification/ELITE-NATIVE.json": {
+    "file": "stage78-qualification/ELITE-NATIVE.json",
+    "sha256": "7e61f28ecca73a633b796246941dceaff2c261cd78d6cd745a9700defb84bda0"
+  },
+  "/stage78-qualification/LIEDIXIYA-NATIVE.json": {
+    "file": "stage78-qualification/LIEDIXIYA-NATIVE.json",
+    "sha256": "843947569a737c2d3f809ae2ea9a9b2e4247209495dc690b46de2533d3c84bd1"
+  },
+  "/stage78-qualification/LIEDIXIYA-PROJECTILE.json": {
+    "file": "stage78-qualification/LIEDIXIYA-PROJECTILE.json",
+    "sha256": "6a266e6e213e301e8d8ece0d4712d425c356e331666ce650600d6660e79fc5e0"
+  },
+  "/stage78-qualification/TALENT-DISPLAY-BOUNDARY.json": {
+    "file": "stage78-qualification/TALENT-DISPLAY-BOUNDARY.json",
+    "sha256": "b91173d8c42a9772b6c86b04993f788b91f9123636658781a7107c62f5e1728e"
+  },
+  "/stage78-qualification/WIN-SEARCH-7.json": {
+    "file": "stage78-qualification/WIN-SEARCH-7.json",
+    "sha256": "a60a05491a3d178ca844c5fc8fdf37412e7e126ffe89c2b795f260d27f2086d3"
+  },
+  "/stage78-qualification/WIN-SEARCH-8-TUNE.json": {
+    "file": "stage78-qualification/WIN-SEARCH-8-TUNE.json",
+    "sha256": "28b629c532c851281eb79e2b8171320b503eae60965b74dd7c3652d520d9fc62"
+  },
+  "/stage78-qualification/visual-frontier/stage-78000007.json": {
+    "file": "stage78-qualification/visual-frontier/stage-78000007.json",
+    "sha256": "fa02b8467d59e62e088e0bb6f480ead867ab7bd98d1a06284db439175ae0c258"
+  },
+  "/stage78-qualification/visual-frontier/stage-78000008.json": {
+    "file": "stage78-qualification/visual-frontier/stage-78000008.json",
+    "sha256": "94a637684787d8c5acb641097af25165e391de58ea2ca8d985bd45e94764dcf9"
+  },
+  "/stage78-qualification/visual-frontier/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png": {
+    "file": "qualified-game/presentation-capability/scene-profiles/textures/0b7bc080b49cf84af10a63fdc066f4cd_-8550763048803756951.png",
+    "sha256": "7411a4f50c30a3ee62fb5f3761287291fa2c2fa686102dccb54c92973956247b"
+  },
+  "/stage78-qualification/visual-frontier/textures/2843322b24ca395a0f5423508a8aa16f_-5284648999673397809.png": {
+    "file": "stage3-qualification/nilisha-art/atlas.png",
+    "sha256": "66c12149436d9123912b78f70ec809b13070098e56ec80ee96a338e1602aeef9"
+  },
+  "/stage78-qualification/visual-frontier/textures/4112b4323c3bbb2ef13890ce5197ee45_-7653672547146017021.png": {
+    "file": "offline-shell/multistage-v4/assets/map3.png",
+    "sha256": "e4776d23b1333c162ba43851dcd9fdb708ccf8ad26ea83dc4d2cf69e2ab3dea3"
+  },
+  "/stage78-qualification/visual-frontier/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/41c99955eaf77c3a14f46e07c4cff168_-4325237380714293410.png",
+    "sha256": "884530d8335507d0960be190f7a6e32b8cdfa89c434230c0d593a352116164ef"
+  },
+  "/stage78-qualification/visual-frontier/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5aa06e0049e335e7c26c88861c4c7d9a_3537973514751105640.png",
+    "sha256": "8c9308d48618a3a730c7c21e87ff3c7e1878c7dabb632a10ff40e761b575f08e"
+  },
+  "/stage78-qualification/visual-frontier/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/5d9887f19cdf925e93311026e38d59a9_-5439123662890776005.png",
+    "sha256": "c38bd6c7fc4544fd7cfe6fb704f8a8a49e6e94758b6b45eb5d71904e4c8d7ddd"
+  },
+  "/stage78-qualification/visual-frontier/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/64dbe5bdd51ae888249eb2111e3d0575_-2015516410204265666.png",
+    "sha256": "a64507f32508bd0a25e7e29859e3bef70cc8cac54c7c2aacf213e6b3159b2076"
+  },
+  "/stage78-qualification/visual-frontier/textures/a1dd0a7ea46319138e6c63a7853c07d3_-8856734077853841553.png": {
+    "file": "stage78-qualification/visual-frontier/atlas-78000205.png",
+    "sha256": "66f8584492ed1e12c816a68140ed2485bbe0f45c14fa8a24b6d973ef0e19268d"
+  },
+  "/stage78-qualification/visual-frontier/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png": {
+    "file": "native-assets/stage1-exact-inputs/textures/c6a8f72b80fdad185c88326d0da943ce_-7624224291438028905.png",
+    "sha256": "c3a6c60feb4393ec697e11b7614dae6c3c8ff8851a16d952b34189fba98420ec"
+  },
+  "/stage78-qualification/visual-frontier/textures/cb13a6e0b1c702ce3b364cc3c7ded074_8067455297545508230.png": {
+    "file": "stage5-qualification/visual-readiness/feinisi/atlas.png",
+    "sha256": "79f43b8780c903cea0b823c6146d04c200410311c49b4af408f70da7bb0a81db"
+  },
+  "/stage78-qualification/visual-frontier/textures/ec2728fe719e6898eb495aa4d60c2c07_-5158771036136154436.png": {
+    "file": "stage78-qualification/visual-frontier/atlas-78000105.png",
+    "sha256": "6bad77fa729116f4ee65db6b1819100a68a399414897b6875a70ddefaeeb1692"
+  },
+  "/stage910-cpu-canvas/stage910-cpu.mjs": {
+    "file": "stage910-cpu-canvas/stage910-cpu.mjs",
+    "sha256": "22c0852be7e7c5a89f13dd0efefd73e87062dd2999d31de4d9f02f34ca4fb3d9"
+  },
+  "/stage910-qualification/AFTER-SHOT.json": {
+    "file": "stage910-qualification/AFTER-SHOT.json",
+    "sha256": "39c7138cdc13d88714bd6f374b658807287d5a0d8a1acae6ec45e668ac56019a"
+  },
+  "/stage910-qualification/ENEMY-20108-NATIVE.json": {
+    "file": "stage910-qualification/ENEMY-20108-NATIVE.json",
+    "sha256": "9f9f8676a7c603eb005227dbc57bc742dcb6bb72ccdb23a04e2178870e1d781e"
+  },
+  "/stage910-qualification/SHOT-20108-NATIVE.json": {
+    "file": "stage910-qualification/SHOT-20108-NATIVE.json",
+    "sha256": "dde19490a1e7d4d732da9f07bcbe04ac96ff8fdd52094476af7ff06ce1be011d"
+  },
+  "/summon-evidence/VERIFIED-DEPS.json": {
+    "file": "summon-evidence/VERIFIED-DEPS.json",
+    "sha256": "264f5e3addf56d307e9af8c01a9c0eef191cceb133e39377b0b467320f1d2371"
+  },
+  "/summon-evidence/VERIFIED-LEGACY.json": {
+    "file": "summon-evidence/VERIFIED-LEGACY.json",
+    "sha256": "3092e92997ede536e02d7f23ceb781ea5c356909a55cfd74eb467a6c4831b305"
+  },
+  "/summon-evidence/VERIFIED-RULES.json": {
+    "file": "summon-evidence/VERIFIED-RULES.json",
+    "sha256": "11ce341f5ff107b3720f014aec4b97b631ba3bb1dcff5c302bf08e4fde67aefc"
+  },
+  "/summon-evidence/headless-extension.lua": {
+    "file": "summon-evidence/headless-extension.lua",
+    "sha256": "fb78d353d6ea33bb4a63a68eec67df32892ee0b4e78cd2808d99c0c994b930dc"
+  },
+  "/summon-evidence/verified-native.jsonl": {
+    "file": "summon-evidence/verified-native.jsonl",
+    "sha256": "d949653b2e2fc96b5ef0c474fd04b2699aa564aa3c4bf30f69c1d94e8c47f6ff"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "targetVersion": "134377281279792758",
+  "handoffSha256": "ff73742ddd9f12442ecd7df87b5ec16f8aded30c7ad3435ebbcc80c3e8c416af",
+  "vendor": {
+    "index.js": "dc2dcf019449008bb224370052473dc760db28b3ba14fc604e1ca3e8646af35d",
+    "glue.wasm": "95f3f19ddb740125883bc41d5ec670cd0828e7b58c8bdad385323cbff497b55c",
+    "LICENSE": "9ed9226c0138819a0859cf3c55a3414b4a186a17a4eaf4b5a51ceed7937615ac",
+    "LUA-LICENSE": "fce99dce100557696d8d8b8a2e040d68f816cfe52692d4373aa40e22247beeb6",
+    "README.md": "7024f848460e630d88a24d681282e58d9412a64975ac2b62fae6e002f854d961",
+    "provenance.json": "acd68481b9dda9df0070c67f68ea78eb01c4c04632ccecb4b286a52a3d43528f"
+  },
+  "lua": {
+    "BaseShootStage.lua": "eecc8359bd92e74f43b52819b4e6a42c6108bde46e442e1c0e71957085f1419c",
+    "BaseShootCard.lua": "22173232d883e98e22204d547c317ff438ed9b7ed7239b826ead9ff4f0fae2fa",
+    "BaseShootMonsterGroup.lua": "b5b5370d37638ec48144f78a5c54ae6d0aafacab576d79c336a8729530ad93ba",
+    "BattleConst.lua": "60e140aa7faf9ea58571743d550edc67e489afce0722bc7d6397000ba29a4e84",
+    "MiniGameBattleConst.lua": "d29a4904a532579003d51d953ea075122b4c8b975b9a556d5ad51f5a46747270",
+    "MiniGameBattleScene.lua": "c8799e601b5fb89e64938edc6187204c627aa864681f6e7de39a3b489c772dab",
+    "MiniGameBattleMgr.lua": "62f0cf37131c63bba5df711282220687560fc13414b7f79c530ae7bbf4a648db",
+    "MiniGameBattleControl.lua": "0b2c9256f25602103b511b6bab67a09bbb107d9857818d709254fbe052dd0262",
+    "MiniGameBattleData.lua": "ee063223c7235ff74230987f64948b7cc215a0f6049ffa092494b01df8994b2d"
+  }
+}

@@ -1,0 +1,2 @@
+# The authored replica tree is byte-pinned; never rewrite it on Windows checkout.
+packages/replica-runtime/** -text

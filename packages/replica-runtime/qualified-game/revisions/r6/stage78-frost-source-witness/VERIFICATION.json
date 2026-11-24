@@ -1,0 +1,148 @@
+{
+  "activePreviewTouched": false,
+  "actualPrivateTcpOriginalWasmoonAndBodyCanvas2DImageData": true,
+  "audited": {
+    "78000007": {
+      "acceptedCanonicalChoicePrefix": 12,
+      "activeOriginalCamp2Targets": [
+        10412,
+        10416,
+        10427,
+        10430,
+        10434,
+        10442,
+        10445
+      ],
+      "actualReportedPreviousBlackBy": 2910,
+      "admittedThroughFixed": 2911,
+      "canvasWrites": 52,
+      "distinctRgba": 28,
+      "events": 751,
+      "exactSameSpriteAndElapsedWhileSourceSpeed0": true,
+      "sourceFirstDisplayInQa": 15,
+      "sourceFirstFixed": 1829,
+      "thawAnimatorSpeed1NextFixed": 1980,
+      "thawExampleFixed": 1979
+    },
+    "78000008": {
+      "acceptedCanonicalChoicePrefix": 9,
+      "activeOriginalCamp2Targets": [
+        10402,
+        10409,
+        10413,
+        10417,
+        10424,
+        10427,
+        10435,
+        10442
+      ],
+      "actualReportedPreviousBlackBy": 2622,
+      "admittedThroughFixed": 2623,
+      "canvasWrites": 44,
+      "distinctRgba": 26,
+      "events": 497,
+      "exactSameSpriteAndElapsedWhileSourceSpeed0": true,
+      "sourceFirstDisplayInQa": 16,
+      "sourceFirstFixed": 1781,
+      "thawAnimatorSpeed1NextFixed": 1932,
+      "thawExampleFixed": 1931
+    }
+  },
+  "delivery": "additive candidate; no asset/daemon/package changes; later branches and any unknown bodies/effects not admitted",
+  "effect": {
+    "assetPath": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000118_frost.prefab",
+    "buff": 78040121,
+    "effect": 1007,
+    "particleGeometryRendered": false,
+    "skill": 78010130,
+    "sourceCAB": "CAB-0c3a3e4e189dcf91f3000fe02d3308f2"
+  },
+  "explicitLane": "explicit-stage78-typed-frost-witness/1",
+  "files": {
+    "README.zh.md": {
+      "bytes": 2329,
+      "sha256": "fb8f2b10b02fd0df7f761bf6eef1bfe4a91b5e3ecd217caaea1d854c6d4faa54"
+    },
+    "build.py": {
+      "bytes": 3099,
+      "sha256": "b67d752f5625c934847debb28e62a4499b3ca982cc6606706fa02a786fde44e4"
+    },
+    "companion.js": {
+      "bytes": 8198,
+      "sha256": "0d4e6273c258dbe9fef03b21b9d5a865f2dbaef5eee06d90b6156398508ac3fa"
+    },
+    "frost-ledger.mjs": {
+      "bytes": 5799,
+      "sha256": "1e286a188fd74f1b8c9fefb328fd251364177454a00b16d1a6e8d7f3f1a703ef"
+    },
+    "frost-ledger.test.mjs": {
+      "bytes": 2840,
+      "sha256": "51926c6b25e3f0788f59ed36e015a3957fcb2b2364095f13361c5e7436a04d79"
+    },
+    "frost-tap.lua": {
+      "bytes": 4400,
+      "sha256": "39dba85173db495913977e1b4a6df0ac0ecdaf44319fcb385d9f0a4f08c2e1e1"
+    },
+    "observer.mjs": {
+      "bytes": 8504,
+      "sha256": "737fac5d8ee60ea2553174fdee3bacfad0defe8a0a0f4aa990bbc933929700c0"
+    },
+    "qa-worker.mjs": {
+      "bytes": 3579,
+      "sha256": "fa5ef83906656c921a7fc26388fcda911386361007fd55c6c8eaf6743d425175"
+    },
+    "witness.test.mjs": {
+      "bytes": 7201,
+      "sha256": "d0f6ec1f386939e0fd039bc7fefa1bffc420c02787a6bb8ecd9b6310e9a51019"
+    }
+  },
+  "heldForeignCandidateAndNoClock": true,
+  "nativeBodiesRetainedWhilePaused": true,
+  "pinnedRulesAndRenderingInputs": {
+    "animation-evidence/trace.lua": {
+      "bytes": 2632,
+      "sha256": "1aee69cee348bb0c79662b030ff8c88521854e2272f39c935f06978311177bc5"
+    },
+    "core-worker/combat-prefix/inputs/BaseShootSkill.lua": {
+      "bytes": 33936,
+      "sha256": "41d9eed0b48cb55b14f56a67b464ffcaa396c7e7f0ef1de2ec2deadded28b326"
+    },
+    "core-worker/combat-prefix/inputs/BaseShootSkillBuff.lua": {
+      "bytes": 13210,
+      "sha256": "daff3e9958b29678bcd557765f3b334cb5d9878b36b0adf944ebd6c191acc5a1"
+    },
+    "core-worker/combat-prefix/inputs/MiniGameBattleBuff.lua": {
+      "bytes": 24602,
+      "sha256": "a640e4b170e21dfbc2d7c3354f5969105b47429e0719ed02722e5f00bec314de"
+    },
+    "core-worker/combat-prefix/inputs/MiniGameBattleUnit.lua": {
+      "bytes": 45493,
+      "sha256": "e18081368fedad46b3f89c8056a83a6af78b4366c947a6d2ff93c8f9952fb102"
+    },
+    "qualified-game/revisions/r6/fresh-campaign-regression/CAMPAIGN.jsonl": {
+      "bytes": 59535,
+      "sha256": "f9e1cc20cc22d35b8db849dab2f03d8130d3ba60edce8c4202c9aba7374f9f02"
+    },
+    "qualified-game/revisions/r6/worker.js": {
+      "bytes": 23708,
+      "sha256": "03de3649b9fc189c7482150a473ddc64624be0493ced01792bec669d6ae77d6f"
+    },
+    "stage78-cpu-canvas/stage78-cpu.mjs": {
+      "bytes": 7065,
+      "sha256": "9b9bcb005edcff628e18d7543e5607aafea4c172df23e0c990d462562b2627ae"
+    }
+  },
+  "pinnedSameAuthorityAndCompanionSnapshotBeforePaint": true,
+  "published": false,
+  "schema": "starfall.r6.stage78-frost-display-only-proof/1",
+  "sourceEventsPhase": {
+    "attach": "display",
+    "retire": [
+      "status clear at display",
+      "source DestroyModel"
+    ],
+    "transform": "original parent identity / local zero / native body-scale normalization / sortingOrder+1"
+  },
+  "syntheticRejectTests": 2,
+  "unitySchedulerOrManagedChromePixels": false
+}

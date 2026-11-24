@@ -122,7 +122,7 @@ def main():
     p.add_argument('--local', required=True, type=Path,
                    help='existing owner-controlled local replica tree with the pinned recipe')
     p.add_argument('--public-source', type=Path,
-                   default=Path(__file__).resolve().parents[1] / 'source')
+                   default=next((p for p in (Path(__file__).resolve().parents[1]/'packages'/'replica-runtime', Path(__file__).resolve().parents[1]/'source') if p.is_dir()),None))
     p.add_argument('--progress', action='store_true')
     p.add_argument('--summary', action='store_true', help='do not print path names')
     a = p.parse_args()

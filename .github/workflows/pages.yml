@@ -2,7 +2,7 @@ name: Deploy verified Alpha preview
 on:
   push:
     branches: [main]
-    paths: [public-status/**, release/**, scripts/materialize_public_alpha.py, .github/workflows/pages.yml]
+    paths: [apps/pages/**, release/**, scripts/materialize_public_alpha.py, .github/workflows/pages.yml]
   workflow_dispatch:
 permissions:
   contents: read
@@ -19,8 +19,8 @@ jobs:
           persist-credentials: false
       - name: Validate source paths and artifact tooling
         run: |
-          test -z "$(find public-status -type l -print -quit)"
-          test "$(find public-status -type f -printf '%P\n' | LC_ALL=C sort)" = "$(printf '.nojekyll\nindex.html')"
+          test -z "$(find apps/pages -type l -print -quit)"
+          test "$(find apps/pages -type f -printf '%P\n' | LC_ALL=C sort)" = "$(printf '.nojekyll\nindex.html')"
           python3 -m unittest discover -s tests
       - name: Verify and mount published Alpha
         run: |
@@ -28,7 +28,7 @@ jobs:
             'https://github.com/luckyking232/starfall-monster-defense-web/releases/download/v0.1.0-alpha.1/MonsterDefense-v0.1.0-alpha.1.zip' \
             --output "$RUNNER_TEMP/alpha.zip"
           mkdir -p dist-pages
-          cp public-status/index.html public-status/.nojekyll dist-pages/
+          cp apps/pages/index.html apps/pages/.nojekyll dist-pages/
           python3 scripts/materialize_public_alpha.py "$RUNNER_TEMP/alpha.zip" release/alpha.1.json dist-pages/play
       - uses: actions/upload-pages-artifact@v4
         with:

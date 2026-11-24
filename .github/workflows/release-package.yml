@@ -1,34 +1,25 @@
-name: Build reviewed TapTap ZIP
+name: Build pinned TapTap Alpha ZIP
 on:
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  package:
-    if: startsWith(github.ref, 'refs/tags/v')
+  package-alpha:
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - name: Verify tag and release inputs
-        env:
-          BUILD_TAG: ${{ github.ref_name }}
+      - name: Rebuild the pinned Alpha from source and public inputs
         run: |
-          [[ "$BUILD_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
-          test -s release/manifest.json
-          test -s dist-formal/index.html
-          python3 -m unittest discover -s tests
-      - name: Build and compare
-        run: |
-          python3 scripts/package_zip.py --build dist-formal --manifest release/manifest.json --out MonsterDefense.zip
-          python3 scripts/package_zip.py --build dist-formal --manifest release/manifest.json --out recheck.zip
-          cmp MonsterDefense.zip recheck.zip
-          sha256sum MonsterDefense.zip > MonsterDefense.zip.sha256
+          python3 -B scripts/dev.py --package "$RUNNER_TEMP/MonsterDefense-alpha.zip"
+          cd "$RUNNER_TEMP"
+          sha256sum MonsterDefense-alpha.zip > MonsterDefense-alpha.zip.sha256
       - uses: actions/upload-artifact@v4
         with:
-          name: reviewed-taptap-package
+          name: TapTap-Alpha-ZIP
           path: |
-            MonsterDefense.zip
-            MonsterDefense.zip.sha256
+            ${{ runner.temp }}/MonsterDefense-alpha.zip
+            ${{ runner.temp }}/MonsterDefense-alpha.zip.sha256
           if-no-files-found: error

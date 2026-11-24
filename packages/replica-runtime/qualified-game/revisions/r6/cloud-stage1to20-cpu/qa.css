@@ -1,0 +1,4 @@
+:root{color-scheme:dark;background:#15171d;color:#edf0f4;font-family:system-ui,sans-serif}
+body{margin:1rem;max-width:84rem}
+canvas:not([hidden]){display:block;max-width:100%;height:auto}
+button{min-height:2.5rem;padding-inline:1rem}
