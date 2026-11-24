@@ -19,5 +19,6 @@ jobs:
           node-version: 24
           package-manager-cache: false
       - run: node --test tests/chooser-gesture.test.mjs
+      - run: python3 scripts/test_public_source.py
       - name: Disclose what was tested
         run: echo "Packaging and isolated UI module fixtures only. No playable build is asserted."

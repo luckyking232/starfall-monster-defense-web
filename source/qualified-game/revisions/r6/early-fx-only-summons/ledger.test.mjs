@@ -1,0 +1,31 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {openFxLedger} from './ledger.mjs';
+const stageId=78000003,runId='aa',uid=10223,ownerUid=10003,cardId=78000302,ownerCard=78000103;
+const path='Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000104_skill3_summon.prefab';
+const authority={stageId,runId,requestId:2,state:{stageId,units:[{uid,cardId,camp:1},{uid:ownerUid,cardId:ownerCard,camp:1}]}};
+const fx={phase:'fixed',fixedFrame:1758,displayFrame:8,fxRows:[['create',String(uid),String(cardId),'1758','8',path,String(ownerCard),String(ownerUid)]]};
+const disposition={uid,cardId,status:'held_unknown_native_asset'};
+const frame={stageId,runId,requestId:2,dispositions:[disposition]};
+test('narrow summons omission only with typed origin, matching owner+run+stage, no unrelated held actors',()=>{
+ assert.throws(()=>openFxLedger(78000007),{code:'source-fx-only-summon-invalid'});
+ const q=openFxLedger(stageId);q.observe(fx,authority);
+ const r=q.forFrame(frame,authority);
+ assert.equal(r.complete,true);assert.equal(r.omissions[0].ownerUid,10003);
+ assert.equal(q.forFrame({...frame,dispositions:[disposition,{uid:72000,cardId:78999999,status:'held_unknown_native_asset'}]},authority).complete,false);
+ assert.equal(q.forFrame({...frame,dispositions:[{...disposition,uid:2333}]},authority).complete,false);
+ const other=structuredClone(authority);other.state.units[1].cardId=78000104;
+ assert.equal(q.forFrame(frame,other).complete,false);
+ assert.throws(()=>q.forFrame({...frame,runId:'other'},authority),{code:'source-fx-only-summon-invalid'});
+ assert.throws(()=>q.observe(fx,{...authority,stageId:78000004}),{code:'source-fx-only-summon-invalid'});
+ assert.throws(()=>q.observe(fx,authority),/birth mismatch/u);
+});
+test('invalid identity/path/phase and terminal destruction cannot authorize replay',()=>{
+ const bad=structuredClone(fx);bad.fxRows[0][5]=path.toLowerCase();
+ assert.throws(()=>openFxLedger(stageId).observe(bad,authority),/path, owner/u);
+ assert.throws(()=>openFxLedger(stageId).observe({...fx,phase:'display'},authority),/path, owner/u);
+ const q=openFxLedger(stageId);q.observe(fx,authority);
+ const destroy={...fx,fixedFrame:1849,fxRows:[['destroy',String(uid),String(cardId),'1849','8']]};
+ const a={...authority,requestId:3};q.observe(destroy,a);
+ assert.equal(q.forFrame({...frame,requestId:3},a).complete,false);
+});

@@ -1,8 +1,10 @@
 # 魔物抵御战 Web 复刻
 
-非官方项目，与《星落》官方无关。这里是该复刻项目的公开开发仓库，不是另一个游戏。当前公开的是发布工具与开发流程，**可玩的复刻版还没有公开**。待确认许可的原版 Lua、图片、音频和私有预检包不进入本仓库、Pages 或 Actions 产物。
+非官方项目，与《星落》官方无关。这里是该复刻项目的公开开发仓库，不是另一个游戏。当前公开的是复刻源码、回归测试、发布工具与开发流程，**可玩的复刻版还没有公开**。待确认许可的原版 Lua、图片、音频和私有预检包不进入本仓库、Pages 或 Actions 产物。
 
 ## 开发与验收
+
+从 [贡献指南](CONTRIBUTING.md) 和 [实际复刻源码](source/README.md) 开始。完整本地构建仍依赖不随 Git 分发的输入；独立模块与测试可直接开发。
 
 1. 为一个具体问题建分支，提交改动后开 PR。说明复现步骤、测试版本、改动覆盖面和测试结果。未经复核的视觉效果不能写成已还原。
 2. CI 做可复现的打包工具和 ZIP 结构测试。绿色表示这些检查通过，不代表游戏、移动端或 TapTap 已验收。
@@ -16,6 +18,7 @@
 ```sh
 python -m unittest discover -s tests
 node --test tests/chooser-gesture.test.mjs
+python scripts/test_public_source.py
 python scripts/check_zip.py path/to/game.zip
 python scripts/package_zip.py --build dist-formal --manifest release/manifest.json --out MonsterDefense.zip
 ```

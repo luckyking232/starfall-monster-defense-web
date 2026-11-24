@@ -7,3 +7,11 @@ __pycache__/
 private/
 dist-formal/
 .env*
+/local-inputs/
+/local-reports/
+/dist-private/
+!source/animation-evidence/trace.lua
+!source/qualified-game/revisions/r6/stage78-frost-source-witness/frost-tap.lua
+!source/qualified-game/revisions/r6/early-fx-only-summons/source-tap.lua
+!source/qualified-game/revisions/r6/stage9-fx-only-summons/source-tap.lua
+!source/qualified-game/revisions/r6/stage10-fx-only-summons/source-tap.lua

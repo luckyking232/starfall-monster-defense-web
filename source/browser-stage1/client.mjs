@@ -1,0 +1,79 @@
+/** No autoplay, asset fetches, animation guesses, or remote transport. */
+export const STAGE1_PROTOCOL='starfall-stage1-rules/1';
+const int=(n,lo,hi)=>Number.isInteger(n)&&n>=lo&&n<=hi;
+const error=(code,message)=>Object.assign(new Error(message),{code});
+
+export function makeStage1Client({WorkerClass=globalThis.Worker}={}){
+  if(typeof WorkerClass!=='function') throw new Error('Dedicated Worker unavailable');
+  const worker=new WorkerClass(new URL('./worker.js',import.meta.url));
+  const ids=new Map();
+  let seq=0, runId=null, disposed=false, lastState=null;
+  worker.addEventListener('message', ({data})=>{
+    if(data?.protocol!==STAGE1_PROTOCOL) return;
+    const pending=ids.get(data.requestId);
+    if(!pending||pending.runId!==data.runId) return;
+    ids.delete(data.requestId);
+    if(pending.runId&&pending.runId!==runId) {
+      pending.reject(error('stale-session','Ignored old Stage1 run'));
+      return;
+    }
+    if(data.type==='error'){
+      if(data.code==='runtime-failed-closed'||data.code==='session-not-ready') lastState=null;
+      pending.reject(error(data.code,data.message));
+      return;
+    }
+    if(data.state) lastState=data.state;
+    if(data.type==='closed') lastState=null;
+    pending.resolve(data);
+  });
+  function rejectAll(reason){
+    for(const p of ids.values()) p.reject(reason);
+    ids.clear();
+  }
+  worker.addEventListener('error', e=>{
+    lastState=null;
+    rejectAll(error('worker-unavailable',e?.message||'Worker exited'));
+  });
+  function request(type,fields={},target=runId){
+    if(disposed) return Promise.reject(error('closed-client','Closed Stage1 client'));
+    if(type!=='describe'&&!target) return Promise.reject(error('session-not-open','Open Stage1 session first'));
+    if(ids.size>=64||seq>=2147483647) return Promise.reject(error('client-backpressure','Await existing local Stage1 work'));
+    const requestId=++seq;
+    return new Promise((resolve,reject)=>{
+      ids.set(requestId,{resolve,reject,runId:target??undefined});
+      try{
+        worker.postMessage({protocol:STAGE1_PROTOCOL,runId:target??undefined,type,requestId,...fields});
+      }catch(e){ids.delete(requestId);reject(e);}
+    });
+  }
+  function start({tape,globalRngSeeds}={}){
+    if(!Array.isArray(tape)||tape.length!==50||tape.some(n=>!int(n,1,10000))) {
+      return Promise.reject(error('bad-rng-tape','Require 50 explicit original-game test draws'));
+    }
+    if(!Array.isArray(globalRngSeeds)||globalRngSeeds.length!==2||globalRngSeeds.some(n=>!int(n,0,2147483647))) {
+      return Promise.reject(error('bad-global-rng','Require two specified Lua 5.4 test seeds'));
+    }
+    for(const [id,p] of ids) if(p.runId){
+      p.reject(error('stale-session','Superseded by a new local Stage1 session')); ids.delete(id);
+    }
+    runId='local-'+crypto.randomUUID();
+    lastState=null;
+    return request('init',{mode:'stage1-rule-audit',stageId:78000001,tape:[...tape],globalRngSeeds:[...globalRngSeeds]});
+  }
+  return Object.freeze({
+    start,
+    describe:()=>request('describe',{},null),
+    snapshot:()=>request('snapshot'),
+    stepFixed:count=>request('step-fixed',{count}),
+    advanceUnscaled:ms=>request('advance-unscaled',{ms}),
+    speed:index=>request('speed',{index}),
+    pause:()=>request('pause'),
+    resume:()=>request('resume'),
+    select:({windowId,generation,skillId,confirm})=>request('select',{windowId,generation,skillId,confirm}),
+    closeStage:()=>request('close'),
+    get lastState(){return lastState;},
+    dispose(){
+      if(!disposed){disposed=true;lastState=null;worker.terminate();rejectAll(error('closed-client','Closed Stage1 client'));}
+    },
+  });
+}
