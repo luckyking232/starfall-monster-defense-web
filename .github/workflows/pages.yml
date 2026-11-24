@@ -1,0 +1,39 @@
+name: Deploy development status
+on:
+  push:
+    branches: [main]
+    paths: [public-status/**, .github/workflows/pages.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check the public allowlist
+        run: |
+          test -z "$(find public-status -type l -print -quit)"
+          test "$(find public-status -type f -printf '%P\n' | LC_ALL=C sort)" = "$(printf '.nojekyll\nindex.html')"
+          python3 -m unittest discover -s tests
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: public-status
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
