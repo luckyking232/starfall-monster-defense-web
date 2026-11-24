@@ -15,6 +15,7 @@
 
 ```sh
 python -m unittest discover -s tests
+node --test tests/chooser-gesture.test.mjs
 python scripts/check_zip.py path/to/game.zip
 python scripts/package_zip.py --build dist-formal --manifest release/manifest.json --out MonsterDefense.zip
 ```
@@ -22,3 +23,5 @@ python scripts/package_zip.py --build dist-formal --manifest release/manifest.js
 打包脚本默认阻断：必须有逐个文件的 SHA-256、字节数、来源和公开许可记录，经审核后才能提交 `release/manifest.json`。静态预检通过不等于手机 WebView 或平台审核通过。
 
 MIT 仅适用于本仓库原创代码和文档，不为《星落》或其他第三方内容授予任何权利。
+
+`web/input/chooser-gesture.mjs` 是复刻用的公开选关输入模块，负责缩放坐标、区分横向拖动和点击、取消过期输入。它不含原版素材或脚本，不改变关卡解锁规则，也不是完整可玩的构建。
