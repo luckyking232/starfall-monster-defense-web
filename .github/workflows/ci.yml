@@ -10,9 +10,14 @@ jobs:
   public-preflight:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
       - run: python3 -m unittest discover -s tests
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: node --test tests/chooser-gesture.test.mjs
       - name: Disclose what was tested
-        run: echo "Packaging and synthetic fixtures only. No playable build is asserted."
+        run: echo "Packaging and isolated UI module fixtures only. No playable build is asserted."
