@@ -106,7 +106,9 @@ def main():
     args.add_argument('--overlay',type=Path,help='use an already downloaded overlay; no network')
     args.add_argument('--source',type=Path,default=replica_source())
     args.add_argument('--port',type=int,default=8000,help='loopback port; keep the same port for the same local save')
-    args.add_argument('--verify-only',action='store_true')
+    output=args.add_mutually_exclusive_group()
+    output.add_argument('--verify-only',action='store_true')
+    output.add_argument('--package',type=Path,help='write a new verified ZIP instead of serving')
     a=args.parse_args()
     if not (a.port==0 or 1024<=a.port<=65535):
         args.error('port must be 0 or 1024–65535')
@@ -132,6 +134,24 @@ def main():
                 print(f'Alpha exact ZIP SHA-256: {got}',flush=True)
             else:
                 print(f'Alpha entries match the pinned manifest; ZIP compression differs: {got}',flush=True)
+            if a.package is not None:
+                out=a.package
+                if out.suffix.lower()!='.zip' or out.exists() or out.is_symlink():
+                    raise ValueError('Choose a new .zip output path')
+                created=False
+                try:
+                    with out.open('xb') as f:
+                        created=True
+                        f.write(raw)
+                    with out.open('rb') as f:
+                        if sha256(f.read()).hexdigest()!=got:
+                            raise ValueError('Written ZIP differs from verified build')
+                except Exception:
+                    if created:
+                        out.unlink(missing_ok=True)
+                    raise
+                print(f'Wrote verified Alpha package: {out}',flush=True)
+                return 0
             if a.verify_only:
                 return 0
             routes=static_routes(entries)
