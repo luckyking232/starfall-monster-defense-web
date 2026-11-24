@@ -1,0 +1,1 @@
+{"name":"starfall-private-temporary-20108-cpu","private":true,"scripts":{"dev":"node server.mjs --enable-managed-temporary-20108-cpu"}}

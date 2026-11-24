@@ -1,0 +1,160 @@
+{
+  "actualLocalTcpWasmoonCpuImageData": true,
+  "allOtherActorsStillFailClosed": true,
+  "browserOrUnityClaim": false,
+  "buildFresh": true,
+  "exactDeathOverridesEvenAnActiveEligibleFx": true,
+  "existingDeathReceipt": {
+    "bytes": 2442,
+    "sha256": "de8a5bb9db8029718fef07d8824eb64115b5d02ff14b220bf5003688c5ef7c6e"
+  },
+  "files": {
+    "README.zh.md": {
+      "bytes": 1017,
+      "sha256": "880ee2fc014ed5b2dc4d5dfc6195c429c806700be41b52c52e572d4467c1433e"
+    },
+    "build.py": {
+      "bytes": 5570,
+      "sha256": "df07866da167da7e025ecead7a56aeeafdf61e6dd3a042d9c1c61ec09c30e41c"
+    },
+    "companion.js": {
+      "bytes": 7391,
+      "sha256": "9a3f51f9e4056f73b6466ec07da4d744c8f713a62b830e2cdddf54a5e0b08347"
+    },
+    "death.mjs": {
+      "bytes": 3296,
+      "sha256": "7ab7c639762b9fc9f1a91ca033ff9e848d0f37d53c899c0574e615121cc715be"
+    },
+    "ledger.mjs": {
+      "bytes": 3231,
+      "sha256": "a3b0128ec632fdaf0c2ba9ccfb9196bb45be87d9f98f7b67f838e40b805d8284"
+    },
+    "ledger.test.mjs": {
+      "bytes": 2809,
+      "sha256": "da282f0df7eac441454c62bea22452df3a35296824754291eb3727e4f98230de"
+    },
+    "observer.mjs": {
+      "bytes": 9786,
+      "sha256": "0c707110f23282c2cf6b91fd2a0a6f6950136dc54b43630795500fda2e7aa068"
+    },
+    "qa-worker.mjs": {
+      "bytes": 3562,
+      "sha256": "e185607132aa943b40efa210ebd94753ad6736fc882d9ae42b0beb7b425bace1"
+    },
+    "source-tap.lua": {
+      "bytes": 2255,
+      "sha256": "7c30f99ae14af7dbd61768fa9d19d7a6f37a7d9bcf3156e2f4de2352c1acd608"
+    },
+    "verify.py": {
+      "bytes": 2105,
+      "sha256": "0c6f967a5298e0c19e0e4d78e3b581e39c3f3c5abb3dfddb9da0ca0ba8e95967"
+    },
+    "witness.test.mjs": {
+      "bytes": 7553,
+      "sha256": "be5a418f082bceb676700c51ad91c43fdb393307f99728a829ab377f65413920"
+    }
+  },
+  "frozenLegalChoices": {
+    "bytes": 59535,
+    "sha256": "f9e1cc20cc22d35b8db849dab2f03d8130d3ba60edce8c4202c9aba7374f9f02"
+  },
+  "livePreviewOrPortableChanged": false,
+  "notPublished": true,
+  "onlyFxOmitted": true,
+  "originalAuthorityUnchanged": true,
+  "schema": "starfall.r6.exact-stage-302-only-fx-with-preserved-20108/1",
+  "stageId": 78000010,
+  "typedAssetReceipt": {
+    "bytes": 11758,
+    "sha256": "12170388da3493961c344fd2fd6e5562a86534e2a0eeea069b949d5c05b561ae"
+  },
+  "verified": {
+    "original_death_independent": {
+      "deathBodyNeverApproximated": true,
+      "independentOfSummon": true,
+      "oldStart": 1598,
+      "recovered": 1629,
+      "recoveryPixel": "3f4f33a8a3d37667300127e62fa0e4d1e5d2727500f75c89ba2fecbab17effb2",
+      "tape": 1
+    },
+    "same_legal_all_left": {
+      "at1809": {
+        "heldOrdinaryDeath": false,
+        "omissions": 0,
+        "sha256": "2ecd8189a32c90de8dd889027d512fd8c6183a33e051d71279142daf02a4404b"
+      },
+      "choices": 9,
+      "deathWindows": [
+        [
+          1509,
+          1509,
+          [
+            10226
+          ]
+        ],
+        [
+          1509,
+          1509,
+          [
+            10226
+          ]
+        ],
+        [
+          1509,
+          1509,
+          [
+            10226
+          ]
+        ]
+      ],
+      "distinct": 27,
+      "events": [
+        {
+          "cardId": 78000302,
+          "display": 13,
+          "fixed": 1423,
+          "op": "create",
+          "uid": 10446
+        },
+        {
+          "cardId": 78000302,
+          "display": 15,
+          "fixed": 1514,
+          "op": "destroy",
+          "uid": 10446
+        },
+        {
+          "cardId": 78000302,
+          "display": 23,
+          "fixed": 2023,
+          "op": "create",
+          "uid": 10707
+        },
+        {
+          "cardId": 78000302,
+          "display": 26,
+          "fixed": 2174,
+          "op": "destroy",
+          "uid": 10707
+        }
+      ],
+      "first": 1454,
+      "firstDraw": 14,
+      "firstPixels": "2f2c4b1b0740e75b6a661b52d53a54c76d05d201f4d30a0607259415cd529804",
+      "latestRgba": "4422309c6258ff2efb6a78cd8ea690a391994d048f5ce8b16e644177652f5e81",
+      "omissions": [
+        {
+          "cardId": 78000302,
+          "ownerCard": 78000103,
+          "ownerUid": 10004,
+          "path": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000104_skill3_summon.prefab",
+          "spawnFixed": 1423,
+          "uid": 10446
+        }
+      ],
+      "tape": 5000,
+      "until": 2200,
+      "writes": 27
+    }
+  }
+}

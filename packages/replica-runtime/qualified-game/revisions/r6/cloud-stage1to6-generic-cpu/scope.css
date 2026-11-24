@@ -1,0 +1,3 @@
+.canonical-world-stack #map3-cpu-world{display:none;position:absolute;inset:0;height:100%;pointer-events:none;}
+.canonical-world-stack[data-map3-cpu-visible="true"] #canonical-world{display:none;}
+.canonical-world-stack[data-map3-cpu-visible="true"] #map3-cpu-world{display:block;}

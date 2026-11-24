@@ -1,0 +1,5 @@
+.canonical-world-stack { position: relative; }
+.canonical-world-stack #game { position: relative; }
+.canonical-world-stack #canonical-world { display: none; position: absolute; inset: 0; height: 100%; pointer-events: none; }
+.canonical-world-stack[data-world-visible="true"] #canonical-world { display: block; }
+.canonical-world-stack[data-world-visible="true"] #game { background: transparent; }

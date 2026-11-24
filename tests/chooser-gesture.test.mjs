@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {chooserGesture} from '../web/input/chooser-gesture.mjs';
+import {chooserGesture} from '../packages/ui/input/chooser-gesture.mjs';
 
 function mock(width = 667) {
   const rect = {left: 23, top: 40, width, height: width * 750 / 1334};

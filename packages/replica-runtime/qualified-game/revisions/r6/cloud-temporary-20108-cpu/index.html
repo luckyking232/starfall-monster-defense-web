@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/offline-shell/private.css">
+  <title>魔物抵御战｜私有多关卡源验证</title>
+  <link rel="stylesheet" href="/qualified-game/presentation-capability/site-layer.css">
+  <link rel="stylesheet" href="/qualified-game/presentation-capability/scene-profiles/stage1-hud/hud.css">
+  <link rel="stylesheet" href="/qualified-game/revisions/r6/composed-stage20-stage78-hud/hud.css">
+  <link rel="stylesheet" href="/qualified-game/revisions/r6/cloud-stage1-canvas2d/scope.css">
+  <link rel="stylesheet" href="/qualified-game/revisions/r6/cloud-stage12-canvas2d/scope.css">
+  <link rel="stylesheet" href="/qualified-game/revisions/r6/cloud-stage12-stable-tools/controls.css">
+  <link rel="stylesheet" href="/qualified-game/revisions/r6/cloud-stage1to6-generic-cpu/scope.css">
+  <link rel="stylesheet" href="/qualified-game/revisions/r6/cloud-stage1to8-cpu/stock.css">
+</head>
+<body>
+  <main>
+    <header>
+      <small>私有离线诊断 · 非发布版 · Android 134377281279792758</small>
+      <h1>魔物抵御战<span>已验收关卡</span></h1>
+      <p>同一原版规则与选关：第 1 关动态 HUD 和重建模糊，第 2 关原素材与两条验收 shader，第 3–6 关原地图与角色重建（遇到未验收召唤时停止战场画面），第 2–6 关额外显示同帧早期部分 HUD（至第 1800 固定帧），锁和空位沿用原配置；第 7–8 关仅地图、身体和同帧部分 HUD 诊断；不绘制 F1 出场粒子、减速特效、实时 DPS 填充与音频；第 9–20 关仅显示原 Map3、已核验单位身体及同帧早期部分 HUD（至第 1750 固定帧）；不绘制 F1 出场粒子、实时 DPS 填充、原生特效和声音。20108 死亡时停止战场画面，不替画，选卡与结算照常；第 21 关默认关闭，可显式开启本机无尽规则验证，不绘制战场，到第 12000 固定帧仍存活时不结算。非原生画面，不对外发布。</p>
+    </header>
+    <section aria-label="原资源画布与本机调试">
+      <figure>
+        <div class="canonical-world-stack" data-world-visible="false">
+          <canvas id="canonical-world" width="1334" height="750" aria-hidden="true"></canvas>
+          <canvas id="stage78-hud" data-hud-visible="false" width="1334" height="750" aria-hidden="true"></canvas>
+          <canvas id="stage1-cpu-world" width="1334" height="750" aria-hidden="true"></canvas>
+          <canvas id="stage2-cpu-world" width="1334" height="750" aria-hidden="true"></canvas>
+          <canvas id="map3-cpu-world" width="1334" height="750" aria-hidden="true"></canvas>
+          <canvas id="stock78-cpu-world" width="1334" height="750" aria-hidden="true"></canvas>
+          <canvas id="canonical-hud" data-hud-visible="false" width="1334" height="750" aria-hidden="true"></canvas>
+          <canvas id="game" width="1334" height="750" aria-label="原资源绘图画布" aria-describedby="scope"></canvas>
+        </div>
+        <figcaption>原资源画布（1334 × 750 逻辑像素）</figcaption>
+      </figure>
+      <aside>
+        <div id="tools" hidden>
+          <label id="rule-lane" hidden>本机规则验核路径（切换开启新的本机诊断进度）
+            <select id="lane"><option value="source-v1">原第 1 关规则 /1（默认）</option><option value="dina-v2">显式试验 · 蒂娜召唤规则 /2</option></select>
+          </label>
+          <label id="source-mode">随机数测试夹具
+            <select id="rng"><option value="1">固定值 1</option><option value="233">固定值 233</option><option value="5000">固定值 5000</option><option value="10000">固定值 10000</option></select>
+          </label>
+          <label id="map-position" hidden>独立检查滑块（非原手势）
+            <input id="scroll" type="range" min="0" max="2846" step="1" value="0">
+          </label>
+          <label id="run-clock" hidden><input id="auto" type="checkbox"> 自动诊断时钟</label>
+          <div class="buttons">
+            <button type="button" data-action="enable-endless">开启第 21 关本机验证</button>
+            <button type="button" data-action="close-horizon" hidden>返回选关（不结算）</button>
+            <button type="button" data-action="open-chooser">打开原选关画布</button>
+            <button type="button" data-action="reset-card" hidden>清除头像选中</button>
+            <button type="button" data-action="start-fixed" hidden>越过开战钩子</button>
+            <button type="button" data-action="fixed" data-value="300" hidden>推进最多 300 帧</button>
+            <button type="button" data-action="unscaled" data-value="500" hidden>推进弹窗 500 毫秒</button>
+            <button type="button" data-action="unscaled" data-value="1000" hidden>推进弹窗 1 秒</button>
+            <button type="button" data-action="pause" hidden>暂停</button>
+            <button type="button" data-action="continue" hidden>继续</button>
+            <button type="button" data-action="speed" hidden>切换速度</button>
+            <button type="button" data-action="leave" hidden>请求退出</button>
+            <button type="button" data-action="cancel-leave" hidden>取消退出</button>
+            <button type="button" data-action="confirm-leave" hidden>确定退出</button>
+            <button type="button" data-action="ack" data-value="success" hidden>确认本地结算</button>
+            <button type="button" data-action="ack" data-value="error" hidden>模拟本地拒绝</button>
+            <button type="button" data-action="recover" hidden>返回选关</button>
+          </div>
+        </div>
+        <div id="runtime-diagnostics">
+          <p id="scope">等待本机素材校验。</p>
+          <div id="status" role="status" aria-live="polite"></div>
+          <p id="labels"></p>
+          <p id="world-preview-status" hidden>第 1、2 关动态重建。</p>
+          <p id="hud-preview-status" hidden></p>
+          <p id="message" role="alert"></p>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script type="module" src="/qualified-game/revisions/r6/cloud-temporary-20108-cpu/ui.mjs"></script>
+</body>
+</html>

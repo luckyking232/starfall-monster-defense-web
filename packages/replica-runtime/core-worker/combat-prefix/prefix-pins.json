@@ -1,0 +1,18 @@
+{
+  "source-derived-helpers.lua": "a938eb65342fbefaafef3f90069e132f039c43abc18cb6d6a933d65270098e5e",
+  "native-prefabs.lua": "c714430692bb0e1df358d931dc92fb48db0a60325320fada1cfb032dc6c2e274",
+  "BaseAttribute.lua": "b37e995b33e71be2f7ae0bc420484fa1d6b8346f04b8493ade738ec39abca149",
+  "BaseShootSkill.lua": "41d9eed0b48cb55b14f56a67b464ffcaa396c7e7f0ef1de2ec2deadded28b326",
+  "BaseShootSkillBuff.lua": "daff3e9958b29678bcd557765f3b334cb5d9878b36b0adf944ebd6c191acc5a1",
+  "BaseSkillParameter.lua": "c24484ee96b48e99898c7c86fda076911a081844a5c8bb99569536d19e240ff3",
+  "CardAttribute.lua": "c7b1186e515a0178afbecb9e973ce2680cdbf297fdde1d257dd7363a9a309886",
+  "MathUtil.lua": "fd53b51b7e9c8ba9f6104f284e6a95164c813d35bcb34debd04a6e85cb3f4d2c",
+  "MiniGameBattleAction.lua": "fbc610b63ebac9142ec4b104ea94cc12a6f62cde2797bca1c19218f24654cfcb",
+  "MiniGameBattleBuff.lua": "a640e4b170e21dfbc2d7c3354f5969105b47429e0719ed02722e5f00bec314de",
+  "MiniGameBattleBuffEffect.lua": "d4e0dc77579a5be1cd6489e5ee04866cbd21c1080cdaf1b7c10cdc34f8c48562",
+  "MiniGameBattleBuffMgr.lua": "95cc6e33e87058a2a109d498f1443380bc21ed30bdc2a1ed0bc19cc5a92d9d5b",
+  "MiniGameBattleBullet.lua": "9168d76ac04dc6d147f7f9157c8791126e63a928831921a5433cfd1471f0a5a8",
+  "MiniGameBattleChoose.lua": "7018271973dee4607f26c6ad014bd20f0cd8872d359e67c967e8955aba078c5b",
+  "MiniGameBattleDataCount.lua": "10fc34c3bed4f8728eaae8a63aa5761f2059c9c79be03d23b34854bc7010a37e",
+  "MiniGameBattleUnit.lua": "e18081368fedad46b3f89c8056a83a6af78b4366c947a6d2ff93c8f9952fb102"
+}
