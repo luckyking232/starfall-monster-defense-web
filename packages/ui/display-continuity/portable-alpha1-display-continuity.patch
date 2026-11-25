@@ -1,0 +1,124 @@
+--- a/qualified-game/revisions/r6/cloud-temporary-20108-cpu/site-layer.mjs
++++ b/qualified-game/revisions/r6/cloud-temporary-20108-cpu/site-layer.mjs
+@@ -155,6 +155,7 @@
+      map3&&stage78(stageId)?(id,opts)=>openFrost78({...opts,stageId:id,lane:FROST78,onFrostEvidence:x=>{if(turn===opening)frostReceipt=x;}}):
+      earlyFx?(id,opts)=>openEarlyFx({...opts,stageId:id,lane:EARLY_FX,onOmissions:x=>{if(turn===opening)omittedFx=x;}}):createAssembledObserver;
+     const normalObserver=localPartial?.observer??await buildObserver(stageId,{nativeIndexBytes:b,renderer:r,expectedOrigin:location.origin,onCommit:cpu2?undefined:x=>localHud?.commit(x),
++      onFrostEvidence:stageId===S1?x=>{if(turn===opening)frostReceipt=x;}:undefined,
+       onSlowEvidence:stageId===S1||cpu2?x=>{if(turn===opening)slowReceipt=x;}:undefined});
+     const observer=capture?capture.wrap(normalObserver):normalObserver;
+     if(turn===opening){hud=localHud;partial=localPartial;diagnosis=localDiagnosis;rendererLane=chosen.lane;front=capture;}
+@@ -162,7 +163,7 @@
+    }catch(e){localHud?.close();localPartial?.observer.close();if(turn===opening){clearFront();front=null;hud=null;partial=null;diagnosis=null;slowReceipt=null;omittedFx=null;deathReceipt=null;frostReceipt=null;rendererLane=null;}r.destroy();capture?.destroy();throw e;}
+   }
+  });
+- return {WorkerClass:hook.WorkerClass,tick:hook.tick,close(){clearFront();hook.close();},syncing:()=>syncing,cpuVisible:()=>cpuVisible,stage2CpuVisible:()=>stage2CpuVisible,map3CpuVisible:()=>map3CpuVisible,update(f){
++ return {WorkerClass:hook.WorkerClass,tick:hook.tick,presentationBusy:()=>hook.peek().working,close(){clearFront();hook.close();},syncing:()=>syncing,cpuVisible:()=>cpuVisible,stage2CpuVisible:()=>stage2CpuVisible,map3CpuVisible:()=>map3CpuVisible,update(f){
+   const p=hook.peek(),s=f.state,b=s.battle,stageId=s.scope.stageId;
+   const active=hasWorld(stageId),isHud=stageId===S1;
+   const phases=['battle-ready','battle','paused','exit-confirm'].includes(s.phase)||(isHud&&s.phase==='upgrade'&&hud?.status.blur);
+@@ -232,7 +233,7 @@
+   if(absent)hint.textContent+=' 当前 '+absent+' 个原召唤体仅由粒子构成，未绘；召唤与伤害照常结算。';
+   if(awaitingRetirement&&!p.error)
+     hint.textContent='20108 原死亡动画无可核验画面，战场暂时隐藏。规则照常；原对象移除后才显示新画面。';
+-  const frozen=map3&&stage78(stageId)&&visible&&p.frame&&frostReceipt?.frame===p.frame&&frostReceipt.stageId===stageId&&
++  const frozen=(cpuVisible&&stageId===S1||map3&&stage78(stageId)&&visible)&&p.frame&&frostReceipt?.frame===p.frame&&frostReceipt.stageId===stageId&&
+     frostReceipt.runId===p.frame.runId&&frostReceipt.requestId===p.frame.requestId&&frostReceipt.fixed===b?.fixedFrame&&
+     frostReceipt.evidence?.drawable===false&&frostReceipt.evidence.activeTargets.length;
+   if(frozen)hint.textContent+=' 原冻结已核对；单位动作随原规则停走，冰冻粒子未绘制。';
+--- a/qualified-game/revisions/r6/cloud-temporary-20108-cpu/ui.mjs
++++ b/qualified-game/revisions/r6/cloud-temporary-20108-cpu/ui.mjs
+@@ -113,7 +113,7 @@
+ }
+ function loop(at){
+   if(dead)return;
+-  if(auto.checked&&shell&&!pending&&!priority.waiting&&['battle','upgrade'].includes(shell.frame().state.phase)){
++  if(auto.checked&&shell&&!pending&&!priority.waiting&&!world?.presentationBusy()&&['battle','upgrade'].includes(shell.frame().state.phase)){
+     // Coalesce host frames while a read is active, never create a backlog.
+     void operate(()=>shell.tick(at,{hidden:document.hidden}),'auto');
+   }
+--- a/qualified-game/revisions/r6/stage1-2011-companion-probe/companion.js
++++ b/qualified-game/revisions/r6/stage1-2011-companion-probe/companion.js
+@@ -58,15 +58,18 @@
+       bytes('/particle-presentation/slowmotion-lifecycle/source-tap.lua','e94a180c718aaa1e5acdd15cbc88965b14ab0032cae7c3910792d3fb68b18688'),
+       bytes('/qualified-game/revisions/r6/composed-stage78-body/slow-threshold.lua','bdaa61b434b44e314f6a4a8d08ca3c6e42da8d80b28e3b93adb43b30fa4a8a85'),
+     ]);
+-    await hud.doString(decoder.decode(raw)+'\n'+decoder.decode(threshold));
++    const frost=await bytes('/qualified-game/revisions/r6/stage78-frost-source-witness/frost-tap.lua','39dba85173db495913977e1b4a6df0ac0ecdaf44319fcb385d9f0a4f08c2e1e1');
++    await hud.doString(decoder.decode(raw)+'\n'+decoder.decode(threshold)+'\n'+decoder.decode(frost));
+     const lines=x=>x.split('\n').filter(Boolean).map(y=>y.split('\t'));
+     const scoped={run(phase,wallUs,invoke){
+       const p=phase==='wallclock'?'control':phase;
+-      hf('slowmotionTapBegin')(p);
++      hf('slowmotionTapBegin')(p);hf('frostBegin')(p);
+       const cb=tap.run(phase,wallUs,invoke);
+       const [fx,dx,paused,...tail]=hf('slowmotionTapEnd')().split('\n');
+       check(+fx===cb.fixedFrame&&+dx===cb.displayFrame,'Unbound Stage1 Slowmotion verified source stamp');
+-      return {...cb,slow:{phase:p,fixed:+fx,display:+dx,paused:+paused,rows:lines(tail.join('\n')),threshold:lines(hf('slowThresholdDrain')())}};
++      const [ff,fd,fp,...fr]=hf('frostEnd')().split('\n');
++      check(+ff===+fx&&+fd===+dx&&+fp===+paused,'Unbound Stage1 exact frost stamp');
++      return {...cb,frost:{phase:p,fixed:+ff,display:+fd,paused:+fp,rows:lines(fr.join('\n'))},slow:{phase:p,fixed:+fx,display:+dx,paused:+paused,rows:lines(tail.join('\n')),threshold:lines(hf('slowThresholdDrain')())}};
+     }};
+     return {api,tap:scoped,hf};
+   }catch(e){api.close();throw e;}
+--- a/qualified-game/revisions/r6/stage1-2011-companion-probe/observer.mjs
++++ b/qualified-game/revisions/r6/stage1-2011-companion-probe/observer.mjs
+@@ -7,6 +7,7 @@
+ import {SCENES} from '../../../presentation-capability/scene-profiles/scene-profiles.mjs';
+ export const COMPANION='/qualified-game/revisions/r6/stage1-2011-companion-probe/companion.js';
+ import {createAudit} from './slow-audit.mjs';
++import {createFrostLedger} from '../stage78-frost-source-witness/frost-ledger.mjs';
+ const LIMIT=10_000_000_000;
+ const VIEW=Object.freeze({width:1334,height:750});
+ const err=(code,message=code)=>Object.assign(Error(message),{code});
+@@ -48,13 +49,14 @@
+     });
+   }};
+ }
+-export async function openCanonicalObserver({lane,stageId,expectedOrigin,WorkerClass=__p.Worker,nativeIndexBytes,renderer,onCommit,onSlowEvidence=()=>{}}={}){
++export async function openCanonicalObserver({lane,stageId,expectedOrigin,WorkerClass=__p.Worker,nativeIndexBytes,renderer,onCommit,onSlowEvidence=()=>{},onFrostEvidence=()=>{}}={}){
+   const o=new URL(expectedOrigin??'https://invalid.invalid');
+   const STAGE=stageId,profile=PROFILES[STAGE],scene=SCENES[STAGE];
+   ask(lane===EXPLICIT_LANE&&Number.isSafeInteger(stageId)&&scene?.ruleProfilePin===profile?.profilePin&&Boolean(scene)&&o.origin===expectedOrigin&&__p.sameOrigin(o)&&typeof WorkerClass==='function','preview-scope-held');
+   if(typeof __p.location==='object')
+     ask(location.origin===o.origin&&location.pathname==='/qualified-game/','preview-scope-held');
+-  const lifecycle=createAudit(stageId);
++  const lifecycle=createAudit(stageId),frostLedger=createFrostLedger(stageId);
++  let frostEvidence=null, frostEvents=[];
+   const clock=await openPresentationClock({nativeIndexBytes,protocol:PROFILE_PROTOCOL,lane:RECONSTRUCTION,stageId});
+   let source=null,packet=null,time=0,lastFrame=null,closed=false,serial=Promise.resolve();
+   function close(){if(!closed){closed=true;source?.close();clock.close();}}
+@@ -76,7 +78,8 @@
+       phase:c.slow.phase,sourceFixed:c.fixedFrame,sourceDisplay:c.displayFrame,
+       sourceRows:c.slow.rows,sourceThreshold:c.slow.threshold,
+       rendered:false,effectStatus:'exact_2011_original_requests_not_drawn'});
+-    const {slow,...normal}=c;
++    frostEvidence=frostLedger.accept(c,r.state);frostEvents.push(...frostEvidence.events);
++    const {slow,frost,...normal}=c;
+     return normal;
+   }
+   function accept(r,s){
+@@ -98,7 +101,11 @@
+     ask(s.callbacks.length===1&&s.callbacks[0].phase==='display','preview-display-callback');
+     clock.callback(observeEffect(s.callbacks[0],packet));return draw(false,s.hudOps);
+   }
+-  const result=frame=>({frame,authoritativeRequest:packet.requestId,held:packet.state.terminal?'terminal_not_battle_frame':null});
++  const result=frame=>{
++    onFrostEvidence(Object.freeze({stageId:STAGE,runId:packet.runId,requestId:packet.requestId,fixed:packet.state.fixedFrame,frame,
++      evidence:frostEvidence,events:Object.freeze(frostEvents.splice(0))}));
++    return {frame,authoritativeRequest:packet.requestId,held:packet.state.terminal?'terminal_not_battle_frame':null};
++  };
+   return Object.freeze({
+     begin(raw,rng){return safe(async()=>{
+       ask(!source,'preview-duplicate');
+--- a/qualified-game/revisions/r6/stage78-frost-source-witness/frost-ledger.mjs
++++ b/qualified-game/revisions/r6/stage78-frost-source-witness/frost-ledger.mjs
+@@ -8,7 +8,7 @@
+ const same=(a,b)=>a?.uid===b?.uid&&a?.cardId===b?.cardId&&a?.camp===b?.camp;
+ const match=(a,b)=>a.length===b.length&&a.every((v,i)=>v===b[i]);
+ export function createFrostLedger(stageId){
+- ask([78000007,78000008].includes(stageId),'Wrong native frost stage');
++ ask([78000001,78000007,78000008].includes(stageId),'Wrong native frost stage');
+  let lastSerial=0,active=new Map(),model=new Map();
+  return Object.freeze({
+   accept(c,state){
