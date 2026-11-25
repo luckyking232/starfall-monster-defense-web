@@ -1,0 +1,4 @@
+.canonical-world-stack #presentation-front { display: none; position: absolute; inset: 0; height: 100%; pointer-events: none; }
+.canonical-world-stack[data-retained-world="true"] #presentation-front { display: block; }
+.canonical-world-stack[data-world-visible] #canonical-world { display: none; }
+.canonical-world-stack #world-notice:not([hidden]) { position:absolute; inset:0; display:grid; place-items:center; color:#e7eff7; pointer-events:none; text-align:center; padding:1rem; }

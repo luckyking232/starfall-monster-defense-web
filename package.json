@@ -1,0 +1,12 @@
+{
+  "name": "starfall-monster-defense",
+  "private": true,
+  "scripts": {
+    "dev": "python3 scripts/product.py dev",
+    "test": "python3 scripts/product.py test",
+    "build": "python3 scripts/product.py build",
+    "preview": "python3 scripts/product.py preview",
+    "check:zip": "python3 scripts/check_zip.py",
+    "package": "python3 scripts/package_zip.py --build dist"
+  }
+}
