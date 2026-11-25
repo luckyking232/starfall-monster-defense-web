@@ -16,6 +16,7 @@ permissions:
 jobs:
   current-source:
     runs-on: ubuntu-24.04
+    timeout-minutes: 6
     steps:
       - uses: actions/checkout@v7
         with:
@@ -41,5 +42,7 @@ jobs:
           python3 scripts/materialize_display_continuity_qa.py --startup "$RUNNER_TEMP/startup" "$RUNNER_TEMP/baseline"
           python3 tests/product-runtime-baseline.py "$RUNNER_TEMP/baseline" "$RUNNER_TEMP/product"
           node tests/product-actor-bindings.mjs "$RUNNER_TEMP/baseline" "$RUNNER_TEMP/product"
+      - name: Replay the original Stage 1 simulation and settlement
+        run: node tests/product-stage1-replay.mjs "$RUNNER_TEMP/product"
       - name: Disclose coverage
         run: echo "No deployment, actual browser playthrough, or TapTap WebView certification."

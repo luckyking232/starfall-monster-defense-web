@@ -103,3 +103,5 @@ CI 的产品任务先从当前源码和固定资源输入构建，之后才读�
 产品构建将 27 个规则 Lua 文件移到 `assets/lua/{battle,combat,choice}/`，Wasmoon JS / WASM 移到 `vendor/wasmoon/`。没有物理重复副本；所有遗留逻辑路径和别名继续指向同一份已锁定字节。经典规则 Worker、进度存储、其他 Lua/WASM 完整性一同对照旧 QA，69 项全部一致。尚不把生成路由或历史装配称为已消除。
 
 桌面 Chrome 在三层子路径启动新构建，完成选关、第一关原规则推进（300 帧、3 击杀）及第 301 帧选卡显示；可见原地图和保留战场。此记录只涵盖桌面 Chrome 的 Canvas2D 路线，不是 TapTap WebView 验收或全关卡验证。
+
+CI 还从当前构建的三层子路径启动真正的经典规则 Worker 和观察 Worker，在 Node 中执行原 Lua/Wasm。固定输入回放 11 次选卡、两波、205 击杀、第 4181 帧自然获胜并写入一个通关存档标记。命令为 `node tests/product-stage1-replay.mjs dist`。Canvas 目标在这个测试中被替身记录；不要将此测试当成浏览器或 WebView 验收。
