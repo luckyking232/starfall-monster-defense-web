@@ -39,7 +39,7 @@ export function createFrameFront({paint,clear,mismatchMs=2200,now=()=>performanc
 }
 
 /** Routes Canvas2D pixels to a shared front; the old render targets are never visible. */
-export function openCanvasFront(canvas,{onChange=()=>{}}={}){
+export function openCanvasFront(canvas,{onChange=()=>{},invalidateStaging=()=>{}}={}){
  const ctx=canvas.getContext('2d',{alpha:true});
  let lost=false,closed=false;
  const alive=()=>!!ctx&&!lost&&!closed&&ctx.isContextLost?.()!==true;
@@ -50,8 +50,8 @@ export function openCanvasFront(canvas,{onChange=()=>{}}={}){
   },
   clear(){if(alive())ctx.clearRect(0,0,canvas.width,canvas.height);}
  });
- function loss(event){event.preventDefault?.();lost=true;front.reset();onChange();}
- function restoration(){lost=false;onChange();}
+ function loss(event){event.preventDefault?.();lost=true;front.reset();invalidateStaging();onChange();}
+ function restoration(){lost=false;invalidateStaging();onChange();}
  canvas.addEventListener?.('contextlost',loss);
  canvas.addEventListener?.('contextrestored',restoration);
  return {alive,front,close(){front.reset();closed=true;canvas.removeEventListener?.('contextlost',loss);canvas.removeEventListener?.('contextrestored',restoration);}};

@@ -65,3 +65,46 @@ test('renderer staging never exposes a partial write or a mismatched frame',asyn
  assert.equal(f.read(one),null);
  f.destroy();
 });
+test('no-op observation keeps the last front visible but cannot certify a new request',async()=>{
+ const writes=[],target={width:1334,height:750,getContext:()=>({createImageData(){}})};
+ const f=captureStagePixels(target,{alpha:false});
+ const ctx=f.sink.getContext('2d',{alpha:false});
+ const prior=frame(a,1),next=frame(a,2),pixels={width:1334,height:750,data:new Uint8ClampedArray(1334*750*4)};
+ const o=f.wrap({close(){},begin(){ctx.putImageData(pixels,0,0);return {frame:prior};},display(){return {frame:next};}});
+ const front=createFrameFront({paint:p=>writes.push(p),clear:()=>writes.push('clear')});
+ front.scope(a,'battle');
+ await o.begin();
+ assert.ok(front.submit(a,'battle',prior,f.read(prior)));
+ await o.display();
+ assert.equal(f.read(next),null);
+ const exact=front.submit(a,'battle',next,f.read(next));
+ assert.equal(exact,false);
+ assert.equal(front.view(a,'battle',{exact}),'previous');
+ assert.deepEqual(writes,[pixels]);
+});
+test('loss and restoration fence in-flight pixels; a fresh complete draw can recover',async()=>{
+ const hooks=new Map(),writes=[];
+ const target={width:1334,height:750,getContext:()=>({createImageData(){},putImageData:p=>writes.push(p),clearRect(){}}),
+ addEventListener:(k,v)=>hooks.set(k,v),removeEventListener:k=>hooks.delete(k)};
+ const f=captureStagePixels(target,{alpha:false});
+ const {front,close}=openCanvasFront(target,{invalidateStaging:()=>f.invalidate()});
+ const ctx=f.sink.getContext('2d',{alpha:false}),prior=frame(a,1),stale=frame(a,2),fresh=frame(a,3);
+ const pixels={width:1334,height:750,data:new Uint8ClampedArray(1334*750*4)};
+ let unblock;
+ const gate=new Promise(resolve=>{unblock=resolve;});
+ const o=f.wrap({close(){},begin(){ctx.putImageData(pixels,0,0);return {frame:prior};},
+  async observe(){await gate;ctx.putImageData(pixels,0,0);return {frame:stale};},
+  display(){ctx.putImageData(pixels,0,0);return {frame:fresh};}});
+ front.scope(a,'battle');
+ await o.begin();assert.ok(front.submit(a,'battle',prior,f.read(prior)));
+ const old=o.observe();
+ await assert.rejects(o.display(),/serialized/);
+ hooks.get('contextlost')({preventDefault(){}});hooks.get('contextrestored')();
+ assert.equal(f.read(prior),null);
+ unblock();await old;
+ assert.equal(f.read(stale),null);
+ assert.equal(front.view(a,'battle'),'empty');
+ await o.display();assert.ok(front.submit(a,'battle',fresh,f.read(fresh)));
+ assert.deepEqual(writes,[pixels,pixels]);
+ close();
+});

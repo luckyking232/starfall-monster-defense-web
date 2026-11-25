@@ -120,7 +120,7 @@ export function qualifyingDeathHold({stageId,receipt,lineage,battle,cpu}){
 export function openWorldLayer(canvas,hint,refresh){
  const panel=canvas.parentElement,cpuCanvas=panel.querySelector('#stage1-cpu-world'),cpu2Canvas=panel.querySelector('#stage2-cpu-world'),map3Canvas=panel.querySelector('#map3-cpu-world'),stockCanvas=panel.querySelector('#stock78-cpu-world'),hudCanvas=panel.querySelector('#canonical-hud'),partialCanvas=panel.querySelector('#stage78-hud'),hudHint=document.querySelector('#hud-preview-status');
  let hud=null,diagnosis=null,opening=0,partial=null,slowReceipt=null,omittedFx=null,deathReceipt=null,frostReceipt=null,rendererLane=null,cpuVisible=false,stage2CpuVisible=false,stage2Attempt=false,map3Attempt=false,map3CpuVisible=false,front=null,syncing=false;
- const display=openCanvasFront(panel.querySelector('#presentation-front'),{onChange:refresh});
+ const display=openCanvasFront(panel.querySelector('#presentation-front'),{onChange:refresh,invalidateStaging:()=>front?.invalidate()});
  let wake=null;
  function stopWake(){if(wake!==null){clearTimeout(wake);wake=null;}}
  function clearFront(){display.front.reset();syncing=false;stopWake();}
