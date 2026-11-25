@@ -65,7 +65,7 @@ def game_files(inherited):
         files[path] = data
         routes['/'+path] = sig(data)
     for path in (f'{SHARED}/{ACTOR}', f'{SHARED}/{CLOCK}', 'index.html', 'src/app/game.mjs', 'src/rendering/continuous-world/frame-front.mjs',
-                 'src/rendering/continuous-world/stage-pixels.mjs', 'src/rendering/continuous-world/front.css'):
+                 'src/rendering/continuous-world/stage-pixels.mjs', 'src/rendering/continuous-world/gpu-stage.mjs', 'src/rendering/continuous-world/front.css'):
         files[path] = (ROOT/path).read_bytes()
         if path != 'index.html':
             routes['/'+path] = sig(files[path])

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createFrameFront,openCanvasFront} from '../src/rendering/continuous-world/frame-front.mjs';
 import {captureStagePixels} from '../src/rendering/continuous-world/stage-pixels.mjs';
+import {captureGpuStage} from '../src/rendering/continuous-world/gpu-stage.mjs';
 
 const a={generation:1,runId:'first',stageId:78000001};
 const b={generation:2,runId:'next',stageId:78000002};
@@ -107,4 +108,40 @@ test('loss and restoration fence in-flight pixels; a fresh complete draw can rec
  await o.display();assert.ok(front.submit(a,'battle',fresh,f.read(fresh)));
  assert.deepEqual(writes,[pixels,pixels]);
  close();
+});
+
+test('complete GPU staging frames replace the front atomically; context loss fences new pixel receipts',async()=>{
+ const events=new Map(), writes=[];
+ let lost=false;
+ const gpu={width:1334,height:750,getContext:()=>({isContextLost:()=>lost}),
+  addEventListener:(k,v)=>events.set(k,v),removeEventListener:k=>events.delete(k)};
+ const stage=captureGpuStage(gpu,{render(snapshot){if(snapshot==='bad')throw Error('Partial GL draw');return snapshot;}});
+ const visible={width:1334,height:750,getContext:()=>ctx};
+ const ctx={save(){writes.push('save');},restore(){writes.push('restore');},
+  drawImage(source,x,y){writes.push([source,x,y,ctx.globalCompositeOperation]);},clearRect(){writes.push('clear');}};
+ const {front}=openCanvasFront(visible);
+ front.scope(a,'battle');
+ const first=frame(a,1),second=frame(a,2),third=frame(a,3);
+ const o=stage.wrap({close(){},begin(){stage.renderer.render('frame1');return {frame:first};},
+  observe(next){if(next===second)return {frame:second};
+   stage.renderer.render('frame3');lost=true;
+   events.get('webglcontextlost')({preventDefault(){writes.push('restorable');}});
+   return {frame:third};},
+  display(){stage.renderer.render('bad');}});
+ await o.begin();
+ assert.ok(front.submit(a,'battle',first,stage.read(first)));
+ assert.deepEqual(writes,['save',[gpu,0,0,'copy'],'restore']);
+ await o.observe(second);
+ assert.equal(stage.read(second),null);
+ assert.equal(front.view(a,'upgrade'),'frozen');
+ await o.observe(third);
+ assert.equal(stage.read(third),null);
+ assert.equal(stage.available(),false);
+ assert.equal(front.view(a,'battle',{error:true}),'fault');
+ lost=false;events.get('webglcontextrestored')();
+ assert.equal(stage.available(),false); // GPU resources still need recreation.
+ await assert.rejects(o.display(),/Partial GL draw/);
+ assert.equal(stage.read(first),null);
+ assert.equal(writes.length,4);
+ stage.destroy();assert.equal(events.size,0);
 });

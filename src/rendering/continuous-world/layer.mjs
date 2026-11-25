@@ -13,6 +13,7 @@ import {chooseMap3Cpu,permitMap3Cpu,MAP3_CPU_LANE,map3Stage} from '../cloud-stag
 import {createStage3CpuRenderer} from '../../../../stage3-cpu-canvas/stage3-cpu.mjs';
 import {createStage456GenericCpuRenderer} from '../../../../stage456-generic-cpu/stage456-cpu.mjs';
 import {openCanvasFront} from '../../../../src/rendering/continuous-world/frame-front.mjs';
+import {captureGpuStage} from '../../../../src/rendering/continuous-world/gpu-stage.mjs';
 import {captureStagePixels} from '../../../../src/rendering/continuous-world/stage-pixels.mjs';
 import {createStage2CpuRenderer} from '../../../../stage2-cpu-canvas/stage2-cpu.mjs';
 import {selectStage2,permitStage2,STAGE2_CPU_LANE} from '../cloud-stage12-canvas2d/stage2-admission.mjs';
@@ -136,9 +137,11 @@ export function openWorldLayer(canvas,hint,refresh){
    const cpu=chosen.lane===STAGE1_CANVAS_LANE;
    const map3=chosen.lane===MAP3_CPU_LANE;
    if(turn===opening)map3Attempt=map3;
-   const capture=cpu||cpu2||map3?captureStagePixels(chosen.canvas,{alpha:cpu2||(map3&&stockCpuStage(stageId))}):null;
+   let capture=cpu||cpu2||map3?captureStagePixels(chosen.canvas,{alpha:cpu2||(map3&&stockCpuStage(stageId))}):null;
    const r=map3?await (stage78(stageId)?createStage78CpuRenderer:world910(stageId)?createStage910CpuRenderer:worldLater(stageId)?createStage11to20CpuRenderer:stageId===78000003?createStage3CpuRenderer:createStage456GenericCpuRenderer)(capture.sink,indexURL,{indexSha256:nativeIndexSha256}):cpu2?await createStage2CpuRenderer(capture.sink,indexURL,{indexSha256:nativeIndexSha256}):cpu?await openCpuRenderer(capture.sink,indexURL,{indexSha256:nativeIndexSha256}):await createAssembledStageRenderer(canvas,stageId);
    try{
+    if(!capture)capture=captureGpuStage(canvas,r,{onChange:refresh});
+    const presenter=capture.renderer??r;
     const isHud=stageId===S1;
     if(isHud&&!cpu){
       try{localHud=await openStage1HudLayer({worldCanvas:canvas,hudCanvas,frameProof:DEST_PROOF});}
@@ -146,7 +149,7 @@ export function openWorldLayer(canvas,hint,refresh){
     }
     if(withScopedHud(stageId)&&!cpu2&&!map3){
       const open=stageEarlyHud(stageId)?openStage2to6PartialHud:stage78(stageId)?openStage78PartialHud:openStage9to20PartialHud;
-      try{localPartial=await open({stageId,canvas:partialCanvas,nativeIndexBytes:b,renderer:r,isCurrent:()=>turn===opening});}
+      try{localPartial=await open({stageId,canvas:partialCanvas,nativeIndexBytes:b,renderer:presenter,isCurrent:()=>turn===opening});}
       catch(e){localDiagnosis='部分 HUD 未通过：'+String(e.message).slice(0,175);}
     }
     const earlyFx=map3&&stageId>=78000003&&stageId<=78000006;
@@ -156,10 +159,10 @@ export function openWorldLayer(canvas,hint,refresh){
       onOmissions:x=>{if(turn===opening)omittedFx=x;}}):
      map3&&stage78(stageId)?(id,opts)=>openFrost78({...opts,stageId:id,lane:FROST78,onFrostEvidence:x=>{if(turn===opening)frostReceipt=x;}}):
      earlyFx?(id,opts)=>openEarlyFx({...opts,stageId:id,lane:EARLY_FX,onOmissions:x=>{if(turn===opening)omittedFx=x;}}):createAssembledObserver;
-    const normalObserver=localPartial?.observer??await buildObserver(stageId,{nativeIndexBytes:b,renderer:r,expectedOrigin:location.origin,onCommit:cpu2?undefined:x=>localHud?.commit(x),
+    const normalObserver=localPartial?.observer??await buildObserver(stageId,{nativeIndexBytes:b,renderer:presenter,expectedOrigin:location.origin,onCommit:cpu2?undefined:x=>localHud?.commit(x),
       onFrostEvidence:stageId===S1?x=>{if(turn===opening)frostReceipt=x;}:undefined,
       onSlowEvidence:stageId===S1||cpu2?x=>{if(turn===opening)slowReceipt=x;}:undefined});
-    const observer=capture?capture.wrap(normalObserver):normalObserver;
+    const observer=capture.wrap(normalObserver);
     if(turn===opening){hud=localHud;partial=localPartial;diagnosis=localDiagnosis;rendererLane=chosen.lane;front=capture;}
     return {observer,close(){localHud?.close();localPartial?.observer.close();if(turn===opening){front=null;hud=null;partial=null;diagnosis=null;slowReceipt=null;omittedFx=null;deathReceipt=null;frostReceipt=null;rendererLane=null;}r.destroy();capture?.destroy();}};
    }catch(e){localHud?.close();localPartial?.observer.close();if(turn===opening){front=null;hud=null;partial=null;diagnosis=null;slowReceipt=null;omittedFx=null;deathReceipt=null;frostReceipt=null;rendererLane=null;}r.destroy();capture?.destroy();throw e;}
@@ -176,12 +179,12 @@ export function openWorldLayer(canvas,hint,refresh){
   const awaitingRetirement=qualifyingDeathHold({stageId,receipt:deathReceipt,lineage:p.lineage,battle:b,cpu:map3});
   const owner={generation:opening,stageId,runId:s.runId};
   display.front.scope(owner,s.phase);
-  let committed=false,failed=!!p.error;
-  if((cpu||cpu2||map3)&&front&&display.alive()){
+  let committed=false,failed=!!p.error||front?.available?.()===false;
+  if(front&&display.alive()){
    const authority=p.lineage;
    const exact=authority?.runId===s.runId&&match&&p.frame?.runId===s.runId&&p.frame.requestId===authority.requestId;
    const admitted=!awaitingRetirement&&(cpu?permitCpuFrame({stageId,phase:s.phase,rendererLane,presentationMatched:exact,held:failed}):
-    map3?permitMap3Cpu({stageId,phase:s.phase,rendererLane,presentationMatched:exact,held:failed}):permitStage2({stageId,phase:s.phase,rendererLane,presentationMatched:exact,held:failed}));
+    map3?permitMap3Cpu({stageId,phase:s.phase,rendererLane,presentationMatched:exact,held:failed}):cpu2?permitStage2({stageId,phase:s.phase,rendererLane,presentationMatched:exact,held:failed}):exact&&!failed);
    if(admitted&&!document.hidden)try{
     committed=display.front.submit(owner,s.phase,p.frame,front.read(p.frame));
    }catch{failed=true;}
@@ -194,12 +197,12 @@ export function openWorldLayer(canvas,hint,refresh){
   cpuVisible=cpu&&painted;
   stage2CpuVisible=cpu2&&painted;
   map3CpuVisible=map3&&painted;
-  const visible=painted||(!(cpu||cpu2||map3)&&match);
+  const visible=painted;
   panel.dataset.retainedWorld=painted?'true':'false';
   panel.dataset.presentationState=displayState;
   panel.dataset.worldVisible=visible?'true':'false';
   hint.hidden=!active;hudHint.hidden=(!isHud&&!withScopedHud(stageId))||s.phase==='battle-ready';
-  const withPartial=withScopedHud(stageId)&&partial?.presenter.update(p.frame,{visible,phase:s.phase});
+  const withPartial=withScopedHud(stageId)&&partial?.presenter.update(p.frame,{visible:visible&&committed,phase:s.phase});
   if(withScopedHud(stageId))hudHint.textContent=diagnosis??partial?.presenter.error??(withPartial?
     '部分原 HUD 重建：真实同帧原技能栏与原空位，不绘制实时 DPS 填充；非原生画面。':
     '未显示部分 HUD；升级窗只画原选择，不使用假底图。');

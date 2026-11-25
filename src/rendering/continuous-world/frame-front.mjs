@@ -38,7 +38,7 @@ export function createFrameFront({paint,clear,mismatchMs=2200,now=()=>performanc
  });
 }
 
-/** Routes Canvas2D pixels to a shared front; the old render targets are never visible. */
+/** Commit a complete CPU image or same-operation GPU staging surface. */
 export function openCanvasFront(canvas,{onChange=()=>{},invalidateStaging=()=>{}}={}){
  const ctx=canvas.getContext('2d',{alpha:true});
  let lost=false,closed=false;
@@ -46,7 +46,13 @@ export function openCanvasFront(canvas,{onChange=()=>{},invalidateStaging=()=>{}
  const front=createFrameFront({
   paint(pixels){
    if(!alive()||pixels.width!==canvas.width||pixels.height!==canvas.height)throw new Error('Presentation buffer unavailable');
-   ctx.putImageData(pixels,0,0);
+   if(pixels.source){
+    // Replace every pixel, including transparent pixels. No visible clear
+    // or intermediate composition while the GPU canvas redraws.
+    ctx.save();
+    try{ctx.globalCompositeOperation='copy';ctx.drawImage(pixels.source,0,0);}
+    finally{ctx.restore();}
+   }else ctx.putImageData(pixels,0,0);
   },
   clear(){if(alive())ctx.clearRect(0,0,canvas.width,canvas.height);}
  });
