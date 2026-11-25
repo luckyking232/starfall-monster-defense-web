@@ -11,6 +11,7 @@ import tempfile
 from audit_runtime import ledger, sig
 from dev import download_input, server
 from product_bindings import ACTOR, CLOCK, SHARED, links
+from product_resources import move_pinned_resources
 from setup_local_replica import BUILDER, materialize, read_lock, replica_source
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -67,6 +68,7 @@ def game_files(inherited):
         files[path] = (ROOT/path).read_bytes()
         if path != 'index.html':
             routes['/'+path] = sig(files[path])
+    move_pinned_resources(files,routes,workers,sig)
     compact = lambda v: json.dumps(v, ensure_ascii=False, sort_keys=True, separators=(',',':'))
     files[LEDGER] = (
         f'globalThis.__starfallRouteLedger=Object.freeze({compact(routes)});\n'

@@ -97,3 +97,9 @@ Canvas2D 的阶段适配器只写不可见的完整帧，单一前台 Canvas 一
 `npm run package -- --manifest PATH --out GAME.zip` 从同一个 `dist/` 取输入；仍须逐文件授权、来源、字节和 SHA，未经审核不产生正式包。`npm run check:zip -- GAME.zip` 是严格的本地只读预检。本轮用临时 ZIP 跑预检，历史如下：50 条绝对路径样式的 JS 引用被拒，另有计算路径告警。这里有经过旧虚拟路由器重映射的路径，必须逐条区分真实资源引用和逻辑标识，不能仅因桌面可运行就取消拦截。产品构建、历史固定 Alpha 和本地 WebView/真机结果分别报告；未上传 TapTap，也未替换现有 Pages。
 
 CI 的产品任务先从当前源码和固定资源输入构建，之后才读取原 Alpha，仅用作对照测试。对照锁住权威 Worker、存档和全部 Lua/WASM 字节，不替代同输入、同操作的完整规则回放。
+
+### 资源物理路径第一批
+
+产品构建将 27 个规则 Lua 文件移到 `assets/lua/{battle,combat,choice}/`，Wasmoon JS / WASM 移到 `vendor/wasmoon/`。没有物理重复副本；所有遗留逻辑路径和别名继续指向同一份已锁定字节。经典规则 Worker、进度存储、其他 Lua/WASM 完整性一同对照旧 QA，69 项全部一致。尚不把生成路由或历史装配称为已消除。
+
+桌面 Chrome 在三层子路径启动新构建，完成选关、第一关原规则推进（300 帧、3 击杀）及第 301 帧选卡显示；可见原地图和保留战场。此记录只涵盖桌面 Chrome 的 Canvas2D 路线，不是 TapTap WebView 验收或全关卡验证。
