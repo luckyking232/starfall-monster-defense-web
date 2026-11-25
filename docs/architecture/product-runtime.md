@@ -64,3 +64,18 @@ QA 中 `ui` 有 19 份、13 种字节，入口只挑一份；`site-layer` 有 18
 4. 新构建只使用当前源码和锁定的资源输入，不能读取已经发出去的 Alpha 作日常游戏本体。两平台共享静态输出；TapTap 打包仅做自检，绝不自动上传。
 5. 已复核官方 [游戏工具上传 Skill v1.0.0](https://3rd-tool-h5-al.tapimg.com/temp/taptap-game-tool-upload-1_0_0.zip)，原包 SHA-256 `87bd192f6a1175ba26ec7479617b23e67d69145e6167a607f2e9ddf315b16883`。一层包装目录、直属入口、300 MiB 快照上限与相对路径是检查基线，不等同于账号当前的上传页或两端真实 WebView 测试。
 6. 原生弹道、部分粒子、音频混音及 HUD、真实 App/WebView 和所有关卡未验收；本重构不宣告这些内容完成。
+
+## 里程碑：仓库根入口可启动
+
+需要 Python 3.10+ 和 Node.js；不需要 npm 依赖。可选 `STARFALL_INPUTS`（或 `--inputs`）指向锁定的 **source-inputs** ZIP；不传时从固定 Release 地址下载并逐项校验。**不读取可玩 Alpha ZIP。**
+
+```sh
+npm run dev -- --port 8000
+npm test
+npm run build
+npm run preview -- --prefix /qa/build/
+```
+
+`index.html` 和 `src/app/game.mjs` 已为实际源入口。四个连续画面／冻结桥接文件已从产物补丁变成可编辑源文件；过渡适配器仍将它们投影到剩余运行时能够解析的旧相对路径。不凭此认定模块合并完成，也不将该构建用于正式部署。构建只写未存在的输出目录；`dist/` 和旧 Alpha 不纳入这次改动。
+
+实测（桌面 Chrome，迁移后第一次构建）：显示原选关地图，同一路径读到既有第 1 关通关记录，进入第 2 关，原地图与单位可见；暂停和继续响应，第 300 帧 3 击杀，升级选卡并确认回到第 300 帧战斗。**已复现选卡刚入场战场黑屏**，不是这次入口迁移完成就已解决。整局新构建回归、移动端与 TapTap 仍待测。

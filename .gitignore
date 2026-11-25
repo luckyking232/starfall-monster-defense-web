@@ -25,3 +25,4 @@ dist-formal/
 !packages/replica-runtime/core-worker/spawn-audit-bridge.lua
 /dist-pages/
 /.local/
+/dist/
