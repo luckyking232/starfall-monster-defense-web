@@ -2,7 +2,7 @@ name: Deploy verified Alpha preview
 on:
   push:
     branches: [main]
-    paths: [apps/pages/**, release/**, packages/ui/startup/**, scripts/materialize_public_alpha.py, scripts/materialize_startup_qa.py, .github/workflows/pages.yml]
+    paths: [apps/pages/**, release/**, packages/ui/startup/**, packages/ui/display-continuity/**, scripts/materialize_public_alpha.py, scripts/materialize_startup_qa.py, scripts/materialize_display_continuity_qa.py, .github/workflows/pages.yml]
   workflow_dispatch:
 permissions:
   contents: read
@@ -30,7 +30,9 @@ jobs:
           mkdir -p dist-pages
           cp apps/pages/index.html apps/pages/.nojekyll dist-pages/
           python3 scripts/materialize_public_alpha.py "$RUNNER_TEMP/alpha.zip" release/alpha.1.json dist-pages/play
-          python3 scripts/materialize_startup_qa.py "$RUNNER_TEMP/alpha.zip" release/alpha.1.json dist-pages/qa/startup
+          python3 scripts/materialize_startup_qa.py "$RUNNER_TEMP/alpha.zip" release/alpha.1.json "$RUNNER_TEMP/qa-startup-base"
+          mkdir -p dist-pages/qa
+          python3 scripts/materialize_display_continuity_qa.py --startup "$RUNNER_TEMP/qa-startup-base" dist-pages/qa/startup
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist-pages
