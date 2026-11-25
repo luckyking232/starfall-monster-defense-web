@@ -10,6 +10,7 @@ import tempfile
 
 from audit_runtime import ledger, sig
 from dev import download_input, server
+from product_bindings import ACTOR, CLOCK, SHARED, links
 from setup_local_replica import BUILDER, materialize, read_lock, replica_source
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -58,7 +59,10 @@ def game_files(inherited):
         data = (ROOT/src).read_bytes()
         files[dst] = data
         routes['/'+dst] = sig(data)
-    for path in ('index.html', 'src/app/game.mjs', 'src/rendering/continuous-world/frame-front.mjs',
+    for path, data in links(files):
+        files[path] = data
+        routes['/'+path] = sig(data)
+    for path in (f'{SHARED}/{ACTOR}', f'{SHARED}/{CLOCK}', 'index.html', 'src/app/game.mjs', 'src/rendering/continuous-world/frame-front.mjs',
                  'src/rendering/continuous-world/stage-pixels.mjs', 'src/rendering/continuous-world/front.css'):
         files[path] = (ROOT/path).read_bytes()
         if path != 'index.html':
