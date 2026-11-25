@@ -4,6 +4,21 @@
 
 **[在线试玩](https://luckyking232.github.io/starfall-monster-defense-web/play/index.html)** · **[下载同版 ZIP](https://github.com/luckyking232/starfall-monster-defense-web/releases/tag/v0.1.0-alpha.1)** · **[贡献指南](CONTRIBUTING.md)**
 
+## 潮汐前哨开发预览
+
+`apps/game` 是独立的新产品入口。当前开发候选包含灯塔湾、断潮礁和外海巡防三个自制验证场景，可体验自动防守、波次间升级、结算和本地解锁。 [GitHub Pages 开发预览](https://luckyking232.github.io/starfall-monster-defense-web/preview/)
+
+本地需要 Node.js 22.12+。
+
+```sh
+npm --prefix apps/game ci
+npm --prefix apps/game run dev
+```
+
+独立候选使用相对资源路径，同一次构建提供 Pages 预览和 `tool/index.html` 格式的 TapTap ZIP。Pages 候选有独立的构建、浏览器测试和包体检查。 [实施计划](docs/superpowers/plans/2026-11-25-web-product-rebuild.md) · [候选工作流](.github/workflows/web-game-candidate.yml)
+
+TapTap 的冷启动首帧方向、容器行为和可发布内容清单由真机及平台自测验收。
+
 ## 本地启动
 
 克隆后运行（Python 3.11+）：
