@@ -1,22 +1,8 @@
-name: Deploy verified Pages previews
+name: Deploy verified Alpha preview
 on:
   push:
     branches: [main]
-    paths:
-      - 'apps/pages/**'
-      - 'apps/game/**'
-      - 'release/**'
-      - 'packages/ui/startup/**'
-      - 'packages/ui/display-continuity/**'
-      - 'scripts/materialize_public_alpha.py'
-      - 'scripts/materialize_startup_qa.py'
-      - 'scripts/materialize_display_continuity_qa.py'
-      - 'scripts/web_game_manifest.py'
-      - 'scripts/package_zip.py'
-      - 'scripts/check_zip.py'
-      - 'tests/test_packaging.py'
-      - '.github/workflows/pages.yml'
-      - '.github/workflows/web-game-candidate.yml'
+    paths: [apps/pages/**, release/**, packages/ui/startup/**, packages/ui/display-continuity/**, scripts/materialize_public_alpha.py, scripts/materialize_startup_qa.py, scripts/materialize_display_continuity_qa.py, .github/workflows/pages.yml]
   workflow_dispatch:
 permissions:
   contents: read
@@ -24,12 +10,8 @@ concurrency:
   group: github-pages
   cancel-in-progress: false
 jobs:
-  web-game:
-    if: github.ref == 'refs/heads/main'
-    uses: ./.github/workflows/web-game-candidate.yml
   build:
     if: github.ref == 'refs/heads/main'
-    needs: web-game
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
@@ -51,10 +33,6 @@ jobs:
           python3 scripts/materialize_startup_qa.py "$RUNNER_TEMP/alpha.zip" release/alpha.1.json "$RUNNER_TEMP/qa-startup-base"
           mkdir -p dist-pages/qa
           python3 scripts/materialize_display_continuity_qa.py --startup "$RUNNER_TEMP/qa-startup-base" dist-pages/qa/startup
-      - uses: actions/download-artifact@v4
-        with:
-          name: web-game-dist-${{ github.sha }}
-          path: dist-pages/preview
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist-pages

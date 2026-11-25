@@ -7,11 +7,8 @@ SAFE = re.compile(r'^[a-zA-Z0-9_.][a-zA-Z0-9_. /-]*$')
 PUB = {'original-mit', 'licensed-for-public-redistribution', 'public-domain'}
 PRIVATE = {'.git', '.env', 'private', 'node_modules', '__MACOSX'}
 BLOCKED_SUFFIX = {'.apk', '.ab', '.bundle', '.zip', '.pem', '.key'}
-DEFAULT_WRAPPER = 'xingluo-monsters-defense'
 
-def prepare(source, manifest, output, *, wrapper=DEFAULT_WRAPPER):
-    if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]{0,63}', wrapper):
-        raise ValueError('Invalid ZIP wrapper directory name.')
+def prepare(source, manifest, output):
     if output.exists() or output.is_symlink():
         raise ValueError('Refusing to overwrite output.')
     if not source.is_dir() or source.is_symlink():
@@ -50,7 +47,7 @@ def prepare(source, manifest, output, *, wrapper=DEFAULT_WRAPPER):
     try:
         with temp.open('wb') as raw, zipfile.ZipFile(raw, 'w', allowZip64=False) as z:
             for name, path in sorted(actual.items()):
-                info = zipfile.ZipInfo(wrapper+'/'+name, (1980,1,1,0,0,0))
+                info = zipfile.ZipInfo('xingluo-monsters-defense/'+name, (1980,1,1,0,0,0))
                 info.create_system = 3
                 info.external_attr = 0o100644 << 16
                 info.compress_type = zipfile.ZIP_DEFLATED
@@ -78,9 +75,8 @@ if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
     for v in ('build','manifest','out'):
         p.add_argument('--'+v, type=Path, required=True)
-    p.add_argument('--wrapper', default=DEFAULT_WRAPPER, help='Top-level directory inside the ZIP.')
     a = p.parse_args()
     try:
-        prepare(a.build,a.manifest,a.out,wrapper=a.wrapper)
+        prepare(a.build,a.manifest,a.out)
     except (OSError,ValueError,RuntimeError) as e:
         p.exit(2,str(e)+'\n')
