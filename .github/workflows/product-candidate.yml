@@ -1,0 +1,45 @@
+name: Verify product source build
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'package.json'
+      - 'src/**'
+      - 'assets/**'
+      - 'vendor/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - '.github/workflows/product-candidate.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  current-source:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: npm test
+      - name: Build current source without the published game ZIP
+        run: |
+          npm run build -- --out "$RUNNER_TEMP/product"
+          node --check "$RUNNER_TEMP/product/src/app/game.mjs"
+          test -f "$RUNNER_TEMP/product/index.html"
+          test ! -f "$RUNNER_TEMP/product/MANIFEST-PRIVATE.json"
+      - name: Compare with fixed QA baseline (test only)
+        run: |
+          set -eu
+          curl --proto '=https' --proto-redir '=https' --silent --show-error --fail --location --max-time 90 --max-filesize 21058163 \
+            'https://github.com/luckyking232/starfall-monster-defense-web/releases/download/v0.1.0-alpha.1/MonsterDefense-v0.1.0-alpha.1.zip' \
+            --output "$RUNNER_TEMP/alpha.zip"
+          python3 scripts/materialize_startup_qa.py "$RUNNER_TEMP/alpha.zip" release/alpha.1.json "$RUNNER_TEMP/startup"
+          python3 scripts/materialize_display_continuity_qa.py --startup "$RUNNER_TEMP/startup" "$RUNNER_TEMP/baseline"
+          python3 tests/product-runtime-baseline.py "$RUNNER_TEMP/baseline" "$RUNNER_TEMP/product"
+          node tests/product-actor-bindings.mjs "$RUNNER_TEMP/baseline" "$RUNNER_TEMP/product"
+      - name: Disclose coverage
+        run: echo "No deployment, actual browser playthrough, or TapTap WebView certification."
