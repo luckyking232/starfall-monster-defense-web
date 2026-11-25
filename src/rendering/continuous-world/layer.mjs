@@ -12,7 +12,8 @@ import {createStage78CpuRenderer} from '../../../../stage78-cpu-canvas/stage78-c
 import {chooseMap3Cpu,permitMap3Cpu,MAP3_CPU_LANE,map3Stage} from '../cloud-stage1to20-cpu/group-admission.mjs';
 import {createStage3CpuRenderer} from '../../../../stage3-cpu-canvas/stage3-cpu.mjs';
 import {createStage456GenericCpuRenderer} from '../../../../stage456-generic-cpu/stage456-cpu.mjs';
-import {captureCpuFront,createHoldPolicy} from '../cloud-stage1to20-cpu/hold.mjs';
+import {openCanvasFront} from '../../../../src/rendering/continuous-world/frame-front.mjs';
+import {captureStagePixels} from '../../../../src/rendering/continuous-world/stage-pixels.mjs';
 import {createStage2CpuRenderer} from '../../../../stage2-cpu-canvas/stage2-cpu.mjs';
 import {selectStage2,permitStage2,STAGE2_CPU_LANE} from '../cloud-stage12-canvas2d/stage2-admission.mjs';
 import {createStage1CpuRenderer as openCpuRenderer} from '../../../../stage1-cpu-canvas/stage1-cpu.mjs';
@@ -118,10 +119,11 @@ export function qualifyingDeathHold({stageId,receipt,lineage,battle,cpu}){
 }
 export function openWorldLayer(canvas,hint,refresh){
  const panel=canvas.parentElement,cpuCanvas=panel.querySelector('#stage1-cpu-world'),cpu2Canvas=panel.querySelector('#stage2-cpu-world'),map3Canvas=panel.querySelector('#map3-cpu-world'),stockCanvas=panel.querySelector('#stock78-cpu-world'),hudCanvas=panel.querySelector('#canonical-hud'),partialCanvas=panel.querySelector('#stage78-hud'),hudHint=document.querySelector('#hud-preview-status');
- let hud=null,diagnosis=null,opening=0,partial=null,slowReceipt=null,omittedFx=null,deathReceipt=null,frostReceipt=null,rendererLane=null,cpuVisible=false,stage2CpuVisible=false,stage2Attempt=false,map3Attempt=false,map3CpuVisible=false,front=null,syncing=false,holdTimer=null;
- const hold=createHoldPolicy();
- function cancelHold(){if(holdTimer!==null){clearTimeout(holdTimer);holdTimer=null;}}
- function clearFront(){front?.clear();hold.reset();syncing=false;cancelHold();}
+ let hud=null,diagnosis=null,opening=0,partial=null,slowReceipt=null,omittedFx=null,deathReceipt=null,frostReceipt=null,rendererLane=null,cpuVisible=false,stage2CpuVisible=false,stage2Attempt=false,map3Attempt=false,map3CpuVisible=false,front=null,syncing=false;
+ const display=openCanvasFront(panel.querySelector('#presentation-front'),{onChange:refresh});
+ let wake=null;
+ function stopWake(){if(wake!==null){clearTimeout(wake);wake=null;}}
+ function clearFront(){display.front.reset();syncing=false;stopWake();}
  const hook=attachPublishedWorker({BaseWorker:__p.Worker,isHidden:()=>document.hidden,onChange:refresh,
   async openFor(stageId){
    const turn=++opening;clearFront();slowReceipt=null;omittedFx=null;deathReceipt=null;frostReceipt=null;stage2Attempt=false;map3Attempt=false;let localHud=null,localDiagnosis=null,localPartial=null;
@@ -134,7 +136,7 @@ export function openWorldLayer(canvas,hint,refresh){
    const cpu=chosen.lane===STAGE1_CANVAS_LANE;
    const map3=chosen.lane===MAP3_CPU_LANE;
    if(turn===opening)map3Attempt=map3;
-   const capture=cpu||cpu2||map3?captureCpuFront(chosen.canvas,{alpha:cpu2||(map3&&stockCpuStage(stageId)),onLost:refresh}):null;
+   const capture=cpu||cpu2||map3?captureStagePixels(chosen.canvas,{alpha:cpu2||(map3&&stockCpuStage(stageId))}):null;
    const r=map3?await (stage78(stageId)?createStage78CpuRenderer:world910(stageId)?createStage910CpuRenderer:worldLater(stageId)?createStage11to20CpuRenderer:stageId===78000003?createStage3CpuRenderer:createStage456GenericCpuRenderer)(capture.sink,indexURL,{indexSha256:nativeIndexSha256}):cpu2?await createStage2CpuRenderer(capture.sink,indexURL,{indexSha256:nativeIndexSha256}):cpu?await openCpuRenderer(capture.sink,indexURL,{indexSha256:nativeIndexSha256}):await createAssembledStageRenderer(canvas,stageId);
    try{
     const isHud=stageId===S1;
@@ -159,11 +161,11 @@ export function openWorldLayer(canvas,hint,refresh){
       onSlowEvidence:stageId===S1||cpu2?x=>{if(turn===opening)slowReceipt=x;}:undefined});
     const observer=capture?capture.wrap(normalObserver):normalObserver;
     if(turn===opening){hud=localHud;partial=localPartial;diagnosis=localDiagnosis;rendererLane=chosen.lane;front=capture;}
-    return {observer,close(){localHud?.close();localPartial?.observer.close();if(turn===opening){clearFront();front=null;hud=null;partial=null;diagnosis=null;slowReceipt=null;omittedFx=null;deathReceipt=null;frostReceipt=null;rendererLane=null;}r.destroy();capture?.destroy();}};
-   }catch(e){localHud?.close();localPartial?.observer.close();if(turn===opening){clearFront();front=null;hud=null;partial=null;diagnosis=null;slowReceipt=null;omittedFx=null;deathReceipt=null;frostReceipt=null;rendererLane=null;}r.destroy();capture?.destroy();throw e;}
+    return {observer,close(){localHud?.close();localPartial?.observer.close();if(turn===opening){front=null;hud=null;partial=null;diagnosis=null;slowReceipt=null;omittedFx=null;deathReceipt=null;frostReceipt=null;rendererLane=null;}r.destroy();capture?.destroy();}};
+   }catch(e){localHud?.close();localPartial?.observer.close();if(turn===opening){front=null;hud=null;partial=null;diagnosis=null;slowReceipt=null;omittedFx=null;deathReceipt=null;frostReceipt=null;rendererLane=null;}r.destroy();capture?.destroy();throw e;}
   }
  });
- return {WorkerClass:hook.WorkerClass,tick:hook.tick,presentationBusy:()=>hook.peek().working,close(){clearFront();hook.close();},syncing:()=>syncing,cpuVisible:()=>cpuVisible,stage2CpuVisible:()=>stage2CpuVisible,map3CpuVisible:()=>map3CpuVisible,update(f){
+ return {WorkerClass:hook.WorkerClass,tick:hook.tick,presentationBusy:()=>hook.peek().working,presentationError:()=>hook.peek().error,close(){clearFront();display.close();hook.close();},syncing:()=>syncing,cpuVisible:()=>cpuVisible,stage2CpuVisible:()=>stage2CpuVisible,map3CpuVisible:()=>map3CpuVisible,update(f){
   const p=hook.peek(),s=f.state,b=s.battle,stageId=s.scope.stageId;
   const active=hasWorld(stageId),isHud=stageId===S1;
   const phases=['battle-ready','battle','paused','exit-confirm'].includes(s.phase)||(isHud&&s.phase==='upgrade'&&hud?.status.blur);
@@ -172,31 +174,31 @@ export function openWorldLayer(canvas,hint,refresh){
   const cpu2=stageId===S2&&rendererLane===STAGE2_CPU_LANE;
   const map3=map3Stage(stageId)&&rendererLane===MAP3_CPU_LANE;
   const awaitingRetirement=qualifyingDeathHold({stageId,receipt:deathReceipt,lineage:p.lineage,battle:b,cpu:map3});
-  let carry=false;
-  if((cpu||cpu2||map3)&&front){
-   const authority=p.lineage&&p.lineage.runId===s.runId?{...p.lineage,surface:front}:null;
-   const exact=!!authority&&match&&p.frame?.runId===s.runId&&p.frame.requestId===authority.requestId;
-   const admitted=cpu?permitCpuFrame({stageId,phase:s.phase,rendererLane,presentationMatched:exact,held:!!p.error}):
-    map3?permitMap3Cpu({stageId,phase:s.phase,rendererLane,presentationMatched:exact,held:!!p.error}):permitStage2({stageId,phase:s.phase,rendererLane,presentationMatched:exact,held:!!p.error});
-   let committed=false,failed=!!p.error||awaitingRetirement;
-   if(admitted&&!document.hidden)try{committed=front.commit(p.frame);if(!committed)failed=true;}catch{failed=true;}
-   const r=hold.update({authority,match:committed,work:p.working&&p.state?.stageId===stageId&&b?.stageId===stageId,phase:s.phase,fail:failed,hidden:document.hidden,
-    expectedStage:stageId,isAlive:front.alive()});
-   if(r.kind==='hide')clearFront();
-   else if(r.kind==='previous'){
-    carry=true;syncing=true;
-    if(holdTimer===null)holdTimer=setTimeout(()=>{holdTimer=null;refresh();},Math.ceil(r.remaining));
-   }else {syncing=false;cancelHold();}
-   cpuVisible=cpu&&(committed||carry)&&r.kind!=='hide';
-   stage2CpuVisible=cpu2&&(committed||carry)&&r.kind!=='hide';
-   map3CpuVisible=map3&&(committed||carry)&&r.kind!=='hide';
-  }else {clearFront();cpuVisible=stage2CpuVisible=map3CpuVisible=false;}
-  const visible=cpu?cpuVisible:cpu2?stage2CpuVisible:map3?map3CpuVisible:match;
-  panel.dataset.map3CpuVisible=map3CpuVisible&&!stockCpuStage(stageId)?'true':'false';
-  panel.dataset.stock78CpuVisible=map3CpuVisible&&stockCpuStage(stageId)?'true':'false';
-  panel.dataset.stage2CpuVisible=stage2CpuVisible?'true':'false';
-  panel.dataset.stage1CpuVisible=cpuVisible?'true':'false';
-  panel.dataset.worldVisible=visible?'true':'false';hint.hidden=!active;hudHint.hidden=(!isHud&&!withScopedHud(stageId))||s.phase==='battle-ready';
+  const owner={generation:opening,stageId,runId:s.runId};
+  display.front.scope(owner,s.phase);
+  let committed=false,failed=!!p.error;
+  if((cpu||cpu2||map3)&&front&&display.alive()){
+   const authority=p.lineage;
+   const exact=authority?.runId===s.runId&&match&&p.frame?.runId===s.runId&&p.frame.requestId===authority.requestId;
+   const admitted=!awaitingRetirement&&(cpu?permitCpuFrame({stageId,phase:s.phase,rendererLane,presentationMatched:exact,held:failed}):
+    map3?permitMap3Cpu({stageId,phase:s.phase,rendererLane,presentationMatched:exact,held:failed}):permitStage2({stageId,phase:s.phase,rendererLane,presentationMatched:exact,held:failed}));
+   if(admitted&&!document.hidden)try{
+    committed=display.front.submit(owner,s.phase,p.frame,front.read(p.frame));
+   }catch{failed=true;}
+  }
+  const displayState=display.front.view(owner,s.phase,{exact:committed,error:failed,hidden:document.hidden});
+  const painted=display.alive()&&['current','previous','stale','frozen','fault'].includes(displayState);
+  syncing=displayState==='previous';
+  if(syncing&&wake===null)wake=setTimeout(()=>{wake=null;refresh();},2250);
+  if(!syncing)stopWake();
+  cpuVisible=cpu&&painted;
+  stage2CpuVisible=cpu2&&painted;
+  map3CpuVisible=map3&&painted;
+  const visible=painted||(!(cpu||cpu2||map3)&&match);
+  panel.dataset.retainedWorld=painted?'true':'false';
+  panel.dataset.presentationState=displayState;
+  panel.dataset.worldVisible=visible?'true':'false';
+  hint.hidden=!active;hudHint.hidden=(!isHud&&!withScopedHud(stageId))||s.phase==='battle-ready';
   const withPartial=withScopedHud(stageId)&&partial?.presenter.update(p.frame,{visible,phase:s.phase});
   if(withScopedHud(stageId))hudHint.textContent=diagnosis??partial?.presenter.error??(withPartial?
     '部分原 HUD 重建：真实同帧原技能栏与原空位，不绘制实时 DPS 填充；非原生画面。':
@@ -237,7 +239,10 @@ export function openWorldLayer(canvas,hint,refresh){
     frostReceipt.runId===p.frame.runId&&frostReceipt.requestId===p.frame.requestId&&frostReceipt.fixed===b?.fixedFrame&&
     frostReceipt.evidence?.drawable===false&&frostReceipt.evidence.activeTargets.length;
   if(frozen)hint.textContent+=' 原冻结已核对；单位动作随原规则停走，冰冻粒子未绘制。';
-  if(syncing)hint.textContent='画面同步中 · 上一帧（非当前规则帧）';
+  if(syncing)hint.textContent='画面同步中，保留本局最近一帧。';
+  if(displayState==='stale')hint.textContent='暂未收到可呈现的新画面，仍显示本局最近一帧。';
+  if(displayState==='fault')hint.textContent='动态画面中断，保留本局最近一帧。原规则不受影响；可暂停或返回选关。';
+  if(displayState==='frozen')hint.textContent='背景保留本局最近一帧。';
   if(isHud&&!cpu)hudHint.textContent=diagnosis??(hud?.status.blur?'原七步模糊 · 同一旧战斗 HUD 和重建世界，不是 Unity 原捕获。':
       hud?.status.error?'原战斗 HUD 未通过：'+hud.status.error:
    hud?.status.blurError?(hud?.status.hud&&s.phase!=='upgrade'?'原 HUD 已显示；':'')+'背景模糊暂不可用：'+hud.status.blurError:

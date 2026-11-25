@@ -48,10 +48,18 @@ const title={
 };
 let shell,scene,choice,nativeFont,fontFailure='',dead=false,pending=false,pendingKind=null,lastPainted=null,raf,renderKey='',inputs,currentLane='qualified-rules',staticMap=null;
 const priority=createChoicePriority();
+const worldNotice=q('#world-notice');
 function render(){
   if(!shell||dead)return;
   const f=shell.frame(), s=f.state;
   const worldVisible=world?.update(f)??false;
+  const notice=s.phase==='loading'?'正在载入战场…':
+    !worldVisible&&['battle-ready','battle'].includes(s.phase)?
+      world?.presentationError()?'未能显示战场。原规则不受影响，可暂停或返回选关。':
+        '正在准备战场画面，原规则独立运行。':
+    '';
+  if(worldNotice.textContent!==notice)worldNotice.textContent=notice;
+  worldNotice.hidden=!notice;
   const key=[s.revision,f.plane,f.model?.scroll?.position??'',worldVisible,world?.cpuVisible(),world?.stage2CpuVisible(),world?.map3CpuVisible(),world?.syncing()].join('/');
   if(renderKey!==key){
     renderKey=key;lastPainted=null;

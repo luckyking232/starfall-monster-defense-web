@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="./qualified-game/revisions/r6/cloud-stage12-stable-tools/controls.css">
   <link rel="stylesheet" href="./qualified-game/revisions/r6/cloud-stage1to6-generic-cpu/scope.css">
   <link rel="stylesheet" href="./qualified-game/revisions/r6/cloud-stage1to8-cpu/stock.css">
+  <link rel="stylesheet" href="./src/rendering/continuous-world/front.css">
 </head>
 <body>
   <main>
@@ -28,6 +29,7 @@
     <section aria-label="原资源画布与本机调试">
       <figure>
         <div class="canonical-world-stack" data-world-visible="false">
+          <canvas id="presentation-front" width="1334" height="750" aria-hidden="true"></canvas>
           <canvas id="canonical-world" width="1334" height="750" aria-hidden="true"></canvas>
           <canvas id="stage78-hud" data-hud-visible="false" width="1334" height="750" aria-hidden="true"></canvas>
           <canvas id="stage1-cpu-world" width="1334" height="750" aria-hidden="true"></canvas>
@@ -36,6 +38,7 @@
           <canvas id="stock78-cpu-world" width="1334" height="750" aria-hidden="true"></canvas>
           <canvas id="canonical-hud" data-hud-visible="false" width="1334" height="750" aria-hidden="true"></canvas>
           <canvas id="game" width="1334" height="750" aria-label="原资源绘图画布" aria-describedby="scope"></canvas>
+                  <div id="world-notice" role="status" hidden></div>
         </div>
         <figcaption>原资源画布（1334 × 750 逻辑像素）</figcaption>
       </figure>

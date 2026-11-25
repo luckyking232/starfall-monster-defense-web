@@ -58,9 +58,11 @@ def game_files(inherited):
         data = (ROOT/src).read_bytes()
         files[dst] = data
         routes['/'+dst] = sig(data)
-    for path in ('index.html', 'src/app/game.mjs'):
+    for path in ('index.html', 'src/app/game.mjs', 'src/rendering/continuous-world/frame-front.mjs',
+                 'src/rendering/continuous-world/stage-pixels.mjs', 'src/rendering/continuous-world/front.css'):
         files[path] = (ROOT/path).read_bytes()
-    routes['/src/app/game.mjs'] = sig(files['src/app/game.mjs'])
+        if path != 'index.html':
+            routes['/'+path] = sig(files[path])
     compact = lambda v: json.dumps(v, ensure_ascii=False, sort_keys=True, separators=(',',':'))
     files[LEDGER] = (
         f'globalThis.__starfallRouteLedger=Object.freeze({compact(routes)});\n'
@@ -117,7 +119,7 @@ def main():
     a = p.parse_args()
     if a.mode == 'test':
         for args in ([sys.executable,'-m','unittest','discover','-s','tests'],
-                     ['node','--test','tests/chooser-gesture.test.mjs'],
+                     ['node','--test','tests/chooser-gesture.test.mjs','tests/frame-front.test.mjs'],
                      [sys.executable,'scripts/test_public_source.py']):
             subprocess.run(args, cwd=ROOT, check=True)
     elif a.mode == 'build':
