@@ -5,6 +5,9 @@ on:
       - .github/workflows/rebuild-alpha.yml
       - release/inputs.lock.json
       - scripts/dev.py
+      - packages/ui/startup/**
+      - scripts/materialize_startup_qa.py
+      - scripts/materialize_public_alpha.py
       - scripts/setup_local_replica.py
   workflow_dispatch:
 permissions:
@@ -18,3 +21,10 @@ jobs:
           persist-credentials: false
       - name: Fetch approved inputs and reproduce the pinned game
         run: python3 -B scripts/dev.py --verify-only
+      - name: Verify the isolated startup browser candidate
+        run: |
+          curl --proto '=https' --proto-redir '=https' --silent --show-error --fail --location --max-time 90 --max-filesize 21058163 \
+            'https://github.com/luckyking232/starfall-monster-defense-web/releases/download/v0.1.0-alpha.1/MonsterDefense-v0.1.0-alpha.1.zip' \
+            --output "$RUNNER_TEMP/alpha.zip"
+          python3 -B scripts/materialize_startup_qa.py "$RUNNER_TEMP/alpha.zip" release/alpha.1.json "$RUNNER_TEMP/qa-startup"
+          node --check "$RUNNER_TEMP/qa-startup/qualified-game/revisions/r6/cloud-temporary-20108-cpu/ui.mjs"
