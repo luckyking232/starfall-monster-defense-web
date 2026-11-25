@@ -23,6 +23,7 @@ LEGACY_ENTRY = 'qualified-game/revisions/r6/cloud-temporary-20108-cpu/ui.mjs'
 # Temporary physical names. Dependency-relative imports inside the still-unmoved
 # world and companions continue to resolve. This is not the target architecture.
 PROJECTION = {
+    'src/platform/local-progress.mjs': '_portable/progress-store.mjs',
     'src/rendering/continuous-world/layer.mjs':
         'qualified-game/revisions/r6/cloud-temporary-20108-cpu/site-layer.mjs',
     'src/rendering/effects/freeze/companion.js':
@@ -100,8 +101,22 @@ def build(overlay, output):
         ready.rename(output)
     return len(files)
 
-def serve(root, port, prefix):
+def product_preview_routes(entries, prefix):
+    """Match shared links only for the two permitted entry-document paths."""
     from dev import static_routes
+    admitted={prefix,prefix+'index.html'}
+    class NavigationRoutes(dict):
+        @staticmethod
+        def key(target):
+            path=target.partition('?')[0]
+            return path if path in admitted else target
+        def __contains__(self,target):
+            return super().__contains__(self.key(target))
+        def __getitem__(self,target):
+            return super().__getitem__(self.key(target))
+    return NavigationRoutes(static_routes(entries,prefix))
+
+def serve(root, port, prefix):
     from urllib.parse import quote
     if (not prefix.startswith('/') or not prefix.endswith('/') or
         any(p in ('.','..') for p in prefix.split('/')) or
@@ -111,7 +126,7 @@ def serve(root, port, prefix):
         raise ValueError('Expected a built static directory, without symlinks')
     paths = {WRAPPER+p.relative_to(root).as_posix(): p.read_bytes()
              for p in root.rglob('*') if p.is_file()}
-    with server(static_routes(paths, prefix), port) as http:
+    with server(product_preview_routes(paths, prefix), port) as http:
         print(f'http://127.0.0.1:{http.server_port}{prefix}', flush=True)
         http.serve_forever()
 
@@ -125,7 +140,7 @@ def main():
     a = p.parse_args()
     if a.mode == 'test':
         for args in ([sys.executable,'-m','unittest','discover','-s','tests'],
-                     ['node','--test','tests/chooser-gesture.test.mjs','tests/frame-front.test.mjs'],
+                     ['node','--test','tests/chooser-gesture.test.mjs','tests/frame-front.test.mjs','tests/product-progress.test.mjs'],
                      [sys.executable,'scripts/test_public_source.py']):
             subprocess.run(args, cwd=ROOT, check=True)
     elif a.mode == 'build':

@@ -31,3 +31,19 @@ class ProductResources(unittest.TestCase):
         ]:
             with self.subTest(files=files,routes=routes,workers=workers):
                 with self.assertRaises(ValueError):move_pinned_resources(files,routes,workers,sig)
+
+
+class PreviewEntry(unittest.TestCase):
+    def test_query_is_only_accepted_for_the_entry_documents(self):
+        from product import product_preview_routes
+        base='/verification/play/'
+        routes=product_preview_routes({
+            'xingluo-monsters-defense/index.html':b'<title>Game</title>',
+            'xingluo-monsters-defense/main.mjs':b'export {}',
+        },base)
+        for p in (base,base+'index.html'):
+            self.assertIn(p+'?utm_source=share',routes)
+            self.assertEqual(routes[p+'?utm_source=share'],routes[p])
+        self.assertNotIn(base+'main.mjs?utm_source=share',routes)
+        self.assertNotIn('https://other.example'+base+'?utm_source=share',routes)
+        self.assertNotIn(base+'../play/?share=1',routes)

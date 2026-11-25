@@ -1,4 +1,4 @@
-"""Compare the rule, vendor and persistence bytes against the sealed QA baseline."""
+"""Compare the rule and vendor bytes against the sealed QA baseline."""
 import sys
 from pathlib import Path
 from urllib.parse import quote, unquote
@@ -9,7 +9,7 @@ from product_resources import physical_name
 
 def compare(before, after):
     mandatory = ['_portable/authority.js', 'qualified-game/revisions/r6/worker.js',
-                 '_portable/progress-store.mjs', 'core-worker/inputs/vendor/index.js']
+                 'core-worker/inputs/vendor/index.js']
     mandatory += sorted(p.relative_to(before).as_posix() for p in before.rglob('*')
                         if p.suffix in {'.lua', '.wasm'})
     if len(mandatory) != len(set(mandatory)) or not any(p.endswith('.wasm') for p in mandatory):
@@ -19,7 +19,7 @@ def compare(before, after):
         data=(before/p).read_bytes()
         dest=physical_name(p)
         if data != (after/dest).read_bytes():
-            raise ValueError(f'Authority, vendor, or persistence bytes changed: {p}')
+            raise ValueError(f'Authority or vendor bytes changed: {p}')
         if dest != p:
             key='/'+quote(p,safe='/')
             row=new_routes[key]
