@@ -1,0 +1,52 @@
+name: Verify Web game candidate
+
+on:
+  pull_request:
+    paths:
+      - 'apps/game/**'
+      - 'scripts/package_zip.py'
+      - 'scripts/check_zip.py'
+      - 'scripts/web_game_manifest.py'
+      - 'tests/test_packaging.py'
+      - '.github/workflows/web-game-candidate.yml'
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  web-game:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: npm --prefix apps/game ci
+      - run: npm --prefix apps/game run typecheck
+      - run: npm --prefix apps/game run test:unit
+      - run: python3 -B -m unittest discover -s tests -p test_packaging.py
+      - run: npm --prefix apps/game run build
+      - run: node apps/game/node_modules/playwright/cli.js install --with-deps chromium
+      - run: npm --prefix apps/game run test:e2e
+      - name: Pack and inspect the verified static build
+        run: |
+          mkdir -p artifacts
+          python3 -B scripts/web_game_manifest.py --build apps/game/dist --out artifacts/reviewed-files.json
+          python3 -B scripts/package_zip.py --build apps/game/dist --manifest artifacts/reviewed-files.json --wrapper tool --out artifacts/tool.zip
+          python3 -B scripts/check_zip.py artifacts/tool.zip > artifacts/zip-preflight.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-game-dist-${{ github.sha }}
+          path: apps/game/dist
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-game-taptap-${{ github.sha }}
+          path: artifacts/
+          if-no-files-found: error

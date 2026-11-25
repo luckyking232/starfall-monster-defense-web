@@ -1,0 +1,22 @@
+{
+  "index.html": {
+    "license": "original-mit",
+    "provenance": "apps/game/index.html"
+  },
+  "NOTICE.txt": {
+    "license": "licensed-for-public-redistribution",
+    "provenance": "Repository, Phaser and EventEmitter3 MIT notices"
+  },
+  "assets/index-*.css": {
+    "license": "original-mit",
+    "provenance": "Original layout and procedural styling in apps/game/src/ui/layout.css"
+  },
+  "assets/index-*.js": {
+    "license": "licensed-for-public-redistribution",
+    "provenance": "Original Tide Outpost code and level data under repository MIT license, bundled with Vite MIT runtime helpers"
+  },
+  "assets/battle-view-*.js": {
+    "license": "licensed-for-public-redistribution",
+    "provenance": "Original arena artwork and renderer with Phaser and EventEmitter3 under MIT, see NOTICE.txt"
+  }
+}
