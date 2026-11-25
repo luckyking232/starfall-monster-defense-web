@@ -1,0 +1,32 @@
+{
+  "qualified-game/revisions/r6/cloud-temporary-20108-cpu/site-layer.mjs": {
+    "before": "a348de9ddb6e9d95551172edf1965e82dc07527b860c3ea15b3bc3922192d03a",
+    "after": "567d284a2b3c44d0b9968ca05e2d230c734f6f03f14a7aff96d483f669f696e1",
+    "before_bytes": 23476,
+    "after_bytes": 23630
+  },
+  "qualified-game/revisions/r6/cloud-temporary-20108-cpu/ui.mjs": {
+    "before": "716172892a59070e0c66f94afd778b3c356726a8a39b8197e47511864d9ccec2",
+    "after": "5d7751f6be16db46353d06a60066385929a2b3bf0ee1353fb4efa845c51cbb6f",
+    "before_bytes": 14354,
+    "after_bytes": 14382
+  },
+  "qualified-game/revisions/r6/stage1-2011-companion-probe/companion.js": {
+    "before": "0449bd3d4da5e7f3149d9482f44d8d18c496d7100fe0f247ded2d454cb6f98cd",
+    "after": "061d4d86acac47e089daeb0536242735421ef071fdfe697189cf9eb0a53ef0ed",
+    "before_bytes": 8641,
+    "after_bytes": 9078
+  },
+  "qualified-game/revisions/r6/stage1-2011-companion-probe/observer.mjs": {
+    "before": "b0479f2cd3b9c73a479694a873d35a5a9de291bd9225600045614fdf26cc40ce",
+    "after": "dda04703a6b3208a6aeaf84f795e768ba96c733695411075adc38885d75ff217",
+    "before_bytes": 8290,
+    "after_bytes": 8800
+  },
+  "qualified-game/revisions/r6/stage78-frost-source-witness/frost-ledger.mjs": {
+    "before": "1e286a188fd74f1b8c9fefb328fd251364177454a00b16d1a6e8d7f3f1a703ef",
+    "after": "a8dd6bb1d0f61cacdfea0d035eace5463052fd0a7ac9d19c68ce341979b78ebd",
+    "before_bytes": 5799,
+    "after_bytes": 5808
+  }
+}
