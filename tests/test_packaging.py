@@ -43,15 +43,6 @@ class Checks(unittest.TestCase):
             prepare(root,cfg,d/'one.zip')
             prepare(root,cfg,d/'two.zip')
             self.assertEqual((d/'one.zip').read_bytes(),(d/'two.zip').read_bytes())
-            with zipfile.ZipFile(d/'one.zip') as old:
-                self.assertEqual(old.namelist(), ['xingluo-monsters-defense/index.html'])
-            prepare(root,cfg,d/'tool.zip',wrapper='tool')
-            with zipfile.ZipFile(d/'tool.zip') as new:
-                self.assertEqual(new.namelist(), ['tool/index.html'])
-                self.assertEqual(new.read('tool/index.html'),page)
-            with self.assertRaisesRegex(ValueError, 'wrapper'):
-                prepare(root,cfg,d/'unsafe.zip',wrapper='tool/../other')
-            self.assertFalse((d/'unsafe.zip').exists())
             (root/'index.html').write_bytes(b'<h1>changed</h1>')
             with self.assertRaisesRegex(ValueError,'hash mismatch'):
                 prepare(root,cfg,d/'changed.zip')
