@@ -166,14 +166,46 @@ function reflectProgram(gl: WebGLRenderingContext, program: WebGLProgram) {
   return { attributes, uniforms };
 }
 
-function loadImage(url: string): Promise<HTMLImageElement> {
-  return new Promise((resolve, reject) => {
-    const image = new Image();
-    image.crossOrigin = 'anonymous';
-    image.onload = () => resolve(image);
-    image.onerror = () => reject(new Error(`Cannot load texture ${url}.`));
-    image.src = url;
+// Frames and effect textures share the same burst of requests when the chooser opens.
+const imageLoads = new Map<string,Promise<HTMLImageElement>>();
+const imageQueue: (() => void)[] = [];
+const maxImageRequests = 8;
+let activeImageRequests = 0;
+
+async function readBattleImage(url: string): Promise<HTMLImageElement> {
+  if (activeImageRequests < maxImageRequests) activeImageRequests++;
+  else await new Promise<void>(resume => imageQueue.push(resume));
+  try {
+    let failure: unknown;
+    for (const delay of [0,250,1000]) {
+      if (delay) await new Promise(resolve => setTimeout(resolve,delay));
+      const image = new Image();
+      image.crossOrigin = 'anonymous';
+      image.src = url;
+      try {
+        await image.decode();
+        return image;
+      } catch (error) {
+        failure = error;
+      }
+    }
+    throw new Error(`无法读取战场贴图 ${url}`,{cause:failure});
+  } finally {
+    const next = imageQueue.shift();
+    if (next) next();
+    else activeImageRequests--;
+  }
+}
+
+export function loadBattleImage(url: string): Promise<HTMLImageElement> {
+  const cached = imageLoads.get(url);
+  if (cached) return cached;
+  const pending = readBattleImage(url).catch(error => {
+    imageLoads.delete(url);
+    throw error;
   });
+  imageLoads.set(url,pending);
+  return pending;
 }
 
 function textureWrap(gl: WebGLRenderingContext, wrap: TextureWrap): number {
@@ -422,7 +454,7 @@ export class GlMeshRenderer {
         }
         const input = material.textures?.[uniform.name];
         if (input === undefined) throw new Error(`Missing active sampler texture ${uniform.name}.`);
-        return { uniform, input, image: typeof input === 'string' ? null : await loadImage(input.url) };
+        return { uniform, input, image: typeof input === 'string' ? null : await loadBattleImage(input.url) };
       }));
       this.assertReady();
       gl.activeTexture(gl.TEXTURE0);

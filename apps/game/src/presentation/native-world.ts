@@ -2,6 +2,7 @@ import { createOrthographicProjection, type Point3 } from './orthographic';
 import { compilePrefabPlayer, drawPrefabSprites, type PrefabSpriteCommand } from './prefab-player';
 import type { RuleState } from '../engine/protocol';
 import { MeshProjectiles } from './mesh-projectiles';
+import { loadBattleImage } from './gl-mesh';
 
 export interface NativeModel {
   path: string;
@@ -42,10 +43,7 @@ function loadLibrary() {
     }));
     const frames = new Map<string,HTMLImageElement>();
     await Promise.all([...files].map(async (file) => {
-      const img = new Image();
-      img.src = new URL(file,base()).href;
-      await img.decode();
-      frames.set(file,img);
+      frames.set(file,await loadBattleImage(new URL(file,base()).href));
     }));
     return {players,frames};
   })().catch(error=>{ library=undefined; throw error; });
