@@ -1,0 +1,2496 @@
+{
+ "bundles": {
+  "0553b6c60dc4a68e44c2ff16ad4692bc": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4544,
+   "name": "minigame022_prefab_minigame022_map1_prefab.bundle",
+   "originalMd5": "0553b6c60dc4a68e44c2ff16ad4692bc",
+   "originalSha256": "90c5ed79264fa3eccda93e3c4cd5ca67c8e56f2e799617b46aca89fc8cfe20d8",
+   "processedSha256": "e1864984d19fbf3aa516b38d4d3f02d88d8c26e72022e31c6618d1942747e436",
+   "processedSizeBytes": 272276,
+   "sizeBytes": 272308,
+   "usedBy": [
+    "minigame022_map1"
+   ]
+  },
+  "0b7bc080b49cf84af10a63fdc066f4cd": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4553,
+   "name": "minigame022_prefab_minigamespine_20506_pixel_prefab.bundle",
+   "originalMd5": "0b7bc080b49cf84af10a63fdc066f4cd",
+   "originalSha256": "98b0db74e3717f10b3395d57cd8358bbbe0282678a82c517e23598af557929f8",
+   "processedSha256": "470a850264213cddbab2c7c256112b4a8e04d298804b974e4c275d327495ba4c",
+   "processedSizeBytes": 50835,
+   "sizeBytes": 50867,
+   "usedBy": [
+    "minigamespine_20506_pixel"
+   ]
+  },
+  "21a2c8ff7c36d030ba0cd87133ca1726": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4551,
+   "name": "minigame022_prefab_minigamespine_20306_pixel_prefab.bundle",
+   "originalMd5": "21a2c8ff7c36d030ba0cd87133ca1726",
+   "originalSha256": "e01dc3238af7dbbb4d69d4798473a424819937b7fa7150f20a9e7cad612efff3",
+   "processedSha256": "8647a18bd032300a8050e11249c2be111ef350175ae737a7528cda596c87eacd",
+   "processedSizeBytes": 50209,
+   "sizeBytes": 50241,
+   "usedBy": [
+    "minigamespine_20306_pixel"
+   ]
+  },
+  "2843322b24ca395a0f5423508a8aa16f": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4555,
+   "name": "minigame022_prefab_minigamespine_10000104_pixel_prefab.bundle",
+   "originalMd5": "2843322b24ca395a0f5423508a8aa16f",
+   "originalSha256": "c7cc056f8f0b847e858f9dabcb242c4ca7177ef08a6a28f56b10696665e4d264",
+   "processedSha256": "72a7239e6e38bc89d2a2159199a8c09b25c1b5df2ec98dba6e75ed1da832098e",
+   "processedSizeBytes": 107577,
+   "sizeBytes": 107609,
+   "usedBy": [
+    "minigamespine_10000104_pixel"
+   ]
+  },
+  "4112b4323c3bbb2ef13890ce5197ee45": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4546,
+   "name": "minigame022_prefab_minigame022_map3_prefab.bundle",
+   "originalMd5": "4112b4323c3bbb2ef13890ce5197ee45",
+   "originalSha256": "a5220b705e46691bdcb80517839f1051633a873fb905e28458acb240f7e8a746",
+   "processedSha256": "814d2ab5a27de752172723641aa66b1485cc516b6a500e7cf98123c3ec1794ea",
+   "processedSizeBytes": 323550,
+   "sizeBytes": 323582,
+   "usedBy": [
+    "minigame022_map3"
+   ]
+  },
+  "41c99955eaf77c3a14f46e07c4cff168": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4550,
+   "name": "minigame022_prefab_minigamespine_20302_pixel_prefab.bundle",
+   "originalMd5": "41c99955eaf77c3a14f46e07c4cff168",
+   "originalSha256": "247b814c65ff06d3b001eb2975583d08ad6110b17b4abdbed2019582b6b21253",
+   "processedSha256": "6cdcaab45c008310b4708748b4b7c302d29540258ff8f6db7c59e32d007a32c5",
+   "processedSizeBytes": 44719,
+   "sizeBytes": 44751,
+   "usedBy": [
+    "minigamespine_20302_pixel"
+   ]
+  },
+  "5aa06e0049e335e7c26c88861c4c7d9a": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4557,
+   "name": "minigame022_prefab_minigamespine_10000134_pixel_prefab.bundle",
+   "originalMd5": "5aa06e0049e335e7c26c88861c4c7d9a",
+   "originalSha256": "310693d058f30869a68859def8c69c755cc78d0f1416cf8dcab50d4c390da53b",
+   "processedSha256": "f9d1f60f1849662508f056db9911251582ebf18e0a9e9ee0e350ac3855c752d5",
+   "processedSizeBytes": 92179,
+   "sizeBytes": 92211,
+   "usedBy": [
+    "minigamespine_10000134_pixel"
+   ]
+  },
+  "5d9887f19cdf925e93311026e38d59a9": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4559,
+   "name": "minigame022_prefab_minigamespine_zhalan_pixel_prefab.bundle",
+   "originalMd5": "5d9887f19cdf925e93311026e38d59a9",
+   "originalSha256": "64ff854f697b6d960007cb467c739ef332c285f4f91e8f7d21da06c2b0bfa865",
+   "processedSha256": "79928d43f0ad42c7ba830361811ec5ec144fc4c95e700c79e8a9eb341b5d0f25",
+   "processedSizeBytes": 9944,
+   "sizeBytes": 9976,
+   "usedBy": [
+    "minigamespine_zhalan_pixel"
+   ]
+  },
+  "64dbe5bdd51ae888249eb2111e3d0575": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4556,
+   "name": "minigame022_prefab_minigamespine_10000118_pixel_prefab.bundle",
+   "originalMd5": "64dbe5bdd51ae888249eb2111e3d0575",
+   "originalSha256": "38eabfa63171c6ef6cfe7a943a1ccc341dc08c013b84768ec9a3e7ba443a7a62",
+   "processedSha256": "1fceedd714922e1b123faa7a7529e290915af434c9e99824ae2542219f3da99b",
+   "processedSizeBytes": 132980,
+   "sizeBytes": 133012,
+   "usedBy": [
+    "minigamespine_10000118_pixel"
+   ]
+  },
+  "84c63f1a28dcc746b573a764fb661c40": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4549,
+   "name": "minigame022_prefab_minigamespine_20108_pixel_prefab.bundle",
+   "originalMd5": "84c63f1a28dcc746b573a764fb661c40",
+   "originalSha256": "854afedcbcd19f1d93bb4d07b28b66943723cd6fd4a2d6b51d7b4c5ff629be69",
+   "processedSha256": "9869bff28faa2d835f3ae340c98b5253f22abfd733c25569cf89caf6e02d018f",
+   "processedSizeBytes": 53129,
+   "sizeBytes": 53161,
+   "usedBy": [
+    "minigamespine_20108_pixel"
+   ]
+  },
+  "a042d4ecec90517e097896afaf6a2a0d": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4552,
+   "name": "minigame022_prefab_minigamespine_20411_pixel_prefab.bundle",
+   "originalMd5": "a042d4ecec90517e097896afaf6a2a0d",
+   "originalSha256": "4016b7f6f711f8365bceca76f67d29b037ae7aa1969393dd2af172e6afaf3849",
+   "processedSha256": "999b36bb50419edf381083656d9070ffe50bd410bc6644352e388de42c998f0b",
+   "processedSizeBytes": 60085,
+   "sizeBytes": 60117,
+   "usedBy": [
+    "minigamespine_20411_pixel"
+   ]
+  },
+  "a1dd0a7ea46319138e6c63a7853c07d3": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4548,
+   "name": "minigame022_prefab_minigamespine_20011_pixel_prefab.bundle",
+   "originalMd5": "a1dd0a7ea46319138e6c63a7853c07d3",
+   "originalSha256": "d3bac414efc58a54c50f1f5493f915f79c59c0a882f3b6fda0befb43e8914cf9",
+   "processedSha256": "688fe66c410789c2dbeaf081093a1139603b55b75f827c6e93adef6502657e7e",
+   "processedSizeBytes": 54199,
+   "sizeBytes": 54231,
+   "usedBy": [
+    "minigamespine_20011_pixel"
+   ]
+  },
+  "be94419ee51256c1cf06c416e47807c1": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4545,
+   "name": "minigame022_prefab_minigame022_map2_prefab.bundle",
+   "originalMd5": "be94419ee51256c1cf06c416e47807c1",
+   "originalSha256": "fc6c0c53f5e1ae307119a0176e3ec6f012ea493ce8e4ca5ebe6b71fc3e18f7ee",
+   "processedSha256": "19fce504736c046065b3a904c61cd685692f6e29f11e3a38d74921c790bbfc51",
+   "processedSizeBytes": 264198,
+   "sizeBytes": 264230,
+   "usedBy": [
+    "minigame022_map2"
+   ]
+  },
+  "c6a8f72b80fdad185c88326d0da943ce": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4547,
+   "name": "minigame022_prefab_minigamespine_20010_pixel_prefab.bundle",
+   "originalMd5": "c6a8f72b80fdad185c88326d0da943ce",
+   "originalSha256": "41b4298b76a92571ddf36225d81ab2fdd5de1f7b1ee1b6a72af19a7499455247",
+   "processedSha256": "aced4f6938368e94652f67455c8e8e1cc5e0c18baf61d00c2b0c194c55c861a3",
+   "processedSizeBytes": 51265,
+   "sizeBytes": 51297,
+   "usedBy": [
+    "minigamespine_20010_pixel"
+   ]
+  },
+  "cb13a6e0b1c702ce3b364cc3c7ded074": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4554,
+   "name": "minigame022_prefab_minigamespine_10000101_pixel_prefab.bundle",
+   "originalMd5": "cb13a6e0b1c702ce3b364cc3c7ded074",
+   "originalSha256": "a02ae98b67324348ea66a1cc817a87cbad816212e2ec593c855252221328dc68",
+   "processedSha256": "cb96be4b11d31a42190072cd2740772e9bd115d669fdc3ffef9bddd142d1a821",
+   "processedSizeBytes": 109135,
+   "sizeBytes": 109167,
+   "usedBy": [
+    "minigamespine_10000101_pixel"
+   ]
+  },
+  "ec2728fe719e6898eb495aa4d60c2c07": {
+   "category": "arts",
+   "headerOffsetStripped": 32,
+   "manifestIndex": 4558,
+   "name": "minigame022_prefab_minigamespine_10000198_pixel_prefab.bundle",
+   "originalMd5": "ec2728fe719e6898eb495aa4d60c2c07",
+   "originalSha256": "4462e1047fdd15f7cec54a8497e4152d11fa2a7347b91ac1bf6ec04c5b301f71",
+   "processedSha256": "8d80520318b5fc22ebbad3defee0da2ac15d9195deac05cea33beb43eeb472ea",
+   "processedSizeBytes": 109775,
+   "sizeBytes": 109807,
+   "usedBy": [
+    "minigamespine_10000198_pixel"
+   ]
+  }
+ },
+ "frames": {
+  "MiniGame022_map1": {
+   "file": "frames/MiniGame022_map1.png",
+   "height": 1004,
+   "prefab": "minigame022_map1",
+   "sha256": "fca1255adc80435f465130867798f8c45b04fe943ab8bf9bf736b88b332d8232",
+   "sprite": "1175107420213560964",
+   "width": 1668
+  },
+  "MiniGame022_map2": {
+   "file": "frames/MiniGame022_map2.png",
+   "height": 1004,
+   "prefab": "minigame022_map2",
+   "sha256": "7ed1d4d90f7827a4f21ebd92bf5e4bbf2162cb0b5daf88e9cbb469f1eebcbe70",
+   "sprite": "8178269503842971222",
+   "width": 1668
+  },
+  "MiniGame022_map3": {
+   "file": "frames/MiniGame022_map3.png",
+   "height": 1004,
+   "prefab": "minigame022_map3",
+   "sha256": "81f40146acded0fb549a78a458fd28e838c0ad68bcfa12110990d975f8e037ac",
+   "sprite": "-760292824117187357",
+   "width": 1668
+  },
+  "battlespine_20010_pixel_0": {
+   "file": "frames/battlespine_20010_pixel_0.png",
+   "height": 47,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "e9adfa3dbc11bd733baa4697ce49d59ce6b0b38eb043477edb6d92f59f110617",
+   "sprite": "-5729185285182634366",
+   "width": 54
+  },
+  "battlespine_20010_pixel_1": {
+   "file": "frames/battlespine_20010_pixel_1.png",
+   "height": 47,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "2932b3c599d3d31c5d0f311734d24903cee30a7bd8bf8aec1e67e69e9537e4f0",
+   "sprite": "-4346324793439772128",
+   "width": 54
+  },
+  "battlespine_20010_pixel_10": {
+   "file": "frames/battlespine_20010_pixel_10.png",
+   "height": 53,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "921c71046f71952bce699b6990a8fc4d29abbf6dd733b7c3c3318194e1c65cb3",
+   "sprite": "-3634276654743131110",
+   "width": 51
+  },
+  "battlespine_20010_pixel_11": {
+   "file": "frames/battlespine_20010_pixel_11.png",
+   "height": 53,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "712cbea4de0ce94f8827058e2418fb2051a8061ddbb71e64443d35974dc0e460",
+   "sprite": "-8174552560769507065",
+   "width": 51
+  },
+  "battlespine_20010_pixel_12": {
+   "file": "frames/battlespine_20010_pixel_12.png",
+   "height": 45,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "3c86086622f1ca3f2527aeed46db671514d097d90184b843a533a4979e7484f8",
+   "sprite": "7511592055718483850",
+   "width": 57
+  },
+  "battlespine_20010_pixel_13": {
+   "file": "frames/battlespine_20010_pixel_13.png",
+   "height": 55,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "9565531f2e0630c64305fbc1a5a83798960660319b0155a86a1a5f0180993413",
+   "sprite": "1179428379742232793",
+   "width": 64
+  },
+  "battlespine_20010_pixel_14": {
+   "file": "frames/battlespine_20010_pixel_14.png",
+   "height": 37,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "b82e5478fcad5dd1b48eb8687977d59539d76e6cc4982ffef5a952f12d453aeb",
+   "sprite": "2380814090273217721",
+   "width": 73
+  },
+  "battlespine_20010_pixel_15": {
+   "file": "frames/battlespine_20010_pixel_15.png",
+   "height": 37,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "8e36a1d58da9a7b48de1be4946266f8d6142c70f96cf92013da5eda1b5597f89",
+   "sprite": "6702006356306543752",
+   "width": 81
+  },
+  "battlespine_20010_pixel_16": {
+   "file": "frames/battlespine_20010_pixel_16.png",
+   "height": 38,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "4070a78bf49586c599b2d098f00bf75ab962ba8fcc1397dbec86ca9661a0694e",
+   "sprite": "-5105463148913510552",
+   "width": 47
+  },
+  "battlespine_20010_pixel_17": {
+   "file": "frames/battlespine_20010_pixel_17.png",
+   "height": 61,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "dfd548488bf573595f9c0528945b90cc694816187c6eb82717ea04769bcc8f19",
+   "sprite": "-2924848137054642324",
+   "width": 59
+  },
+  "battlespine_20010_pixel_18": {
+   "file": "frames/battlespine_20010_pixel_18.png",
+   "height": 66,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "b88c14d628abe2ac6b740a2487b5ac1e83709b291cbdb3860e6fcd26f89d6f64",
+   "sprite": "-7448330042760998334",
+   "width": 53
+  },
+  "battlespine_20010_pixel_19": {
+   "file": "frames/battlespine_20010_pixel_19.png",
+   "height": 73,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "e476a5114b909cf2e256b886e3834507a4a9216ea4ecb90d1ec2a2d557448254",
+   "sprite": "4806665997922670394",
+   "width": 53
+  },
+  "battlespine_20010_pixel_2": {
+   "file": "frames/battlespine_20010_pixel_2.png",
+   "height": 47,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "929a5ccda099230d19dd22b705833dfbc6b406bdf1117b7d39eb61a04fa53d24",
+   "sprite": "5075330776920640626",
+   "width": 53
+  },
+  "battlespine_20010_pixel_20": {
+   "file": "frames/battlespine_20010_pixel_20.png",
+   "height": 53,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "deb7409b5b5adf7e06f143d51a7ad43df8a07fce46268bfe21b7dd6785d5bbc0",
+   "sprite": "8964717592150549058",
+   "width": 84
+  },
+  "battlespine_20010_pixel_21": {
+   "file": "frames/battlespine_20010_pixel_21.png",
+   "height": 53,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "20ae484e1fe91b8064c4a3718713aca6af465edc3efc4e2ff104fe62c2705968",
+   "sprite": "4817304569205875874",
+   "width": 84
+  },
+  "battlespine_20010_pixel_22": {
+   "file": "frames/battlespine_20010_pixel_22.png",
+   "height": 51,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "c5458cbfed3e5f3fd10004b6a7ca88e8e939bb5db0925d29d283c35d36e16715",
+   "sprite": "3590313698150889080",
+   "width": 57
+  },
+  "battlespine_20010_pixel_23": {
+   "file": "frames/battlespine_20010_pixel_23.png",
+   "height": 46,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "507f69d83bbc60923cd2bbe5f7dac89bfc05f324957c40a400c8a860f1e19398",
+   "sprite": "6396484557837957430",
+   "width": 59
+  },
+  "battlespine_20010_pixel_24": {
+   "file": "frames/battlespine_20010_pixel_24.png",
+   "height": 48,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "e8ac9d605ef406b98cf67de9f6ac7856102dc19cac63efe98e356da4d3cda017",
+   "sprite": "-210033255096693131",
+   "width": 50
+  },
+  "battlespine_20010_pixel_3": {
+   "file": "frames/battlespine_20010_pixel_3.png",
+   "height": 47,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "7f3316ec2f69f4e48e1514120b79c7ace0b01978940f535bd6b7b3da4879b54a",
+   "sprite": "-1952844672802507123",
+   "width": 54
+  },
+  "battlespine_20010_pixel_4": {
+   "file": "frames/battlespine_20010_pixel_4.png",
+   "height": 47,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "e7b3f71347cfe4e7b50a242fb13299948a7cdec0154f759ada365d00cc638a45",
+   "sprite": "5902489677710682070",
+   "width": 54
+  },
+  "battlespine_20010_pixel_5": {
+   "file": "frames/battlespine_20010_pixel_5.png",
+   "height": 47,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "9ac36b234699cc92ecca0f42f49da7c4b122862af61cd3d0634de5645004a3a3",
+   "sprite": "4460714617298944083",
+   "width": 54
+  },
+  "battlespine_20010_pixel_6": {
+   "file": "frames/battlespine_20010_pixel_6.png",
+   "height": 46,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "708e282ec9ca659991c2aa4ff94be34b255fa55b6db4c158e5f8edec4bbaef76",
+   "sprite": "-45241406904321852",
+   "width": 54
+  },
+  "battlespine_20010_pixel_7": {
+   "file": "frames/battlespine_20010_pixel_7.png",
+   "height": 46,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "e28b4d80b82a8b0c70b24b4abaac90477b5cbfb44da65972532f480e0e3dd6c7",
+   "sprite": "391358438486362333",
+   "width": 57
+  },
+  "battlespine_20010_pixel_8": {
+   "file": "frames/battlespine_20010_pixel_8.png",
+   "height": 45,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "57b5c8aa2d70ec1048831076f9124caded397a0efcf0abda51a4d33bf2fbce73",
+   "sprite": "4976578413734509288",
+   "width": 53
+  },
+  "battlespine_20010_pixel_9": {
+   "file": "frames/battlespine_20010_pixel_9.png",
+   "height": 46,
+   "prefab": "minigamespine_20010_pixel",
+   "sha256": "708e282ec9ca659991c2aa4ff94be34b255fa55b6db4c158e5f8edec4bbaef76",
+   "sprite": "5534159020797544540",
+   "width": 54
+  },
+  "battlespine_20011_pixel_0": {
+   "file": "frames/battlespine_20011_pixel_0.png",
+   "height": 55,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "d149d0da9bf41a59e00a185aa181c60f6456e7d54888854a04dfdc8b2acedce4",
+   "sprite": "2955902930695992087",
+   "width": 68
+  },
+  "battlespine_20011_pixel_1": {
+   "file": "frames/battlespine_20011_pixel_1.png",
+   "height": 54,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "2f86eba930753baad6fe969cde7377b9279d88868f25d77900c8e4d57606bcee",
+   "sprite": "5111150971592960420",
+   "width": 68
+  },
+  "battlespine_20011_pixel_10": {
+   "file": "frames/battlespine_20011_pixel_10.png",
+   "height": 56,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "26819db5b2c4c79d5db56264a30074fdca839e9654c8a86884ccfa8e32203f82",
+   "sprite": "-7924089719047326260",
+   "width": 60
+  },
+  "battlespine_20011_pixel_11": {
+   "file": "frames/battlespine_20011_pixel_11.png",
+   "height": 56,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "eba3d094d5615f76779ec53ec3f1779e92847c246a3d639e1d85a24dca67554d",
+   "sprite": "-2200832075956880396",
+   "width": 66
+  },
+  "battlespine_20011_pixel_12": {
+   "file": "frames/battlespine_20011_pixel_12.png",
+   "height": 54,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "3ffecb74205eb335ed1cee7e378e4816d7e268c6a1a59a4fd5c8eb6910519c71",
+   "sprite": "8403316789418268846",
+   "width": 66
+  },
+  "battlespine_20011_pixel_13": {
+   "file": "frames/battlespine_20011_pixel_13.png",
+   "height": 53,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "0ba9adb23eb9cf29c87a6b120c72b13942405214f6b6504349f06e322ab2a200",
+   "sprite": "-804837082372606523",
+   "width": 65
+  },
+  "battlespine_20011_pixel_14": {
+   "file": "frames/battlespine_20011_pixel_14.png",
+   "height": 54,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "a5262c3763dc781c85a2e93c59e8f762b0f437b52ef6d2634084557ce9ba1a6c",
+   "sprite": "-2394597128028787411",
+   "width": 66
+  },
+  "battlespine_20011_pixel_15": {
+   "file": "frames/battlespine_20011_pixel_15.png",
+   "height": 36,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "233bda1f38d648a821b2926c8d090b420a8f12cb020bacd064ff01de2d8bde22",
+   "sprite": "-5997423074546597776",
+   "width": 75
+  },
+  "battlespine_20011_pixel_16": {
+   "file": "frames/battlespine_20011_pixel_16.png",
+   "height": 29,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "be71efefa73a8e8856ca13f13b383757eb6fce9e2770ab69e7fa144e545b0ad0",
+   "sprite": "947187445816276474",
+   "width": 82
+  },
+  "battlespine_20011_pixel_17": {
+   "file": "frames/battlespine_20011_pixel_17.png",
+   "height": 54,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "bfbba907dd28c687464460fce2bd04ca5f4d02f8dd5f0d446bd19667afcbbefe",
+   "sprite": "462090642770151930",
+   "width": 65
+  },
+  "battlespine_20011_pixel_18": {
+   "file": "frames/battlespine_20011_pixel_18.png",
+   "height": 65,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "612120ac20140514d2bbe8a5166c6854cbf839da9372fb2791e88d262ce42c8e",
+   "sprite": "-6383992917380615224",
+   "width": 64
+  },
+  "battlespine_20011_pixel_19": {
+   "file": "frames/battlespine_20011_pixel_19.png",
+   "height": 60,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "c77b988ac85510568943e479ffd6291eb49f64b9cf82a7e304f6872d51fbe414",
+   "sprite": "-3530736779125789121",
+   "width": 57
+  },
+  "battlespine_20011_pixel_2": {
+   "file": "frames/battlespine_20011_pixel_2.png",
+   "height": 56,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "e0c93a33fd8b8790eb10f6e6b4dcd7575dd878d1484b7bfea9f96da0ca1b1f59",
+   "sprite": "-7560847147750992163",
+   "width": 67
+  },
+  "battlespine_20011_pixel_20": {
+   "file": "frames/battlespine_20011_pixel_20.png",
+   "height": 62,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "2f6813f604a08d6002b5cc66be48da8a4fdd4eb19acfb1e9db26d646ebfa8cf7",
+   "sprite": "8000450368474623648",
+   "width": 59
+  },
+  "battlespine_20011_pixel_21": {
+   "file": "frames/battlespine_20011_pixel_21.png",
+   "height": 46,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "79dfbf5407d3fe2c3b2f1b737ba144e3f6f138f318279548bbbac5d2a2c7fcbf",
+   "sprite": "-1426913822763323152",
+   "width": 93
+  },
+  "battlespine_20011_pixel_22": {
+   "file": "frames/battlespine_20011_pixel_22.png",
+   "height": 44,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "cb0f890a16c3d713e6616833cdb6383675599d9a42476d30ed1ec9c36f480d1b",
+   "sprite": "-2516308915594961850",
+   "width": 64
+  },
+  "battlespine_20011_pixel_23": {
+   "file": "frames/battlespine_20011_pixel_23.png",
+   "height": 56,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "7fdf5798d1767e7ff5c1befec53db3ebb83553f69ec5517f5c268bafd8638bcf",
+   "sprite": "-756957697637059029",
+   "width": 66
+  },
+  "battlespine_20011_pixel_24": {
+   "file": "frames/battlespine_20011_pixel_24.png",
+   "height": 59,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "b62ad1704e591a682aead5954a64c51252cc84891e7029afc64dfd5f24c40717",
+   "sprite": "1720808037109998149",
+   "width": 67
+  },
+  "battlespine_20011_pixel_3": {
+   "file": "frames/battlespine_20011_pixel_3.png",
+   "height": 56,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "7b613cf504cf34c9299c7bfb5502239af2d552e2d103f18729cebc2b9214f985",
+   "sprite": "3969527972436569498",
+   "width": 66
+  },
+  "battlespine_20011_pixel_4": {
+   "file": "frames/battlespine_20011_pixel_4.png",
+   "height": 56,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "c145d22d29739e35f877236bcedb9f3f6e7009a2faef939df6d4d3e93f234da5",
+   "sprite": "-801511500430976964",
+   "width": 67
+  },
+  "battlespine_20011_pixel_5": {
+   "file": "frames/battlespine_20011_pixel_5.png",
+   "height": 54,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "1671a72986321ab7dccb4d2263a61f830871a6fb5ae29fbe23d06722405bac92",
+   "sprite": "-4021183166632367011",
+   "width": 68
+  },
+  "battlespine_20011_pixel_6": {
+   "file": "frames/battlespine_20011_pixel_6.png",
+   "height": 56,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "f870e480ee09f41c6e5fb0049eda637d43058e5ec1c047d05d1970c4a26871f3",
+   "sprite": "-8814486283039410337",
+   "width": 63
+  },
+  "battlespine_20011_pixel_7": {
+   "file": "frames/battlespine_20011_pixel_7.png",
+   "height": 58,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "db783bbb6f04be8555f6a2db5b5eb45a2661cae011771fe6ef1835820a1a8657",
+   "sprite": "-5573289167762213837",
+   "width": 55
+  },
+  "battlespine_20011_pixel_8": {
+   "file": "frames/battlespine_20011_pixel_8.png",
+   "height": 54,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "fb4586226fcbabcff1024c9c4013af51924f4e67e52ae677577bcbc7d43c812f",
+   "sprite": "6848185586913934632",
+   "width": 67
+  },
+  "battlespine_20011_pixel_9": {
+   "file": "frames/battlespine_20011_pixel_9.png",
+   "height": 51,
+   "prefab": "minigamespine_20011_pixel",
+   "sha256": "47f8f31422e9a26ceb879f0556667bc9a51400abbafe861b3cbce6330ca925c3",
+   "sprite": "485279063495383591",
+   "width": 70
+  },
+  "battlespine_20108_pixel_0": {
+   "file": "frames/battlespine_20108_pixel_0.png",
+   "height": 51,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "35afe857bf6f24c78b3ebe67341a6b34056cbc1ffd52ce674868ddc279853d19",
+   "sprite": "4114052334455281964",
+   "width": 71
+  },
+  "battlespine_20108_pixel_1": {
+   "file": "frames/battlespine_20108_pixel_1.png",
+   "height": 52,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "e0fe4ef542abec014d91d407bb6aa4d2368c2f19a6715fbba5a9083df133c949",
+   "sprite": "6817124037993155722",
+   "width": 69
+  },
+  "battlespine_20108_pixel_10": {
+   "file": "frames/battlespine_20108_pixel_10.png",
+   "height": 44,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "446b5c370057bc3182f9c45feb0228a9203ac6f235af873a8fb53f4c6a57b4bd",
+   "sprite": "-5343069898601397393",
+   "width": 69
+  },
+  "battlespine_20108_pixel_11": {
+   "file": "frames/battlespine_20108_pixel_11.png",
+   "height": 51,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "486e9cba78480d34128efb921df17867e59c874f3e167a94014dcb35c5785d16",
+   "sprite": "2865511041094381152",
+   "width": 55
+  },
+  "battlespine_20108_pixel_12": {
+   "file": "frames/battlespine_20108_pixel_12.png",
+   "height": 58,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "719f69dfabacff8dddea096a124159f1337b92f6222fca845a569b59d3db7ca7",
+   "sprite": "8620688605513068695",
+   "width": 48
+  },
+  "battlespine_20108_pixel_13": {
+   "file": "frames/battlespine_20108_pixel_13.png",
+   "height": 78,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "f4845edecb9002e78a412d3846a307317753a6e74d7afeab02dd95767e7f54db",
+   "sprite": "-6437035335484956505",
+   "width": 53
+  },
+  "battlespine_20108_pixel_14": {
+   "file": "frames/battlespine_20108_pixel_14.png",
+   "height": 44,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "7efb4b2419a0892a3ec54940da36c68fbf0dd7f413a86ce086369e90cbe56541",
+   "sprite": "3894917968998596082",
+   "width": 74
+  },
+  "battlespine_20108_pixel_15": {
+   "file": "frames/battlespine_20108_pixel_15.png",
+   "height": 44,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "b85c728bebccb9c85fe06aa7d29d13e8e5b9bfc2d6d447e8dc4f1b779c086ab4",
+   "sprite": "6266246931438424190",
+   "width": 74
+  },
+  "battlespine_20108_pixel_16": {
+   "file": "frames/battlespine_20108_pixel_16.png",
+   "height": 48,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "96784129a29ccd10e139d3d45748e59d7db3bce028c9e30a179ef5463548ccc7",
+   "sprite": "-5673944099430497786",
+   "width": 74
+  },
+  "battlespine_20108_pixel_17": {
+   "file": "frames/battlespine_20108_pixel_17.png",
+   "height": 48,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "bad0ab7e629e4da5ba48f2714be5904c2de29c613d3475384dac0d04eeaef1b5",
+   "sprite": "3737898989151546655",
+   "width": 74
+  },
+  "battlespine_20108_pixel_18": {
+   "file": "frames/battlespine_20108_pixel_18.png",
+   "height": 44,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "10779bf22e3510e77150d98cf5e4f956a8da4f074fcf14b8a9ae143ade7db190",
+   "sprite": "-7642289844124729872",
+   "width": 66
+  },
+  "battlespine_20108_pixel_19": {
+   "file": "frames/battlespine_20108_pixel_19.png",
+   "height": 45,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "e23ec7d77c7de0c7494877592dc474cbc37b0ea260d43dbfd6936ccc0debdafa",
+   "sprite": "7051633039699873435",
+   "width": 64
+  },
+  "battlespine_20108_pixel_2": {
+   "file": "frames/battlespine_20108_pixel_2.png",
+   "height": 52,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "1f15f92aaa365a9da9901b4548052df07576f4d2ead973941d2da5cc16b6ff3e",
+   "sprite": "-846506001555031213",
+   "width": 68
+  },
+  "battlespine_20108_pixel_3": {
+   "file": "frames/battlespine_20108_pixel_3.png",
+   "height": 51,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "fdb96804c189ed4144c1f96027abd2ed458d878c5f2b132e9aaf9aa693ae8293",
+   "sprite": "9087464660719565977",
+   "width": 68
+  },
+  "battlespine_20108_pixel_4": {
+   "file": "frames/battlespine_20108_pixel_4.png",
+   "height": 49,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "d413e0241fa123eaf9b4296fc2d791cc248710c010f6570b4503286407f700b1",
+   "sprite": "250443490911216989",
+   "width": 69
+  },
+  "battlespine_20108_pixel_5": {
+   "file": "frames/battlespine_20108_pixel_5.png",
+   "height": 50,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "db93e651f6803e5e7024840626a4e1da4a38ea76babb3ab67c7eed7e0d9ad608",
+   "sprite": "7916815861707694490",
+   "width": 71
+  },
+  "battlespine_20108_pixel_6": {
+   "file": "frames/battlespine_20108_pixel_6.png",
+   "height": 47,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "e72a2978b772eaccbf215ebda0fea99a3e87a0ca7d1d972d92ff9e6bba785ebc",
+   "sprite": "4839606520046344741",
+   "width": 60
+  },
+  "battlespine_20108_pixel_7": {
+   "file": "frames/battlespine_20108_pixel_7.png",
+   "height": 54,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "6020aa1c95cc10f98739444e4c7fd0d3bdddb5020fea327f2c2ac5de3a2ae21d",
+   "sprite": "-5135644848938817174",
+   "width": 55
+  },
+  "battlespine_20108_pixel_8": {
+   "file": "frames/battlespine_20108_pixel_8.png",
+   "height": 50,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "2ff176418adb9f249486737d92d28ecbfe26ac71560c52898d9b28120df9740f",
+   "sprite": "7515185179504835289",
+   "width": 61
+  },
+  "battlespine_20108_pixel_9": {
+   "file": "frames/battlespine_20108_pixel_9.png",
+   "height": 48,
+   "prefab": "minigamespine_20108_pixel",
+   "sha256": "aaf9cf6647d408dc853f049b34d557e5ab5f024eb2174b056438b2d48e9a1315",
+   "sprite": "-7254379315175017816",
+   "width": 61
+  },
+  "battlespine_20302_pixel_0": {
+   "file": "frames/battlespine_20302_pixel_0.png",
+   "height": 50,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "cf2ee83f4d70d1621f7b697b21fdd7c863385ff14af77c50da2379db239aa476",
+   "sprite": "-548608810812595550",
+   "width": 62
+  },
+  "battlespine_20302_pixel_1": {
+   "file": "frames/battlespine_20302_pixel_1.png",
+   "height": 49,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "2ba72b91aef63bbeb50b54be44f1f5fdef24a950b2892dba62ccd17571bfb96a",
+   "sprite": "4207311286075374159",
+   "width": 62
+  },
+  "battlespine_20302_pixel_10": {
+   "file": "frames/battlespine_20302_pixel_10.png",
+   "height": 49,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "65b3580534439b318b733efe86c8156bbe23b83743d4d7cf818bb59adea11514",
+   "sprite": "4493056789596721165",
+   "width": 62
+  },
+  "battlespine_20302_pixel_11": {
+   "file": "frames/battlespine_20302_pixel_11.png",
+   "height": 51,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "c785be1dfa5c9e076e92f3e496a0cc1ced191f295e2f21d65376a53303ca65fe",
+   "sprite": "-7014304005919643529",
+   "width": 62
+  },
+  "battlespine_20302_pixel_12": {
+   "file": "frames/battlespine_20302_pixel_12.png",
+   "height": 49,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "b484ab0f27c89e423327f522093869bc3b95ee87cd953e9ac94b028811e05623",
+   "sprite": "5614835754237988652",
+   "width": 60
+  },
+  "battlespine_20302_pixel_13": {
+   "file": "frames/battlespine_20302_pixel_13.png",
+   "height": 49,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "58392fecc05d82faa38b1191d9ba604f28f6d47bba9d34e080090ed6e571e98f",
+   "sprite": "2222814459723090753",
+   "width": 60
+  },
+  "battlespine_20302_pixel_14": {
+   "file": "frames/battlespine_20302_pixel_14.png",
+   "height": 47,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "3bbed051a821f6cd35a647185501e29b3150bb9a4b8f25396232067bb10c56ce",
+   "sprite": "-7169865694841961679",
+   "width": 62
+  },
+  "battlespine_20302_pixel_15": {
+   "file": "frames/battlespine_20302_pixel_15.png",
+   "height": 38,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "7433c25fd9939cc057d3157c2c38fc0748a6039e95e991cf2005ae7f82518ebc",
+   "sprite": "-6915162269697074230",
+   "width": 81
+  },
+  "battlespine_20302_pixel_16": {
+   "file": "frames/battlespine_20302_pixel_16.png",
+   "height": 49,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "c562c8c0512f23832d3e7d196bcfd4c858ff110b9fae8ea53069fefd4786aece",
+   "sprite": "7587609077074000870",
+   "width": 62
+  },
+  "battlespine_20302_pixel_17": {
+   "file": "frames/battlespine_20302_pixel_17.png",
+   "height": 47,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "9243b078e9e71efb3f5975d06959267ab87c6eb6ebee3e63dec1c7023642b991",
+   "sprite": "4472290003968946054",
+   "width": 62
+  },
+  "battlespine_20302_pixel_18": {
+   "file": "frames/battlespine_20302_pixel_18.png",
+   "height": 46,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "55f3370108bfd67d18945e5dcd79e737b40f491a24a7608ca8e9744c8fc80f03",
+   "sprite": "5455292081533890334",
+   "width": 57
+  },
+  "battlespine_20302_pixel_19": {
+   "file": "frames/battlespine_20302_pixel_19.png",
+   "height": 46,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "98be80cb086a8b3432384afc58c63ea0c8582323ad69a57288d3f13ba7580493",
+   "sprite": "-5294400632200895658",
+   "width": 57
+  },
+  "battlespine_20302_pixel_2": {
+   "file": "frames/battlespine_20302_pixel_2.png",
+   "height": 48,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "72b65c5c3bda4966dde912e2f241f42bff4b5a33a1ad44c57d329dad4d084a5b",
+   "sprite": "-1331124821227613070",
+   "width": 61
+  },
+  "battlespine_20302_pixel_20": {
+   "file": "frames/battlespine_20302_pixel_20.png",
+   "height": 42,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "2b06b799aac1686e0d759c3d9f8860caddf639b2f845046141b88b96a12ea90a",
+   "sprite": "513434906769622356",
+   "width": 62
+  },
+  "battlespine_20302_pixel_21": {
+   "file": "frames/battlespine_20302_pixel_21.png",
+   "height": 37,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "988cdc77129cfdbc49b3f84114a8a2edc15acd0fa9524f0e5945b7017a278b0d",
+   "sprite": "-1655249026023561120",
+   "width": 70
+  },
+  "battlespine_20302_pixel_22": {
+   "file": "frames/battlespine_20302_pixel_22.png",
+   "height": 44,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "ac8b1b2becbeba9f2600307666b26c1dfd3c5ca680e2fdf326d7ed0ddb531a08",
+   "sprite": "4271557781874957863",
+   "width": 71
+  },
+  "battlespine_20302_pixel_23": {
+   "file": "frames/battlespine_20302_pixel_23.png",
+   "height": 48,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "c00da6548cc0b3f58473028ed7c9d95a0db2f2dafa9810c8d7fb09f2aa6bd6ac",
+   "sprite": "6606681285397098549",
+   "width": 59
+  },
+  "battlespine_20302_pixel_24": {
+   "file": "frames/battlespine_20302_pixel_24.png",
+   "height": 48,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "a21eddea4c52b84d414f101513b303645e24f86e61ef087fbd09d98d887a0dbc",
+   "sprite": "614493497629079668",
+   "width": 59
+  },
+  "battlespine_20302_pixel_25": {
+   "file": "frames/battlespine_20302_pixel_25.png",
+   "height": 50,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "4f2d879381f90af88b74433b7eca1e47c32088cc3e779e6299de6fb20c620981",
+   "sprite": "-3051726052144149726",
+   "width": 59
+  },
+  "battlespine_20302_pixel_3": {
+   "file": "frames/battlespine_20302_pixel_3.png",
+   "height": 48,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "2d22f53bde341a6c3ef3998e6b6b6bc58a756ae5cdd16e1489fc57fda5b8a0c7",
+   "sprite": "-1269533712942880975",
+   "width": 63
+  },
+  "battlespine_20302_pixel_4": {
+   "file": "frames/battlespine_20302_pixel_4.png",
+   "height": 48,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "cde08f5417d851985f7a2fc4601b01bdde84cf4fb10559fb4fd5b7557434c3e7",
+   "sprite": "-7877615278700267531",
+   "width": 63
+  },
+  "battlespine_20302_pixel_5": {
+   "file": "frames/battlespine_20302_pixel_5.png",
+   "height": 49,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "19644c4d3b5cd9764dcffc2cfae2ffa32d903e298ca690bac548bab76bc3486b",
+   "sprite": "-6412011864121677225",
+   "width": 62
+  },
+  "battlespine_20302_pixel_6": {
+   "file": "frames/battlespine_20302_pixel_6.png",
+   "height": 50,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "14fc1338453406f2012ea41afddade7e31754e42438fe3a6861d7daa79fd801c",
+   "sprite": "-8985320384246907174",
+   "width": 62
+  },
+  "battlespine_20302_pixel_7": {
+   "file": "frames/battlespine_20302_pixel_7.png",
+   "height": 48,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "70bec0858840a64154f047e3a038e7a1f7bc78b7aa83e71af29dae6fad02e491",
+   "sprite": "-4306701851034633276",
+   "width": 66
+  },
+  "battlespine_20302_pixel_8": {
+   "file": "frames/battlespine_20302_pixel_8.png",
+   "height": 49,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "7ee0815c10ef8fccf4b66a98af1e3e3394e79c63279103c7ee16d13ec41f5752",
+   "sprite": "2194892494810845529",
+   "width": 61
+  },
+  "battlespine_20302_pixel_9": {
+   "file": "frames/battlespine_20302_pixel_9.png",
+   "height": 48,
+   "prefab": "minigamespine_20302_pixel",
+   "sha256": "ecd8839dd81b1a303c4502f63e44aae043114623eafe77ffd4b0071f5ad07a25",
+   "sprite": "3015401964653055721",
+   "width": 63
+  },
+  "battlespine_20306_pixel_0": {
+   "file": "frames/battlespine_20306_pixel_0.png",
+   "height": 64,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "1b001d8cfe5335cca7705e54f84ea01878b7c8a37c74fb84600d9054b9fc2a02",
+   "sprite": "-5990220315994634474",
+   "width": 62
+  },
+  "battlespine_20306_pixel_1": {
+   "file": "frames/battlespine_20306_pixel_1.png",
+   "height": 66,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "17bcd20ed5aec27be6129771cefefc0e3a82c922b5a34ea51db3e60c30d4e75d",
+   "sprite": "3796544602040716361",
+   "width": 58
+  },
+  "battlespine_20306_pixel_10": {
+   "file": "frames/battlespine_20306_pixel_10.png",
+   "height": 63,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "3efee2d2b3ae6d0f129033d71d388cc83bc612bd07fe76b913caf7ff137d5c53",
+   "sprite": "2285605242109581753",
+   "width": 61
+  },
+  "battlespine_20306_pixel_11": {
+   "file": "frames/battlespine_20306_pixel_11.png",
+   "height": 57,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "e15f815a29c65790f20c687afafb2bc5a177f7b07d72b37804810a70d82a686b",
+   "sprite": "6031810561901008389",
+   "width": 53
+  },
+  "battlespine_20306_pixel_12": {
+   "file": "frames/battlespine_20306_pixel_12.png",
+   "height": 61,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "199e5ecb2242a4fc64c202156bc337c94b991475e4186c91685a41dbba9190b5",
+   "sprite": "-7970556006286439352",
+   "width": 45
+  },
+  "battlespine_20306_pixel_13": {
+   "file": "frames/battlespine_20306_pixel_13.png",
+   "height": 60,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "76b3d597cb41931ed59ad11443b8968327dae538e0a588909b2c9f5fcb5a6992",
+   "sprite": "7554610810157848878",
+   "width": 34
+  },
+  "battlespine_20306_pixel_14": {
+   "file": "frames/battlespine_20306_pixel_14.png",
+   "height": 34,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "65c8a1bb0b0053c974382d4abcbdc6139a1e47ffe67ef78fbdef7b14b03d0914",
+   "sprite": "-5532272328065602024",
+   "width": 64
+  },
+  "battlespine_20306_pixel_15": {
+   "file": "frames/battlespine_20306_pixel_15.png",
+   "height": 29,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "25abb7a65edbcefa4c2e41d6d1d77b64355733ac5c91d7201180c837a7f7ac5e",
+   "sprite": "-3745936312287169122",
+   "width": 65
+  },
+  "battlespine_20306_pixel_16": {
+   "file": "frames/battlespine_20306_pixel_16.png",
+   "height": 25,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "365cf018cfb7bf9748d129f6c15cf2e786500a80aeeb8641b4cda637a2681cae",
+   "sprite": "2468024450786017589",
+   "width": 64
+  },
+  "battlespine_20306_pixel_17": {
+   "file": "frames/battlespine_20306_pixel_17.png",
+   "height": 62,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "6036d004965cb20ccfede7187bc6ce808ef8b50f155253ee88cfab7e5ea7deb3",
+   "sprite": "-9005111822922143898",
+   "width": 51
+  },
+  "battlespine_20306_pixel_18": {
+   "file": "frames/battlespine_20306_pixel_18.png",
+   "height": 54,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "8e78040f8c31e845087e115b873656dc2053fe9f5a83828f2ce43e859185a4aa",
+   "sprite": "-2553720136112584803",
+   "width": 51
+  },
+  "battlespine_20306_pixel_19": {
+   "file": "frames/battlespine_20306_pixel_19.png",
+   "height": 52,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "57b712cfde6c20e6eaafef9f84a3f4908872368983f8f8748da9f33e6f875c74",
+   "sprite": "7130172396408552233",
+   "width": 59
+  },
+  "battlespine_20306_pixel_2": {
+   "file": "frames/battlespine_20306_pixel_2.png",
+   "height": 68,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "ef171d0d505966f30d3c0bd7d362fc92074aff55a608a8513b3d6d7e8177cc51",
+   "sprite": "6398989258045459682",
+   "width": 52
+  },
+  "battlespine_20306_pixel_20": {
+   "file": "frames/battlespine_20306_pixel_20.png",
+   "height": 71,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "02dda84ff3f73994947d6a7b0ea7ac4cc807c8ad6df6f59e170129614a13245b",
+   "sprite": "4953505411100379422",
+   "width": 62
+  },
+  "battlespine_20306_pixel_21": {
+   "file": "frames/battlespine_20306_pixel_21.png",
+   "height": 69,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "fcffa70754fe4a98714798ac5d53d70cc8d8a28ef72990730f995391462eec96",
+   "sprite": "-5060056976171823798",
+   "width": 70
+  },
+  "battlespine_20306_pixel_22": {
+   "file": "frames/battlespine_20306_pixel_22.png",
+   "height": 66,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "be475804c026a9e295e1608ac02939ec6d468dc9b97997b6775def100d28228c",
+   "sprite": "7766989107876019429",
+   "width": 59
+  },
+  "battlespine_20306_pixel_23": {
+   "file": "frames/battlespine_20306_pixel_23.png",
+   "height": 63,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "84ae3c2c3f3320887ed6a77193a75fccd24faea5adf132e6bdc8543c7e347894",
+   "sprite": "-7086252808356023257",
+   "width": 54
+  },
+  "battlespine_20306_pixel_24": {
+   "file": "frames/battlespine_20306_pixel_24.png",
+   "height": 62,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "cf4fa89e8f28350decf439732ff0b934f32b0eada23dff322cdafb3d4e329e5c",
+   "sprite": "2589886869675954207",
+   "width": 59
+  },
+  "battlespine_20306_pixel_3": {
+   "file": "frames/battlespine_20306_pixel_3.png",
+   "height": 67,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "e4c8a837ae7a0eb3ba6db925282c69221541812a5b12299b93591ef969d64483",
+   "sprite": "-4556014939071485757",
+   "width": 52
+  },
+  "battlespine_20306_pixel_4": {
+   "file": "frames/battlespine_20306_pixel_4.png",
+   "height": 65,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "5ca8484f9b246ff17da05158e8c63edb4b6bfad80b87e2a1a36248249f0318be",
+   "sprite": "-8709210915023785536",
+   "width": 56
+  },
+  "battlespine_20306_pixel_5": {
+   "file": "frames/battlespine_20306_pixel_5.png",
+   "height": 63,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "b7a48b4e9df721b74ee672c39f3cdb0b6ede27dbf99e6c20f494ddee58a213ae",
+   "sprite": "8285727669108878973",
+   "width": 62
+  },
+  "battlespine_20306_pixel_6": {
+   "file": "frames/battlespine_20306_pixel_6.png",
+   "height": 62,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "39db2c04926696468de32fe97798f4b74b5e08037af06a094fa5597b0faf3f67",
+   "sprite": "-3045548498438115339",
+   "width": 61
+  },
+  "battlespine_20306_pixel_7": {
+   "file": "frames/battlespine_20306_pixel_7.png",
+   "height": 64,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "adcd362b1841526520542408d59c8ca25ec215b2a3961e3763afbd87ad922ffe",
+   "sprite": "-5865496775092766474",
+   "width": 58
+  },
+  "battlespine_20306_pixel_8": {
+   "file": "frames/battlespine_20306_pixel_8.png",
+   "height": 66,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "8fa64d13923e7cc74c4a03bd51a9547d502711177661ad50ac06c8434501b0d0",
+   "sprite": "-6652161425407297691",
+   "width": 56
+  },
+  "battlespine_20306_pixel_9": {
+   "file": "frames/battlespine_20306_pixel_9.png",
+   "height": 67,
+   "prefab": "minigamespine_20306_pixel",
+   "sha256": "dae2f4416dba7a8f60bf8fbd32aafe6b614fed9ea11eed90f4b7eac17b4ac838",
+   "sprite": "-6836227937959106936",
+   "width": 58
+  },
+  "battlespine_20411_pixel_0": {
+   "file": "frames/battlespine_20411_pixel_0.png",
+   "height": 72,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "86ff3872d27c11010a22900e20394c936b6c89651c7bfdaca622b6d4d9c5229e",
+   "sprite": "4216036584558487894",
+   "width": 61
+  },
+  "battlespine_20411_pixel_1": {
+   "file": "frames/battlespine_20411_pixel_1.png",
+   "height": 72,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "948fe5344a8c93c87a3eff55bc0c159998190ae2a79bee781f64df07e0bf9088",
+   "sprite": "5850969330529975216",
+   "width": 61
+  },
+  "battlespine_20411_pixel_10": {
+   "file": "frames/battlespine_20411_pixel_10.png",
+   "height": 71,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "40ed3ddf54db1b087db90277f593d801e9b2db7b4c8ad31232b14efe41fd9ff9",
+   "sprite": "9067380405098925184",
+   "width": 58
+  },
+  "battlespine_20411_pixel_11": {
+   "file": "frames/battlespine_20411_pixel_11.png",
+   "height": 70,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "d812fb29fcc04ac2781f36ee75056f08ff7b29d80805103581687c67d6ab55ec",
+   "sprite": "4345063476684612140",
+   "width": 57
+  },
+  "battlespine_20411_pixel_12": {
+   "file": "frames/battlespine_20411_pixel_12.png",
+   "height": 64,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "bc455d031cb1dcadb1def18481366431fcacb855623d7d1ee2223cde3f35f988",
+   "sprite": "9074281646733511692",
+   "width": 65
+  },
+  "battlespine_20411_pixel_13": {
+   "file": "frames/battlespine_20411_pixel_13.png",
+   "height": 59,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "d4770bdff6095abe951ac4fc068e76fadc1263e277a591cd520649120ff1d0fd",
+   "sprite": "-4606435912143721180",
+   "width": 58
+  },
+  "battlespine_20411_pixel_14": {
+   "file": "frames/battlespine_20411_pixel_14.png",
+   "height": 62,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "76642d00864b8a097c5687c8dcf99df365da0de7a937d9b159e8d7505e832ae8",
+   "sprite": "2607511051228551640",
+   "width": 53
+  },
+  "battlespine_20411_pixel_15": {
+   "file": "frames/battlespine_20411_pixel_15.png",
+   "height": 70,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "b927443efbbcf82de8afd142082d335f6c20a3a1718b96be9d900ea84e518c3d",
+   "sprite": "-6051219167976511716",
+   "width": 53
+  },
+  "battlespine_20411_pixel_16": {
+   "file": "frames/battlespine_20411_pixel_16.png",
+   "height": 52,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "9ee8351b018af78268f940415882c1bc074bbf1eae779568bef6352ec8845ba6",
+   "sprite": "-7782478634944116163",
+   "width": 71
+  },
+  "battlespine_20411_pixel_17": {
+   "file": "frames/battlespine_20411_pixel_17.png",
+   "height": 34,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "60f9970e2fe52ca4f8bc9c4078c47a23e295c4a0ea650fc30644bfce411bcbdb",
+   "sprite": "-1493482963673217189",
+   "width": 82
+  },
+  "battlespine_20411_pixel_18": {
+   "file": "frames/battlespine_20411_pixel_18.png",
+   "height": 69,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "d0b0dbf0360d5f8f7022ca046984b3774df1cf22e56f92e4acff08daeeb568c0",
+   "sprite": "1572715991665861534",
+   "width": 63
+  },
+  "battlespine_20411_pixel_19": {
+   "file": "frames/battlespine_20411_pixel_19.png",
+   "height": 70,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "9e3304073251caca7d1adf11030a6ef1c4d5ab4c83df7b1ab0f9e521771eeeb5",
+   "sprite": "-5968658252250690112",
+   "width": 66
+  },
+  "battlespine_20411_pixel_2": {
+   "file": "frames/battlespine_20411_pixel_2.png",
+   "height": 71,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "bbe74e4459f9bd83341d223062ab25e06dd5485fd96bf67f6900df05c5c511e1",
+   "sprite": "3727144508889037691",
+   "width": 62
+  },
+  "battlespine_20411_pixel_20": {
+   "file": "frames/battlespine_20411_pixel_20.png",
+   "height": 70,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "f7776b43b74987b5367121fa2fda46ea8c6a85e7b77bfe31575a967c43ad9164",
+   "sprite": "-6645927655141105515",
+   "width": 57
+  },
+  "battlespine_20411_pixel_21": {
+   "file": "frames/battlespine_20411_pixel_21.png",
+   "height": 65,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "0dc187fb7ea168772bc6962eb28b5720518159d39d7da54d2f4661842276d936",
+   "sprite": "-5683146084241202749",
+   "width": 92
+  },
+  "battlespine_20411_pixel_22": {
+   "file": "frames/battlespine_20411_pixel_22.png",
+   "height": 79,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "dad5f3f6ffc15e5f789f72c719bd789c4c26bff71766555f6875c5711ca66bc4",
+   "sprite": "-173834012846737449",
+   "width": 80
+  },
+  "battlespine_20411_pixel_23": {
+   "file": "frames/battlespine_20411_pixel_23.png",
+   "height": 76,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "df6111798260c2fbf38dc679240ff0da4a2fd70ad99e8b907eeac1d3791b35b7",
+   "sprite": "-1088981417299535784",
+   "width": 79
+  },
+  "battlespine_20411_pixel_24": {
+   "file": "frames/battlespine_20411_pixel_24.png",
+   "height": 69,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "f7e57683941519a801dde50117e9aa849f9a31f047e0c6ef1603f11633677f71",
+   "sprite": "6858056260340795885",
+   "width": 63
+  },
+  "battlespine_20411_pixel_3": {
+   "file": "frames/battlespine_20411_pixel_3.png",
+   "height": 71,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "03ed217b28d53d1f334efe58a4eda32fa113126430fb89c1f9f64a7a0dee5300",
+   "sprite": "5428850043844671535",
+   "width": 63
+  },
+  "battlespine_20411_pixel_4": {
+   "file": "frames/battlespine_20411_pixel_4.png",
+   "height": 71,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "611037049319016b637a74782dff54ff2954065e3d1c15cfcf782b7e62e1807e",
+   "sprite": "458037218191458860",
+   "width": 64
+  },
+  "battlespine_20411_pixel_5": {
+   "file": "frames/battlespine_20411_pixel_5.png",
+   "height": 72,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "acf2add6a2a81662e2066c8d3dbc50d9b082874421141207b2e94d226162261c",
+   "sprite": "-2997401623390985235",
+   "width": 64
+  },
+  "battlespine_20411_pixel_6": {
+   "file": "frames/battlespine_20411_pixel_6.png",
+   "height": 71,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "c3796d491aee94202fcf9bda93541b5d947153d2e43694fe60e104e86c980fc1",
+   "sprite": "5120348211725468911",
+   "width": 55
+  },
+  "battlespine_20411_pixel_7": {
+   "file": "frames/battlespine_20411_pixel_7.png",
+   "height": 69,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "5ddf64ccd416ec5b6377943cde48c7540c1a2ffa6a7676b9124a2c8663510fad",
+   "sprite": "637456889339063840",
+   "width": 54
+  },
+  "battlespine_20411_pixel_8": {
+   "file": "frames/battlespine_20411_pixel_8.png",
+   "height": 70,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "940f147253d741016b1ccf4b320fe1b7fcba9d2ccf8c29a54f1a6b2654f8065d",
+   "sprite": "-554608021782072000",
+   "width": 57
+  },
+  "battlespine_20411_pixel_9": {
+   "file": "frames/battlespine_20411_pixel_9.png",
+   "height": 70,
+   "prefab": "minigamespine_20411_pixel",
+   "sha256": "d1a7fe85776333177067206ba8e3093210985ffa97c84e0c700bc8d2078b9df3",
+   "sprite": "5108109554969813222",
+   "width": 59
+  },
+  "battlespine_20506_pixel_0": {
+   "file": "frames/battlespine_20506_pixel_0.png",
+   "height": 34,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "9efb1a5c6f99c57de2025e332d3bf94461550156c5027ae52d4a6ddb7d18b4d8",
+   "sprite": "-260622970749307254",
+   "width": 39
+  },
+  "battlespine_20506_pixel_1": {
+   "file": "frames/battlespine_20506_pixel_1.png",
+   "height": 37,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "f37a2754fe443c31af66bae5d52c849b91cd0f76646dd3c7d1a6d03afb794da6",
+   "sprite": "-2948738829449311543",
+   "width": 37
+  },
+  "battlespine_20506_pixel_10": {
+   "file": "frames/battlespine_20506_pixel_10.png",
+   "height": 48,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "2e3fa208cb99e8937dfeb8fde9cd3445cd60c8e0cd5ae80fd2f4e04ea304ceb9",
+   "sprite": "2073378797435213574",
+   "width": 44
+  },
+  "battlespine_20506_pixel_11": {
+   "file": "frames/battlespine_20506_pixel_11.png",
+   "height": 51,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "4bd88ec9ddc2c0124b525a2022f7fff558ba55f419c1c7898c05c81169015924",
+   "sprite": "-6630864538241623510",
+   "width": 56
+  },
+  "battlespine_20506_pixel_12": {
+   "file": "frames/battlespine_20506_pixel_12.png",
+   "height": 45,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "c2c9c0538a1d1bcabdcee01865dc8f022f19e82878b2f59668b54b05fc581bb6",
+   "sprite": "-6746401193796518816",
+   "width": 53
+  },
+  "battlespine_20506_pixel_13": {
+   "file": "frames/battlespine_20506_pixel_13.png",
+   "height": 39,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "b4bbcc8bd2a78411481530d9ffb10ce383c57334344ac813d4108b7966625f57",
+   "sprite": "5703103720068080203",
+   "width": 59
+  },
+  "battlespine_20506_pixel_14": {
+   "file": "frames/battlespine_20506_pixel_14.png",
+   "height": 39,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "8ca9f57adb91bfb2aef544e36d652cd01d5bf1ab912b42dfb1d79c2e8e2ea57b",
+   "sprite": "7408434949473853619",
+   "width": 60
+  },
+  "battlespine_20506_pixel_15": {
+   "file": "frames/battlespine_20506_pixel_15.png",
+   "height": 39,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "4312d653918f66a947fde55089629b11039bf6700c5f41e078f0f97a894b4443",
+   "sprite": "-6461613960799887410",
+   "width": 59
+  },
+  "battlespine_20506_pixel_16": {
+   "file": "frames/battlespine_20506_pixel_16.png",
+   "height": 38,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "b7a703aa07080487312e5382b94a175c83ebff387e51f5d5c2e4d87e1f922301",
+   "sprite": "6489058736014819930",
+   "width": 59
+  },
+  "battlespine_20506_pixel_17": {
+   "file": "frames/battlespine_20506_pixel_17.png",
+   "height": 37,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "6376f879f5560fc405c0a669c4cb6fcd6f596d5543d3561bc87ef1f27daff2af",
+   "sprite": "5203912295819028811",
+   "width": 59
+  },
+  "battlespine_20506_pixel_18": {
+   "file": "frames/battlespine_20506_pixel_18.png",
+   "height": 44,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "6fda4d0731007edf06b8c111d061151f9f7c8d17c8adfcf7a47ac9e0ec184f4b",
+   "sprite": "-8462651146816886336",
+   "width": 41
+  },
+  "battlespine_20506_pixel_19": {
+   "file": "frames/battlespine_20506_pixel_19.png",
+   "height": 58,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "9e91e577acd4e759739c14f1310a2658320ea61635259d274d718fc899a684bd",
+   "sprite": "2116377877893811697",
+   "width": 59
+  },
+  "battlespine_20506_pixel_2": {
+   "file": "frames/battlespine_20506_pixel_2.png",
+   "height": 32,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "0659561478f1ee600de7b916f206681911195600cd7a57cf8259b8be747c6ab7",
+   "sprite": "-7952454848528903966",
+   "width": 43
+  },
+  "battlespine_20506_pixel_20": {
+   "file": "frames/battlespine_20506_pixel_20.png",
+   "height": 69,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "3596114ee3347f4feb818ff0c0820c64906225d43924c07fc623ab49e18f063a",
+   "sprite": "5060772822556877626",
+   "width": 72
+  },
+  "battlespine_20506_pixel_21": {
+   "file": "frames/battlespine_20506_pixel_21.png",
+   "height": 72,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "fc41d764a31e000e13e0de0f304867cc6e97861d4dc78215849513efa5072370",
+   "sprite": "-3464467215599506334",
+   "width": 77
+  },
+  "battlespine_20506_pixel_22": {
+   "file": "frames/battlespine_20506_pixel_22.png",
+   "height": 54,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "2e465501e0ac4603d25eee5965dd65ef78d3b32e403186266ee13646c7e6caae",
+   "sprite": "-7865526995463757178",
+   "width": 98
+  },
+  "battlespine_20506_pixel_23": {
+   "file": "frames/battlespine_20506_pixel_23.png",
+   "height": 53,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "5d80bb04626e9e953a125d70e2662356e04bf500d7f94d31c48035c567b28a83",
+   "sprite": "1827671444684180782",
+   "width": 86
+  },
+  "battlespine_20506_pixel_24": {
+   "file": "frames/battlespine_20506_pixel_24.png",
+   "height": 53,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "ba989bb7431e5d3f4c7d6dece11fed928887bb234a7c117873ae32f71cc9e32e",
+   "sprite": "-5284628240946981833",
+   "width": 86
+  },
+  "battlespine_20506_pixel_25": {
+   "file": "frames/battlespine_20506_pixel_25.png",
+   "height": 48,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "9ade98c227e78d18118ee2f9ceab4ce2f77c8c957e9e240c35b49793c24375a5",
+   "sprite": "-2390966995152184866",
+   "width": 73
+  },
+  "battlespine_20506_pixel_26": {
+   "file": "frames/battlespine_20506_pixel_26.png",
+   "height": 42,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "6e678fd12be104c058a4f3065e4b65792646336d15afa725ee6a20b48dfa70c9",
+   "sprite": "2702641158551864676",
+   "width": 57
+  },
+  "battlespine_20506_pixel_27": {
+   "file": "frames/battlespine_20506_pixel_27.png",
+   "height": 39,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "d4f1b9de8bb738f2f1685813cf0211bcb7881b72c854ca1823f1387a65368bdf",
+   "sprite": "6937596186544905465",
+   "width": 46
+  },
+  "battlespine_20506_pixel_3": {
+   "file": "frames/battlespine_20506_pixel_3.png",
+   "height": 34,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "0499be8212415345f40799d6f8951be35add315ae966ca0efb1106834a4f15f2",
+   "sprite": "-6130360152557537381",
+   "width": 41
+  },
+  "battlespine_20506_pixel_4": {
+   "file": "frames/battlespine_20506_pixel_4.png",
+   "height": 35,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "db7e8319163e6d82cfa6ee9d8bcd48ac7e53f932a205dd317cf2821faec500af",
+   "sprite": "7486379751301813688",
+   "width": 39
+  },
+  "battlespine_20506_pixel_5": {
+   "file": "frames/battlespine_20506_pixel_5.png",
+   "height": 35,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "f1f1122c5ab68fee2a3f687f95d5cfdea5092aafe9402142fd2e347d4c1545a3",
+   "sprite": "8038355554999303674",
+   "width": 38
+  },
+  "battlespine_20506_pixel_6": {
+   "file": "frames/battlespine_20506_pixel_6.png",
+   "height": 38,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "d8f0e3063e6e7af31a299a489bd3e407f4f4aead83cf1ff0a191e64795252e01",
+   "sprite": "1653310915535367332",
+   "width": 36
+  },
+  "battlespine_20506_pixel_7": {
+   "file": "frames/battlespine_20506_pixel_7.png",
+   "height": 37,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "1c1c84733dafcfa8098c342be4a675893a0b55c63f61ba59535c2ea5c82b238a",
+   "sprite": "6532037374128808294",
+   "width": 38
+  },
+  "battlespine_20506_pixel_8": {
+   "file": "frames/battlespine_20506_pixel_8.png",
+   "height": 37,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "84d229649323c35b361d4b64f4183d4ae31b5becbaede0219d1380bd02f74438",
+   "sprite": "-422667450862702994",
+   "width": 38
+  },
+  "battlespine_20506_pixel_9": {
+   "file": "frames/battlespine_20506_pixel_9.png",
+   "height": 37,
+   "prefab": "minigamespine_20506_pixel",
+   "sha256": "cd60091911e232109d01d32624e19c851c74c9b314f7b7793e01e9d30140b958",
+   "sprite": "2852034276389797994",
+   "width": 36
+  },
+  "minigamespine_10000101_pixel_0": {
+   "file": "frames/minigamespine_10000101_pixel_0.png",
+   "height": 103,
+   "prefab": "minigamespine_10000101_pixel",
+   "sha256": "8b7e8c08647cab95ce2e4ca8a2cf72558e760c4d539f72e235252d15d84b0131",
+   "sprite": "-1561352972748763784",
+   "width": 113
+  },
+  "minigamespine_10000101_pixel_1": {
+   "file": "frames/minigamespine_10000101_pixel_1.png",
+   "height": 104,
+   "prefab": "minigamespine_10000101_pixel",
+   "sha256": "8c088efc69cb727851e40018f21c8e6db084bc8d358e2a97aa1d8be70a093271",
+   "sprite": "-5957392531789843330",
+   "width": 113
+  },
+  "minigamespine_10000101_pixel_10": {
+   "file": "frames/minigamespine_10000101_pixel_10.png",
+   "height": 106,
+   "prefab": "minigamespine_10000101_pixel",
+   "sha256": "81b11b63aad93b19f0635248f2dd0c6437a349d7d845cbc72905446588635123",
+   "sprite": "-5061833721956682148",
+   "width": 98
+  },
+  "minigamespine_10000101_pixel_11": {
+   "file": "frames/minigamespine_10000101_pixel_11.png",
+   "height": 100,
+   "prefab": "minigamespine_10000101_pixel",
+   "sha256": "e594fc370e632a2b58de88fba99487fe29592a7b5d4b762e6105e1a3f9d302a9",
+   "sprite": "3309948135877994592",
+   "width": 134
+  },
+  "minigamespine_10000101_pixel_12": {
+   "file": "frames/minigamespine_10000101_pixel_12.png",
+   "height": 101,
+   "prefab": "minigamespine_10000101_pixel",
+   "sha256": "4c6a68b4a3e7caec60a8bab72bf0be512455de8376665780bd68a332a87d8ad5",
+   "sprite": "-7129237859777657241",
+   "width": 134
+  },
+  "minigamespine_10000101_pixel_13": {
+   "file": "frames/minigamespine_10000101_pixel_13.png",
+   "height": 104,
+   "prefab": "minigamespine_10000101_pixel",
+   "sha256": "24f2896f71b2e96be91357fdabf73a492af4a6fdc5d23931110608894b8c0685",
+   "sprite": "8425251121525495038",
+   "width": 131
+  },
+  "minigamespine_10000101_pixel_2": {
+   "file": "frames/minigamespine_10000101_pixel_2.png",
+   "height": 103,
+   "prefab": "minigamespine_10000101_pixel",
+   "sha256": "63c4217d779fd0a7aa1dd5382b05760ac0a2fa475dee25cf1382824e30e15698",
+   "sprite": "-2966894147246923557",
+   "width": 114
+  },
+  "minigamespine_10000101_pixel_3": {
+   "file": "frames/minigamespine_10000101_pixel_3.png",
+   "height": 100,
+   "prefab": "minigamespine_10000101_pixel",
+   "sha256": "474ba78815b19088d6936498eea8f83072d07f35e3b082e3ea9ea976241a498f",
+   "sprite": "2732281565634781759",
+   "width": 115
+  },
+  "minigamespine_10000101_pixel_4": {
+   "file": "frames/minigamespine_10000101_pixel_4.png",
+   "height": 99,
+   "prefab": "minigamespine_10000101_pixel",
+   "sha256": "3ed136778a6134baba2ab59a3584188e6f84e59e3427cf27ba44a749b4220c2d",
+   "sprite": "2333764220239224359",
+   "width": 114
+  },
+  "minigamespine_10000101_pixel_5": {
+   "file": "frames/minigamespine_10000101_pixel_5.png",
+   "height": 99,
+   "prefab": "minigamespine_10000101_pixel",
+   "sha256": "65f48bb74231cade7cf48fc0aeb4fd04b812b23edffaf35c2be507482820c080",
+   "sprite": "5991122426834257532",
+   "width": 113
+  },
+  "minigamespine_10000101_pixel_7": {
+   "file": "frames/minigamespine_10000101_pixel_7.png",
+   "height": 94,
+   "prefab": "minigamespine_10000101_pixel",
+   "sha256": "f3979415e0a43e92ef8750dd642d29f6a534994ab5be4236a96ba83af63480dc",
+   "sprite": "-1336490073988361649",
+   "width": 118
+  },
+  "minigamespine_10000101_pixel_8": {
+   "file": "frames/minigamespine_10000101_pixel_8.png",
+   "height": 121,
+   "prefab": "minigamespine_10000101_pixel",
+   "sha256": "220ad634852cf5e6d862eb48523807c125e3a9ff57176621c42135a3e4a91b71",
+   "sprite": "7367315919685851456",
+   "width": 80
+  },
+  "minigamespine_10000101_pixel_9": {
+   "file": "frames/minigamespine_10000101_pixel_9.png",
+   "height": 109,
+   "prefab": "minigamespine_10000101_pixel",
+   "sha256": "06786383d698103331b18a8055bfbb03211a59523cad27f5d6c1abcbf110615a",
+   "sprite": "-9165843627165586619",
+   "width": 101
+  },
+  "minigamespine_10000104_pixel_0": {
+   "file": "frames/minigamespine_10000104_pixel_0.png",
+   "height": 106,
+   "prefab": "minigamespine_10000104_pixel",
+   "sha256": "4e58bc3398b829e9b5010a9769a41df7a14b924478007cc356033d68c201c708",
+   "sprite": "-2780814366794596390",
+   "width": 112
+  },
+  "minigamespine_10000104_pixel_1": {
+   "file": "frames/minigamespine_10000104_pixel_1.png",
+   "height": 106,
+   "prefab": "minigamespine_10000104_pixel",
+   "sha256": "7061bdf97d340e948c6d6b91d5da63d647792fd3f364c6f5bac4d904075512ed",
+   "sprite": "-5311567075777812587",
+   "width": 112
+  },
+  "minigamespine_10000104_pixel_10": {
+   "file": "frames/minigamespine_10000104_pixel_10.png",
+   "height": 105,
+   "prefab": "minigamespine_10000104_pixel",
+   "sha256": "127b82ed04d9575a2e1d08a9ad632cd3e25fabeeca1ff8cae9089f5ac44fff6b",
+   "sprite": "4625320822500874364",
+   "width": 96
+  },
+  "minigamespine_10000104_pixel_11": {
+   "file": "frames/minigamespine_10000104_pixel_11.png",
+   "height": 105,
+   "prefab": "minigamespine_10000104_pixel",
+   "sha256": "6d3ca3136045e31292a75f6f6bccd5020a62b8f3866bbd9fa5d9be68136bdeaa",
+   "sprite": "2198201915031569281",
+   "width": 100
+  },
+  "minigamespine_10000104_pixel_12": {
+   "file": "frames/minigamespine_10000104_pixel_12.png",
+   "height": 107,
+   "prefab": "minigamespine_10000104_pixel",
+   "sha256": "003a62ecfb240684ab7e35858312ea4d055d26adfe38c983bec3293b6bd7fe38",
+   "sprite": "-23516382772297913",
+   "width": 113
+  },
+  "minigamespine_10000104_pixel_2": {
+   "file": "frames/minigamespine_10000104_pixel_2.png",
+   "height": 105,
+   "prefab": "minigamespine_10000104_pixel",
+   "sha256": "89a30ec42a3299cb795cc2168e2ea21935e6d33894812674114001dcd59070b3",
+   "sprite": "-622676456509288525",
+   "width": 112
+  },
+  "minigamespine_10000104_pixel_3": {
+   "file": "frames/minigamespine_10000104_pixel_3.png",
+   "height": 104,
+   "prefab": "minigamespine_10000104_pixel",
+   "sha256": "41bcf2b6ea225f90d3050c8d71899b10e4cabca0d9ea077adbbe2ce9721bc390",
+   "sprite": "-7498935457981525028",
+   "width": 113
+  },
+  "minigamespine_10000104_pixel_4": {
+   "file": "frames/minigamespine_10000104_pixel_4.png",
+   "height": 101,
+   "prefab": "minigamespine_10000104_pixel",
+   "sha256": "144699e42131e22bac67c86c1bb96d85728452e7bb7b70c1ec13cb1a45f46671",
+   "sprite": "-7747939259961505405",
+   "width": 108
+  },
+  "minigamespine_10000104_pixel_5": {
+   "file": "frames/minigamespine_10000104_pixel_5.png",
+   "height": 102,
+   "prefab": "minigamespine_10000104_pixel",
+   "sha256": "65f28dbe7005b22d4a2a97d609619df19fbd0a9fb5c0d46678c8ac4651f102f9",
+   "sprite": "-7280811574766227103",
+   "width": 107
+  },
+  "minigamespine_10000104_pixel_6": {
+   "file": "frames/minigamespine_10000104_pixel_6.png",
+   "height": 106,
+   "prefab": "minigamespine_10000104_pixel",
+   "sha256": "7d2a2636bfa879f92265e51dce43f6894c0986ecd3816e75e0ec0cdcbb992d63",
+   "sprite": "-4610917481241714818",
+   "width": 111
+  },
+  "minigamespine_10000104_pixel_7": {
+   "file": "frames/minigamespine_10000104_pixel_7.png",
+   "height": 95,
+   "prefab": "minigamespine_10000104_pixel",
+   "sha256": "90d6a44ab51fbb91352a323231e9f38084d4aafc6fc6532814fc334ececb506c",
+   "sprite": "8484307528495434434",
+   "width": 118
+  },
+  "minigamespine_10000104_pixel_8": {
+   "file": "frames/minigamespine_10000104_pixel_8.png",
+   "height": 105,
+   "prefab": "minigamespine_10000104_pixel",
+   "sha256": "55581126801627d2cc16f8e9046110f2b178e26c16632d335f184dd9bb5f9149",
+   "sprite": "-2374945578033170066",
+   "width": 123
+  },
+  "minigamespine_10000104_pixel_9": {
+   "file": "frames/minigamespine_10000104_pixel_9.png",
+   "height": 104,
+   "prefab": "minigamespine_10000104_pixel",
+   "sha256": "47ea2797db0c919e3c7908cc6f1c34c8ab09330caeed2c10522c957921bdad19",
+   "sprite": "575148941272157342",
+   "width": 119
+  },
+  "minigamespine_10000118_pixel_0": {
+   "file": "frames/minigamespine_10000118_pixel_0.png",
+   "height": 126,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "b16403216276a06fd8e4391599c47ec9a4326da6eae7871ddea5cd0f7c0b49ab",
+   "sprite": "-3965367436294830008",
+   "width": 95
+  },
+  "minigamespine_10000118_pixel_1": {
+   "file": "frames/minigamespine_10000118_pixel_1.png",
+   "height": 126,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "323fdc7a358d11b463c900610661d4deefc2e7f2b335f1ffd4a3bcf5d03d1177",
+   "sprite": "-8328765210732094726",
+   "width": 94
+  },
+  "minigamespine_10000118_pixel_10": {
+   "file": "frames/minigamespine_10000118_pixel_10.png",
+   "height": 92,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "c451be4d5fb8243b6c914ece98a15e1ba5a56cb28918319447605b4b0dacb60f",
+   "sprite": "-1377885268295860084",
+   "width": 156
+  },
+  "minigamespine_10000118_pixel_11": {
+   "file": "frames/minigamespine_10000118_pixel_11.png",
+   "height": 92,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "0d74d952200464eb75abd05396d90708a34d556783653ff1ac321294e973ee15",
+   "sprite": "-4511955929668104030",
+   "width": 156
+  },
+  "minigamespine_10000118_pixel_12": {
+   "file": "frames/minigamespine_10000118_pixel_12.png",
+   "height": 96,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "f99489ffc274fb85cbec4a2c833efe4fce3347a981b22483376a49955119f152",
+   "sprite": "-4597097467355631549",
+   "width": 135
+  },
+  "minigamespine_10000118_pixel_13": {
+   "file": "frames/minigamespine_10000118_pixel_13.png",
+   "height": 122,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "4fd5e5c3de9b86d8d54a8dd62c095261b60380cd4be776352030c3773a10e8a8",
+   "sprite": "3062320401978583733",
+   "width": 110
+  },
+  "minigamespine_10000118_pixel_14": {
+   "file": "frames/minigamespine_10000118_pixel_14.png",
+   "height": 129,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "7732ae961576c2fa74e9ab53b87a1388fbbde5af9e168c1694ee39c55c26b9df",
+   "sprite": "-6015038867496395663",
+   "width": 102
+  },
+  "minigamespine_10000118_pixel_15": {
+   "file": "frames/minigamespine_10000118_pixel_15.png",
+   "height": 118,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "25b77319a81de5e3578e8add7c8898512aef5705f43162868fcc0d48aa12c774",
+   "sprite": "12862641968811953",
+   "width": 96
+  },
+  "minigamespine_10000118_pixel_16": {
+   "file": "frames/minigamespine_10000118_pixel_16.png",
+   "height": 93,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "427c2ea2bd7bf435c2777acac4b2f905302446089597c754102b8114a7a951b2",
+   "sprite": "-3672544626864869331",
+   "width": 124
+  },
+  "minigamespine_10000118_pixel_17": {
+   "file": "frames/minigamespine_10000118_pixel_17.png",
+   "height": 88,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "3cc3ae15111c28352165925eb0e87b8826387e8d711c6f497034446ac190c0f6",
+   "sprite": "8744297199485934976",
+   "width": 157
+  },
+  "minigamespine_10000118_pixel_18": {
+   "file": "frames/minigamespine_10000118_pixel_18.png",
+   "height": 92,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "dd91cd90834da459abc87bafd95ccb646700d8526629287e270b02c602a1b4e3",
+   "sprite": "8567022965610687797",
+   "width": 157
+  },
+  "minigamespine_10000118_pixel_19": {
+   "file": "frames/minigamespine_10000118_pixel_19.png",
+   "height": 99,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "8e68cab654b90d1809b740a58054e2b9889643d1e0dc29a94e276807608a4ac0",
+   "sprite": "-7669601829403941827",
+   "width": 131
+  },
+  "minigamespine_10000118_pixel_2": {
+   "file": "frames/minigamespine_10000118_pixel_2.png",
+   "height": 126,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "cb6e13c68dd2cbe5b381cf99d954d68061cca4c2d69fb3c1a0d356a79ba05807",
+   "sprite": "7318949484280369594",
+   "width": 93
+  },
+  "minigamespine_10000118_pixel_3": {
+   "file": "frames/minigamespine_10000118_pixel_3.png",
+   "height": 127,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "59643e0a4db107c7e6cd04a837849b58d8d9c16828153cfbc7cc9c934c3f7e84",
+   "sprite": "9178455200066592250",
+   "width": 92
+  },
+  "minigamespine_10000118_pixel_4": {
+   "file": "frames/minigamespine_10000118_pixel_4.png",
+   "height": 126,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "875839413df464839ce03852ab3d94e3ce6c184cdc49bd7c20aad1e3f51b3726",
+   "sprite": "-705671933150662521",
+   "width": 93
+  },
+  "minigamespine_10000118_pixel_5": {
+   "file": "frames/minigamespine_10000118_pixel_5.png",
+   "height": 126,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "210a739de853ed917c7a0e2e7ce29cc4b98072415e8955fde0496c12a7742649",
+   "sprite": "849478506497058451",
+   "width": 94
+  },
+  "minigamespine_10000118_pixel_6": {
+   "file": "frames/minigamespine_10000118_pixel_6.png",
+   "height": 128,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "ba871dd570bd4f7299b80c5a446966e8386757a815e06a3b5c80bf7e9a2e4b39",
+   "sprite": "-1919717925733692953",
+   "width": 79
+  },
+  "minigamespine_10000118_pixel_7": {
+   "file": "frames/minigamespine_10000118_pixel_7.png",
+   "height": 126,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "94d6ed164e9c8b7f228bea54b522f00929a597d48a73add66a6287fdcd94e558",
+   "sprite": "-9220094113737002391",
+   "width": 91
+  },
+  "minigamespine_10000118_pixel_8": {
+   "file": "frames/minigamespine_10000118_pixel_8.png",
+   "height": 113,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "e8127fe2e765738bb16ddf1e5dbbe66404725c4b417407b0713456106996d752",
+   "sprite": "2644253242783901201",
+   "width": 101
+  },
+  "minigamespine_10000118_pixel_9": {
+   "file": "frames/minigamespine_10000118_pixel_9.png",
+   "height": 115,
+   "prefab": "minigamespine_10000118_pixel",
+   "sha256": "b4e96703bf13376b7e26663f654a03175d6ac5f92aedb7940962f438631abbba",
+   "sprite": "-7974147819265891344",
+   "width": 122
+  },
+  "minigamespine_10000134_pixel_0": {
+   "file": "frames/minigamespine_10000134_pixel_0.png",
+   "height": 87,
+   "prefab": "minigamespine_10000134_pixel",
+   "sha256": "fa96e1ab9a5d2326368f6895ec1b90e1a3e173081cbb30b6bb23896a3d101554",
+   "sprite": "-44637089005772744",
+   "width": 108
+  },
+  "minigamespine_10000134_pixel_1": {
+   "file": "frames/minigamespine_10000134_pixel_1.png",
+   "height": 114,
+   "prefab": "minigamespine_10000134_pixel",
+   "sha256": "8527060ca6a959146dd72af45b74f63962a038d7d91fa02dfd233ace638c23c1",
+   "sprite": "-754066724583279353",
+   "width": 85
+  },
+  "minigamespine_10000134_pixel_10": {
+   "file": "frames/minigamespine_10000134_pixel_10.png",
+   "height": 91,
+   "prefab": "minigamespine_10000134_pixel",
+   "sha256": "cfb7ef6be121dea6f17379c7c8e9d95877544f8db7be8b2dabd123938750e2ae",
+   "sprite": "4562996063576547406",
+   "width": 103
+  },
+  "minigamespine_10000134_pixel_11": {
+   "file": "frames/minigamespine_10000134_pixel_11.png",
+   "height": 91,
+   "prefab": "minigamespine_10000134_pixel",
+   "sha256": "e0acef6d79d39c441e7a15d03f840e3a0198e7112cb59250be0cb26c8a7c8911",
+   "sprite": "286634153455854691",
+   "width": 102
+  },
+  "minigamespine_10000134_pixel_12": {
+   "file": "frames/minigamespine_10000134_pixel_12.png",
+   "height": 90,
+   "prefab": "minigamespine_10000134_pixel",
+   "sha256": "a926d2000c8d63b4a525a7c7a641f13cceb599437c24235e9175dc891309ef00",
+   "sprite": "-3077757726494353530",
+   "width": 104
+  },
+  "minigamespine_10000134_pixel_2": {
+   "file": "frames/minigamespine_10000134_pixel_2.png",
+   "height": 95,
+   "prefab": "minigamespine_10000134_pixel",
+   "sha256": "34477ab9e68f16e4a78ec72e62744e904c8b54aa255e41a3f90343b9a7a8f55a",
+   "sprite": "-8484889042816281441",
+   "width": 106
+  },
+  "minigamespine_10000134_pixel_3": {
+   "file": "frames/minigamespine_10000134_pixel_3.png",
+   "height": 120,
+   "prefab": "minigamespine_10000134_pixel",
+   "sha256": "06a2c47373ec044f8fa02ec3d9587128fe91566274c84d979b8404573c0b5c39",
+   "sprite": "-1864018449079279156",
+   "width": 79
+  },
+  "minigamespine_10000134_pixel_4": {
+   "file": "frames/minigamespine_10000134_pixel_4.png",
+   "height": 97,
+   "prefab": "minigamespine_10000134_pixel",
+   "sha256": "6998fa0a2738cdea5ea9a3768bdfe3be1bb46e661ebe3c948a2ec8cecb932594",
+   "sprite": "3987562761434539613",
+   "width": 145
+  },
+  "minigamespine_10000134_pixel_5": {
+   "file": "frames/minigamespine_10000134_pixel_5.png",
+   "height": 97,
+   "prefab": "minigamespine_10000134_pixel",
+   "sha256": "d2191dd20e8874fbe78d4f1e0914195e567c370c7125d786190dfe1187ffe7ec",
+   "sprite": "-7238424286625223953",
+   "width": 140
+  },
+  "minigamespine_10000134_pixel_6": {
+   "file": "frames/minigamespine_10000134_pixel_6.png",
+   "height": 87,
+   "prefab": "minigamespine_10000134_pixel",
+   "sha256": "fa96e1ab9a5d2326368f6895ec1b90e1a3e173081cbb30b6bb23896a3d101554",
+   "sprite": "2348157605692671495",
+   "width": 108
+  },
+  "minigamespine_10000134_pixel_7": {
+   "file": "frames/minigamespine_10000134_pixel_7.png",
+   "height": 91,
+   "prefab": "minigamespine_10000134_pixel",
+   "sha256": "c52194bb3499a2c7710e3ae3639cde80ea88d91d97016339e45c128b0d1daf68",
+   "sprite": "-2574632675424173043",
+   "width": 104
+  },
+  "minigamespine_10000134_pixel_8": {
+   "file": "frames/minigamespine_10000134_pixel_8.png",
+   "height": 93,
+   "prefab": "minigamespine_10000134_pixel",
+   "sha256": "eb7b2d2c8977c6dbcc0067fee18a7660ef421bb1b4978e07c640b67bb2862dbb",
+   "sprite": "3596128784800260723",
+   "width": 104
+  },
+  "minigamespine_10000134_pixel_9": {
+   "file": "frames/minigamespine_10000134_pixel_9.png",
+   "height": 91,
+   "prefab": "minigamespine_10000134_pixel",
+   "sha256": "1e038905ba7f450f87de02f73e8fa7793cb485101041d63a5445349d60f80af6",
+   "sprite": "-4217863408048751855",
+   "width": 102
+  },
+  "minigamespine_10000198_pixel_0": {
+   "file": "frames/minigamespine_10000198_pixel_0.png",
+   "height": 96,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "878fb29d1e5422602b17bfcf41b57441e1e76ee0e60354ab4002f7a0498dec4e",
+   "sprite": "3338335880189030102",
+   "width": 116
+  },
+  "minigamespine_10000198_pixel_1": {
+   "file": "frames/minigamespine_10000198_pixel_1.png",
+   "height": 96,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "29275d43d77feac10ee1569e6cbe814b438e838d53e88e7b67e9f3fd3ad07bc3",
+   "sprite": "-9097633318425261786",
+   "width": 117
+  },
+  "minigamespine_10000198_pixel_10": {
+   "file": "frames/minigamespine_10000198_pixel_10.png",
+   "height": 95,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "4a1362a457b1146e4e8ea7d78bb91f9c76578df6740380a7ff676360db3beae8",
+   "sprite": "1386823335566118701",
+   "width": 117
+  },
+  "minigamespine_10000198_pixel_11": {
+   "file": "frames/minigamespine_10000198_pixel_11.png",
+   "height": 94,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "8868b0fe82023ebf480142a42db2a8a9722b866f7b15109622930a162af8ce5e",
+   "sprite": "-5271495560526854903",
+   "width": 155
+  },
+  "minigamespine_10000198_pixel_12": {
+   "file": "frames/minigamespine_10000198_pixel_12.png",
+   "height": 95,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "6f8c2df4f21d13995102311b383f85134a40ceb263ddf074abadcb6183fb359e",
+   "sprite": "7557810434538650041",
+   "width": 161
+  },
+  "minigamespine_10000198_pixel_13": {
+   "file": "frames/minigamespine_10000198_pixel_13.png",
+   "height": 94,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "0f6fa19ef84830554f343c7aa76de3363173032344589a5a33415be284004fbf",
+   "sprite": "-429380428496909428",
+   "width": 155
+  },
+  "minigamespine_10000198_pixel_2": {
+   "file": "frames/minigamespine_10000198_pixel_2.png",
+   "height": 99,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "2965eccf0daec4d56d30f528c8332cf2dd0e5ac259c904d7a6c610440ec00645",
+   "sprite": "-5734216544426569863",
+   "width": 115
+  },
+  "minigamespine_10000198_pixel_3": {
+   "file": "frames/minigamespine_10000198_pixel_3.png",
+   "height": 102,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "c104548c201129eda8eddc8af2d552a4cba900f76c80d9764a75000e0842da7c",
+   "sprite": "-8058876586226142307",
+   "width": 112
+  },
+  "minigamespine_10000198_pixel_4": {
+   "file": "frames/minigamespine_10000198_pixel_4.png",
+   "height": 100,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "8bb8364d46c437c08b355974b24782166c0f6102f0143292a3d141bfd88a0c40",
+   "sprite": "395219606522533166",
+   "width": 112
+  },
+  "minigamespine_10000198_pixel_5": {
+   "file": "frames/minigamespine_10000198_pixel_5.png",
+   "height": 96,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "d20286d4c59eb439ec25dc7fd0fe3cccb38173a6fb9a13b45e02d7396ff4c76e",
+   "sprite": "-3524469589911277714",
+   "width": 114
+  },
+  "minigamespine_10000198_pixel_6": {
+   "file": "frames/minigamespine_10000198_pixel_6.png",
+   "height": 96,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "358c0a7f5cef4807845bf614fd9195478b074e6a18c6a5d2e082b5291c25a88d",
+   "sprite": "7650985880479440501",
+   "width": 116
+  },
+  "minigamespine_10000198_pixel_7": {
+   "file": "frames/minigamespine_10000198_pixel_7.png",
+   "height": 88,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "daf659f7cd5d5916a638b4424f10ed6b0aba000fc9bf7ab0e7d87de736f5d1da",
+   "sprite": "-1147186287007066134",
+   "width": 119
+  },
+  "minigamespine_10000198_pixel_8": {
+   "file": "frames/minigamespine_10000198_pixel_8.png",
+   "height": 125,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "09da2db7798100c54117ca1c334385edf886392f99f294501545cbe5abb4c512",
+   "sprite": "7201823948154299095",
+   "width": 88
+  },
+  "minigamespine_10000198_pixel_9": {
+   "file": "frames/minigamespine_10000198_pixel_9.png",
+   "height": 112,
+   "prefab": "minigamespine_10000198_pixel",
+   "sha256": "091e3f7d7bb95120d2e32986b49957df6f8d494dae4b3414435796aa4eb424e3",
+   "sprite": "-1865632773429041679",
+   "width": 104
+  },
+  "minigamespine_zhalan_pixel_0": {
+   "file": "frames/minigamespine_zhalan_pixel_0.png",
+   "height": 84,
+   "prefab": "minigamespine_zhalan_pixel",
+   "sha256": "eb6d52340c38b25d86ab1920238922653e35cd32b383679df291eb93104ea600",
+   "sprite": "-8874190297655503965",
+   "width": 102
+  }
+ },
+ "gaps": [],
+ "generator": "apps/game/scripts/prepare_native_presentation.py",
+ "prefabSchema": "starfall-native-prefab/1",
+ "prefabs": [
+  {
+   "bundle": "0553b6c60dc4a68e44c2ff16ad4692bc",
+   "clips": 0,
+   "container": "assets/art/models/minigame022/prefab/minigame022_map1.prefab",
+   "json": "maps/minigame022_map1.json",
+   "jsonSha256": "967e5216fba17073a61ab9f6d43e5c04ed093d4944da4c6f9ba9cac392c2690a",
+   "key": "minigame022_map1",
+   "kind": "map",
+   "rootGameObject": "-6323918676629605721",
+   "sprites": 1,
+   "states": []
+  },
+  {
+   "bundle": "be94419ee51256c1cf06c416e47807c1",
+   "clips": 0,
+   "container": "assets/art/models/minigame022/prefab/minigame022_map2.prefab",
+   "json": "maps/minigame022_map2.json",
+   "jsonSha256": "5b0d77bf90bb83fd00c18b5cb89e09a50d0d9c258a045b6b7eff249ef4e47257",
+   "key": "minigame022_map2",
+   "kind": "map",
+   "rootGameObject": "3541102826890819897",
+   "sprites": 1,
+   "states": []
+  },
+  {
+   "bundle": "4112b4323c3bbb2ef13890ce5197ee45",
+   "clips": 0,
+   "container": "assets/art/models/minigame022/prefab/minigame022_map3.prefab",
+   "json": "maps/minigame022_map3.json",
+   "jsonSha256": "be061cee40e1ce29f9df721f51f1fcc97068f92e7370b31ccf961ddb574461ca",
+   "key": "minigame022_map3",
+   "kind": "map",
+   "rootGameObject": "-6714134453188605354",
+   "sprites": 1,
+   "states": []
+  },
+  {
+   "bundle": "cb13a6e0b1c702ce3b364cc3c7ded074",
+   "clips": 2,
+   "container": "assets/art/models/minigame022/prefab/minigamespine_10000101_pixel.prefab",
+   "json": "units/minigamespine_10000101_pixel.json",
+   "jsonSha256": "6816f00f92247150cf83b44a288dbc2cfd4646561ae75d511358bdae753274c7",
+   "key": "minigamespine_10000101_pixel",
+   "kind": "unit",
+   "rootGameObject": "3748204796636690753",
+   "sprites": 13,
+   "states": [
+    "idle",
+    "skill1"
+   ]
+  },
+  {
+   "bundle": "2843322b24ca395a0f5423508a8aa16f",
+   "clips": 2,
+   "container": "assets/art/models/minigame022/prefab/minigamespine_10000104_pixel.prefab",
+   "json": "units/minigamespine_10000104_pixel.json",
+   "jsonSha256": "ea9d06c6e5b73e632b9182b76f2f74942a46ac15dc1ebf0c0f8bb43fb2e195b1",
+   "key": "minigamespine_10000104_pixel",
+   "kind": "unit",
+   "rootGameObject": "-6856245875277472176",
+   "sprites": 13,
+   "states": [
+    "idle",
+    "skill1"
+   ]
+  },
+  {
+   "bundle": "64dbe5bdd51ae888249eb2111e3d0575",
+   "clips": 3,
+   "container": "assets/art/models/minigame022/prefab/minigamespine_10000118_pixel.prefab",
+   "json": "units/minigamespine_10000118_pixel.json",
+   "jsonSha256": "7b1345b4681d5e11f545a88abb8e011099bfa0ffe9ab33385a13af65f39e5f04",
+   "key": "minigamespine_10000118_pixel",
+   "kind": "unit",
+   "rootGameObject": "3448826945763180879",
+   "sprites": 20,
+   "states": [
+    "idle",
+    "skill1",
+    "skill2"
+   ]
+  },
+  {
+   "bundle": "5aa06e0049e335e7c26c88861c4c7d9a",
+   "clips": 2,
+   "container": "assets/art/models/minigame022/prefab/minigamespine_10000134_pixel.prefab",
+   "json": "units/minigamespine_10000134_pixel.json",
+   "jsonSha256": "77ffb6579b79be8afc2e57db8c29c0741376b217cf8546789ccdaf709f276db4",
+   "key": "minigamespine_10000134_pixel",
+   "kind": "unit",
+   "rootGameObject": "-8019073266794669353",
+   "sprites": 13,
+   "states": [
+    "idle",
+    "skill1"
+   ]
+  },
+  {
+   "bundle": "ec2728fe719e6898eb495aa4d60c2c07",
+   "clips": 2,
+   "container": "assets/art/models/minigame022/prefab/minigamespine_10000198_pixel.prefab",
+   "json": "units/minigamespine_10000198_pixel.json",
+   "jsonSha256": "3f658c7d7b3ac096383e1ddfcd437fcbd7aa3d8c912f2b1af41b6780ebb7e3b5",
+   "key": "minigamespine_10000198_pixel",
+   "kind": "unit",
+   "rootGameObject": "5203987180479858957",
+   "sprites": 14,
+   "states": [
+    "idle",
+    "skill1"
+   ]
+  },
+  {
+   "bundle": "c6a8f72b80fdad185c88326d0da943ce",
+   "clips": 4,
+   "container": "assets/art/models/minigame022/prefab/minigamespine_20010_pixel.prefab",
+   "json": "units/minigamespine_20010_pixel.json",
+   "jsonSha256": "f2b3f46dd7ce213123dc8ac00fbc987932c4185628d959641fbe743e92471dcc",
+   "key": "minigamespine_20010_pixel",
+   "kind": "unit",
+   "rootGameObject": "9023635312856049747",
+   "sprites": 25,
+   "states": [
+    "idle",
+    "run",
+    "die",
+    "skill1"
+   ]
+  },
+  {
+   "bundle": "a1dd0a7ea46319138e6c63a7853c07d3",
+   "clips": 4,
+   "container": "assets/art/models/minigame022/prefab/minigamespine_20011_pixel.prefab",
+   "json": "units/minigamespine_20011_pixel.json",
+   "jsonSha256": "2b7dba65648f3b362542557412cd706866c3b24bced2965887909f3a299c9514",
+   "key": "minigamespine_20011_pixel",
+   "kind": "unit",
+   "rootGameObject": "4658329520842958042",
+   "sprites": 25,
+   "states": [
+    "idle",
+    "run",
+    "die",
+    "skill1"
+   ]
+  },
+  {
+   "bundle": "84c63f1a28dcc746b573a764fb661c40",
+   "clips": 4,
+   "container": "assets/art/models/minigame022/prefab/minigamespine_20108_pixel.prefab",
+   "json": "units/minigamespine_20108_pixel.json",
+   "jsonSha256": "62e8689da410cf23e25c5adbdb860166e97acb4d62d31fcc67179c5df3593175",
+   "key": "minigamespine_20108_pixel",
+   "kind": "unit",
+   "rootGameObject": "5163921178692761076",
+   "sprites": 20,
+   "states": [
+    "idle",
+    "run",
+    "skill1",
+    "die"
+   ]
+  },
+  {
+   "bundle": "41c99955eaf77c3a14f46e07c4cff168",
+   "clips": 4,
+   "container": "assets/art/models/minigame022/prefab/minigamespine_20302_pixel.prefab",
+   "json": "units/minigamespine_20302_pixel.json",
+   "jsonSha256": "8e539118107a248ab963a0071f5ae813eb6f38f58ae9d390c36cb9af7c3549b0",
+   "key": "minigamespine_20302_pixel",
+   "kind": "unit",
+   "rootGameObject": "-5271877921104581465",
+   "sprites": 26,
+   "states": [
+    "idle",
+    "run",
+    "die",
+    "skill1"
+   ]
+  },
+  {
+   "bundle": "21a2c8ff7c36d030ba0cd87133ca1726",
+   "clips": 4,
+   "container": "assets/art/models/minigame022/prefab/minigamespine_20306_pixel.prefab",
+   "json": "units/minigamespine_20306_pixel.json",
+   "jsonSha256": "abe93bd67ef856912d49b950c25d41027fa6ff46b2be37ebc27ad4a6db46d547",
+   "key": "minigamespine_20306_pixel",
+   "kind": "unit",
+   "rootGameObject": "-1073352656294516278",
+   "sprites": 25,
+   "states": [
+    "idle",
+    "run",
+    "die",
+    "skill1"
+   ]
+  },
+  {
+   "bundle": "a042d4ecec90517e097896afaf6a2a0d",
+   "clips": 4,
+   "container": "assets/art/models/minigame022/prefab/minigamespine_20411_pixel.prefab",
+   "json": "units/minigamespine_20411_pixel.json",
+   "jsonSha256": "1300a61b37f313c1b6530a9c97248b0fa5e642aed42c3fe5f1101fce83f2d369",
+   "key": "minigamespine_20411_pixel",
+   "kind": "unit",
+   "rootGameObject": "1828339247237006150",
+   "sprites": 25,
+   "states": [
+    "idle",
+    "run",
+    "die",
+    "skill1"
+   ]
+  },
+  {
+   "bundle": "0b7bc080b49cf84af10a63fdc066f4cd",
+   "clips": 4,
+   "container": "assets/art/models/minigame022/prefab/minigamespine_20506_pixel.prefab",
+   "json": "units/minigamespine_20506_pixel.json",
+   "jsonSha256": "d4e1f3ff60ff873f4e2af0bcd1e5b3cf8713550eaef20dfd008be61cfab0895d",
+   "key": "minigamespine_20506_pixel",
+   "kind": "unit",
+   "rootGameObject": "-2322793709826185666",
+   "sprites": 28,
+   "states": [
+    "idle",
+    "run",
+    "die",
+    "skill1"
+   ]
+  },
+  {
+   "bundle": "5d9887f19cdf925e93311026e38d59a9",
+   "clips": 0,
+   "container": "assets/art/models/minigame022/prefab/minigamespine_zhalan_pixel.prefab",
+   "json": "units/minigamespine_zhalan_pixel.json",
+   "jsonSha256": "fc1a03ae956a810836277b97ae3dba48140f93bb6e4c47ab06181035a12b4249",
+   "key": "minigamespine_zhalan_pixel",
+   "kind": "wall",
+   "rootGameObject": "-2551854468249458337",
+   "sprites": 1,
+   "states": []
+  }
+ ],
+ "schema": "starfall-native-manifest/1",
+ "source": {
+  "assetVersion": "134395529309427262",
+  "assetsMapSha256": "92ab7c7aab8bf414c21bd23df8110afc51629f566bfc85e963ffc6412026eda6",
+  "bundlesDir": "assets/bundles/134395529309427262",
+  "downloadManifestSha256": "471a6b95daa4d1e85a9f26b9a3d912eea125abe48f3612459d1c85edb7183db1",
+  "framesDir": "assets/exported/assets/art/models/minigame022/prefab",
+  "headerFixReportSha256": "5eefaab9e27b9ad7191fb140a1380a6727faabdd96d93494fd97553fac25ca38",
+  "root": "server-exports/monster-defense-research-20261125"
+ }
+}

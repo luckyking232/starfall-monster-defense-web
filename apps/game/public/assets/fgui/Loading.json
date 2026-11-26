@@ -1,0 +1,581 @@
+{
+ "atlases": {},
+ "componentIndex": {
+  "BattleLoadingWindow": "uvj5laj",
+  "EffectAni": "uvj5lak",
+  "LoginLoadingWindow": "pzz1lal",
+  "NetCheck": "dcxt3"
+ },
+ "components": {
+  "dcxt3": {
+   "children": [
+    {
+     "alpha": 1.0,
+     "blendMode": "Normal",
+     "grayed": false,
+     "id": "n6_q8va",
+     "name": "PopupBg",
+     "objectType": "Component",
+     "packageId": "tey9g4p9",
+     "refName": "PopupBg",
+     "refUrl": "ui://tey9g4p9t35nrlzl",
+     "relations": [
+      {
+       "relations": [
+        {
+         "type": "Width",
+         "usePercent": false
+        },
+        {
+         "type": "Height",
+         "usePercent": false
+        }
+       ],
+       "targetIndex": -1,
+       "targetName": "NetCheck"
+      }
+     ],
+     "rotation": 0.0,
+     "src": "t35nrlzl",
+     "touchable": true,
+     "type": "Component",
+     "visible": true,
+     "x": 0,
+     "y": 0
+    },
+    {
+     "alpha": 1.0,
+     "blendMode": "Normal",
+     "grayed": false,
+     "id": "n7_cain",
+     "name": "EffectAni",
+     "objectType": "Component",
+     "packageId": null,
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "pivotAsAnchor": true,
+     "refName": "EffectAni",
+     "refUrl": "ui://sjqdmk59uvj5lak",
+     "rotation": 0.0,
+     "src": "uvj5lak",
+     "touchable": true,
+     "type": "Component",
+     "visible": true,
+     "x": 667,
+     "y": 375
+    }
+   ],
+   "height": 750,
+   "id": "dcxt3",
+   "name": "NetCheck",
+   "objectType": "Component",
+   "opaque": true,
+   "overflow": "Visible",
+   "transitions": [
+    {
+     "autoPlay": true,
+     "autoPlayDelay": 0.0,
+     "autoPlayTimes": -1,
+     "items": [],
+     "name": "in",
+     "options": 0
+    }
+   ],
+   "url": "ui://sjqdmk59dcxt3",
+   "width": 1334
+  },
+  "pzz1lal": {
+   "children": [
+    {
+     "alpha": 1.0,
+     "blendMode": "Normal",
+     "fillColor": "#000000ff",
+     "graphType": "Rect",
+     "grayed": false,
+     "height": 750,
+     "id": "n3_pzz1",
+     "lineColor": "#000000ff",
+     "lineSize": 0,
+     "name": "PicImage",
+     "objectType": "Graph",
+     "relations": [
+      {
+       "relations": [
+        {
+         "type": "Width",
+         "usePercent": false
+        },
+        {
+         "type": "Height",
+         "usePercent": false
+        }
+       ],
+       "targetIndex": -1,
+       "targetName": "LoginLoadingWindow"
+      }
+     ],
+     "rotation": 0.0,
+     "touchable": true,
+     "type": "Graph",
+     "visible": false,
+     "width": 2000,
+     "x": -333,
+     "y": 0
+    },
+    {
+     "alpha": 1.0,
+     "blendMode": "Normal",
+     "grayed": false,
+     "id": "n5_cain",
+     "name": "EffectAni",
+     "objectType": "Component",
+     "packageId": null,
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "pivotAsAnchor": true,
+     "refName": "EffectAni",
+     "refUrl": "ui://sjqdmk59uvj5lak",
+     "relations": [
+      {
+       "relations": [
+        {
+         "type": "Left_Center",
+         "usePercent": false
+        },
+        {
+         "type": "Top_Middle",
+         "usePercent": false
+        }
+       ],
+       "targetIndex": -1,
+       "targetName": "LoginLoadingWindow"
+      }
+     ],
+     "rotation": 0.0,
+     "src": "uvj5lak",
+     "touchable": true,
+     "type": "Component",
+     "visible": true,
+     "x": 667,
+     "y": 375
+    }
+   ],
+   "height": 750,
+   "id": "pzz1lal",
+   "name": "LoginLoadingWindow",
+   "objectType": "Component",
+   "opaque": true,
+   "overflow": "Visible",
+   "transitions": [
+    {
+     "autoPlay": false,
+     "autoPlayDelay": 0.0,
+     "autoPlayTimes": 1,
+     "items": [
+      {
+       "targetId": "n3_pzz1",
+       "targetIndex": 0,
+       "targetName": "PicImage",
+       "time": 0.0,
+       "tween": {
+        "duration": 0.7500000596046448,
+        "easeType": "QuadOut",
+        "endValue": {
+         "f1": 1.0
+        },
+        "repeat": 0,
+        "startValue": {
+         "f1": 0.0
+        },
+        "yoyo": false
+       },
+       "type": "Alpha"
+      },
+      {
+       "targetId": "n5_cain",
+       "targetIndex": 1,
+       "targetName": "EffectAni",
+       "time": 0.0,
+       "tween": {
+        "duration": 0.7500000596046448,
+        "easeType": "QuadOut",
+        "endValue": {
+         "f1": 1.0
+        },
+        "repeat": 0,
+        "startValue": {
+         "f1": 0.0
+        },
+        "yoyo": false
+       },
+       "type": "Alpha"
+      }
+     ],
+     "name": "in1",
+     "options": 0
+    },
+    {
+     "autoPlay": false,
+     "autoPlayDelay": 0.0,
+     "autoPlayTimes": 1,
+     "items": [
+      {
+       "targetId": "n3_pzz1",
+       "targetIndex": 0,
+       "targetName": "PicImage",
+       "time": 0.0,
+       "type": "Alpha",
+       "value": {
+        "f1": 1.0
+       }
+      },
+      {
+       "targetId": "n5_cain",
+       "targetIndex": 1,
+       "targetName": "EffectAni",
+       "time": 0.0,
+       "type": "Alpha",
+       "value": {
+        "f1": 1.0
+       }
+      },
+      {
+       "targetId": "n3_pzz1",
+       "targetIndex": 0,
+       "targetName": "PicImage",
+       "time": 0.5,
+       "tween": {
+        "duration": 0.7500000596046448,
+        "easeType": "QuadOut",
+        "endValue": {
+         "f1": 0.0
+        },
+        "repeat": 0,
+        "startValue": {
+         "f1": 1.0
+        },
+        "yoyo": false
+       },
+       "type": "Alpha"
+      },
+      {
+       "targetId": "n5_cain",
+       "targetIndex": 1,
+       "targetName": "EffectAni",
+       "time": 0.5,
+       "tween": {
+        "duration": 0.7500000596046448,
+        "easeType": "QuadOut",
+        "endValue": {
+         "f1": 0.0
+        },
+        "repeat": 0,
+        "startValue": {
+         "f1": 1.0
+        },
+        "yoyo": false
+       },
+       "type": "Alpha"
+      }
+     ],
+     "name": "out1",
+     "options": 0
+    }
+   ],
+   "url": "ui://sjqdmk59pzz1lal",
+   "width": 1334
+  },
+  "uvj5laj": {
+   "children": [
+    {
+     "alpha": 0.0,
+     "blendMode": "Normal",
+     "fillColor": "#000000ff",
+     "graphType": "Rect",
+     "grayed": false,
+     "height": 750,
+     "id": "n0_uvj5",
+     "lineColor": "#000000ff",
+     "lineSize": 0,
+     "name": "PicImage",
+     "objectType": "Graph",
+     "relations": [
+      {
+       "relations": [
+        {
+         "type": "Width",
+         "usePercent": false
+        },
+        {
+         "type": "Height",
+         "usePercent": false
+        }
+       ],
+       "targetIndex": -1,
+       "targetName": "BattleLoadingWindow"
+      }
+     ],
+     "rotation": 0.0,
+     "touchable": true,
+     "type": "Graph",
+     "visible": true,
+     "width": 1334,
+     "x": 0,
+     "y": 0
+    },
+    {
+     "alpha": 1.0,
+     "blendMode": "Normal",
+     "grayed": false,
+     "id": "n2_uvj5",
+     "name": "EffectAni",
+     "objectType": "Component",
+     "packageId": null,
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "pivotAsAnchor": true,
+     "refName": "EffectAni",
+     "refUrl": "ui://sjqdmk59uvj5lak",
+     "relations": [
+      {
+       "relations": [
+        {
+         "type": "Left_Center",
+         "usePercent": false
+        },
+        {
+         "type": "Top_Middle",
+         "usePercent": false
+        }
+       ],
+       "targetIndex": -1,
+       "targetName": "BattleLoadingWindow"
+      }
+     ],
+     "rotation": 0.0,
+     "src": "uvj5lak",
+     "touchable": true,
+     "type": "Component",
+     "visible": true,
+     "x": 667,
+     "y": 375
+    }
+   ],
+   "height": 750,
+   "id": "uvj5laj",
+   "name": "BattleLoadingWindow",
+   "objectType": "Component",
+   "opaque": true,
+   "overflow": "Visible",
+   "transitions": [
+    {
+     "autoPlay": false,
+     "autoPlayDelay": 0.0,
+     "autoPlayTimes": 1,
+     "items": [
+      {
+       "targetId": "n2_uvj5",
+       "targetIndex": 1,
+       "targetName": "EffectAni",
+       "time": 0.0,
+       "tween": {
+        "duration": 0.7500000596046448,
+        "easeType": "QuadOut",
+        "endValue": {
+         "f1": 1.0
+        },
+        "repeat": 0,
+        "startValue": {
+         "f1": 0.0
+        },
+        "yoyo": false
+       },
+       "type": "Alpha"
+      }
+     ],
+     "name": "in1",
+     "options": 0
+    },
+    {
+     "autoPlay": false,
+     "autoPlayDelay": 0.0,
+     "autoPlayTimes": 1,
+     "items": [
+      {
+       "targetId": "n2_uvj5",
+       "targetIndex": 1,
+       "targetName": "EffectAni",
+       "time": 0.0,
+       "tween": {
+        "duration": 0.7500000596046448,
+        "easeType": "QuadOut",
+        "endValue": {
+         "f1": 0.0
+        },
+        "repeat": 0,
+        "startValue": {
+         "f1": 1.0
+        },
+        "yoyo": false
+       },
+       "type": "Alpha"
+      }
+     ],
+     "name": "out1",
+     "options": 0
+    }
+   ],
+   "url": "ui://sjqdmk59uvj5laj",
+   "width": 1334
+  },
+  "uvj5lak": {
+   "children": [
+    {
+     "align": "Center",
+     "alpha": 1.0,
+     "autoSize": false,
+     "blendMode": "Normal",
+     "fill": "None",
+     "fillMethod": "None",
+     "frame": 0,
+     "grayed": false,
+     "height": 200,
+     "id": "n3_cain",
+     "name": "EffectLoader",
+     "objectType": "Loader",
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "pivotAsAnchor": true,
+     "playing": true,
+     "rotation": 0.0,
+     "showErrorSign": false,
+     "shrinkOnly": false,
+     "touchable": true,
+     "type": "Loader",
+     "url": null,
+     "verticalAlign": "Middle",
+     "visible": true,
+     "width": 200,
+     "x": 100,
+     "y": 100
+    },
+    {
+     "alpha": 0.0,
+     "blendMode": "Normal",
+     "fillColor": "#ffffff00",
+     "graphType": "Rect",
+     "grayed": false,
+     "height": 200,
+     "id": "n4_cain",
+     "lineColor": "#000000ff",
+     "lineSize": 0,
+     "name": "EffectHolder",
+     "objectType": "Graph",
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "pivotAsAnchor": true,
+     "rotation": 0.0,
+     "touchable": true,
+     "type": "Graph",
+     "visible": true,
+     "width": 200,
+     "x": 100,
+     "y": 100
+    }
+   ],
+   "height": 200,
+   "id": "uvj5lak",
+   "name": "EffectAni",
+   "objectType": "Component",
+   "opaque": true,
+   "overflow": "Visible",
+   "url": "ui://sjqdmk59uvj5lak",
+   "width": 200
+  }
+ },
+ "items": {
+  "dcxt3": {
+   "exported": true,
+   "height": 750,
+   "id": "dcxt3",
+   "name": "NetCheck",
+   "objectType": "Component",
+   "path": "/Component/断线重连/",
+   "type": "Component",
+   "width": 1334
+  },
+  "pzz1lal": {
+   "exported": true,
+   "height": 750,
+   "id": "pzz1lal",
+   "name": "LoginLoadingWindow",
+   "objectType": "Component",
+   "path": "/Component/登陆过渡/",
+   "type": "Component",
+   "width": 1334
+  },
+  "uvj5laj": {
+   "exported": true,
+   "height": 750,
+   "id": "uvj5laj",
+   "name": "BattleLoadingWindow",
+   "objectType": "Component",
+   "path": "/Component/战斗loading/",
+   "type": "Component",
+   "width": 1334
+  },
+  "uvj5lak": {
+   "exported": true,
+   "height": 200,
+   "id": "uvj5lak",
+   "name": "EffectAni",
+   "objectType": "Component",
+   "path": "/Component/",
+   "type": "Component",
+   "width": 200
+  }
+ },
+ "package": {
+  "branches": [],
+  "compressed": false,
+  "dependencies": [
+   {
+    "id": "tey9g4p9",
+    "name": "CommonResource"
+   }
+  ],
+  "id": "sjqdmk59",
+  "name": "Loading",
+  "version": 6
+ },
+ "schema": "starfall-fgui-package/1",
+ "source": {
+  "container": {
+   "file": "7d5edc369c98ff1aaf7cf9c2438fad6e.bundle",
+   "md5": "7d5edc369c98ff1aaf7cf9c2438fad6e",
+   "pathId": "-4728814527088002609",
+   "textAsset": "Loading_fui"
+  },
+  "file": "Loading_fui.bytes",
+  "format": {
+   "endianness": "big",
+   "magic": "FGUI",
+   "reference": "FairyGUI-unity UIPackage.LoadPackage (master)",
+   "referenceUrl": "https://raw.githubusercontent.com/fairygui/FairyGUI-unity/master/Assets/Scripts/UI/UIPackage.cs",
+   "version": 6
+  },
+  "sha256": "f29218c53da4e26605d55fb1c32e0b13b1d2de37a978ab3bcb79f371a4e0a645",
+  "size": 1976
+ },
+ "unsupported": []
+}

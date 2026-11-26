@@ -1,0 +1,220 @@
+{
+ "animations": {
+  "clips": []
+ },
+ "bundle": {
+  "cabName": "CAB-713f1f34906dceeb698eb32f38c86619",
+  "dependencies": [
+   {
+    "hash": "4ea830aef39c09dee50893b3b103c606",
+    "manifestIndex": 10094,
+    "name": "auto_background_material_background_mat.bundle"
+   },
+   {
+    "hash": "26a3662067f58ef598c3266aa751de04",
+    "manifestIndex": 5193,
+    "name": "auto_effects_texture_beam_mask004_png.bundle"
+   },
+   {
+    "hash": "8da0cc713a14791e9960ebff598db393",
+    "manifestIndex": 5192,
+    "name": "auto_effects_texture_beam_png.bundle"
+   },
+   {
+    "hash": "918bc43e5b6e82751f9bc319604170d7",
+    "manifestIndex": 3,
+    "name": "shaders.bundle"
+   }
+  ],
+  "file": "4112b4323c3bbb2ef13890ce5197ee45.bundle",
+  "headerOffsetStripped": 32,
+  "manifestIndex": 4546,
+  "name": "minigame022_prefab_minigame022_map3_prefab.bundle",
+  "originalMd5": "4112b4323c3bbb2ef13890ce5197ee45",
+  "originalSha256": "a5220b705e46691bdcb80517839f1051633a873fb905e28458acb240f7e8a746",
+  "processedSha256": "814d2ab5a27de752172723641aa66b1485cc516b6a500e7cf98123c3ec1794ea",
+  "processedSizeBytes": 323550,
+  "sizeBytes": 323582
+ },
+ "conventions": {
+  "clipKeys": "decoded from m_MuscleClip.m_Clip.data streamed words; key.time is seconds from clip start, rawTime is the serialized time (-FLT_MAX sentinel clamps to startTime), spriteIndex addresses pptrCurveMapping",
+  "framePng": "byte-exact AssetStudio export of the sprite's trimmed textureRect; place it at textureRectOffset inside sprite.rect (y up), then anchor at sprite.pivot",
+  "lengthUnit": "Unity units; sprite pixels convert via sprite.pixelsToUnits",
+  "pathIds": "all Unity path ids are decimal strings (64-bit safe for JSON consumers)",
+  "spriteRect": "pixel rect inside the source texture, origin at texture bottom-left, y up",
+  "transform": "localPosition/localRotation/localScale are parent-relative, exactly as serialized"
+ },
+ "diagnostics": [],
+ "key": "minigame022_map3",
+ "kind": "map",
+ "objects": {
+  "animatorControllers": [],
+  "animators": [],
+  "gameObjects": [
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "800032531041441279",
+      "type": "Transform"
+     },
+     {
+      "pathId": "4953905328269774604",
+      "type": "SpriteRenderer"
+     }
+    ],
+    "layer": 0,
+    "name": "MiniGame022_map3",
+    "pathId": "-6714134453188605354",
+    "tag": 0
+   }
+  ],
+  "spriteRenderers": [
+   {
+    "adaptiveModeThreshold": 0.5,
+    "color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "drawMode": 0,
+    "enabled": true,
+    "flipX": false,
+    "flipY": false,
+    "gameObject": "-6714134453188605354",
+    "maskInteraction": 0,
+    "materials": [
+     {
+      "external": {
+       "name": "CAB-821662ed281376ea8fd3deff1c37a0c1",
+       "path": "archive:/CAB-821662ed281376ea8fd3deff1c37a0c1/CAB-821662ed281376ea8fd3deff1c37a0c1"
+      },
+      "fileId": 1,
+      "pathId": "-6854055596068016654",
+      "resolved": {
+       "bundle": "4ea830aef39c09dee50893b3b103c606",
+       "objectName": "background"
+      }
+     }
+    ],
+    "pathId": "4953905328269774604",
+    "size": {
+     "x": 22.239999771118164,
+     "y": 13.386666297912598
+    },
+    "sortingLayer": 0,
+    "sortingLayerId": 0,
+    "sortingOrder": 0,
+    "sprite": "-760292824117187357",
+    "spriteSortPoint": 0,
+    "spriteTileMode": 0
+   }
+  ],
+  "sprites": [
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/MiniGame022_map3.png",
+     "height": 1004,
+     "sha256": "81f40146acded0fb549a78a458fd28e838c0ad68bcfa12110990d975f8e037ac",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/MiniGame022_map3.png",
+     "width": 1668
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 6,
+     "indices": [
+      3,
+      0,
+      1,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 4
+    },
+    "name": "MiniGame022_map3",
+    "offset": {
+     "x": 0.0,
+     "y": 0.0
+    },
+    "pathId": "-760292824117187357",
+    "pivot": {
+     "x": 0.5,
+     "y": 0.5
+    },
+    "pixelsToUnits": 75.0,
+    "rect": {
+     "height": 1004.0,
+     "width": 1668.0,
+     "x": 0.0,
+     "y": 0.0
+    },
+    "texture": "-7653672547146017021",
+    "textureRect": {
+     "height": 1004.0,
+     "width": 1668.0,
+     "x": 0.0,
+     "y": 0.0
+    },
+    "textureRectOffset": {
+     "x": 0.0,
+     "y": 0.0
+    }
+   }
+  ],
+  "textures": [
+   {
+    "dataSize": 747264,
+    "height": 1004,
+    "mipCount": 1,
+    "name": "MiniGame022_map3",
+    "pathId": "-7653672547146017021",
+    "textureFormat": 50,
+    "width": 1668
+   }
+  ],
+  "transforms": [
+   {
+    "children": [],
+    "gameObject": "-6714134453188605354",
+    "localPosition": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "MiniGame022_map3",
+    "parent": "0",
+    "path": "MiniGame022_map3",
+    "pathId": "800032531041441279",
+    "siblingIndex": 0
+   }
+  ]
+ },
+ "prefab": {
+  "container": "assets/art/models/minigame022/prefab/minigame022_map3.prefab",
+  "rootGameObject": "-6714134453188605354",
+  "rootTransform": "800032531041441279"
+ },
+ "schema": "starfall-native-prefab/1"
+}

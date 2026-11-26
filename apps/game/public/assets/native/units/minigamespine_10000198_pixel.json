@@ -1,0 +1,2229 @@
+{
+ "animations": {
+  "clips": [
+   {
+    "clipData": {
+     "constant": {
+      "valueCount": 0,
+      "values": []
+     },
+     "dense": {
+      "beginTime": 0.0,
+      "curveCount": 0,
+      "frameCount": 10,
+      "sampleArray": [],
+      "sampleRate": 9.0
+     },
+     "streamed": {
+      "curveCount": 1,
+      "frames": [
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           0.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": -3.4028234663852886e+38
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           1.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.1111111119389534
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           2.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.2222222238779068
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           3.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.3333333432674408
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           4.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.4444444477558136
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           5.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.5555555820465088
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           6.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.6666666865348816
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           7.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.7777777910232544
+       },
+       {
+        "keys": [],
+        "time": "inf"
+       }
+      ],
+      "wordCount": 58,
+      "words": [
+       4286578687,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1038323257,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1065353216,
+       1046711865,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1073741824,
+       1051372203,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1077936128,
+       1055100473,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1082130432,
+       1057896676,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1084227584,
+       1059760811,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1086324736,
+       1061624946,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1088421888,
+       2139095040,
+       0
+      ]
+     }
+    },
+    "compressed": false,
+    "curves": [
+     {
+      "binding": {
+       "attribute": 0,
+       "customType": 23,
+       "isPPtrCurve": true,
+       "path": 0,
+       "script": {
+        "fileId": 0,
+        "pathId": "0"
+       },
+       "typeId": 212
+      },
+      "index": 0,
+      "keys": [
+       {
+        "clampedToStart": true,
+        "frame": "frames/minigamespine_10000198_pixel_6.png",
+        "rawTime": -3.4028234663852886e+38,
+        "sprite": "7650985880479440501",
+        "spriteIndex": 0,
+        "spriteName": "minigamespine_10000198_pixel_6",
+        "time": 0.0
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/minigamespine_10000198_pixel_7.png",
+        "rawTime": 0.1111111119389534,
+        "sprite": "-1147186287007066134",
+        "spriteIndex": 1,
+        "spriteName": "minigamespine_10000198_pixel_7",
+        "time": 0.1111111119389534
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/minigamespine_10000198_pixel_8.png",
+        "rawTime": 0.2222222238779068,
+        "sprite": "7201823948154299095",
+        "spriteIndex": 2,
+        "spriteName": "minigamespine_10000198_pixel_8",
+        "time": 0.2222222238779068
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/minigamespine_10000198_pixel_9.png",
+        "rawTime": 0.3333333432674408,
+        "sprite": "-1865632773429041679",
+        "spriteIndex": 3,
+        "spriteName": "minigamespine_10000198_pixel_9",
+        "time": 0.3333333432674408
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/minigamespine_10000198_pixel_10.png",
+        "rawTime": 0.4444444477558136,
+        "sprite": "1386823335566118701",
+        "spriteIndex": 4,
+        "spriteName": "minigamespine_10000198_pixel_10",
+        "time": 0.4444444477558136
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/minigamespine_10000198_pixel_11.png",
+        "rawTime": 0.5555555820465088,
+        "sprite": "-5271495560526854903",
+        "spriteIndex": 5,
+        "spriteName": "minigamespine_10000198_pixel_11",
+        "time": 0.5555555820465088
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/minigamespine_10000198_pixel_12.png",
+        "rawTime": 0.6666666865348816,
+        "sprite": "7557810434538650041",
+        "spriteIndex": 6,
+        "spriteName": "minigamespine_10000198_pixel_12",
+        "time": 0.6666666865348816
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/minigamespine_10000198_pixel_13.png",
+        "rawTime": 0.7777777910232544,
+        "sprite": "-429380428496909428",
+        "spriteIndex": 7,
+        "spriteName": "minigamespine_10000198_pixel_13",
+        "time": 0.7777777910232544
+       }
+      ],
+      "kind": "pptrSprite",
+      "source": "streamed",
+      "target": {
+       "component": "SpriteRenderer",
+       "gameObject": "-4464534438287994487",
+       "resolution": "animatorGameObject"
+      }
+     }
+    ],
+    "decodeNote": "all curves decoded",
+    "decodeStatus": "decoded",
+    "duration": 0.8888888955116272,
+    "events": [],
+    "legacy": false,
+    "loopBlend": false,
+    "loopTime": true,
+    "name": "skill1",
+    "pathId": "-3034927716941018334",
+    "pptrCurveMapping": [
+     "7650985880479440501",
+     "-1147186287007066134",
+     "7201823948154299095",
+     "-1865632773429041679",
+     "1386823335566118701",
+     "-5271495560526854903",
+     "7557810434538650041",
+     "-429380428496909428"
+    ],
+    "sampleRate": 9.0,
+    "startTime": 0.0,
+    "stopTime": 0.8888888955116272,
+    "wrapMode": 0
+   },
+   {
+    "clipData": {
+     "constant": {
+      "valueCount": 0,
+      "values": []
+     },
+     "dense": {
+      "beginTime": 0.0,
+      "curveCount": 0,
+      "frameCount": 8,
+      "sampleArray": [],
+      "sampleRate": 8.0
+     },
+     "streamed": {
+      "curveCount": 1,
+      "frames": [
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           0.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": -3.4028234663852886e+38
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           1.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.125
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           2.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.25
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           3.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.375
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           4.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.5
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           5.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.625
+       },
+       {
+        "keys": [],
+        "time": "inf"
+       }
+      ],
+      "wordCount": 44,
+      "words": [
+       4286578687,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1040187392,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1065353216,
+       1048576000,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1073741824,
+       1052770304,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1077936128,
+       1056964608,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1082130432,
+       1059061760,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1084227584,
+       2139095040,
+       0
+      ]
+     }
+    },
+    "compressed": false,
+    "curves": [
+     {
+      "binding": {
+       "attribute": 0,
+       "customType": 23,
+       "isPPtrCurve": true,
+       "path": 0,
+       "script": {
+        "fileId": 0,
+        "pathId": "0"
+       },
+       "typeId": 212
+      },
+      "index": 0,
+      "keys": [
+       {
+        "clampedToStart": true,
+        "frame": "frames/minigamespine_10000198_pixel_0.png",
+        "rawTime": -3.4028234663852886e+38,
+        "sprite": "3338335880189030102",
+        "spriteIndex": 0,
+        "spriteName": "minigamespine_10000198_pixel_0",
+        "time": 0.0
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/minigamespine_10000198_pixel_1.png",
+        "rawTime": 0.125,
+        "sprite": "-9097633318425261786",
+        "spriteIndex": 1,
+        "spriteName": "minigamespine_10000198_pixel_1",
+        "time": 0.125
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/minigamespine_10000198_pixel_2.png",
+        "rawTime": 0.25,
+        "sprite": "-5734216544426569863",
+        "spriteIndex": 2,
+        "spriteName": "minigamespine_10000198_pixel_2",
+        "time": 0.25
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/minigamespine_10000198_pixel_3.png",
+        "rawTime": 0.375,
+        "sprite": "-8058876586226142307",
+        "spriteIndex": 3,
+        "spriteName": "minigamespine_10000198_pixel_3",
+        "time": 0.375
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/minigamespine_10000198_pixel_4.png",
+        "rawTime": 0.5,
+        "sprite": "395219606522533166",
+        "spriteIndex": 4,
+        "spriteName": "minigamespine_10000198_pixel_4",
+        "time": 0.5
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/minigamespine_10000198_pixel_5.png",
+        "rawTime": 0.625,
+        "sprite": "-3524469589911277714",
+        "spriteIndex": 5,
+        "spriteName": "minigamespine_10000198_pixel_5",
+        "time": 0.625
+       }
+      ],
+      "kind": "pptrSprite",
+      "source": "streamed",
+      "target": {
+       "component": "SpriteRenderer",
+       "gameObject": "-4464534438287994487",
+       "resolution": "animatorGameObject"
+      }
+     }
+    ],
+    "decodeNote": "all curves decoded",
+    "decodeStatus": "decoded",
+    "duration": 0.75,
+    "events": [],
+    "legacy": false,
+    "loopBlend": false,
+    "loopTime": true,
+    "name": "idle",
+    "pathId": "6991562619585416319",
+    "pptrCurveMapping": [
+     "3338335880189030102",
+     "-9097633318425261786",
+     "-5734216544426569863",
+     "-8058876586226142307",
+     "395219606522533166",
+     "-3524469589911277714"
+    ],
+    "sampleRate": 8.0,
+    "startTime": 0.0,
+    "stopTime": 0.75,
+    "wrapMode": 0
+   }
+  ]
+ },
+ "bundle": {
+  "cabName": "CAB-3c1486859a2814587853259ead49fffb",
+  "dependencies": [
+   {
+    "hash": "26a3662067f58ef598c3266aa751de04",
+    "manifestIndex": 5193,
+    "name": "auto_effects_texture_beam_mask004_png.bundle"
+   },
+   {
+    "hash": "8da0cc713a14791e9960ebff598db393",
+    "manifestIndex": 5192,
+    "name": "auto_effects_texture_beam_png.bundle"
+   },
+   {
+    "hash": "fcb54c0ebfe8fe5d2af35834a1796dd7",
+    "manifestIndex": 2,
+    "name": "default_material_sprites_default_shadow_mat.bundle"
+   },
+   {
+    "hash": "918bc43e5b6e82751f9bc319604170d7",
+    "manifestIndex": 3,
+    "name": "shaders.bundle"
+   }
+  ],
+  "file": "ec2728fe719e6898eb495aa4d60c2c07.bundle",
+  "headerOffsetStripped": 32,
+  "manifestIndex": 4558,
+  "name": "minigame022_prefab_minigamespine_10000198_pixel_prefab.bundle",
+  "originalMd5": "ec2728fe719e6898eb495aa4d60c2c07",
+  "originalSha256": "4462e1047fdd15f7cec54a8497e4152d11fa2a7347b91ac1bf6ec04c5b301f71",
+  "processedSha256": "8d80520318b5fc22ebbad3defee0da2ac15d9195deac05cea33beb43eeb472ea",
+  "processedSizeBytes": 109775,
+  "sizeBytes": 109807
+ },
+ "conventions": {
+  "clipKeys": "decoded from m_MuscleClip.m_Clip.data streamed words; key.time is seconds from clip start, rawTime is the serialized time (-FLT_MAX sentinel clamps to startTime), spriteIndex addresses pptrCurveMapping",
+  "framePng": "byte-exact AssetStudio export of the sprite's trimmed textureRect; place it at textureRectOffset inside sprite.rect (y up), then anchor at sprite.pivot",
+  "lengthUnit": "Unity units; sprite pixels convert via sprite.pixelsToUnits",
+  "pathIds": "all Unity path ids are decimal strings (64-bit safe for JSON consumers)",
+  "spriteRect": "pixel rect inside the source texture, origin at texture bottom-left, y up",
+  "transform": "localPosition/localRotation/localScale are parent-relative, exactly as serialized"
+ },
+ "diagnostics": [],
+ "key": "minigamespine_10000198_pixel",
+ "kind": "unit",
+ "objects": {
+  "animatorControllers": [
+   {
+    "animationClips": [
+     "6991562619585416319",
+     "-3034927716941018334"
+    ],
+    "layers": [
+     {
+      "binding": 1059528725,
+      "defaultWeight": 0.0,
+      "ikPass": false,
+      "stateMachineIndex": 0
+     }
+    ],
+    "name": "minigamespine_10000198_pixel",
+    "pathId": "3084681686394703456",
+    "stateMachines": [
+     {
+      "anyStateTransitions": 0,
+      "defaultState": 0,
+      "states": [
+       {
+        "blendTrees": [
+         {
+          "nodes": [
+           {
+            "blendType": 0,
+            "clipId": 0,
+            "cycleOffset": 0.0,
+            "duration": 1.0,
+            "mirror": false
+           }
+          ]
+         }
+        ],
+        "clipIds": [
+         0
+        ],
+        "cycleOffset": 0.0,
+        "fullPathId": 677233124,
+        "ikOnFeet": false,
+        "loop": true,
+        "mirror": false,
+        "name": "idle",
+        "nameId": 3693393173,
+        "pathId": 677233124,
+        "speed": 1.0,
+        "tagId": 0,
+        "transitions": 0,
+        "writeDefaultValues": true
+       },
+       {
+        "blendTrees": [
+         {
+          "nodes": [
+           {
+            "blendType": 0,
+            "clipId": 1,
+            "cycleOffset": 0.0,
+            "duration": 1.0,
+            "mirror": false
+           }
+          ]
+         }
+        ],
+        "clipIds": [
+         1
+        ],
+        "cycleOffset": 0.0,
+        "fullPathId": 388802412,
+        "ikOnFeet": false,
+        "loop": true,
+        "mirror": false,
+        "name": "skill1",
+        "nameId": 1306736332,
+        "pathId": 388802412,
+        "speed": 1.0,
+        "tagId": 0,
+        "transitions": 0,
+        "writeDefaultValues": true
+       }
+      ]
+     }
+    ],
+    "tos": {
+     "0": "",
+     "1059528725": "minigamespine_10000198_pixel_ani",
+     "1306736332": "skill1",
+     "2105523844": "GravityWeight",
+     "3693393173": "idle",
+     "388802412": "minigamespine_10000198_pixel_ani.skill1",
+     "677233124": "minigamespine_10000198_pixel_ani.idle"
+    }
+   }
+  ],
+  "animators": [
+   {
+    "applyRootMotion": false,
+    "avatar": "0",
+    "controller": "3084681686394703456",
+    "cullingMode": 0,
+    "enabled": true,
+    "gameObject": "-4464534438287994487",
+    "hasTransformHierarchy": true,
+    "pathId": "-2658190649733838110",
+    "updateMode": 0
+   }
+  ],
+  "gameObjects": [
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "8852523262953094694",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "BodyBuffPoint",
+    "pathId": "-5800838964547065953",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "-8072535260578326373",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "DizzyBuffPoint",
+    "pathId": "-5594205447265161240",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "592961568677043264",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "HeadBuffPoint",
+    "pathId": "-4618015027392028059",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "711340975855844509",
+      "type": "Transform"
+     },
+     {
+      "pathId": "7035611012358131145",
+      "type": "SpriteRenderer"
+     },
+     {
+      "pathId": "-2658190649733838110",
+      "type": "Animator"
+     }
+    ],
+    "layer": 0,
+    "name": "model",
+    "pathId": "-4464534438287994487",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "6861854474062633646",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "minigamespine_10000198_pixel",
+    "pathId": "5203987180479858957",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "3780659825125487943",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "hit",
+    "pathId": "7069044722617593435",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "-7955773865475139154",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "bullet",
+    "pathId": "7394296203690261449",
+    "tag": 0
+   }
+  ],
+  "spriteRenderers": [
+   {
+    "adaptiveModeThreshold": 0.5,
+    "color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "drawMode": 0,
+    "enabled": true,
+    "flipX": false,
+    "flipY": false,
+    "gameObject": "-4464534438287994487",
+    "maskInteraction": 0,
+    "materials": [
+     {
+      "external": {
+       "name": "CAB-04db504a550024548ac4aa9c9445b447",
+       "path": "archive:/CAB-04db504a550024548ac4aa9c9445b447/CAB-04db504a550024548ac4aa9c9445b447"
+      },
+      "fileId": 1,
+      "pathId": "-8462337135408142746",
+      "resolved": {
+       "bundle": "fcb54c0ebfe8fe5d2af35834a1796dd7",
+       "objectName": "Sprites-Default_Shadow"
+      }
+     }
+    ],
+    "pathId": "7035611012358131145",
+    "size": {
+     "x": 2.0399999618530273,
+     "y": 2.0399999618530273
+    },
+    "sortingLayer": 0,
+    "sortingLayerId": 0,
+    "sortingOrder": 0,
+    "sprite": "3338335880189030102",
+    "spriteSortPoint": 0,
+    "spriteTileMode": 0
+   }
+  ],
+  "sprites": [
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_1.png",
+     "height": 96,
+     "sha256": "29275d43d77feac10ee1569e6cbe814b438e838d53e88e7b67e9f3fd3ad07bc3",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_1.png",
+     "width": 117
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 12,
+     "indices": [
+      5,
+      4,
+      3,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 6
+    },
+    "name": "minigamespine_10000198_pixel_1",
+    "offset": {
+     "x": -28.77105712890625,
+     "y": -52.51104736328125
+    },
+    "pathId": "-9097633318425261786",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 204.0,
+     "y": 612.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 95.86750793457031,
+     "width": 116.89712524414062,
+     "x": 244.0761260986328,
+     "y": 659.0761108398438
+    },
+    "textureRectOffset": {
+     "x": 40.07612609863281,
+     "y": 47.07611083984375
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_3.png",
+     "height": 102,
+     "sha256": "c104548c201129eda8eddc8af2d552a4cba900f76c80d9764a75000e0842da7c",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_3.png",
+     "width": 112
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 15,
+     "indices": [
+      6,
+      5,
+      3,
+      4,
+      3,
+      5,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 7
+    },
+    "name": "minigamespine_10000198_pixel_3",
+    "offset": {
+     "x": -28.77105712890625,
+     "y": -52.51104736328125
+    },
+    "pathId": "-8058876586226142307",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 612.0,
+     "y": 612.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 101.94868469238281,
+     "width": 111.91160583496094,
+     "x": 655.0429077148438,
+     "y": 656.0
+    },
+    "textureRectOffset": {
+     "x": 43.04290771484375,
+     "y": 44.0
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_2.png",
+     "height": 99,
+     "sha256": "2965eccf0daec4d56d30f528c8332cf2dd0e5ac259c904d7a6c610440ec00645",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_2.png",
+     "width": 115
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 12,
+     "indices": [
+      5,
+      4,
+      1,
+      3,
+      1,
+      4,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 6
+    },
+    "name": "minigamespine_10000198_pixel_2",
+    "offset": {
+     "x": -28.77105712890625,
+     "y": -52.51104736328125
+    },
+    "pathId": "-5734216544426569863",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 408.0,
+     "y": 612.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 98.87255859375,
+     "width": 114.90422821044922,
+     "x": 448.0196533203125,
+     "y": 658.0761108398438
+    },
+    "textureRectOffset": {
+     "x": 40.0196533203125,
+     "y": 46.07611083984375
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_11.png",
+     "height": 94,
+     "sha256": "8868b0fe82023ebf480142a42db2a8a9722b866f7b15109622930a162af8ce5e",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_11.png",
+     "width": 155
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 63,
+     "indices": [
+      0,
+      3,
+      5,
+      12,
+      5,
+      6,
+      16,
+      15,
+      14,
+      13,
+      14,
+      15,
+      2,
+      14,
+      13,
+      11,
+      14,
+      2,
+      1,
+      2,
+      13,
+      7,
+      1,
+      13,
+      5,
+      11,
+      2,
+      12,
+      11,
+      5,
+      6,
+      11,
+      12,
+      4,
+      11,
+      6,
+      8,
+      11,
+      4,
+      9,
+      11,
+      8,
+      10,
+      9,
+      8,
+      7,
+      4,
+      1,
+      3,
+      1,
+      4,
+      5,
+      3,
+      4,
+      6,
+      5,
+      4,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 17
+    },
+    "name": "minigamespine_10000198_pixel_11",
+    "offset": {
+     "x": -28.77105712890625,
+     "y": -52.51104736328125
+    },
+    "pathId": "-5271495560526854903",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 612.0,
+     "y": 204.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 93.88096618652344,
+     "width": 154.98709106445312,
+     "x": 661.012939453125,
+     "y": 251.0761260986328
+    },
+    "textureRectOffset": {
+     "x": 49.012939453125,
+     "y": 47.07612609863281
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_5.png",
+     "height": 96,
+     "sha256": "d20286d4c59eb439ec25dc7fd0fe3cccb38173a6fb9a13b45e02d7396ff4c76e",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_5.png",
+     "width": 114
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 12,
+     "indices": [
+      5,
+      4,
+      1,
+      3,
+      1,
+      4,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 6
+    },
+    "name": "minigamespine_10000198_pixel_5",
+    "offset": {
+     "x": -28.77105712890625,
+     "y": -52.51104736328125
+    },
+    "pathId": "-3524469589911277714",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 204.0,
+     "y": 408.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 95.86750793457031,
+     "width": 113.89712524414062,
+     "x": 247.0761260986328,
+     "y": 455.07611083984375
+    },
+    "textureRectOffset": {
+     "x": 43.07612609863281,
+     "y": 47.07611083984375
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_9.png",
+     "height": 112,
+     "sha256": "091e3f7d7bb95120d2e32986b49957df6f8d494dae4b3414435796aa4eb424e3",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_9.png",
+     "width": 104
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 18,
+     "indices": [
+      7,
+      6,
+      3,
+      5,
+      3,
+      6,
+      4,
+      3,
+      5,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 8
+    },
+    "name": "minigamespine_10000198_pixel_9",
+    "offset": {
+     "x": -28.77105712890625,
+     "y": -52.51104736328125
+    },
+    "pathId": "-1865632773429041679",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 204.0,
+     "y": 204.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 111.91097259521484,
+     "width": 103.97418212890625,
+     "x": 212.01290893554688,
+     "y": 230.0761260986328
+    },
+    "textureRectOffset": {
+     "x": 8.012908935546875,
+     "y": 26.076126098632812
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_7.png",
+     "height": 88,
+     "sha256": "daf659f7cd5d5916a638b4424f10ed6b0aba000fc9bf7ab0e7d87de736f5d1da",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_7.png",
+     "width": 119
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 51,
+     "indices": [
+      7,
+      5,
+      4,
+      11,
+      10,
+      3,
+      14,
+      3,
+      10,
+      13,
+      3,
+      14,
+      7,
+      3,
+      13,
+      4,
+      3,
+      7,
+      12,
+      9,
+      11,
+      10,
+      11,
+      9,
+      8,
+      10,
+      9,
+      0,
+      8,
+      9,
+      5,
+      8,
+      0,
+      6,
+      8,
+      5,
+      7,
+      6,
+      5,
+      4,
+      5,
+      0,
+      3,
+      4,
+      0,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 15
+    },
+    "name": "minigamespine_10000198_pixel_7",
+    "offset": {
+     "x": -28.77105712890625,
+     "y": -52.51104736328125
+    },
+    "pathId": "-1147186287007066134",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 612.0,
+     "y": 408.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 87.88096618652344,
+     "width": 118.90399169921875,
+     "x": 652.0597534179688,
+     "y": 453.07611083984375
+    },
+    "textureRectOffset": {
+     "x": 40.05975341796875,
+     "y": 45.07611083984375
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_13.png",
+     "height": 94,
+     "sha256": "0f6fa19ef84830554f343c7aa76de3363173032344589a5a33415be284004fbf",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_13.png",
+     "width": 155
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 24,
+     "indices": [
+      9,
+      8,
+      7,
+      6,
+      7,
+      8,
+      5,
+      7,
+      6,
+      0,
+      5,
+      6,
+      4,
+      5,
+      0,
+      3,
+      4,
+      0,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 10
+    },
+    "name": "minigamespine_10000198_pixel_13",
+    "offset": {
+     "x": -28.77105712890625,
+     "y": -52.51104736328125
+    },
+    "pathId": "-429380428496909428",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 204.0,
+     "y": 0.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 93.89712524414062,
+     "width": 154.90577697753906,
+     "x": 242.04290771484375,
+     "y": 47.07612228393555
+    },
+    "textureRectOffset": {
+     "x": 38.04290771484375,
+     "y": 47.07612228393555
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_4.png",
+     "height": 100,
+     "sha256": "8bb8364d46c437c08b355974b24782166c0f6102f0143292a3d141bfd88a0c40",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_4.png",
+     "width": 112
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 21,
+     "indices": [
+      8,
+      7,
+      6,
+      5,
+      6,
+      7,
+      4,
+      6,
+      5,
+      0,
+      4,
+      5,
+      3,
+      4,
+      0,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 9
+    },
+    "name": "minigamespine_10000198_pixel_4",
+    "offset": {
+     "x": -28.771041870117188,
+     "y": -52.51104736328125
+    },
+    "pathId": "395219606522533166",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 0.0,
+     "y": 408.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 99.94271850585938,
+     "width": 111.84774780273438,
+     "x": 43.07612228393555,
+     "y": 453.0059814453125
+    },
+    "textureRectOffset": {
+     "x": 43.07612228393555,
+     "y": 45.0059814453125
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_10.png",
+     "height": 95,
+     "sha256": "4a1362a457b1146e4e8ea7d78bb91f9c76578df6740380a7ff676360db3beae8",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_10.png",
+     "width": 117
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 18,
+     "indices": [
+      7,
+      6,
+      4,
+      5,
+      4,
+      6,
+      3,
+      4,
+      5,
+      1,
+      4,
+      3,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 8
+    },
+    "name": "minigamespine_10000198_pixel_10",
+    "offset": {
+     "x": -28.77105712890625,
+     "y": -52.51104736328125
+    },
+    "pathId": "1386823335566118701",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 408.0,
+     "y": 204.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 94.91912841796875,
+     "width": 116.92388153076172,
+     "x": 408.0,
+     "y": 251.02674865722656
+    },
+    "textureRectOffset": {
+     "x": 0.0,
+     "y": 47.02674865722656
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_0.png",
+     "height": 96,
+     "sha256": "878fb29d1e5422602b17bfcf41b57441e1e76ee0e60354ab4002f7a0498dec4e",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_0.png",
+     "width": 116
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 42,
+     "indices": [
+      6,
+      5,
+      9,
+      8,
+      9,
+      5,
+      11,
+      10,
+      4,
+      7,
+      4,
+      10,
+      6,
+      4,
+      7,
+      9,
+      4,
+      6,
+      8,
+      4,
+      9,
+      5,
+      4,
+      8,
+      7,
+      0,
+      6,
+      5,
+      6,
+      0,
+      4,
+      5,
+      0,
+      3,
+      4,
+      0,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 12
+    },
+    "name": "minigamespine_10000198_pixel_0",
+    "offset": {
+     "x": -28.771041870117188,
+     "y": -52.51104736328125
+    },
+    "pathId": "3338335880189030102",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 0.0,
+     "y": 612.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 95.91096496582031,
+     "width": 115.92193603515625,
+     "x": 42.02675247192383,
+     "y": 659.0761108398438
+    },
+    "textureRectOffset": {
+     "x": 42.02675247192383,
+     "y": 47.07611083984375
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_8.png",
+     "height": 125,
+     "sha256": "09da2db7798100c54117ca1c334385edf886392f99f294501545cbe5abb4c512",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_8.png",
+     "width": 88
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 21,
+     "indices": [
+      8,
+      7,
+      6,
+      5,
+      6,
+      7,
+      3,
+      6,
+      5,
+      4,
+      3,
+      5,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 9
+    },
+    "name": "minigamespine_10000198_pixel_8",
+    "offset": {
+     "x": -28.771041870117188,
+     "y": -52.51104736328125
+    },
+    "pathId": "7201823948154299095",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 0.0,
+     "y": 204.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 124.93034362792969,
+     "width": 87.95858001708984,
+     "x": 28.026750564575195,
+     "y": 251.04290771484375
+    },
+    "textureRectOffset": {
+     "x": 28.026750564575195,
+     "y": 47.04290771484375
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_12.png",
+     "height": 95,
+     "sha256": "6f8c2df4f21d13995102311b383f85134a40ceb263ddf074abadcb6183fb359e",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_12.png",
+     "width": 161
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 54,
+     "indices": [
+      4,
+      3,
+      1,
+      9,
+      1,
+      2,
+      14,
+      13,
+      12,
+      5,
+      12,
+      13,
+      11,
+      12,
+      5,
+      6,
+      11,
+      5,
+      10,
+      11,
+      6,
+      7,
+      11,
+      10,
+      9,
+      7,
+      10,
+      1,
+      9,
+      10,
+      2,
+      7,
+      9,
+      0,
+      7,
+      2,
+      8,
+      7,
+      0,
+      0,
+      4,
+      5,
+      6,
+      5,
+      4,
+      3,
+      4,
+      0,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 15
+    },
+    "name": "minigamespine_10000198_pixel_12",
+    "offset": {
+     "x": -28.771041870117188,
+     "y": -52.51104736328125
+    },
+    "pathId": "7557810434538650041",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 0.0,
+     "y": 0.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 94.91790771484375,
+     "width": 160.90408325195312,
+     "x": 41.0197868347168,
+     "y": 47.07612228393555
+    },
+    "textureRectOffset": {
+     "x": 41.0197868347168,
+     "y": 47.07612228393555
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_10000198_pixel_6.png",
+     "height": 96,
+     "sha256": "358c0a7f5cef4807845bf614fd9195478b074e6a18c6a5d2e082b5291c25a88d",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_6.png",
+     "width": 116
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 42,
+     "indices": [
+      5,
+      4,
+      8,
+      7,
+      8,
+      4,
+      11,
+      10,
+      3,
+      9,
+      3,
+      10,
+      6,
+      3,
+      9,
+      5,
+      3,
+      6,
+      8,
+      3,
+      5,
+      7,
+      3,
+      8,
+      4,
+      3,
+      7,
+      6,
+      0,
+      5,
+      4,
+      5,
+      0,
+      3,
+      4,
+      0,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 12
+    },
+    "name": "minigamespine_10000198_pixel_6",
+    "offset": {
+     "x": -28.77105712890625,
+     "y": -52.51104736328125
+    },
+    "pathId": "7650985880479440501",
+    "pivot": {
+     "x": 0.3589654862880707,
+     "y": 0.24259290099143982
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 204.0,
+     "width": 204.0,
+     "x": 408.0,
+     "y": 408.0
+    },
+    "texture": "-5158771036136154436",
+    "textureRect": {
+     "height": 95.91096496582031,
+     "width": 115.92193603515625,
+     "x": 450.0267639160156,
+     "y": 455.07611083984375
+    },
+    "textureRectOffset": {
+     "x": 42.026763916015625,
+     "y": 47.07611083984375
+    }
+   }
+  ],
+  "textures": [
+   {
+    "dataSize": 295936,
+    "height": 816,
+    "mipCount": 1,
+    "name": "minigamespine_10000198_pixel",
+    "pathId": "-5158771036136154436",
+    "textureFormat": 50,
+    "width": 816
+   }
+  ],
+  "transforms": [
+   {
+    "children": [],
+    "gameObject": "-5594205447265161240",
+    "localPosition": {
+     "x": 0.07199999690055847,
+     "y": 0.5230000019073486,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "DizzyBuffPoint",
+    "parent": "711340975855844509",
+    "path": "minigamespine_10000198_pixel/model/DizzyBuffPoint",
+    "pathId": "-8072535260578326373",
+    "siblingIndex": 2
+   },
+   {
+    "children": [],
+    "gameObject": "7394296203690261449",
+    "localPosition": {
+     "x": 0.9769999980926514,
+     "y": 0.3070000112056732,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "bullet",
+    "parent": "711340975855844509",
+    "path": "minigamespine_10000198_pixel/model/bullet",
+    "pathId": "-7955773865475139154",
+    "siblingIndex": 3
+   },
+   {
+    "children": [],
+    "gameObject": "-4618015027392028059",
+    "localPosition": {
+     "x": 0.09799999743700027,
+     "y": 0.8650000095367432,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "HeadBuffPoint",
+    "parent": "711340975855844509",
+    "path": "minigamespine_10000198_pixel/model/HeadBuffPoint",
+    "pathId": "592961568677043264",
+    "siblingIndex": 0
+   },
+   {
+    "children": [
+     "592961568677043264",
+     "8852523262953094694",
+     "-8072535260578326373",
+     "-7955773865475139154",
+     "3780659825125487943"
+    ],
+    "gameObject": "-4464534438287994487",
+    "localPosition": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "model",
+    "parent": "6861854474062633646",
+    "path": "minigamespine_10000198_pixel/model",
+    "pathId": "711340975855844509",
+    "siblingIndex": 0
+   },
+   {
+    "children": [],
+    "gameObject": "7069044722617593435",
+    "localPosition": {
+     "x": 0.10499999672174454,
+     "y": 0.2240000069141388,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "hit",
+    "parent": "711340975855844509",
+    "path": "minigamespine_10000198_pixel/model/hit",
+    "pathId": "3780659825125487943",
+    "siblingIndex": 4
+   },
+   {
+    "children": [
+     "711340975855844509"
+    ],
+    "gameObject": "5203987180479858957",
+    "localPosition": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "minigamespine_10000198_pixel",
+    "parent": "0",
+    "path": "minigamespine_10000198_pixel",
+    "pathId": "6861854474062633646",
+    "siblingIndex": 0
+   },
+   {
+    "children": [],
+    "gameObject": "-5800838964547065953",
+    "localPosition": {
+     "x": 0.0,
+     "y": 0.3149999976158142,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "BodyBuffPoint",
+    "parent": "711340975855844509",
+    "path": "minigamespine_10000198_pixel/model/BodyBuffPoint",
+    "pathId": "8852523262953094694",
+    "siblingIndex": 1
+   }
+  ]
+ },
+ "prefab": {
+  "container": "assets/art/models/minigame022/prefab/minigamespine_10000198_pixel.prefab",
+  "rootGameObject": "5203987180479858957",
+  "rootTransform": "6861854474062633646"
+ },
+ "schema": "starfall-native-prefab/1"
+}

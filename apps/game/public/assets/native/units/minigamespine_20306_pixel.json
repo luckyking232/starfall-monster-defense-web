@@ -1,0 +1,3752 @@
+{
+ "animations": {
+  "clips": [
+   {
+    "clipData": {
+     "constant": {
+      "valueCount": 0,
+      "values": []
+     },
+     "dense": {
+      "beginTime": 0.0,
+      "curveCount": 0,
+      "frameCount": 10,
+      "sampleArray": [],
+      "sampleRate": 10.0
+     },
+     "streamed": {
+      "curveCount": 1,
+      "frames": [
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           0.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": -3.4028234663852886e+38
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           1.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.10000000149011612
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           2.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.20000000298023224
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           3.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.30000001192092896
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           4.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.4000000059604645
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           5.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.5
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           6.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.6000000238418579
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           7.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.699999988079071
+       },
+       {
+        "keys": [],
+        "time": "inf"
+       }
+      ],
+      "wordCount": 58,
+      "words": [
+       4286578687,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1036831949,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1065353216,
+       1045220557,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1073741824,
+       1050253722,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1077936128,
+       1053609165,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1082130432,
+       1056964608,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1084227584,
+       1058642330,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1086324736,
+       1060320051,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1088421888,
+       2139095040,
+       0
+      ]
+     }
+    },
+    "compressed": false,
+    "curves": [
+     {
+      "binding": {
+       "attribute": 0,
+       "customType": 23,
+       "isPPtrCurve": true,
+       "path": 0,
+       "script": {
+        "fileId": 0,
+        "pathId": "0"
+       },
+       "typeId": 212
+      },
+      "index": 0,
+      "keys": [
+       {
+        "clampedToStart": true,
+        "frame": "frames/battlespine_20306_pixel_17.png",
+        "rawTime": -3.4028234663852886e+38,
+        "sprite": "-9005111822922143898",
+        "spriteIndex": 0,
+        "spriteName": "battlespine_20306_pixel_17",
+        "time": 0.0
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_18.png",
+        "rawTime": 0.10000000149011612,
+        "sprite": "-2553720136112584803",
+        "spriteIndex": 1,
+        "spriteName": "battlespine_20306_pixel_18",
+        "time": 0.10000000149011612
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_19.png",
+        "rawTime": 0.20000000298023224,
+        "sprite": "7130172396408552233",
+        "spriteIndex": 2,
+        "spriteName": "battlespine_20306_pixel_19",
+        "time": 0.20000000298023224
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_20.png",
+        "rawTime": 0.30000001192092896,
+        "sprite": "4953505411100379422",
+        "spriteIndex": 3,
+        "spriteName": "battlespine_20306_pixel_20",
+        "time": 0.30000001192092896
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_21.png",
+        "rawTime": 0.4000000059604645,
+        "sprite": "-5060056976171823798",
+        "spriteIndex": 4,
+        "spriteName": "battlespine_20306_pixel_21",
+        "time": 0.4000000059604645
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_22.png",
+        "rawTime": 0.5,
+        "sprite": "7766989107876019429",
+        "spriteIndex": 5,
+        "spriteName": "battlespine_20306_pixel_22",
+        "time": 0.5
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_23.png",
+        "rawTime": 0.6000000238418579,
+        "sprite": "-7086252808356023257",
+        "spriteIndex": 6,
+        "spriteName": "battlespine_20306_pixel_23",
+        "time": 0.6000000238418579
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_24.png",
+        "rawTime": 0.699999988079071,
+        "sprite": "2589886869675954207",
+        "spriteIndex": 7,
+        "spriteName": "battlespine_20306_pixel_24",
+        "time": 0.699999988079071
+       }
+      ],
+      "kind": "pptrSprite",
+      "source": "streamed",
+      "target": {
+       "component": "SpriteRenderer",
+       "gameObject": "-2831996803636648073",
+       "resolution": "animatorGameObject"
+      }
+     }
+    ],
+    "decodeNote": "all curves decoded",
+    "decodeStatus": "decoded",
+    "duration": 0.800000011920929,
+    "events": [],
+    "legacy": false,
+    "loopBlend": false,
+    "loopTime": true,
+    "name": "skill1",
+    "pathId": "-5043459898591768723",
+    "pptrCurveMapping": [
+     "-9005111822922143898",
+     "-2553720136112584803",
+     "7130172396408552233",
+     "4953505411100379422",
+     "-5060056976171823798",
+     "7766989107876019429",
+     "-7086252808356023257",
+     "2589886869675954207"
+    ],
+    "sampleRate": 10.0,
+    "startTime": 0.0,
+    "stopTime": 0.800000011920929,
+    "wrapMode": 0
+   },
+   {
+    "clipData": {
+     "constant": {
+      "valueCount": 0,
+      "values": []
+     },
+     "dense": {
+      "beginTime": 0.0,
+      "curveCount": 0,
+      "frameCount": 8,
+      "sampleArray": [],
+      "sampleRate": 10.0
+     },
+     "streamed": {
+      "curveCount": 1,
+      "frames": [
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           0.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": -3.4028234663852886e+38
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           1.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.10000000149011612
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           2.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.20000000298023224
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           3.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.30000001192092896
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           4.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.4000000059604645
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           5.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.5
+       },
+       {
+        "keys": [],
+        "time": "inf"
+       }
+      ],
+      "wordCount": 44,
+      "words": [
+       4286578687,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1036831949,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1065353216,
+       1045220557,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1073741824,
+       1050253722,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1077936128,
+       1053609165,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1082130432,
+       1056964608,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1084227584,
+       2139095040,
+       0
+      ]
+     }
+    },
+    "compressed": false,
+    "curves": [
+     {
+      "binding": {
+       "attribute": 0,
+       "customType": 23,
+       "isPPtrCurve": true,
+       "path": 0,
+       "script": {
+        "fileId": 0,
+        "pathId": "0"
+       },
+       "typeId": 212
+      },
+      "index": 0,
+      "keys": [
+       {
+        "clampedToStart": true,
+        "frame": "frames/battlespine_20306_pixel_0.png",
+        "rawTime": -3.4028234663852886e+38,
+        "sprite": "-5990220315994634474",
+        "spriteIndex": 0,
+        "spriteName": "battlespine_20306_pixel_0",
+        "time": 0.0
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_1.png",
+        "rawTime": 0.10000000149011612,
+        "sprite": "3796544602040716361",
+        "spriteIndex": 1,
+        "spriteName": "battlespine_20306_pixel_1",
+        "time": 0.10000000149011612
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_2.png",
+        "rawTime": 0.20000000298023224,
+        "sprite": "6398989258045459682",
+        "spriteIndex": 2,
+        "spriteName": "battlespine_20306_pixel_2",
+        "time": 0.20000000298023224
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_3.png",
+        "rawTime": 0.30000001192092896,
+        "sprite": "-4556014939071485757",
+        "spriteIndex": 3,
+        "spriteName": "battlespine_20306_pixel_3",
+        "time": 0.30000001192092896
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_4.png",
+        "rawTime": 0.4000000059604645,
+        "sprite": "-8709210915023785536",
+        "spriteIndex": 4,
+        "spriteName": "battlespine_20306_pixel_4",
+        "time": 0.4000000059604645
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_5.png",
+        "rawTime": 0.5,
+        "sprite": "8285727669108878973",
+        "spriteIndex": 5,
+        "spriteName": "battlespine_20306_pixel_5",
+        "time": 0.5
+       }
+      ],
+      "kind": "pptrSprite",
+      "source": "streamed",
+      "target": {
+       "component": "SpriteRenderer",
+       "gameObject": "-2831996803636648073",
+       "resolution": "animatorGameObject"
+      }
+     }
+    ],
+    "decodeNote": "all curves decoded",
+    "decodeStatus": "decoded",
+    "duration": 0.6000000238418579,
+    "events": [],
+    "legacy": false,
+    "loopBlend": false,
+    "loopTime": true,
+    "name": "idle",
+    "pathId": "-707354629238869693",
+    "pptrCurveMapping": [
+     "-5990220315994634474",
+     "3796544602040716361",
+     "6398989258045459682",
+     "-4556014939071485757",
+     "-8709210915023785536",
+     "8285727669108878973"
+    ],
+    "sampleRate": 10.0,
+    "startTime": 0.0,
+    "stopTime": 0.6000000238418579,
+    "wrapMode": 0
+   },
+   {
+    "clipData": {
+     "constant": {
+      "valueCount": 0,
+      "values": []
+     },
+     "dense": {
+      "beginTime": 0.0,
+      "curveCount": 0,
+      "frameCount": 8,
+      "sampleArray": [],
+      "sampleRate": 12.0
+     },
+     "streamed": {
+      "curveCount": 1,
+      "frames": [
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           0.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": -3.4028234663852886e+38
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           1.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.0833333358168602
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           2.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.1666666716337204
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           3.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.25
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           4.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.3333333432674408
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           5.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.4166666567325592
+       },
+       {
+        "keys": [],
+        "time": "inf"
+       }
+      ],
+      "wordCount": 44,
+      "words": [
+       4286578687,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1034594987,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1065353216,
+       1042983595,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1073741824,
+       1048576000,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1077936128,
+       1051372203,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1082130432,
+       1054168405,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1084227584,
+       2139095040,
+       0
+      ]
+     }
+    },
+    "compressed": false,
+    "curves": [
+     {
+      "binding": {
+       "attribute": 0,
+       "customType": 23,
+       "isPPtrCurve": true,
+       "path": 0,
+       "script": {
+        "fileId": 0,
+        "pathId": "0"
+       },
+       "typeId": 212
+      },
+      "index": 0,
+      "keys": [
+       {
+        "clampedToStart": true,
+        "frame": "frames/battlespine_20306_pixel_11.png",
+        "rawTime": -3.4028234663852886e+38,
+        "sprite": "6031810561901008389",
+        "spriteIndex": 0,
+        "spriteName": "battlespine_20306_pixel_11",
+        "time": 0.0
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_12.png",
+        "rawTime": 0.0833333358168602,
+        "sprite": "-7970556006286439352",
+        "spriteIndex": 1,
+        "spriteName": "battlespine_20306_pixel_12",
+        "time": 0.0833333358168602
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_13.png",
+        "rawTime": 0.1666666716337204,
+        "sprite": "7554610810157848878",
+        "spriteIndex": 2,
+        "spriteName": "battlespine_20306_pixel_13",
+        "time": 0.1666666716337204
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_14.png",
+        "rawTime": 0.25,
+        "sprite": "-5532272328065602024",
+        "spriteIndex": 3,
+        "spriteName": "battlespine_20306_pixel_14",
+        "time": 0.25
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_15.png",
+        "rawTime": 0.3333333432674408,
+        "sprite": "-3745936312287169122",
+        "spriteIndex": 4,
+        "spriteName": "battlespine_20306_pixel_15",
+        "time": 0.3333333432674408
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_16.png",
+        "rawTime": 0.4166666567325592,
+        "sprite": "2468024450786017589",
+        "spriteIndex": 5,
+        "spriteName": "battlespine_20306_pixel_16",
+        "time": 0.4166666567325592
+       }
+      ],
+      "kind": "pptrSprite",
+      "source": "streamed",
+      "target": {
+       "component": "SpriteRenderer",
+       "gameObject": "-2831996803636648073",
+       "resolution": "animatorGameObject"
+      }
+     }
+    ],
+    "decodeNote": "all curves decoded",
+    "decodeStatus": "decoded",
+    "duration": 0.5,
+    "events": [],
+    "legacy": false,
+    "loopBlend": false,
+    "loopTime": true,
+    "name": "die",
+    "pathId": "1707430011664435640",
+    "pptrCurveMapping": [
+     "6031810561901008389",
+     "-7970556006286439352",
+     "7554610810157848878",
+     "-5532272328065602024",
+     "-3745936312287169122",
+     "2468024450786017589"
+    ],
+    "sampleRate": 12.0,
+    "startTime": 0.0,
+    "stopTime": 0.5,
+    "wrapMode": 0
+   },
+   {
+    "clipData": {
+     "constant": {
+      "valueCount": 0,
+      "values": []
+     },
+     "dense": {
+      "beginTime": 0.0,
+      "curveCount": 0,
+      "frameCount": 7,
+      "sampleArray": [],
+      "sampleRate": 10.0
+     },
+     "streamed": {
+      "curveCount": 1,
+      "frames": [
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           0.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": -3.4028234663852886e+38
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           1.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.10000000149011612
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           2.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.20000000298023224
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           3.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.30000001192092896
+       },
+       {
+        "keys": [
+         {
+          "coefficients": [
+           0.0,
+           0.0,
+           0.0,
+           4.0
+          ],
+          "curve": 0
+         }
+        ],
+        "time": 0.4000000059604645
+       },
+       {
+        "keys": [],
+        "time": "inf"
+       }
+      ],
+      "wordCount": 37,
+      "words": [
+       4286578687,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1036831949,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1065353216,
+       1045220557,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1073741824,
+       1050253722,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1077936128,
+       1053609165,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1082130432,
+       2139095040,
+       0
+      ]
+     }
+    },
+    "compressed": false,
+    "curves": [
+     {
+      "binding": {
+       "attribute": 0,
+       "customType": 23,
+       "isPPtrCurve": true,
+       "path": 0,
+       "script": {
+        "fileId": 0,
+        "pathId": "0"
+       },
+       "typeId": 212
+      },
+      "index": 0,
+      "keys": [
+       {
+        "clampedToStart": true,
+        "frame": "frames/battlespine_20306_pixel_6.png",
+        "rawTime": -3.4028234663852886e+38,
+        "sprite": "-3045548498438115339",
+        "spriteIndex": 0,
+        "spriteName": "battlespine_20306_pixel_6",
+        "time": 0.0
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_7.png",
+        "rawTime": 0.10000000149011612,
+        "sprite": "-5865496775092766474",
+        "spriteIndex": 1,
+        "spriteName": "battlespine_20306_pixel_7",
+        "time": 0.10000000149011612
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_8.png",
+        "rawTime": 0.20000000298023224,
+        "sprite": "-6652161425407297691",
+        "spriteIndex": 2,
+        "spriteName": "battlespine_20306_pixel_8",
+        "time": 0.20000000298023224
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_9.png",
+        "rawTime": 0.30000001192092896,
+        "sprite": "-6836227937959106936",
+        "spriteIndex": 3,
+        "spriteName": "battlespine_20306_pixel_9",
+        "time": 0.30000001192092896
+       },
+       {
+        "clampedToStart": false,
+        "frame": "frames/battlespine_20306_pixel_10.png",
+        "rawTime": 0.4000000059604645,
+        "sprite": "2285605242109581753",
+        "spriteIndex": 4,
+        "spriteName": "battlespine_20306_pixel_10",
+        "time": 0.4000000059604645
+       }
+      ],
+      "kind": "pptrSprite",
+      "source": "streamed",
+      "target": {
+       "component": "SpriteRenderer",
+       "gameObject": "-2831996803636648073",
+       "resolution": "animatorGameObject"
+      }
+     }
+    ],
+    "decodeNote": "all curves decoded",
+    "decodeStatus": "decoded",
+    "duration": 0.5,
+    "events": [],
+    "legacy": false,
+    "loopBlend": false,
+    "loopTime": true,
+    "name": "run",
+    "pathId": "6580503737437056835",
+    "pptrCurveMapping": [
+     "-3045548498438115339",
+     "-5865496775092766474",
+     "-6652161425407297691",
+     "-6836227937959106936",
+     "2285605242109581753"
+    ],
+    "sampleRate": 10.0,
+    "startTime": 0.0,
+    "stopTime": 0.5,
+    "wrapMode": 0
+   }
+  ]
+ },
+ "bundle": {
+  "cabName": "CAB-e1eb53bbad6cd977bd7ad5c237089cb5",
+  "dependencies": [
+   {
+    "hash": "26a3662067f58ef598c3266aa751de04",
+    "manifestIndex": 5193,
+    "name": "auto_effects_texture_beam_mask004_png.bundle"
+   },
+   {
+    "hash": "8da0cc713a14791e9960ebff598db393",
+    "manifestIndex": 5192,
+    "name": "auto_effects_texture_beam_png.bundle"
+   },
+   {
+    "hash": "fcb54c0ebfe8fe5d2af35834a1796dd7",
+    "manifestIndex": 2,
+    "name": "default_material_sprites_default_shadow_mat.bundle"
+   },
+   {
+    "hash": "918bc43e5b6e82751f9bc319604170d7",
+    "manifestIndex": 3,
+    "name": "shaders.bundle"
+   }
+  ],
+  "file": "21a2c8ff7c36d030ba0cd87133ca1726.bundle",
+  "headerOffsetStripped": 32,
+  "manifestIndex": 4551,
+  "name": "minigame022_prefab_minigamespine_20306_pixel_prefab.bundle",
+  "originalMd5": "21a2c8ff7c36d030ba0cd87133ca1726",
+  "originalSha256": "e01dc3238af7dbbb4d69d4798473a424819937b7fa7150f20a9e7cad612efff3",
+  "processedSha256": "8647a18bd032300a8050e11249c2be111ef350175ae737a7528cda596c87eacd",
+  "processedSizeBytes": 50209,
+  "sizeBytes": 50241
+ },
+ "conventions": {
+  "clipKeys": "decoded from m_MuscleClip.m_Clip.data streamed words; key.time is seconds from clip start, rawTime is the serialized time (-FLT_MAX sentinel clamps to startTime), spriteIndex addresses pptrCurveMapping",
+  "framePng": "byte-exact AssetStudio export of the sprite's trimmed textureRect; place it at textureRectOffset inside sprite.rect (y up), then anchor at sprite.pivot",
+  "lengthUnit": "Unity units; sprite pixels convert via sprite.pixelsToUnits",
+  "pathIds": "all Unity path ids are decimal strings (64-bit safe for JSON consumers)",
+  "spriteRect": "pixel rect inside the source texture, origin at texture bottom-left, y up",
+  "transform": "localPosition/localRotation/localScale are parent-relative, exactly as serialized"
+ },
+ "diagnostics": [],
+ "key": "minigamespine_20306_pixel",
+ "kind": "unit",
+ "objects": {
+  "animatorControllers": [
+   {
+    "animationClips": [
+     "-707354629238869693",
+     "6580503737437056835",
+     "1707430011664435640",
+     "-5043459898591768723"
+    ],
+    "layers": [
+     {
+      "binding": 320541348,
+      "defaultWeight": 0.0,
+      "ikPass": false,
+      "stateMachineIndex": 0
+     }
+    ],
+    "name": "battlespine_20306_pixel",
+    "pathId": "-2641422915319843328",
+    "stateMachines": [
+     {
+      "anyStateTransitions": 0,
+      "defaultState": 0,
+      "states": [
+       {
+        "blendTrees": [
+         {
+          "nodes": [
+           {
+            "blendType": 0,
+            "clipId": 0,
+            "cycleOffset": 0.0,
+            "duration": 1.0,
+            "mirror": false
+           }
+          ]
+         }
+        ],
+        "clipIds": [
+         0
+        ],
+        "cycleOffset": 0.0,
+        "fullPathId": 1268295472,
+        "ikOnFeet": false,
+        "loop": true,
+        "mirror": false,
+        "name": "idle",
+        "nameId": 3693393173,
+        "pathId": 1268295472,
+        "speed": 1.0,
+        "tagId": 0,
+        "transitions": 0,
+        "writeDefaultValues": true
+       },
+       {
+        "blendTrees": [
+         {
+          "nodes": [
+           {
+            "blendType": 0,
+            "clipId": 1,
+            "cycleOffset": 0.0,
+            "duration": 1.0,
+            "mirror": false
+           }
+          ]
+         }
+        ],
+        "clipIds": [
+         1
+        ],
+        "cycleOffset": 0.0,
+        "fullPathId": 1052576203,
+        "ikOnFeet": false,
+        "loop": true,
+        "mirror": false,
+        "name": "run",
+        "nameId": 1349952704,
+        "pathId": 1052576203,
+        "speed": 1.0,
+        "tagId": 0,
+        "transitions": 0,
+        "writeDefaultValues": true
+       },
+       {
+        "blendTrees": [
+         {
+          "nodes": [
+           {
+            "blendType": 0,
+            "clipId": 2,
+            "cycleOffset": 0.0,
+            "duration": 1.0,
+            "mirror": false
+           }
+          ]
+         }
+        ],
+        "clipIds": [
+         2
+        ],
+        "cycleOffset": 0.0,
+        "fullPathId": 1471369948,
+        "ikOnFeet": false,
+        "loop": true,
+        "mirror": false,
+        "name": "die",
+        "nameId": 964231127,
+        "pathId": 1471369948,
+        "speed": 1.0,
+        "tagId": 0,
+        "transitions": 0,
+        "writeDefaultValues": true
+       },
+       {
+        "blendTrees": [
+         {
+          "nodes": [
+           {
+            "blendType": 0,
+            "clipId": 3,
+            "cycleOffset": 0.0,
+            "duration": 1.0,
+            "mirror": false
+           }
+          ]
+         }
+        ],
+        "clipIds": [
+         3
+        ],
+        "cycleOffset": 0.0,
+        "fullPathId": 1453916383,
+        "ikOnFeet": false,
+        "loop": true,
+        "mirror": false,
+        "name": "skill1",
+        "nameId": 1306736332,
+        "pathId": 1453916383,
+        "speed": 1.0,
+        "tagId": 0,
+        "transitions": 0,
+        "writeDefaultValues": true
+       }
+      ]
+     }
+    ],
+    "tos": {
+     "0": "",
+     "1052576203": "battlespine_20306_pixel_ani.run",
+     "1268295472": "battlespine_20306_pixel_ani.idle",
+     "1306736332": "skill1",
+     "1349952704": "run",
+     "1453916383": "battlespine_20306_pixel_ani.skill1",
+     "1471369948": "battlespine_20306_pixel_ani.die",
+     "2105523844": "GravityWeight",
+     "320541348": "battlespine_20306_pixel_ani",
+     "3693393173": "idle",
+     "964231127": "die"
+    }
+   }
+  ],
+  "animators": [
+   {
+    "applyRootMotion": false,
+    "avatar": "0",
+    "controller": "-2641422915319843328",
+    "cullingMode": 0,
+    "enabled": true,
+    "gameObject": "-2831996803636648073",
+    "hasTransformHierarchy": true,
+    "pathId": "-7444559399392059954",
+    "updateMode": 0
+   }
+  ],
+  "gameObjects": [
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "-6441855708484467266",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "DizzyBuffPoint",
+    "pathId": "-7683022901212640552",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "-4282222512352382979",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "bullet",
+    "pathId": "-6862435373492598265",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "4822328414904419180",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "hit",
+    "pathId": "-5332114928398111377",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "3747030237001021180",
+      "type": "Transform"
+     },
+     {
+      "pathId": "-1857664829885050347",
+      "type": "SpriteRenderer"
+     },
+     {
+      "pathId": "-7444559399392059954",
+      "type": "Animator"
+     }
+    ],
+    "layer": 0,
+    "name": "model",
+    "pathId": "-2831996803636648073",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "5190581707988959917",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "minigamespine_20306_pixel",
+    "pathId": "-1073352656294516278",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "-5196111678786332587",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "BodyBuffPoint",
+    "pathId": "4685101575284524968",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "-4883094690893148168",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "HeadBuffPoint",
+    "pathId": "9094486052346502481",
+    "tag": 0
+   }
+  ],
+  "spriteRenderers": [
+   {
+    "adaptiveModeThreshold": 0.5,
+    "color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "drawMode": 0,
+    "enabled": true,
+    "flipX": false,
+    "flipY": false,
+    "gameObject": "-2831996803636648073",
+    "maskInteraction": 0,
+    "materials": [
+     {
+      "external": {
+       "name": "CAB-04db504a550024548ac4aa9c9445b447",
+       "path": "archive:/CAB-04db504a550024548ac4aa9c9445b447/CAB-04db504a550024548ac4aa9c9445b447"
+      },
+      "fileId": 1,
+      "pathId": "-8462337135408142746",
+      "resolved": {
+       "bundle": "fcb54c0ebfe8fe5d2af35834a1796dd7",
+       "objectName": "Sprites-Default_Shadow"
+      }
+     }
+    ],
+    "pathId": "-1857664829885050347",
+    "size": {
+     "x": 0.8399999737739563,
+     "y": 0.8399999737739563
+    },
+    "sortingLayer": 0,
+    "sortingLayerId": 0,
+    "sortingOrder": 0,
+    "sprite": "-5990220315994634474",
+    "spriteSortPoint": 0,
+    "spriteTileMode": 0
+   }
+  ],
+  "sprites": [
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_17.png",
+     "height": 62,
+     "sha256": "6036d004965cb20ccfede7187bc6ce808ef8b50f155253ee88cfab7e5ea7deb3",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_17.png",
+     "width": 51
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 15,
+     "indices": [
+      6,
+      5,
+      3,
+      4,
+      3,
+      5,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 7
+    },
+    "name": "battlespine_20306_pixel_17",
+    "offset": {
+     "x": -0.5608978271484375,
+     "y": -27.483978271484375
+    },
+    "pathId": "-9005111822922143898",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 168.0,
+     "y": 84.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 61.897132873535156,
+     "width": 50.847755432128906,
+     "x": 176.0761260986328,
+     "y": 92.07611846923828
+    },
+    "textureRectOffset": {
+     "x": 8.076126098632812,
+     "y": 8.076118469238281
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_4.png",
+     "height": 65,
+     "sha256": "5ca8484f9b246ff17da05158e8c63edb4b6bfad80b87e2a1a36248249f0318be",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_4.png",
+     "width": 56
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 12,
+     "indices": [
+      5,
+      4,
+      1,
+      3,
+      1,
+      4,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 6
+    },
+    "name": "battlespine_20306_pixel_4",
+    "offset": {
+     "x": -0.5609130859375,
+     "y": -27.483978271484375
+    },
+    "pathId": "-8709210915023785536",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 336.0,
+     "y": 336.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 64.84776306152344,
+     "width": 55.944183349609375,
+     "x": 350.04290771484375,
+     "y": 346.07611083984375
+    },
+    "textureRectOffset": {
+     "x": 14.04290771484375,
+     "y": 10.07611083984375
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_12.png",
+     "height": 61,
+     "sha256": "199e5ecb2242a4fc64c202156bc337c94b991475e4186c91685a41dbba9190b5",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_12.png",
+     "width": 45
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 24,
+     "indices": [
+      9,
+      8,
+      7,
+      5,
+      7,
+      8,
+      6,
+      7,
+      5,
+      4,
+      6,
+      5,
+      3,
+      4,
+      5,
+      1,
+      4,
+      3,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 10
+    },
+    "name": "battlespine_20306_pixel_12",
+    "offset": {
+     "x": -0.5608978271484375,
+     "y": -27.483978271484375
+    },
+    "pathId": "-7970556006286439352",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 168.0,
+     "y": 168.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 60.84776306152344,
+     "width": 44.897125244140625,
+     "x": 186.0761260986328,
+     "y": 180.0761260986328
+    },
+    "textureRectOffset": {
+     "x": 18.076126098632812,
+     "y": 12.076126098632812
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_23.png",
+     "height": 63,
+     "sha256": "84ae3c2c3f3320887ed6a77193a75fccd24faea5adf132e6bdc8543c7e347894",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_23.png",
+     "width": 54
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 78,
+     "indices": [
+      2,
+      0,
+      5,
+      4,
+      5,
+      0,
+      0,
+      6,
+      4,
+      8,
+      1,
+      22,
+      2,
+      22,
+      1,
+      5,
+      22,
+      2,
+      3,
+      22,
+      5,
+      21,
+      22,
+      3,
+      20,
+      22,
+      21,
+      19,
+      20,
+      21,
+      17,
+      20,
+      19,
+      16,
+      17,
+      19,
+      18,
+      17,
+      16,
+      15,
+      14,
+      13,
+      12,
+      13,
+      14,
+      10,
+      13,
+      12,
+      11,
+      10,
+      12,
+      3,
+      10,
+      11,
+      9,
+      10,
+      3,
+      8,
+      9,
+      3,
+      1,
+      8,
+      3,
+      7,
+      1,
+      3,
+      6,
+      7,
+      3,
+      4,
+      6,
+      3,
+      5,
+      4,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 23
+    },
+    "name": "battlespine_20306_pixel_23",
+    "offset": {
+     "x": -0.5609130859375,
+     "y": -27.483978271484375
+    },
+    "pathId": "-7086252808356023257",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 252.0,
+     "y": 0.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 62.84776306152344,
+     "width": 53.86415100097656,
+     "x": 263.0597229003906,
+     "y": 11.076120376586914
+    },
+    "textureRectOffset": {
+     "x": 11.059722900390625,
+     "y": 11.076120376586914
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_9.png",
+     "height": 67,
+     "sha256": "dae2f4416dba7a8f60bf8fbd32aafe6b614fed9ea11eed90f4b7eac17b4ac838",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_9.png",
+     "width": 58
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 57,
+     "indices": [
+      13,
+      12,
+      14,
+      15,
+      14,
+      12,
+      1,
+      2,
+      6,
+      13,
+      6,
+      2,
+      0,
+      13,
+      2,
+      4,
+      13,
+      0,
+      5,
+      13,
+      4,
+      3,
+      13,
+      5,
+      12,
+      13,
+      3,
+      9,
+      12,
+      3,
+      10,
+      12,
+      9,
+      11,
+      10,
+      9,
+      8,
+      7,
+      6,
+      3,
+      6,
+      7,
+      1,
+      6,
+      3,
+      4,
+      1,
+      3,
+      0,
+      1,
+      4,
+      5,
+      4,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 16
+    },
+    "name": "battlespine_20306_pixel_9",
+    "offset": {
+     "x": -0.5609130859375,
+     "y": -27.483978271484375
+    },
+    "pathId": "-6836227937959106936",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 336.0,
+     "y": 252.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 66.84776306152344,
+     "width": 57.900718688964844,
+     "x": 351.0563659667969,
+     "y": 262.07611083984375
+    },
+    "textureRectOffset": {
+     "x": 15.056365966796875,
+     "y": 10.07611083984375
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_8.png",
+     "height": 66,
+     "sha256": "8fa64d13923e7cc74c4a03bd51a9547d502711177661ad50ac06c8434501b0d0",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_8.png",
+     "width": 56
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 21,
+     "indices": [
+      8,
+      7,
+      6,
+      5,
+      6,
+      7,
+      4,
+      6,
+      5,
+      3,
+      4,
+      5,
+      1,
+      4,
+      3,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 9
+    },
+    "name": "battlespine_20306_pixel_8",
+    "offset": {
+     "x": -0.5609130859375,
+     "y": -27.483978271484375
+    },
+    "pathId": "-6652161425407297691",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 252.0,
+     "y": 252.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 65.84776306152344,
+     "width": 55.86750793457031,
+     "x": 269.07611083984375,
+     "y": 261.07611083984375
+    },
+    "textureRectOffset": {
+     "x": 17.07611083984375,
+     "y": 9.07611083984375
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_0.png",
+     "height": 64,
+     "sha256": "1b001d8cfe5335cca7705e54f84ea01878b7c8a37c74fb84600d9054b9fc2a02",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_0.png",
+     "width": 62
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 36,
+     "indices": [
+      13,
+      12,
+      10,
+      8,
+      10,
+      12,
+      9,
+      8,
+      12,
+      11,
+      10,
+      8,
+      9,
+      6,
+      8,
+      7,
+      8,
+      6,
+      5,
+      7,
+      6,
+      4,
+      5,
+      6,
+      3,
+      5,
+      4,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 14
+    },
+    "name": "battlespine_20306_pixel_0",
+    "offset": {
+     "x": -0.5609016418457031,
+     "y": -27.483978271484375
+    },
+    "pathId": "-5990220315994634474",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 0.0,
+     "y": 336.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 63.887596130371094,
+     "width": 61.90935516357422,
+     "x": 12.026750564575195,
+     "y": 346.07611083984375
+    },
+    "textureRectOffset": {
+     "x": 12.026750564575195,
+     "y": 10.07611083984375
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_7.png",
+     "height": 64,
+     "sha256": "adcd362b1841526520542408d59c8ca25ec215b2a3961e3763afbd87ad922ffe",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_7.png",
+     "width": 58
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 21,
+     "indices": [
+      8,
+      7,
+      6,
+      4,
+      6,
+      7,
+      5,
+      6,
+      4,
+      1,
+      5,
+      4,
+      3,
+      1,
+      4,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 9
+    },
+    "name": "battlespine_20306_pixel_7",
+    "offset": {
+     "x": -0.5608978271484375,
+     "y": -27.483978271484375
+    },
+    "pathId": "-5865496775092766474",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 168.0,
+     "y": 252.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 63.897132873535156,
+     "width": 57.84776306152344,
+     "x": 184.0761260986328,
+     "y": 261.0267639160156
+    },
+    "textureRectOffset": {
+     "x": 16.076126098632812,
+     "y": 9.026763916015625
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_14.png",
+     "height": 34,
+     "sha256": "65c8a1bb0b0053c974382d4abcbdc6139a1e47ffe67ef78fbdef7b14b03d0914",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_14.png",
+     "width": 64
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 9,
+     "indices": [
+      4,
+      3,
+      1,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 5
+    },
+    "name": "battlespine_20306_pixel_14",
+    "offset": {
+     "x": -0.5609130859375,
+     "y": -27.483978271484375
+    },
+    "pathId": "-5532272328065602024",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 336.0,
+     "y": 168.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 33.897125244140625,
+     "width": 63.87617492675781,
+     "x": 347.0476989746094,
+     "y": 181.02674865722656
+    },
+    "textureRectOffset": {
+     "x": 11.047698974609375,
+     "y": 13.026748657226562
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_21.png",
+     "height": 69,
+     "sha256": "fcffa70754fe4a98714798ac5d53d70cc8d8a28ef72990730f995391462eec96",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_21.png",
+     "width": 70
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 30,
+     "indices": [
+      5,
+      4,
+      10,
+      11,
+      10,
+      4,
+      9,
+      8,
+      7,
+      6,
+      7,
+      8,
+      5,
+      7,
+      6,
+      3,
+      5,
+      6,
+      4,
+      5,
+      3,
+      1,
+      4,
+      3,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 12
+    },
+    "name": "battlespine_20306_pixel_21",
+    "offset": {
+     "x": -0.5608978271484375,
+     "y": -27.483978271484375
+    },
+    "pathId": "-5060056976171823798",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 84.0,
+     "y": 0.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 68.87256622314453,
+     "width": 69.89713287353516,
+     "x": 91.02674865722656,
+     "y": 8.076120376586914
+    },
+    "textureRectOffset": {
+     "x": 7.0267486572265625,
+     "y": 8.076120376586914
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_3.png",
+     "height": 67,
+     "sha256": "e4c8a837ae7a0eb3ba6db925282c69221541812a5b12299b93591ef969d64483",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_3.png",
+     "width": 52
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 39,
+     "indices": [
+      14,
+      13,
+      9,
+      12,
+      9,
+      13,
+      11,
+      9,
+      12,
+      6,
+      9,
+      11,
+      7,
+      6,
+      11,
+      8,
+      9,
+      6,
+      10,
+      9,
+      8,
+      7,
+      5,
+      6,
+      4,
+      6,
+      5,
+      0,
+      4,
+      5,
+      3,
+      4,
+      0,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 15
+    },
+    "name": "battlespine_20306_pixel_3",
+    "offset": {
+     "x": -0.5609130859375,
+     "y": -27.483978271484375
+    },
+    "pathId": "-4556014939071485757",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 252.0,
+     "y": 336.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 66.92193603515625,
+     "width": 51.88097381591797,
+     "x": 267.04290771484375,
+     "y": 345.0267639160156
+    },
+    "textureRectOffset": {
+     "x": 15.04290771484375,
+     "y": 9.026763916015625
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_15.png",
+     "height": 29,
+     "sha256": "25abb7a65edbcefa4c2e41d6d1d77b64355733ac5c91d7201180c837a7f7ac5e",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_15.png",
+     "width": 65
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 27,
+     "indices": [
+      10,
+      9,
+      8,
+      7,
+      8,
+      9,
+      6,
+      8,
+      7,
+      4,
+      6,
+      7,
+      5,
+      6,
+      4,
+      3,
+      5,
+      4,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 11
+    },
+    "name": "battlespine_20306_pixel_15",
+    "offset": {
+     "x": -0.5609016418457031,
+     "y": -27.483978271484375
+    },
+    "pathId": "-3745936312287169122",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 0.0,
+     "y": 84.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 28.84775733947754,
+     "width": 64.89713287353516,
+     "x": 7.0267510414123535,
+     "y": 98.07611846923828
+    },
+    "textureRectOffset": {
+     "x": 7.0267510414123535,
+     "y": 14.076118469238281
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_6.png",
+     "height": 62,
+     "sha256": "39db2c04926696468de32fe97798f4b74b5e08037af06a094fa5597b0faf3f67",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_6.png",
+     "width": 61
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 27,
+     "indices": [
+      10,
+      9,
+      8,
+      6,
+      8,
+      9,
+      7,
+      8,
+      6,
+      3,
+      7,
+      6,
+      5,
+      3,
+      6,
+      4,
+      3,
+      5,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 11
+    },
+    "name": "battlespine_20306_pixel_6",
+    "offset": {
+     "x": -0.5608978271484375,
+     "y": -27.483978271484375
+    },
+    "pathId": "-3045548498438115339",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 84.0,
+     "y": 252.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 61.84776306152344,
+     "width": 60.98515701293945,
+     "x": 97.01290893554688,
+     "y": 263.07611083984375
+    },
+    "textureRectOffset": {
+     "x": 13.012908935546875,
+     "y": 11.07611083984375
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_18.png",
+     "height": 54,
+     "sha256": "8e78040f8c31e845087e115b873656dc2053fe9f5a83828f2ce43e859185a4aa",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_18.png",
+     "width": 51
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 18,
+     "indices": [
+      7,
+      6,
+      3,
+      5,
+      3,
+      6,
+      4,
+      3,
+      5,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 8
+    },
+    "name": "battlespine_20306_pixel_18",
+    "offset": {
+     "x": -0.5609130859375,
+     "y": -27.483978271484375
+    },
+    "pathId": "-2553720136112584803",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 252.0,
+     "y": 84.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 53.84776306152344,
+     "width": 50.921932220458984,
+     "x": 259.0267639160156,
+     "y": 96.07611846923828
+    },
+    "textureRectOffset": {
+     "x": 7.026763916015625,
+     "y": 12.076118469238281
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_10.png",
+     "height": 63,
+     "sha256": "3efee2d2b3ae6d0f129033d71d388cc83bc612bd07fe76b913caf7ff137d5c53",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_10.png",
+     "width": 61
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 21,
+     "indices": [
+      8,
+      7,
+      6,
+      5,
+      6,
+      7,
+      3,
+      6,
+      5,
+      4,
+      3,
+      5,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 9
+    },
+    "name": "battlespine_20306_pixel_10",
+    "offset": {
+     "x": -0.5609016418457031,
+     "y": -27.483978271484375
+    },
+    "pathId": "2285605242109581753",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 0.0,
+     "y": 168.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 62.84776306152344,
+     "width": 60.946502685546875,
+     "x": 12.026750564575195,
+     "y": 179.0761260986328
+    },
+    "textureRectOffset": {
+     "x": 12.026750564575195,
+     "y": 11.076126098632812
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_16.png",
+     "height": 25,
+     "sha256": "365cf018cfb7bf9748d129f6c15cf2e786500a80aeeb8641b4cda637a2681cae",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_16.png",
+     "width": 64
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 24,
+     "indices": [
+      9,
+      8,
+      7,
+      5,
+      7,
+      8,
+      6,
+      7,
+      5,
+      3,
+      6,
+      5,
+      4,
+      3,
+      5,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 10
+    },
+    "name": "battlespine_20306_pixel_16",
+    "offset": {
+     "x": -0.5608978271484375,
+     "y": -27.483978271484375
+    },
+    "pathId": "2468024450786017589",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 84.0,
+     "y": 84.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 24.880971908569336,
+     "width": 63.84776306152344,
+     "x": 91.07611846923828,
+     "y": 98.07611846923828
+    },
+    "textureRectOffset": {
+     "x": 7.076118469238281,
+     "y": 14.076118469238281
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_24.png",
+     "height": 62,
+     "sha256": "cf4fa89e8f28350decf439732ff0b934f32b0eada23dff322cdafb3d4e329e5c",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_24.png",
+     "width": 59
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 45,
+     "indices": [
+      14,
+      13,
+      10,
+      12,
+      10,
+      13,
+      7,
+      10,
+      12,
+      6,
+      10,
+      7,
+      11,
+      10,
+      6,
+      5,
+      10,
+      11,
+      4,
+      10,
+      5,
+      8,
+      10,
+      4,
+      9,
+      8,
+      4,
+      7,
+      3,
+      6,
+      5,
+      6,
+      3,
+      4,
+      5,
+      3,
+      1,
+      4,
+      3,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 15
+    },
+    "name": "battlespine_20306_pixel_24",
+    "offset": {
+     "x": -0.5609130859375,
+     "y": -27.483978271484375
+    },
+    "pathId": "2589886869675954207",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 336.0,
+     "y": 0.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 61.87256622314453,
+     "width": 58.878150939941406,
+     "x": 349.0597229003906,
+     "y": 11.076120376586914
+    },
+    "textureRectOffset": {
+     "x": 13.059722900390625,
+     "y": 11.076120376586914
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_1.png",
+     "height": 66,
+     "sha256": "17bcd20ed5aec27be6129771cefefc0e3a82c922b5a34ea51db3e60c30d4e75d",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_1.png",
+     "width": 58
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 51,
+     "indices": [
+      17,
+      16,
+      12,
+      15,
+      12,
+      16,
+      9,
+      12,
+      15,
+      10,
+      9,
+      15,
+      7,
+      12,
+      9,
+      14,
+      12,
+      7,
+      11,
+      12,
+      14,
+      13,
+      12,
+      11,
+      10,
+      8,
+      9,
+      7,
+      9,
+      8,
+      3,
+      7,
+      8,
+      6,
+      7,
+      3,
+      5,
+      6,
+      3,
+      4,
+      5,
+      3,
+      1,
+      4,
+      3,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 18
+    },
+    "name": "battlespine_20306_pixel_1",
+    "offset": {
+     "x": -0.5608978271484375,
+     "y": -27.483978271484375
+    },
+    "pathId": "3796544602040716361",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 84.0,
+     "y": 336.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 65.84776306152344,
+     "width": 57.897132873535156,
+     "x": 97.02674865722656,
+     "y": 345.07611083984375
+    },
+    "textureRectOffset": {
+     "x": 13.026748657226562,
+     "y": 9.07611083984375
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_20.png",
+     "height": 71,
+     "sha256": "02dda84ff3f73994947d6a7b0ea7ac4cc807c8ad6df6f59e170129614a13245b",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_20.png",
+     "width": 62
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 15,
+     "indices": [
+      6,
+      5,
+      4,
+      3,
+      4,
+      5,
+      1,
+      4,
+      3,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 7
+    },
+    "name": "battlespine_20306_pixel_20",
+    "offset": {
+     "x": -0.5609016418457031,
+     "y": -27.483978271484375
+    },
+    "pathId": "4953505411100379422",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 0.0,
+     "y": 0.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 70.89713287353516,
+     "width": 61.897132873535156,
+     "x": 20.026750564575195,
+     "y": 11.076120376586914
+    },
+    "textureRectOffset": {
+     "x": 20.026750564575195,
+     "y": 11.076120376586914
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_11.png",
+     "height": 57,
+     "sha256": "e15f815a29c65790f20c687afafb2bc5a177f7b07d72b37804810a70d82a686b",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_11.png",
+     "width": 53
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 42,
+     "indices": [
+      15,
+      14,
+      8,
+      13,
+      8,
+      14,
+      9,
+      8,
+      13,
+      12,
+      11,
+      9,
+      10,
+      9,
+      11,
+      6,
+      9,
+      10,
+      8,
+      9,
+      6,
+      7,
+      8,
+      6,
+      3,
+      7,
+      6,
+      5,
+      3,
+      6,
+      4,
+      3,
+      5,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 16
+    },
+    "name": "battlespine_20306_pixel_11",
+    "offset": {
+     "x": -0.5608978271484375,
+     "y": -27.483978271484375
+    },
+    "pathId": "6031810561901008389",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 84.0,
+     "y": 168.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 56.84776306152344,
+     "width": 52.847755432128906,
+     "x": 91.07611846923828,
+     "y": 186.0761260986328
+    },
+    "textureRectOffset": {
+     "x": 7.076118469238281,
+     "y": 18.076126098632812
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_2.png",
+     "height": 68,
+     "sha256": "ef171d0d505966f30d3c0bd7d362fc92074aff55a608a8513b3d6d7e8177cc51",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_2.png",
+     "width": 52
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 63,
+     "indices": [
+      9,
+      7,
+      22,
+      19,
+      22,
+      7,
+      20,
+      22,
+      19,
+      21,
+      20,
+      19,
+      18,
+      17,
+      14,
+      16,
+      14,
+      17,
+      15,
+      14,
+      16,
+      13,
+      14,
+      15,
+      12,
+      14,
+      13,
+      8,
+      12,
+      13,
+      11,
+      12,
+      8,
+      10,
+      11,
+      8,
+      9,
+      10,
+      8,
+      7,
+      9,
+      8,
+      4,
+      7,
+      8,
+      6,
+      7,
+      4,
+      5,
+      6,
+      4,
+      3,
+      5,
+      4,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 23
+    },
+    "name": "battlespine_20306_pixel_2",
+    "offset": {
+     "x": -0.5608978271484375,
+     "y": -27.483978271484375
+    },
+    "pathId": "6398989258045459682",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 168.0,
+     "y": 336.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 67.89713287353516,
+     "width": 51.910972595214844,
+     "x": 183.0761260986328,
+     "y": 345.0267639160156
+    },
+    "textureRectOffset": {
+     "x": 15.076126098632812,
+     "y": 9.026763916015625
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_19.png",
+     "height": 52,
+     "sha256": "57b712cfde6c20e6eaafef9f84a3f4908872368983f8f8748da9f33e6f875c74",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_19.png",
+     "width": 59
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 24,
+     "indices": [
+      9,
+      8,
+      7,
+      6,
+      7,
+      8,
+      3,
+      7,
+      6,
+      5,
+      3,
+      6,
+      4,
+      3,
+      5,
+      0,
+      3,
+      4,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 10
+    },
+    "name": "battlespine_20306_pixel_19",
+    "offset": {
+     "x": -0.5609130859375,
+     "y": -27.483978271484375
+    },
+    "pathId": "7130172396408552233",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 336.0,
+     "y": 84.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 51.897125244140625,
+     "width": 58.88097381591797,
+     "x": 342.07611083984375,
+     "y": 96.07611846923828
+    },
+    "textureRectOffset": {
+     "x": 6.07611083984375,
+     "y": 12.076118469238281
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_13.png",
+     "height": 60,
+     "sha256": "76b3d597cb41931ed59ad11443b8968327dae538e0a588909b2c9f5fcb5a6992",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_13.png",
+     "width": 34
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 15,
+     "indices": [
+      6,
+      5,
+      1,
+      4,
+      1,
+      5,
+      3,
+      1,
+      4,
+      0,
+      1,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 7
+    },
+    "name": "battlespine_20306_pixel_13",
+    "offset": {
+     "x": -0.5609130859375,
+     "y": -27.483978271484375
+    },
+    "pathId": "7554610810157848878",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 252.0,
+     "y": 168.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 59.86750793457031,
+     "width": 33.96033477783203,
+     "x": 275.0129089355469,
+     "y": 182.0761260986328
+    },
+    "textureRectOffset": {
+     "x": 23.012908935546875,
+     "y": 14.076126098632812
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_22.png",
+     "height": 66,
+     "sha256": "be475804c026a9e295e1608ac02939ec6d468dc9b97997b6775def100d28228c",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_22.png",
+     "width": 59
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 45,
+     "indices": [
+      7,
+      1,
+      14,
+      2,
+      14,
+      1,
+      13,
+      14,
+      2,
+      11,
+      13,
+      2,
+      0,
+      11,
+      2,
+      12,
+      11,
+      0,
+      10,
+      9,
+      7,
+      8,
+      7,
+      9,
+      6,
+      7,
+      8,
+      1,
+      7,
+      6,
+      0,
+      1,
+      6,
+      3,
+      0,
+      6,
+      4,
+      0,
+      3,
+      5,
+      4,
+      3,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 15
+    },
+    "name": "battlespine_20306_pixel_22",
+    "offset": {
+     "x": -0.5608978271484375,
+     "y": -27.483978271484375
+    },
+    "pathId": "7766989107876019429",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 168.0,
+     "y": 0.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 65.91096496582031,
+     "width": 58.88097381591797,
+     "x": 174.04290771484375,
+     "y": 10.01291275024414
+    },
+    "textureRectOffset": {
+     "x": 6.04290771484375,
+     "y": 10.01291275024414
+    }
+   },
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/battlespine_20306_pixel_5.png",
+     "height": 63,
+     "sha256": "b7a48b4e9df721b74ee672c39f3cdb0b6ede27dbf99e6c20f494ddee58a213ae",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20306_pixel_5.png",
+     "width": 62
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 39,
+     "indices": [
+      7,
+      6,
+      12,
+      4,
+      12,
+      6,
+      13,
+      12,
+      4,
+      11,
+      10,
+      9,
+      8,
+      9,
+      10,
+      7,
+      9,
+      8,
+      5,
+      7,
+      8,
+      6,
+      7,
+      5,
+      4,
+      6,
+      5,
+      0,
+      4,
+      5,
+      3,
+      4,
+      0,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 14
+    },
+    "name": "battlespine_20306_pixel_5",
+    "offset": {
+     "x": -0.5609016418457031,
+     "y": -27.483978271484375
+    },
+    "pathId": "8285727669108878973",
+    "pivot": {
+     "x": 0.49332261085510254,
+     "y": 0.17280979454517365
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 84.0,
+     "x": 0.0,
+     "y": 252.0
+    },
+    "texture": "3331486752895101702",
+    "textureRect": {
+     "height": 62.92193603515625,
+     "width": 61.897132873535156,
+     "x": 12.026750564575195,
+     "y": 262.05133056640625
+    },
+    "textureRectOffset": {
+     "x": 12.026750564575195,
+     "y": 10.05133056640625
+    }
+   }
+  ],
+  "textures": [
+   {
+    "dataSize": 78400,
+    "height": 420,
+    "mipCount": 1,
+    "name": "battlespine_20306_pixel",
+    "pathId": "3331486752895101702",
+    "textureFormat": 50,
+    "width": 420
+   }
+  ],
+  "transforms": [
+   {
+    "children": [],
+    "gameObject": "-7683022901212640552",
+    "localPosition": {
+     "x": 0.07199999690055847,
+     "y": 0.3540000021457672,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "DizzyBuffPoint",
+    "parent": "3747030237001021180",
+    "path": "minigamespine_20306_pixel/model/DizzyBuffPoint",
+    "pathId": "-6441855708484467266",
+    "siblingIndex": 2
+   },
+   {
+    "children": [],
+    "gameObject": "4685101575284524968",
+    "localPosition": {
+     "x": 0.0,
+     "y": 0.2919999957084656,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "BodyBuffPoint",
+    "parent": "3747030237001021180",
+    "path": "minigamespine_20306_pixel/model/BodyBuffPoint",
+    "pathId": "-5196111678786332587",
+    "siblingIndex": 1
+   },
+   {
+    "children": [],
+    "gameObject": "9094486052346502481",
+    "localPosition": {
+     "x": 0.09799999743700027,
+     "y": 0.5389999747276306,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "HeadBuffPoint",
+    "parent": "3747030237001021180",
+    "path": "minigamespine_20306_pixel/model/HeadBuffPoint",
+    "pathId": "-4883094690893148168",
+    "siblingIndex": 0
+   },
+   {
+    "children": [],
+    "gameObject": "-6862435373492598265",
+    "localPosition": {
+     "x": 0.257999986410141,
+     "y": 0.31299999356269836,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "bullet",
+    "parent": "3747030237001021180",
+    "path": "minigamespine_20306_pixel/model/bullet",
+    "pathId": "-4282222512352382979",
+    "siblingIndex": 3
+   },
+   {
+    "children": [
+     "-4883094690893148168",
+     "-5196111678786332587",
+     "-6441855708484467266",
+     "-4282222512352382979",
+     "4822328414904419180"
+    ],
+    "gameObject": "-2831996803636648073",
+    "localPosition": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "model",
+    "parent": "5190581707988959917",
+    "path": "minigamespine_20306_pixel/model",
+    "pathId": "3747030237001021180",
+    "siblingIndex": 0
+   },
+   {
+    "children": [],
+    "gameObject": "-5332114928398111377",
+    "localPosition": {
+     "x": -0.052000001072883606,
+     "y": 0.22499999403953552,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "hit",
+    "parent": "3747030237001021180",
+    "path": "minigamespine_20306_pixel/model/hit",
+    "pathId": "4822328414904419180",
+    "siblingIndex": 4
+   },
+   {
+    "children": [
+     "3747030237001021180"
+    ],
+    "gameObject": "-1073352656294516278",
+    "localPosition": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "minigamespine_20306_pixel",
+    "parent": "0",
+    "path": "minigamespine_20306_pixel",
+    "pathId": "5190581707988959917",
+    "siblingIndex": 0
+   }
+  ]
+ },
+ "prefab": {
+  "container": "assets/art/models/minigame022/prefab/minigamespine_20306_pixel.prefab",
+  "rootGameObject": "-1073352656294516278",
+  "rootTransform": "5190581707988959917"
+ },
+ "schema": "starfall-native-prefab/1"
+}

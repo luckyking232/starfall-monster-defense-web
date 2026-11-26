@@ -1,0 +1,57 @@
+name: Build and publish the game
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    name: public-preflight
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/game
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/game/package-lock.json
+      - run: npm ci
+      - run: npm run test:inputs
+      - run: npm run test:unit
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Test game entry, loading, saves and player controls
+        run: npx playwright test startup-screen product-entry standalone-settings
+      - name: Prepare Pages
+        working-directory: .
+        run: |
+          mkdir -p _site/play
+          cp index.html _site/
+          touch _site/.nojekyll
+          rsync -a --exclude='*.map' apps/game/dist/ _site/play/
+      - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          path: _site
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

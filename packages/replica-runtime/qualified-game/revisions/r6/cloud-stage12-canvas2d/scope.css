@@ -1,3 +1,0 @@
-.canonical-world-stack #stage2-cpu-world {display:none; position:absolute; inset:0; height:100%; pointer-events:none;}
-.canonical-world-stack[data-stage2-cpu-visible="true"] #canonical-world {display:none;}
-.canonical-world-stack[data-stage2-cpu-visible="true"] #stage2-cpu-world {display:block;}

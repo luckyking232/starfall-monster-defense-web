@@ -1,0 +1,449 @@
+{
+  "version": "134395529309427262",
+  "clockHz": 48000,
+  "bankSha256": [
+    "7e28988089eeb380a587a67eaeec414bafed2104036ad007d3916b531869df1e",
+    "f9b1d1b1053481744a40c64b046e62ab24b3d5c5899e9b2932562e4de600027f"
+  ],
+  "music": {
+    "event": "event:/bgm/bgm_btl/bgm_btl_b02_112bpm",
+    "layers": [
+      {
+        "file": "02_B02-O.wav",
+        "start": 0,
+        "offset": 27724,
+        "loopFrom": 1985514,
+        "loopTo": 6305514,
+        "gainDb": -11
+      },
+      {
+        "file": "01_B02-R.wav",
+        "start": 6444,
+        "offset": 34167,
+        "loopFrom": 1985513,
+        "loopTo": 6305513,
+        "gainDb": -13
+      }
+    ]
+  },
+  "effects": {
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000198_wh": {
+      "samples": [
+        {
+          "file": "03_MiniGame022_10000198_wh.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 94353
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000198_hit": {
+      "samples": [
+        {
+          "file": "27_MiniGame022_10000198_hit.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 61593
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000198_beidong": {
+      "samples": [
+        {
+          "file": "09_MiniGame022_10000198_beidong.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 100308
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000198_tianfu_1": {
+      "samples": [
+        {
+          "file": "28_MiniGame022_10000198_tianfu_1.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 61602
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000198_tianfu_2": {
+      "samples": [
+        {
+          "file": "37_MiniGame022_10000198_tianfu_2.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 74439
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000101_wh": {
+      "samples": [
+        {
+          "file": "16_MiniGame022_10000101_wh.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 28672
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000101_hit": {
+      "samples": [
+        {
+          "file": "31_MiniGame022_10000101_hit.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 16987
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000101_beidong": {
+      "samples": [
+        {
+          "file": "38_MiniGame022_10000101_beidong.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 12386
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000101_tianfu_loop": {
+      "samples": [
+        {
+          "file": "42_MiniGame022_10000101_tianfu_loop.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 106653,
+      "loop": [
+        13877,
+        106090
+      ]
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000101_tianfu_stop": {
+      "stop": "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000101_tianfu_loop"
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000104_wh": {
+      "samples": [
+        {
+          "file": "15_MiniGame022_10000104_wh.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 57660
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000104_hit": {
+      "samples": [
+        {
+          "file": "01_MiniGame022_10000104_hit.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 53086
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000104_beidong": {
+      "samples": [
+        {
+          "file": "12_MiniGame022_10000104_beidong_r1.wav",
+          "offset": 0,
+          "weight": 33.33333206176758
+        },
+        {
+          "file": "10_MiniGame022_10000104_beidong_r2.wav",
+          "offset": 0,
+          "weight": 33.33333206176758
+        },
+        {
+          "file": "08_MiniGame022_10000104_beidong_r3.wav",
+          "offset": 0,
+          "weight": 33.33333206176758
+        }
+      ],
+      "duration": 24633
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000104_tianfu_loop": {
+      "samples": [
+        {
+          "file": "44_MiniGame022_10000104_tianfu_loop.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 383476,
+      "loop": [
+        138000,
+        383476
+      ]
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000104_tianfu_stop": {
+      "stop": "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000104_tianfu_loop"
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000134_wh": {
+      "samples": [
+        {
+          "file": "22_MiniGame022_10000134_wh.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 57660
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000134_hit": {
+      "samples": [
+        {
+          "file": "41_MiniGame022_10000134_hit.wav",
+          "offset": 3000,
+          "weight": 1
+        }
+      ],
+      "duration": 65840
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000134_beidong": {
+      "samples": [
+        {
+          "file": "21_MiniGame022_10000134_beidong.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 170400,
+      "loop": [
+        23023,
+        157915
+      ]
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000134_tianfu_cast": {
+      "samples": [
+        {
+          "file": "34_MiniGame022_10000134_tianfu_cast.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 95678
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000134_tianfu_hit": {
+      "samples": [
+        {
+          "file": "43_MiniGame022_10000134_tianfu_hit_r1.wav",
+          "offset": 0,
+          "weight": 33.33333206176758
+        },
+        {
+          "file": "32_MiniGame022_10000134_tianfu_hit_r2.wav",
+          "offset": 0,
+          "weight": 33.33333206176758
+        },
+        {
+          "file": "24_MiniGame022_10000134_tianfu_hit_r3.wav",
+          "offset": 0,
+          "weight": 33.33333206176758
+        }
+      ],
+      "duration": 26906
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000118_wh": {
+      "samples": [
+        {
+          "file": "11_MiniGame022_10000118_wh.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 39724
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000118_hit": {
+      "samples": [
+        {
+          "file": "40_MiniGame022_10000118_hit.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 47777
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000118_beidong": {
+      "samples": [
+        {
+          "file": "26_MiniGame022_10000118_beidong.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 40802
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000118_tianfu": {
+      "samples": [
+        {
+          "file": "20_MiniGame022_10000118_tianfu.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 156124
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20010_wh": {
+      "samples": [
+        {
+          "file": "39_MiniGame022_20010_wh_r1.wav",
+          "offset": 0,
+          "weight": 33.33333206176758
+        },
+        {
+          "file": "02_MiniGame022_20010_wh_r2.wav",
+          "offset": 0,
+          "weight": 33.33333206176758
+        },
+        {
+          "file": "19_MiniGame022_20010_wh_r3.wav",
+          "offset": 0,
+          "weight": 33.33333206176758
+        }
+      ],
+      "duration": 18286
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20010_hit": {
+      "samples": [
+        {
+          "file": "04_MiniGame022_20010_hit_r1.wav",
+          "offset": 0,
+          "weight": 33.33333206176758
+        },
+        {
+          "file": "36_MiniGame022_20010_hit_r2.wav",
+          "offset": 0,
+          "weight": 33.33333206176758
+        },
+        {
+          "file": "33_MiniGame022_20010_hit_r3.wav",
+          "offset": 0,
+          "weight": 33.33333206176758
+        }
+      ],
+      "duration": 14630
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20011_wh": {
+      "samples": [
+        {
+          "file": "07_MiniGame022_20011_wh.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 20601
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20011_hit": {
+      "samples": [
+        {
+          "file": "29_MiniGame022_20011_hit.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 10411
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20108_wh": {
+      "samples": [
+        {
+          "file": "14_MiniGame022_20108_wh.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 52163
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20108_hit": {
+      "samples": [
+        {
+          "file": "17_MiniGame022_20108_hit.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 45205
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20302_wh": {
+      "samples": [
+        {
+          "file": "05_MiniGame022_20302_wh.wav",
+          "offset": 445,
+          "weight": 1
+        }
+      ],
+      "duration": 5758
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20302_hit": {
+      "samples": [
+        {
+          "file": "30_MiniGame022_20302_hit.wav",
+          "offset": 477,
+          "weight": 1
+        }
+      ],
+      "duration": 10255
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20306_wh": {
+      "samples": [
+        {
+          "file": "18_MiniGame022_20306_wh.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 18748
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20306_hit": {
+      "samples": [
+        {
+          "file": "35_MiniGame022_20306_hit.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 24175
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20411_wh": {
+      "samples": [
+        {
+          "file": "25_MiniGame022_20411_wh.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 41952
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20411_hit": {
+      "samples": [
+        {
+          "file": "13_MiniGame022_20411_hit.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 40187
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20506_wh": {
+      "samples": [
+        {
+          "file": "23_MiniGame022_20506_wh.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 21491
+    },
+    "event:/sfx/sfx_btl/MiniGame022/MiniGame022_20506_hit": {
+      "samples": [
+        {
+          "file": "06_MiniGame022_20506_hit.wav",
+          "offset": 0,
+          "weight": 1
+        }
+      ],
+      "duration": 6300
+    }
+  }
+}

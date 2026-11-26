@@ -1,31 +1,36 @@
 # 魔物抵御战 Web
 
-《星落》小游戏的非官方网页复刻，欢迎共同开发。当前 Alpha 能试玩，不是 1:1 完工版，也未在 TapTap 上架。
+《星落》活动小游戏「魔物抵御战」的独立网页版。浏览器在本地运行原版 Lua 战斗与 FairyGUI 窗口，保留出怪、角色技能、升级选择和结算规则。支持鼠标和触屏。
 
-**[在线试玩](https://luckyking232.github.io/starfall-monster-defense-web/play/index.html)** · **[下载同版 ZIP](https://github.com/luckyking232/starfall-monster-defense-web/releases/tag/v0.1.0-alpha.1)** · **[贡献指南](CONTRIBUTING.md)**
+**[开始游戏](https://luckyking232.github.io/starfall-monster-defense-web/play/)** · [下载正式版](https://github.com/luckyking232/starfall-monster-defense-web/releases/tag/v1.0.0)
 
-## 本地启动
+![首关中的蒂娜滚石与防御工事](docs/images/battle.webp)
 
-克隆后运行（Python 3.11+）：
+## 怎么玩
+
+在活动主页按「前往」，拖动地图并点击关卡牌面。守住防御工事，积累经验后从原技能卡中选择强化。共有 20 个普通关和 1 个循环关。首次启动会加载引擎、游戏脚本和界面图集，进度条显示当前阶段。
+
+右上齿轮可调整音乐与音效、显示帧率，以及创建、改名、切换或删除本地存档。进度保存在当前浏览器与网站地址下。调试页可输入 `ALLSTAGES` 开放当前档的关卡和随关角色，或在战斗中输入 `LEVELUP` 进入原版升级流程。主页有三个可以互动的彩蛋。
+
+## 在自己的电脑运行
+
+下载 Release 附件 `MonsterDefense-v1.0.0.zip`，解压后在含有 `index.html` 的目录启动一个静态服务器。
 
 ```sh
-python -B scripts/dev.py
+python -m http.server 8080 --bind 127.0.0.1
 ```
 
-Windows 也可用 `py -3 -B scripts/dev.py`。命令从 GitHub 下载并校验约 21 MB 的固定版本资源，在临时目录重建 Alpha，并打印本机试玩地址。不会改 Git 工作树，不要求安装《星落》。已有资源 ZIP、离线验证与打包方式见 [本地构建](docs/local-build.md)。
+用浏览器访问 `http://127.0.0.1:8080/`。WebAssembly、Worker 和资源校验需要 HTTP 的 localhost 或 HTTPS。再次使用同一浏览器与地址即可继续存档。
 
-## 从哪开始改
+## 开发
 
-修改界面、HUD 或交互时，可以用本机开发预览运行候选代码，不影响已发布版本。先运行 `python -B scripts/dev.py --list-editable`，再看[预览步骤](docs/local-build.md#修改自有界面并在本机预览)。
+使用 Node.js 22.12 或更新版本。仓库含正式版运行所需的已准备资源。从仓库根目录执行以下命令。
 
-| 目录 | 用途 |
-| --- | --- |
-| [apps/pages](apps/pages) | 公开入口页，不是游戏引擎 |
-| [packages/ui](packages/ui) | 可以独立开发和测试的浏览器交互模块 |
-| [packages/replica-runtime](packages/replica-runtime/README.md) | 规则、渲染、游戏界面和固定版本构建；见[模块地图](docs/project-map.md) |
-| [scripts](scripts) · [tests](tests) | 启动、打包、验收工具和独立测试 |
-| [release](release) · [docs](docs) | 版本与资源锁定、测试和发布说明 |
+```sh
+cd apps/game
+npm ci
+npm run build
+npm run preview
+```
 
-目前还缺原版弹道、部分画面与音频、手机 TapTap WebView 验收。玩法、画面和平台分别验收，不以通过其中一项代表全部完成。
-
-MIT 只覆盖项目原创代码与文档。游戏原始素材和第三方依赖保留各自许可，见 Release 附件的版权说明。
+默认预览地址为 `http://127.0.0.1:4173/`。[工程结构与测试](docs/development.md) · [运行素材与授权](docs/assets.md) · [版本记录](CHANGELOG.md)。

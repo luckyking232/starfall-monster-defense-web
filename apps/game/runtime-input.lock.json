@@ -1,0 +1,207 @@
+{
+  "schema": "starfall.monster-defense.runtime-input/1",
+  "gameResourceVersion": "134395529309427262",
+  "releaseSha256": "eafe33cfa6cc380e11388b297e585c4086e6bb3cc67ca70312c386639a5e5e9b",
+  "fileCount": 39,
+  "files": {
+    "core-worker/inputs/vendor/index.js": {
+      "bytes": 151652,
+      "sha256": "dc2dcf019449008bb224370052473dc760db28b3ba14fc604e1ca3e8646af35d",
+      "provenance": "pinned-browser-input"
+    },
+    "core-worker/inputs/vendor/glue.wasm": {
+      "bytes": 271581,
+      "sha256": "95f3f19ddb740125883bc41d5ec670cd0828e7b58c8bdad385323cbff497b55c",
+      "provenance": "pinned-browser-input"
+    },
+    "core-worker/inputs/vendor/LICENSE": {
+      "bytes": 1074,
+      "sha256": "9ed9226c0138819a0859cf3c55a3414b4a186a17a4eaf4b5a51ceed7937615ac",
+      "provenance": "pinned-browser-input"
+    },
+    "core-worker/inputs/vendor/LUA-LICENSE": {
+      "bytes": 1112,
+      "sha256": "fce99dce100557696d8d8b8a2e040d68f816cfe52692d4373aa40e22247beeb6",
+      "provenance": "pinned-browser-input"
+    },
+    "core-worker/inputs/vendor/provenance.json": {
+      "bytes": 794,
+      "sha256": "acd68481b9dda9df0070c67f68ea78eb01c4c04632ccecb4b286a52a3d43528f",
+      "provenance": "pinned-browser-input"
+    },
+    "core-worker/skill-choice/inputs/MiniGameSkillChoiceWindow.lua": {
+      "bytes": 6140,
+      "sha256": "9980dd5a27f4c73c785f44a9a54dd70388419f91572e51a10af3109d1ad4a8b5",
+      "provenance": "pinned-browser-input"
+    },
+    "core-worker/skill-choice/inputs/choice-original-helpers.lua": {
+      "bytes": 391,
+      "sha256": "7dc2df385725fda60320ef4cb70891897ba907a78401902c84b14cd548c57edf",
+      "provenance": "pinned-browser-input"
+    },
+    "summon-evidence/headless-extension.lua": {
+      "bytes": 1139,
+      "sha256": "fb78d353d6ea33bb4a63a68eec67df32892ee0b4e78cd2808d99c0c994b930dc",
+      "provenance": "pinned-browser-input"
+    },
+    "core-worker/inputs/lua/BaseShootCard.lua": {
+      "bytes": 10343,
+      "sha256": "22173232d883e98e22204d547c317ff438ed9b7ed7239b826ead9ff4f0fae2fa",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/inputs/lua/BaseShootMonsterGroup.lua": {
+      "bytes": 91551,
+      "sha256": "b5b5370d37638ec48144f78a5c54ae6d0aafacab576d79c336a8729530ad93ba",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/inputs/lua/BaseShootStage.lua": {
+      "bytes": 38607,
+      "sha256": "eecc8359bd92e74f43b52819b4e6a42c6108bde46e442e1c0e71957085f1419c",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/inputs/lua/BattleConst.lua": {
+      "bytes": 23687,
+      "sha256": "60e140aa7faf9ea58571743d550edc67e489afce0722bc7d6397000ba29a4e84",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/inputs/lua/MiniGameBattleConst.lua": {
+      "bytes": 3279,
+      "sha256": "d29a4904a532579003d51d953ea075122b4c8b975b9a556d5ad51f5a46747270",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/inputs/lua/MiniGameBattleControl.lua": {
+      "bytes": 3288,
+      "sha256": "0b2c9256f25602103b511b6bab67a09bbb107d9857818d709254fbe052dd0262",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/inputs/lua/MiniGameBattleData.lua": {
+      "bytes": 2745,
+      "sha256": "ee063223c7235ff74230987f64948b7cc215a0f6049ffa092494b01df8994b2d",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/inputs/lua/MiniGameBattleMgr.lua": {
+      "bytes": 3051,
+      "sha256": "62f0cf37131c63bba5df711282220687560fc13414b7f79c530ae7bbf4a648db",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/inputs/lua/MiniGameBattleScene.lua": {
+      "bytes": 15670,
+      "sha256": "c8799e601b5fb89e64938edc6187204c627aa864681f6e7de39a3b489c772dab",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/BaseAttribute.lua": {
+      "bytes": 6567,
+      "sha256": "b37e995b33e71be2f7ae0bc420484fa1d6b8346f04b8493ade738ec39abca149",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/BaseShootSkill.lua": {
+      "bytes": 33936,
+      "sha256": "41d9eed0b48cb55b14f56a67b464ffcaa396c7e7f0ef1de2ec2deadded28b326",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/BaseShootSkillBuff.lua": {
+      "bytes": 13210,
+      "sha256": "daff3e9958b29678bcd557765f3b334cb5d9878b36b0adf944ebd6c191acc5a1",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/BaseSkillParameter.lua": {
+      "bytes": 959,
+      "sha256": "c24484ee96b48e99898c7c86fda076911a081844a5c8bb99569536d19e240ff3",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/CardAttribute.lua": {
+      "bytes": 1396,
+      "sha256": "c7b1186e515a0178afbecb9e973ce2680cdbf297fdde1d257dd7363a9a309886",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/MathUtil.lua": {
+      "bytes": 3745,
+      "sha256": "fd53b51b7e9c8ba9f6104f284e6a95164c813d35bcb34debd04a6e85cb3f4d2c",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/MiniGameBattleAction.lua": {
+      "bytes": 19086,
+      "sha256": "fbc610b63ebac9142ec4b104ea94cc12a6f62cde2797bca1c19218f24654cfcb",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/MiniGameBattleBuff.lua": {
+      "bytes": 24602,
+      "sha256": "a640e4b170e21dfbc2d7c3354f5969105b47429e0719ed02722e5f00bec314de",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/MiniGameBattleBuffEffect.lua": {
+      "bytes": 3841,
+      "sha256": "d4e0dc77579a5be1cd6489e5ee04866cbd21c1080cdaf1b7c10cdc34f8c48562",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/MiniGameBattleBuffMgr.lua": {
+      "bytes": 11919,
+      "sha256": "95cc6e33e87058a2a109d498f1443380bc21ed30bdc2a1ed0bc19cc5a92d9d5b",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/MiniGameBattleBullet.lua": {
+      "bytes": 15287,
+      "sha256": "9168d76ac04dc6d147f7f9157c8791126e63a928831921a5433cfd1471f0a5a8",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/MiniGameBattleChoose.lua": {
+      "bytes": 5796,
+      "sha256": "7018271973dee4607f26c6ad014bd20f0cd8872d359e67c967e8955aba078c5b",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/MiniGameBattleDataCount.lua": {
+      "bytes": 3809,
+      "sha256": "10fc34c3bed4f8728eaae8a63aa5761f2059c9c79be03d23b34854bc7010a37e",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/MiniGameBattleUnit.lua": {
+      "bytes": 45493,
+      "sha256": "e18081368fedad46b3f89c8056a83a6af78b4366c947a6d2ff93c8f9952fb102",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/native-prefabs.lua": {
+      "bytes": 959,
+      "sha256": "c714430692bb0e1df358d931dc92fb48db0a60325320fada1cfb032dc6c2e274",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/combat-prefix/inputs/source-derived-helpers.lua": {
+      "bytes": 2822,
+      "sha256": "a938eb65342fbefaafef3f90069e132f039c43abc18cb6d6a933d65270098e5e",
+      "provenance": "original-lua-compatible"
+    },
+    "core-worker/spawn-audit-bridge.lua": {
+      "bytes": 5395,
+      "sha256": "b17be0a1d82ed6646f34b3c4fa92c4023f94804cc198448d867dbb19e7132b3b",
+      "provenance": "audited-compatibility-source"
+    },
+    "core-worker/combat-prefix/bridge.lua": {
+      "bytes": 5733,
+      "sha256": "039bdd4b357484086362741b285f0921e84a48acbc813e2b608d63d562db668a",
+      "provenance": "audited-compatibility-source"
+    },
+    "core-worker/skill-choice/snapshot-codec.js": {
+      "bytes": 1824,
+      "sha256": "227cb39ee784391958d17be2598b134111778554184831182b114e3aff41d716",
+      "provenance": "audited-compatibility-source"
+    },
+    "core-worker/skill-choice/engine.lua": {
+      "bytes": 15324,
+      "sha256": "097e05817f1e0636553e7134ff81f834440de1661f7781ffc0446a789363a961",
+      "provenance": "audited-compatibility-source"
+    },
+    "core-worker/skill-choice/driver.lua": {
+      "bytes": 2939,
+      "sha256": "24db8c55343c40595f16497aeb8fd6609230af60c2f6aae51de863f17a66058a",
+      "provenance": "audited-compatibility-source"
+    },
+    "browser-stage1/transport-controls.lua": {
+      "bytes": 410,
+      "sha256": "457b433d3b663992f91c0275c32b92e3e0c0a0c15fea487daa523efac6a34038",
+      "provenance": "audited-compatibility-source"
+    }
+  },
+  "cardAttributeAndMathUtil": {
+    "normalizedSourceMatch": true,
+    "evidence": "web/card-math-util-comparison.json"
+  }
+}

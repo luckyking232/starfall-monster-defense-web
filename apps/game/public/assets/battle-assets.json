@@ -1,0 +1,1061 @@
+{
+  "schema": "starfall.monster-defense.battle-assets/1",
+  "files": {
+    "units/minigamespine_10000118_pixel_0.png": {
+      "bytes": 12261,
+      "sha256": "b16403216276a06fd8e4391599c47ec9a4326da6eae7871ddea5cd0f7c0b49ab",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_0.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_1.png": {
+      "bytes": 12819,
+      "sha256": "323fdc7a358d11b463c900610661d4deefc2e7f2b335f1ffd4a3bcf5d03d1177",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_1.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_2.png": {
+      "bytes": 12809,
+      "sha256": "cb6e13c68dd2cbe5b381cf99d954d68061cca4c2d69fb3c1a0d356a79ba05807",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_2.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_3.png": {
+      "bytes": 12688,
+      "sha256": "59643e0a4db107c7e6cd04a837849b58d8d9c16828153cfbc7cc9c934c3f7e84",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_3.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_4.png": {
+      "bytes": 12536,
+      "sha256": "875839413df464839ce03852ab3d94e3ce6c184cdc49bd7c20aad1e3f51b3726",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_4.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_5.png": {
+      "bytes": 12817,
+      "sha256": "210a739de853ed917c7a0e2e7ce29cc4b98072415e8955fde0496c12a7742649",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_5.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_6.png": {
+      "bytes": 11552,
+      "sha256": "ba871dd570bd4f7299b80c5a446966e8386757a815e06a3b5c80bf7e9a2e4b39",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_6.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_7.png": {
+      "bytes": 12739,
+      "sha256": "94d6ed164e9c8b7f228bea54b522f00929a597d48a73add66a6287fdcd94e558",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_7.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_8.png": {
+      "bytes": 13385,
+      "sha256": "e8127fe2e765738bb16ddf1e5dbbe66404725c4b417407b0713456106996d752",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_8.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_9.png": {
+      "bytes": 12762,
+      "sha256": "b4e96703bf13376b7e26663f654a03175d6ac5f92aedb7940962f438631abbba",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_9.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_10.png": {
+      "bytes": 13456,
+      "sha256": "c451be4d5fb8243b6c914ece98a15e1ba5a56cb28918319447605b4b0dacb60f",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_10.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_11.png": {
+      "bytes": 13308,
+      "sha256": "0d74d952200464eb75abd05396d90708a34d556783653ff1ac321294e973ee15",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_11.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_12.png": {
+      "bytes": 13098,
+      "sha256": "f99489ffc274fb85cbec4a2c833efe4fce3347a981b22483376a49955119f152",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_12.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_13.png": {
+      "bytes": 12331,
+      "sha256": "4fd5e5c3de9b86d8d54a8dd62c095261b60380cd4be776352030c3773a10e8a8",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_13.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_14.png": {
+      "bytes": 12644,
+      "sha256": "7732ae961576c2fa74e9ab53b87a1388fbbde5af9e168c1694ee39c55c26b9df",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_14.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_15.png": {
+      "bytes": 12694,
+      "sha256": "25b77319a81de5e3578e8add7c8898512aef5705f43162868fcc0d48aa12c774",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_15.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_16.png": {
+      "bytes": 12401,
+      "sha256": "427c2ea2bd7bf435c2777acac4b2f905302446089597c754102b8114a7a951b2",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_16.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_17.png": {
+      "bytes": 12907,
+      "sha256": "3cc3ae15111c28352165925eb0e87b8826387e8d711c6f497034446ac190c0f6",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_17.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_18.png": {
+      "bytes": 13834,
+      "sha256": "dd91cd90834da459abc87bafd95ccb646700d8526629287e270b02c602a1b4e3",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_18.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000118_pixel_19.png": {
+      "bytes": 13538,
+      "sha256": "8e68cab654b90d1809b740a58054e2b9889643d1e0dc29a94e276807608a4ac0",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000118_pixel_19.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000134_pixel_0.png": {
+      "bytes": 12643,
+      "sha256": "fa96e1ab9a5d2326368f6895ec1b90e1a3e173081cbb30b6bb23896a3d101554",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000134_pixel_0.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000134_pixel_1.png": {
+      "bytes": 12493,
+      "sha256": "8527060ca6a959146dd72af45b74f63962a038d7d91fa02dfd233ace638c23c1",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000134_pixel_1.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000134_pixel_2.png": {
+      "bytes": 11922,
+      "sha256": "34477ab9e68f16e4a78ec72e62744e904c8b54aa255e41a3f90343b9a7a8f55a",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000134_pixel_2.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000134_pixel_3.png": {
+      "bytes": 12142,
+      "sha256": "06a2c47373ec044f8fa02ec3d9587128fe91566274c84d979b8404573c0b5c39",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000134_pixel_3.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000134_pixel_4.png": {
+      "bytes": 14383,
+      "sha256": "6998fa0a2738cdea5ea9a3768bdfe3be1bb46e661ebe3c948a2ec8cecb932594",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000134_pixel_4.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000134_pixel_5.png": {
+      "bytes": 14393,
+      "sha256": "d2191dd20e8874fbe78d4f1e0914195e567c370c7125d786190dfe1187ffe7ec",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000134_pixel_5.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000134_pixel_6.png": {
+      "bytes": 12643,
+      "sha256": "fa96e1ab9a5d2326368f6895ec1b90e1a3e173081cbb30b6bb23896a3d101554",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000134_pixel_6.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000134_pixel_7.png": {
+      "bytes": 12391,
+      "sha256": "c52194bb3499a2c7710e3ae3639cde80ea88d91d97016339e45c128b0d1daf68",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000134_pixel_7.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000134_pixel_8.png": {
+      "bytes": 12832,
+      "sha256": "eb7b2d2c8977c6dbcc0067fee18a7660ef421bb1b4978e07c640b67bb2862dbb",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000134_pixel_8.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000134_pixel_9.png": {
+      "bytes": 12645,
+      "sha256": "1e038905ba7f450f87de02f73e8fa7793cb485101041d63a5445349d60f80af6",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000134_pixel_9.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000134_pixel_10.png": {
+      "bytes": 12401,
+      "sha256": "cfb7ef6be121dea6f17379c7c8e9d95877544f8db7be8b2dabd123938750e2ae",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000134_pixel_10.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000134_pixel_11.png": {
+      "bytes": 11835,
+      "sha256": "e0acef6d79d39c441e7a15d03f840e3a0198e7112cb59250be0cb26c8a7c8911",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000134_pixel_11.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000134_pixel_12.png": {
+      "bytes": 12249,
+      "sha256": "a926d2000c8d63b4a525a7c7a641f13cceb599437c24235e9175dc891309ef00",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000134_pixel_12.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000104_pixel_0.png": {
+      "bytes": 15074,
+      "sha256": "4e58bc3398b829e9b5010a9769a41df7a14b924478007cc356033d68c201c708",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000104_pixel_0.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000104_pixel_1.png": {
+      "bytes": 15669,
+      "sha256": "7061bdf97d340e948c6d6b91d5da63d647792fd3f364c6f5bac4d904075512ed",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000104_pixel_1.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000104_pixel_2.png": {
+      "bytes": 15672,
+      "sha256": "89a30ec42a3299cb795cc2168e2ea21935e6d33894812674114001dcd59070b3",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000104_pixel_2.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000104_pixel_3.png": {
+      "bytes": 15893,
+      "sha256": "41bcf2b6ea225f90d3050c8d71899b10e4cabca0d9ea077adbbe2ce9721bc390",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000104_pixel_3.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000104_pixel_4.png": {
+      "bytes": 15032,
+      "sha256": "144699e42131e22bac67c86c1bb96d85728452e7bb7b70c1ec13cb1a45f46671",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000104_pixel_4.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000104_pixel_5.png": {
+      "bytes": 14893,
+      "sha256": "65f28dbe7005b22d4a2a97d609619df19fbd0a9fb5c0d46678c8ac4651f102f9",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000104_pixel_5.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000104_pixel_6.png": {
+      "bytes": 15130,
+      "sha256": "7d2a2636bfa879f92265e51dce43f6894c0986ecd3816e75e0ec0cdcbb992d63",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000104_pixel_6.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000104_pixel_7.png": {
+      "bytes": 14225,
+      "sha256": "90d6a44ab51fbb91352a323231e9f38084d4aafc6fc6532814fc334ececb506c",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000104_pixel_7.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000104_pixel_8.png": {
+      "bytes": 14745,
+      "sha256": "55581126801627d2cc16f8e9046110f2b178e26c16632d335f184dd9bb5f9149",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000104_pixel_8.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000104_pixel_9.png": {
+      "bytes": 16729,
+      "sha256": "47ea2797db0c919e3c7908cc6f1c34c8ab09330caeed2c10522c957921bdad19",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000104_pixel_9.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000104_pixel_10.png": {
+      "bytes": 14100,
+      "sha256": "127b82ed04d9575a2e1d08a9ad632cd3e25fabeeca1ff8cae9089f5ac44fff6b",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000104_pixel_10.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000104_pixel_11.png": {
+      "bytes": 15086,
+      "sha256": "6d3ca3136045e31292a75f6f6bccd5020a62b8f3866bbd9fa5d9be68136bdeaa",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000104_pixel_11.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000104_pixel_12.png": {
+      "bytes": 15223,
+      "sha256": "003a62ecfb240684ab7e35858312ea4d055d26adfe38c983bec3293b6bd7fe38",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000104_pixel_12.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000101_pixel_0.png": {
+      "bytes": 13191,
+      "sha256": "8b7e8c08647cab95ce2e4ca8a2cf72558e760c4d539f72e235252d15d84b0131",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000101_pixel_0.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000101_pixel_1.png": {
+      "bytes": 12928,
+      "sha256": "8c088efc69cb727851e40018f21c8e6db084bc8d358e2a97aa1d8be70a093271",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000101_pixel_1.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000101_pixel_2.png": {
+      "bytes": 12808,
+      "sha256": "63c4217d779fd0a7aa1dd5382b05760ac0a2fa475dee25cf1382824e30e15698",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000101_pixel_2.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000101_pixel_3.png": {
+      "bytes": 13400,
+      "sha256": "474ba78815b19088d6936498eea8f83072d07f35e3b082e3ea9ea976241a498f",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000101_pixel_3.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000101_pixel_4.png": {
+      "bytes": 12789,
+      "sha256": "3ed136778a6134baba2ab59a3584188e6f84e59e3427cf27ba44a749b4220c2d",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000101_pixel_4.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000101_pixel_5.png": {
+      "bytes": 12612,
+      "sha256": "65f48bb74231cade7cf48fc0aeb4fd04b812b23edffaf35c2be507482820c080",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000101_pixel_5.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000101_pixel_7.png": {
+      "bytes": 12667,
+      "sha256": "f3979415e0a43e92ef8750dd642d29f6a534994ab5be4236a96ba83af63480dc",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000101_pixel_7.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000101_pixel_8.png": {
+      "bytes": 12516,
+      "sha256": "220ad634852cf5e6d862eb48523807c125e3a9ff57176621c42135a3e4a91b71",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000101_pixel_8.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000101_pixel_9.png": {
+      "bytes": 13345,
+      "sha256": "06786383d698103331b18a8055bfbb03211a59523cad27f5d6c1abcbf110615a",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000101_pixel_9.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000101_pixel_10.png": {
+      "bytes": 11941,
+      "sha256": "81b11b63aad93b19f0635248f2dd0c6437a349d7d845cbc72905446588635123",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000101_pixel_10.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000101_pixel_11.png": {
+      "bytes": 13902,
+      "sha256": "e594fc370e632a2b58de88fba99487fe29592a7b5d4b762e6105e1a3f9d302a9",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000101_pixel_11.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000101_pixel_12.png": {
+      "bytes": 14050,
+      "sha256": "4c6a68b4a3e7caec60a8bab72bf0be512455de8376665780bd68a332a87d8ad5",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000101_pixel_12.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000101_pixel_13.png": {
+      "bytes": 14281,
+      "sha256": "24f2896f71b2e96be91357fdabf73a492af4a6fdc5d23931110608894b8c0685",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000101_pixel_13.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_0.png": {
+      "bytes": 14404,
+      "sha256": "878fb29d1e5422602b17bfcf41b57441e1e76ee0e60354ab4002f7a0498dec4e",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_0.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_1.png": {
+      "bytes": 15076,
+      "sha256": "29275d43d77feac10ee1569e6cbe814b438e838d53e88e7b67e9f3fd3ad07bc3",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_1.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_2.png": {
+      "bytes": 14581,
+      "sha256": "2965eccf0daec4d56d30f528c8332cf2dd0e5ac259c904d7a6c610440ec00645",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_2.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_3.png": {
+      "bytes": 14343,
+      "sha256": "c104548c201129eda8eddc8af2d552a4cba900f76c80d9764a75000e0842da7c",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_3.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_4.png": {
+      "bytes": 13947,
+      "sha256": "8bb8364d46c437c08b355974b24782166c0f6102f0143292a3d141bfd88a0c40",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_4.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_5.png": {
+      "bytes": 13920,
+      "sha256": "d20286d4c59eb439ec25dc7fd0fe3cccb38173a6fb9a13b45e02d7396ff4c76e",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_5.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_6.png": {
+      "bytes": 14385,
+      "sha256": "358c0a7f5cef4807845bf614fd9195478b074e6a18c6a5d2e082b5291c25a88d",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_6.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_7.png": {
+      "bytes": 14268,
+      "sha256": "daf659f7cd5d5916a638b4424f10ed6b0aba000fc9bf7ab0e7d87de736f5d1da",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_7.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_8.png": {
+      "bytes": 14559,
+      "sha256": "09da2db7798100c54117ca1c334385edf886392f99f294501545cbe5abb4c512",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_8.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_9.png": {
+      "bytes": 14415,
+      "sha256": "091e3f7d7bb95120d2e32986b49957df6f8d494dae4b3414435796aa4eb424e3",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_9.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_10.png": {
+      "bytes": 13984,
+      "sha256": "4a1362a457b1146e4e8ea7d78bb91f9c76578df6740380a7ff676360db3beae8",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_10.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_11.png": {
+      "bytes": 16140,
+      "sha256": "8868b0fe82023ebf480142a42db2a8a9722b866f7b15109622930a162af8ce5e",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_11.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_12.png": {
+      "bytes": 15557,
+      "sha256": "6f8c2df4f21d13995102311b383f85134a40ceb263ddf074abadcb6183fb359e",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_12.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_10000198_pixel_13.png": {
+      "bytes": 16304,
+      "sha256": "0f6fa19ef84830554f343c7aa76de3363173032344589a5a33415be284004fbf",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_10000198_pixel_13.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_0.png": {
+      "bytes": 2517,
+      "sha256": "e9adfa3dbc11bd733baa4697ce49d59ce6b0b38eb043477edb6d92f59f110617",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_0.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_1.png": {
+      "bytes": 2739,
+      "sha256": "2932b3c599d3d31c5d0f311734d24903cee30a7bd8bf8aec1e67e69e9537e4f0",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_1.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_2.png": {
+      "bytes": 2480,
+      "sha256": "929a5ccda099230d19dd22b705833dfbc6b406bdf1117b7d39eb61a04fa53d24",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_2.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_3.png": {
+      "bytes": 2546,
+      "sha256": "7f3316ec2f69f4e48e1514120b79c7ace0b01978940f535bd6b7b3da4879b54a",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_3.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_4.png": {
+      "bytes": 2544,
+      "sha256": "e7b3f71347cfe4e7b50a242fb13299948a7cdec0154f759ada365d00cc638a45",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_4.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_5.png": {
+      "bytes": 2698,
+      "sha256": "9ac36b234699cc92ecca0f42f49da7c4b122862af61cd3d0634de5645004a3a3",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_5.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_6.png": {
+      "bytes": 2623,
+      "sha256": "708e282ec9ca659991c2aa4ff94be34b255fa55b6db4c158e5f8edec4bbaef76",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_6.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_7.png": {
+      "bytes": 2711,
+      "sha256": "e28b4d80b82a8b0c70b24b4abaac90477b5cbfb44da65972532f480e0e3dd6c7",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_7.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_8.png": {
+      "bytes": 2609,
+      "sha256": "57b5c8aa2d70ec1048831076f9124caded397a0efcf0abda51a4d33bf2fbce73",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_8.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_9.png": {
+      "bytes": 2623,
+      "sha256": "708e282ec9ca659991c2aa4ff94be34b255fa55b6db4c158e5f8edec4bbaef76",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_9.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_10.png": {
+      "bytes": 2968,
+      "sha256": "921c71046f71952bce699b6990a8fc4d29abbf6dd733b7c3c3318194e1c65cb3",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_10.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_11.png": {
+      "bytes": 2849,
+      "sha256": "712cbea4de0ce94f8827058e2418fb2051a8061ddbb71e64443d35974dc0e460",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_11.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_12.png": {
+      "bytes": 2530,
+      "sha256": "3c86086622f1ca3f2527aeed46db671514d097d90184b843a533a4979e7484f8",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_12.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_13.png": {
+      "bytes": 2949,
+      "sha256": "9565531f2e0630c64305fbc1a5a83798960660319b0155a86a1a5f0180993413",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_13.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_14.png": {
+      "bytes": 2476,
+      "sha256": "b82e5478fcad5dd1b48eb8687977d59539d76e6cc4982ffef5a952f12d453aeb",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_14.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_15.png": {
+      "bytes": 2427,
+      "sha256": "8e36a1d58da9a7b48de1be4946266f8d6142c70f96cf92013da5eda1b5597f89",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_15.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_16.png": {
+      "bytes": 2280,
+      "sha256": "4070a78bf49586c599b2d098f00bf75ab962ba8fcc1397dbec86ca9661a0694e",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_16.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_17.png": {
+      "bytes": 3638,
+      "sha256": "dfd548488bf573595f9c0528945b90cc694816187c6eb82717ea04769bcc8f19",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_17.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_18.png": {
+      "bytes": 3567,
+      "sha256": "b88c14d628abe2ac6b740a2487b5ac1e83709b291cbdb3860e6fcd26f89d6f64",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_18.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_19.png": {
+      "bytes": 3541,
+      "sha256": "e476a5114b909cf2e256b886e3834507a4a9216ea4ecb90d1ec2a2d557448254",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_19.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_20.png": {
+      "bytes": 4388,
+      "sha256": "deb7409b5b5adf7e06f143d51a7ad43df8a07fce46268bfe21b7dd6785d5bbc0",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_20.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_21.png": {
+      "bytes": 4600,
+      "sha256": "20ae484e1fe91b8064c4a3718713aca6af465edc3efc4e2ff104fe62c2705968",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_21.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_22.png": {
+      "bytes": 2957,
+      "sha256": "c5458cbfed3e5f3fd10004b6a7ca88e8e939bb5db0925d29d283c35d36e16715",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_22.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_23.png": {
+      "bytes": 2424,
+      "sha256": "507f69d83bbc60923cd2bbe5f7dac89bfc05f324957c40a400c8a860f1e19398",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_23.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20010_pixel_24.png": {
+      "bytes": 2543,
+      "sha256": "e8ac9d605ef406b98cf67de9f6ac7856102dc19cac63efe98e356da4d3cda017",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20010_pixel_24.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_0.png": {
+      "bytes": 2441,
+      "sha256": "cf2ee83f4d70d1621f7b697b21fdd7c863385ff14af77c50da2379db239aa476",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_0.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_1.png": {
+      "bytes": 2566,
+      "sha256": "2ba72b91aef63bbeb50b54be44f1f5fdef24a950b2892dba62ccd17571bfb96a",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_1.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_2.png": {
+      "bytes": 2411,
+      "sha256": "72b65c5c3bda4966dde912e2f241f42bff4b5a33a1ad44c57d329dad4d084a5b",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_2.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_3.png": {
+      "bytes": 2472,
+      "sha256": "2d22f53bde341a6c3ef3998e6b6b6bc58a756ae5cdd16e1489fc57fda5b8a0c7",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_3.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_4.png": {
+      "bytes": 2404,
+      "sha256": "cde08f5417d851985f7a2fc4601b01bdde84cf4fb10559fb4fd5b7557434c3e7",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_4.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_5.png": {
+      "bytes": 2321,
+      "sha256": "19644c4d3b5cd9764dcffc2cfae2ffa32d903e298ca690bac548bab76bc3486b",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_5.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_6.png": {
+      "bytes": 2457,
+      "sha256": "14fc1338453406f2012ea41afddade7e31754e42438fe3a6861d7daa79fd801c",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_6.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_7.png": {
+      "bytes": 2413,
+      "sha256": "70bec0858840a64154f047e3a038e7a1f7bc78b7aa83e71af29dae6fad02e491",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_7.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_8.png": {
+      "bytes": 2359,
+      "sha256": "7ee0815c10ef8fccf4b66a98af1e3e3394e79c63279103c7ee16d13ec41f5752",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_8.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_9.png": {
+      "bytes": 2451,
+      "sha256": "ecd8839dd81b1a303c4502f63e44aae043114623eafe77ffd4b0071f5ad07a25",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_9.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_10.png": {
+      "bytes": 2578,
+      "sha256": "65b3580534439b318b733efe86c8156bbe23b83743d4d7cf818bb59adea11514",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_10.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_11.png": {
+      "bytes": 2360,
+      "sha256": "c785be1dfa5c9e076e92f3e496a0cc1ced191f295e2f21d65376a53303ca65fe",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_11.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_12.png": {
+      "bytes": 2277,
+      "sha256": "b484ab0f27c89e423327f522093869bc3b95ee87cd953e9ac94b028811e05623",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_12.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_13.png": {
+      "bytes": 2311,
+      "sha256": "58392fecc05d82faa38b1191d9ba604f28f6d47bba9d34e080090ed6e571e98f",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_13.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_14.png": {
+      "bytes": 2416,
+      "sha256": "3bbed051a821f6cd35a647185501e29b3150bb9a4b8f25396232067bb10c56ce",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_14.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_15.png": {
+      "bytes": 2348,
+      "sha256": "7433c25fd9939cc057d3157c2c38fc0748a6039e95e991cf2005ae7f82518ebc",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_15.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_16.png": {
+      "bytes": 2263,
+      "sha256": "c562c8c0512f23832d3e7d196bcfd4c858ff110b9fae8ea53069fefd4786aece",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_16.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_17.png": {
+      "bytes": 2361,
+      "sha256": "9243b078e9e71efb3f5975d06959267ab87c6eb6ebee3e63dec1c7023642b991",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_17.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_18.png": {
+      "bytes": 2131,
+      "sha256": "55f3370108bfd67d18945e5dcd79e737b40f491a24a7608ca8e9744c8fc80f03",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_18.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_19.png": {
+      "bytes": 2257,
+      "sha256": "98be80cb086a8b3432384afc58c63ea0c8582323ad69a57288d3f13ba7580493",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_19.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_20.png": {
+      "bytes": 2355,
+      "sha256": "2b06b799aac1686e0d759c3d9f8860caddf639b2f845046141b88b96a12ea90a",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_20.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_21.png": {
+      "bytes": 2193,
+      "sha256": "988cdc77129cfdbc49b3f84114a8a2edc15acd0fa9524f0e5945b7017a278b0d",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_21.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_22.png": {
+      "bytes": 2399,
+      "sha256": "ac8b1b2becbeba9f2600307666b26c1dfd3c5ca680e2fdf326d7ed0ddb531a08",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_22.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_23.png": {
+      "bytes": 2459,
+      "sha256": "c00da6548cc0b3f58473028ed7c9d95a0db2f2dafa9810c8d7fb09f2aa6bd6ac",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_23.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_24.png": {
+      "bytes": 2451,
+      "sha256": "a21eddea4c52b84d414f101513b303645e24f86e61ef087fbd09d98d887a0dbc",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_24.png",
+      "provenance": "original-frame"
+    },
+    "units/battlespine_20302_pixel_25.png": {
+      "bytes": 2451,
+      "sha256": "4f2d879381f90af88b74433b7eca1e47c32088cc3e779e6299de6fb20c620981",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/battlespine_20302_pixel_25.png",
+      "provenance": "original-frame"
+    },
+    "units/minigamespine_zhalan_pixel.png": {
+      "bytes": 6247,
+      "sha256": "30e2b41d0bdd515a43df8e9fbba511ee21992a1e1cb3492b098fe5aaa6351eb4",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_zhalan_pixel.png",
+      "provenance": "original-wall"
+    },
+    "effects/MiniGame022_bullet1.png": {
+      "bytes": 1081,
+      "sha256": "84612efafd2772570b792e51960f09e915efaee21552ba58d8b29359cd5558cb",
+      "source": "assets/exported/assets/art/effects/prefab/ui_prefab/minigame/minigame022/MiniGame022_bullet1.png",
+      "provenance": "original-effect"
+    },
+    "effects/Minigame022_ice.png": {
+      "bytes": 37874,
+      "sha256": "5c41fc7b3cba86e8d41d555616694b47ed05fc8409859f8d0b7a5ddf377af450",
+      "source": "assets/exported/assets/art/effects/prefab/ui_prefab/minigame/minigame022/Minigame022_ice.png",
+      "provenance": "original-effect"
+    },
+    "effects/Minigame022_guangqiu.png": {
+      "bytes": 9285,
+      "sha256": "611ed5e9adbc8ff6d106f88da3f6b9e3b6ba429fbe0238ceb3e74967ef212641",
+      "source": "assets/exported/assets/art/effects/prefab/ui_prefab/minigame/minigame022/Minigame022_guangqiu.png",
+      "provenance": "original-effect"
+    },
+    "effects/Minigame022_guangzhu.png": {
+      "bytes": 1346,
+      "sha256": "c1676e636313ee5d42e9bc5dce9d7a30aed7ae8518600b84560da18b01838baf",
+      "source": "assets/exported/assets/art/effects/prefab/ui_prefab/minigame/minigame022/Minigame022_guangzhu.png",
+      "provenance": "original-effect"
+    },
+    "effects/Minigame022_liuxue.png": {
+      "bytes": 3876,
+      "sha256": "e6a4b3cda5cb6eac218238b4e7001074ca6ef7cc835dba634e854ea0d51f975d",
+      "source": "assets/exported/assets/art/effects/prefab/ui_prefab/minigame/minigame022/Minigame022_liuxue.png",
+      "provenance": "original-effect"
+    },
+    "audio/01_MiniGame022_10000104_hit.wav": {
+      "bytes": 97590,
+      "sha256": "45857339a502864bd0b33473bf33e6201f06f31599dc97a36683b2b0aadde484",
+      "source": "assets/audio/minigame022/01_MiniGame022_10000104_hit.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/02_MiniGame022_20010_wh_r2.wav": {
+      "bytes": 33644,
+      "sha256": "a7ca12257b9f0044d31fafda23c1d7ee7d844fe449478484dd996a6dda55cf67",
+      "source": "assets/audio/minigame022/02_MiniGame022_20010_wh_r2.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/03_MiniGame022_10000198_wh.wav": {
+      "bytes": 173418,
+      "sha256": "e68959f63e4c24aee804e918bec5dc9bf5c19e05b2f5df553395a255928de4b8",
+      "source": "assets/audio/minigame022/03_MiniGame022_10000198_wh.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/04_MiniGame022_20010_hit_r1.wav": {
+      "bytes": 26926,
+      "sha256": "1e09f9348a671ce6ebc2435a606b9bd41aeb6c5acaef888caab1b904189dc5e9",
+      "source": "assets/audio/minigame022/04_MiniGame022_20010_hit_r1.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/05_MiniGame022_20302_wh.wav": {
+      "bytes": 11442,
+      "sha256": "2f46aa12cd33ae62c0d63bc3c8678aff8cf6d878bd632bad9cc8f4d01a0816b4",
+      "source": "assets/audio/minigame022/05_MiniGame022_20302_wh.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/06_MiniGame022_20506_hit.wav": {
+      "bytes": 11620,
+      "sha256": "87e4e45c9614b085b959894064cc27d8532f23d7afb926b57855dcbf866eb647",
+      "source": "assets/audio/minigame022/06_MiniGame022_20506_hit.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/07_MiniGame022_20011_wh.wav": {
+      "bytes": 37898,
+      "sha256": "05e1732658f3b0be3253d77919e1a4de72b17007714af73f5cba5c8fc88129cd",
+      "source": "assets/audio/minigame022/07_MiniGame022_20011_wh.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/08_MiniGame022_10000104_beidong_r3.wav": {
+      "bytes": 35764,
+      "sha256": "c90f9a111da98492cda0779cd846ea93fd34b29612f02f07473a8141c19f0f2b",
+      "source": "assets/audio/minigame022/08_MiniGame022_10000104_beidong_r3.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/09_MiniGame022_10000198_beidong.wav": {
+      "bytes": 184360,
+      "sha256": "d4a24bf8cd511c0b13fdb3b644c827a1be3238966e5a05f853796e2cf37e5a58",
+      "source": "assets/audio/minigame022/09_MiniGame022_10000198_beidong.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/10_MiniGame022_10000104_beidong_r2.wav": {
+      "bytes": 43814,
+      "sha256": "62369ce70c464d50f2b06596fea1dcf8aed6d88638ef385920334d0aed526afd",
+      "source": "assets/audio/minigame022/10_MiniGame022_10000104_beidong_r2.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/11_MiniGame022_10000118_wh.wav": {
+      "bytes": 73036,
+      "sha256": "1de8ec2161d23e25adab365bbff98b1c13804e2fa453174a73a91797bd513a7a",
+      "source": "assets/audio/minigame022/11_MiniGame022_10000118_wh.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/12_MiniGame022_10000104_beidong_r1.wav": {
+      "bytes": 45308,
+      "sha256": "6045a26c45115faa9256cca36fe1fd24ed11259fe8e31bb440f9d9be502e0336",
+      "source": "assets/audio/minigame022/12_MiniGame022_10000104_beidong_r1.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/13_MiniGame022_20411_hit.wav": {
+      "bytes": 73888,
+      "sha256": "bbc736bcb772b48fd6516dc115cb01f6c3ab71af309cdb4aba93565c6963478f",
+      "source": "assets/audio/minigame022/13_MiniGame022_20411_hit.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/14_MiniGame022_20108_wh.wav": {
+      "bytes": 95894,
+      "sha256": "d8a97c64d9cd32c1da824674db7514a841ac2a8bb23ab1d55a7e4228a746fa28",
+      "source": "assets/audio/minigame022/14_MiniGame022_20108_wh.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/15_MiniGame022_10000104_wh.wav": {
+      "bytes": 105994,
+      "sha256": "305d72b1854489ba4e66cc70cbba7a1ce94b9d8f4e40c2eb1def2f74d1b67773",
+      "source": "assets/audio/minigame022/15_MiniGame022_10000104_wh.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/16_MiniGame022_10000101_wh.wav": {
+      "bytes": 52728,
+      "sha256": "950fa57627bbd44a94242c5f73e88311debb2571d18eec67cd4f9a4bc90a8911",
+      "source": "assets/audio/minigame022/16_MiniGame022_10000101_wh.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/17_MiniGame022_20108_hit.wav": {
+      "bytes": 83108,
+      "sha256": "8d7d5cca56aeadb5004a5f681f97752ac2f370c493f7af7db76e2d5d9d7ee809",
+      "source": "assets/audio/minigame022/17_MiniGame022_20108_hit.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/18_MiniGame022_20306_wh.wav": {
+      "bytes": 34494,
+      "sha256": "1b827265fd0016f5dc22cebe58ca851ece69dcdca413135895484674ae9a44a7",
+      "source": "assets/audio/minigame022/18_MiniGame022_20306_wh.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/19_MiniGame022_20010_wh_r3.wav": {
+      "bytes": 33644,
+      "sha256": "a6317f813a9526f1a6d48fc696741411c588292c83061b0140938a0402aa0805",
+      "source": "assets/audio/minigame022/19_MiniGame022_20010_wh_r3.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/20_MiniGame022_10000118_tianfu.wav": {
+      "bytes": 573800,
+      "sha256": "d36ef8fc44ee16720dfc67944e0fde998018708153d2baabee7faf1823f0d632",
+      "source": "assets/audio/minigame022/20_MiniGame022_10000118_tianfu.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/21_MiniGame022_10000134_beidong.wav": {
+      "bytes": 364130,
+      "sha256": "48c4a8ee70ce6b5eaa52b450218e9c4bb08d9a0d4ad49ef305b47711258ac59a",
+      "source": "assets/audio/minigame022/21_MiniGame022_10000134_beidong.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/22_MiniGame022_10000134_wh.wav": {
+      "bytes": 105994,
+      "sha256": "098f89107c8fe3a4cac348e28aa4ebd2af32cd69f1296d40a6cb776655ca0ea1",
+      "source": "assets/audio/minigame022/22_MiniGame022_10000134_wh.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/23_MiniGame022_20506_wh.wav": {
+      "bytes": 39534,
+      "sha256": "bc2ca8f816ec08728d926d22a412f5ae8ed6556a93ed92afd58a7aa8b1e03e10",
+      "source": "assets/audio/minigame022/23_MiniGame022_20506_wh.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/24_MiniGame022_10000134_tianfu_hit_r3.wav": {
+      "bytes": 49484,
+      "sha256": "0d7ad74da0d93fde3c0efd7b20d58d210b737ac49e3c51f3e6c067d3dbc5d329",
+      "source": "assets/audio/minigame022/24_MiniGame022_10000134_tianfu_hit_r3.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/25_MiniGame022_20411_wh.wav": {
+      "bytes": 77130,
+      "sha256": "8faf0a87c4379a43830345f021235a14cdc1446044ed5444d4032c59612c86fe",
+      "source": "assets/audio/minigame022/25_MiniGame022_20411_wh.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/26_MiniGame022_10000118_beidong.wav": {
+      "bytes": 75018,
+      "sha256": "42cb66f577c1c0be344e46aec9f16c32d026e20cc9bcfb80e89f44a9200f0c99",
+      "source": "assets/audio/minigame022/26_MiniGame022_10000118_beidong.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/27_MiniGame022_10000198_hit.wav": {
+      "bytes": 113222,
+      "sha256": "ecd5adad79a22b1b0c6aca1796b91f54e560291576a42c667aa1510831b89acf",
+      "source": "assets/audio/minigame022/27_MiniGame022_10000198_hit.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/28_MiniGame022_10000198_tianfu_1.wav": {
+      "bytes": 113238,
+      "sha256": "59b291ef6e62c4eaa5f8cb8e13a1974b85df996da01da4bb0dd2afd62a3a6abc",
+      "source": "assets/audio/minigame022/28_MiniGame022_10000198_tianfu_1.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/29_MiniGame022_20011_hit.wav": {
+      "bytes": 19174,
+      "sha256": "dab14e7eb90365f30a48557ca981fcf5794381dbc7a7b8c1be0f8f7855e9261f",
+      "source": "assets/audio/minigame022/29_MiniGame022_20011_hit.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/30_MiniGame022_20302_hit.wav": {
+      "bytes": 19764,
+      "sha256": "29d84ed6bd1fab5e866b6ba207cf6389be11f422c04e31fdcda265e2c07e1c18",
+      "source": "assets/audio/minigame022/30_MiniGame022_20302_hit.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/31_MiniGame022_10000101_hit.wav": {
+      "bytes": 31258,
+      "sha256": "a3bacd1d1de692a2800855d47fc2f4edb8dff80b0ee7906a82b81e2476102f64",
+      "source": "assets/audio/minigame022/31_MiniGame022_10000101_hit.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/32_MiniGame022_10000134_tianfu_hit_r2.wav": {
+      "bytes": 49484,
+      "sha256": "a550dfa90cbaf5b0cd40c403c0a977fe5a080dc69a8d6c326fa580b0ff26a652",
+      "source": "assets/audio/minigame022/32_MiniGame022_10000134_tianfu_hit_r2.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/33_MiniGame022_20010_hit_r3.wav": {
+      "bytes": 26926,
+      "sha256": "2268d75508b5842f6e148fef31d54585bd847dc1b17df9ceca2e6d97be39db07",
+      "source": "assets/audio/minigame022/33_MiniGame022_20010_hit_r3.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/34_MiniGame022_10000134_tianfu_cast.wav": {
+      "bytes": 175852,
+      "sha256": "60dc9fbe58a4a2bc0516897d5772d1d717324310c7d4d96e45e7d67ce7a37969",
+      "source": "assets/audio/minigame022/34_MiniGame022_10000134_tianfu_cast.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/35_MiniGame022_20306_hit.wav": {
+      "bytes": 44466,
+      "sha256": "e86d47f7215aa8c2a0d552a8a109de94b964b3c9601e1b705cfce579a04e5d52",
+      "source": "assets/audio/minigame022/35_MiniGame022_20306_hit.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/36_MiniGame022_20010_hit_r2.wav": {
+      "bytes": 26926,
+      "sha256": "689f4e737465507a3fd2ac2320637a233c13227257e7f7a9a41dc6830b541451",
+      "source": "assets/audio/minigame022/36_MiniGame022_20010_hit_r2.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/37_MiniGame022_10000198_tianfu_2.wav": {
+      "bytes": 136826,
+      "sha256": "5a9d09c733b9babb3795e6f6169f1664eb26701add9116e9fd193bd00b9f3049",
+      "source": "assets/audio/minigame022/37_MiniGame022_10000198_tianfu_2.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/38_MiniGame022_10000101_beidong.wav": {
+      "bytes": 22804,
+      "sha256": "82879265c717916e3fcc43ff9a2ff62fb6745193cbc3abbd9e996e876c156d8c",
+      "source": "assets/audio/minigame022/38_MiniGame022_10000101_beidong.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/39_MiniGame022_20010_wh_r1.wav": {
+      "bytes": 33644,
+      "sha256": "18dffab43f31c10bc03356c4b02820e40ffa12b4f83dc5c39772b901b3918a40",
+      "source": "assets/audio/minigame022/39_MiniGame022_20010_wh_r1.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/40_MiniGame022_10000118_hit.wav": {
+      "bytes": 87834,
+      "sha256": "19c31f708d24b91ae5d61c7801fd428eb3f7f7d225ab218b684370464646f118",
+      "source": "assets/audio/minigame022/40_MiniGame022_10000118_hit.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/41_MiniGame022_10000134_hit.wav": {
+      "bytes": 126538,
+      "sha256": "53b6a683a574ab6cd30885317561f9f00bda4098ec145d9d291200c5e67bf9dd",
+      "source": "assets/audio/minigame022/41_MiniGame022_10000134_hit.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/42_MiniGame022_10000101_tianfu_loop.wav": {
+      "bytes": 196018,
+      "sha256": "859f8e142c8f11bd4f8c9e52b8c601fdf1839c8b85cbf7ddf9bae334cd9b4530",
+      "source": "assets/audio/minigame022/42_MiniGame022_10000101_tianfu_loop.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/43_MiniGame022_10000134_tianfu_hit_r1.wav": {
+      "bytes": 49484,
+      "sha256": "a277c8e26bc7e9a76f33e5f9b3957fcedad7f86b2a8481a3bb408cab996898c6",
+      "source": "assets/audio/minigame022/43_MiniGame022_10000134_tianfu_hit_r1.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/44_MiniGame022_10000104_tianfu_loop.wav": {
+      "bytes": 704682,
+      "sha256": "3185a2176370238049cf24db593e84bae2319dcb3c4d9f07ee2671f7be0f7aae",
+      "source": "assets/audio/minigame022/44_MiniGame022_10000104_tianfu_loop.wav",
+      "provenance": "original-sfx"
+    },
+    "audio/01_B02-R.wav": {
+      "bytes": 26051784,
+      "sha256": "09a0476560af5f34a6b0d7ae0a296394ee01701de6e42cc8253aab5d09abafcd",
+      "source": "assets/audio/bgm_b02/01_B02-R.wav",
+      "provenance": "original-bgm"
+    },
+    "audio/02_B02-O.wav": {
+      "bytes": 26051784,
+      "sha256": "a7cdbdc37baf787ada5443166f56a4c9dd06f66ebd79cf632c57286faa273a8d",
+      "source": "assets/audio/bgm_b02/02_B02-O.wav",
+      "provenance": "original-bgm"
+    }
+  }
+}

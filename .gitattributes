@@ -1,2 +1,10 @@
-# The authored replica tree is byte-pinned; never rewrite it on Windows checkout.
-packages/replica-runtime/** -text
+* text=auto
+*.lua -text
+*.json text eol=lf
+*.png binary
+*.webp binary
+*.wav binary
+*.wasm binary
+*.otf binary
+*.bytes binary
+apps/game/public/assets/** -text -whitespace

@@ -1,0 +1,314 @@
+import { GlMeshRenderer, type GlMeshTexture } from './gl-mesh';
+import type { NativeModel } from './native-world';
+import type { Point3 } from './orthographic';
+import { evaluateCurve, particleSamples, rotationAxes, type ParticleEmitter, type ParticleSample } from './particle-sampling';
+
+type Mesh = Parameters<GlMeshRenderer['createMesh']>[0];
+type Draw = Parameters<GlMeshRenderer['render']>[0][number];
+type Material = Awaited<ReturnType<GlMeshRenderer['createMaterial']>>;
+type Vec3 = [number, number, number];
+
+interface SourceLayer {
+  mesh: string;
+  material: string;
+  order: number;
+  color: number[];
+  transform: number[];
+  inverse: number[];
+  mode?: number;
+  alignment?: number;
+  lengthScale?: number;
+  velocityScale?: number;
+  sortingFudge?: number;
+  particle?: ParticleEmitter;
+  trailMaterial?: string;
+  trailMesh?: string;
+}
+
+interface EffectCamera {
+  view: number[];
+  position: number[];
+  near: number;
+  far: number;
+  fov: number;
+}
+
+interface Catalog {
+  prefabs: Record<string, SourceLayer[]>;
+  meshes: Record<string, Mesh>;
+  shaders: Record<string, { vertex: string; fragment: string }>;
+  materials: Record<string, {
+    shader: string;
+    scalars: Record<string, number>;
+    vectors: Record<string, number[]>;
+    textures: Record<string, string>;
+    blend: [source: number, destination: number];
+    cull: number;
+  }>;
+  textures: Record<string, { url: string; filter: number; wrapU: number; wrapV: number }>;
+  cameras: Record<string, EffectCamera>;
+}
+
+interface Layer { order: number; depth: number; additive: boolean; command: Draw }
+interface MatrixPose { pose: ArrayLike<number>; inverse: ArrayLike<number> }
+interface PositionHistory { age: number; position: Point3 }
+
+const boulderPath = '/minigame022_10000134_skill3_bullet.prefab';
+const root = () => new URL('assets/effects/', document.baseURI);
+const wrap = ['repeat','clamp','mirror','mirror'] as const;
+// Unity BlendMode values correspond to the original GLES material pass state.
+const blend = [0, 1, 0x0306, 0x0300, 0x0307, 0x0302, 0x0301, 0x0304, 0x0305, 0x0308, 0x0303] as const;
+const battleProjection = [750 / (5 * 1334),0,0,0, 0,1/5,0,0, 0,0,0.002,0, 0,0,-0.8,1];
+const battleCamera = [0,0,-100];
+const origin: Vec3 = [0,0,0];
+let library: Promise<Catalog> | undefined;
+
+function loadCatalog(): Promise<Catalog> {
+  library ??= fetch(new URL('mesh-effects.json', root())).then(response => {
+    if (!response.ok) throw new Error('无法读取原生特效材质与网格');
+    return response.json() as Promise<Catalog>;
+  }).catch(error => {
+    library = undefined;
+    throw error;
+  });
+  return library;
+}
+
+function multiply(a: ArrayLike<number>, b: ArrayLike<number>): Float32Array {
+  const out = new Float32Array(16);
+  for (let column = 0; column < 4; column++) {
+    for (let row = 0; row < 4; row++) {
+      let value = 0;
+      for (let k = 0; k < 4; k++) value += a[k * 4 + row]! * b[column * 4 + k]!;
+      out[column * 4 + row] = value;
+    }
+  }
+  return out;
+}
+
+function projection(source: EffectCamera, width: number, height: number) {
+  const f = 1 / Math.tan(source.fov * Math.PI / 360);
+  const distance = source.far - source.near;
+  // Unity's camera looks along local +Z. WebGL clip depth maps near/far to [-1,1].
+  const perspective = [f * height / width,0,0,0, 0,f,0,0, 0,0,(source.far+source.near)/distance,1,
+    0,0,-2*source.far*source.near/distance,0];
+  return multiply(perspective, source.view);
+}
+
+function transform(position: Vec3, scale: Vec3, rotation: Vec3): MatrixPose {
+  const [x,y,z] = position;
+  const [sx,sy,sz] = scale;
+  const [axisX,axisY,axisZ] = rotationAxes(rotation);
+  const pose = [axisX[0]*sx,axisX[1]*sx,axisX[2]*sx,0,
+    axisY[0]*sy,axisY[1]*sy,axisY[2]*sy,0, axisZ[0]*sz,axisZ[1]*sz,axisZ[2]*sz,0, x,y,z,1];
+  const inverse = [axisX[0]/sx,axisY[0]/sy,axisZ[0]/sz,0, axisX[1]/sx,axisY[1]/sy,axisZ[1]/sz,0,
+    axisX[2]/sx,axisY[2]/sy,axisZ[2]/sz,0,
+    -(x*axisX[0]+y*axisX[1]+z*axisX[2])/sx, -(x*axisY[0]+y*axisY[1]+z*axisY[2])/sy,
+    -(x*axisZ[0]+y*axisZ[1]+z*axisZ[2])/sz,1];
+  return { pose, inverse };
+}
+
+function applyPoint(matrix: ArrayLike<number>, [x,y,z]: Vec3): Vec3 {
+  return [
+    matrix[0]!*x + matrix[4]!*y + matrix[8]!*z + matrix[12]!,
+    matrix[1]!*x + matrix[5]!*y + matrix[9]!*z + matrix[13]!,
+    matrix[2]!*x + matrix[6]!*y + matrix[10]!*z + matrix[14]!,
+  ];
+}
+
+function translate(matrix: Float32Array, delta: Vec3) {
+  for (let i = 0; i < 3; i++) matrix[12 + i] = matrix[12 + i]! + delta[i]!;
+}
+
+function positionBehind(history: PositionHistory[], age: number): Point3 {
+  const after = history.findIndex(({ age: stored }) => stored > age);
+  if (after === -1) return history.at(-1)!.position;
+  if (after === 0) return history[0]!.position;
+  const prev = history[after - 1]!, next = history[after]!;
+  const ratio = (age - prev.age) / (next.age - prev.age);
+  return { x: prev.position.x + (next.position.x - prev.position.x) * ratio,
+    y: prev.position.y + (next.position.y - prev.position.y) * ratio,
+    z: prev.position.z + (next.position.z - prev.position.z) * ratio };
+}
+
+function drawPose(layer: SourceLayer, world: MatrixPose, sample: ParticleSample, delta: Vec3): MatrixPose {
+  const worldPosition = applyPoint(world.pose, sample.position);
+  for (let i = 0; i < 3; i++) worldPosition[i] = worldPosition[i]! + delta[i]!;
+  if (layer.alignment === 0 && layer.mode !== 4) {
+    const lengths = [0,4,8].map(i => Math.hypot(world.pose[i]!, world.pose[i+1]!, world.pose[i+2]!) || 1);
+    const size = sample.size.map((value, i) => value * lengths[i]!) as Vec3;
+    const rotation: Vec3 = [...sample.rotation];
+    if (layer.mode === 1) {
+      const ahead = applyPoint(world.pose, sample.position.map((x, i) => x + sample.velocity[i]!) as Vec3);
+      const dx = ahead[0] - (worldPosition[0] - delta[0]), dy = ahead[1] - (worldPosition[1] - delta[1]);
+      size[1] *= Math.max(1, layer.lengthScale ?? 1) + Math.hypot(dx, dy) * (layer.velocityScale ?? 0);
+      if (dx || dy) rotation[2] += Math.atan2(dy, dx) - Math.PI / 2;
+    }
+    return transform(worldPosition, size, rotation);
+  }
+  const local = transform(sample.position, sample.size, sample.rotation);
+  const pose = multiply(world.pose, local.pose);
+  translate(pose, delta);
+  const inverse = multiply(local.inverse, world.inverse);
+  const translation = applyPoint(inverse, delta);
+  for (let i = 0; i < 3; i++) inverse[12 + i] = 2 * inverse[12 + i]! - translation[i]!;
+  return { pose, inverse };
+}
+
+export class MeshProjectiles {
+  private readonly canvas = document.createElement('canvas');
+  private readonly renderer: GlMeshRenderer;
+  private readonly meshes = new Map<string, ReturnType<GlMeshRenderer['createMesh']>>();
+  private readonly materials = new Map<string, Material>();
+  private readonly additive = new Set<string>();
+  private readonly history = new Map<number, PositionHistory[]>();
+  private prefabs: Catalog['prefabs'] = {};
+  private cameras: Catalog['cameras'] = {};
+  readonly ready: Promise<void>;
+
+  constructor(width: number, height: number, group: 'battle' | 'loading' = 'battle') {
+    this.canvas.width = width;
+    this.canvas.height = height;
+    this.renderer = new GlMeshRenderer(this.canvas, true);
+    this.ready = this.load(group);
+  }
+
+  private async load(group: 'battle' | 'loading'): Promise<void> {
+    const catalog = await loadCatalog();
+    const entries = Object.entries(catalog.prefabs).filter(([path]) => (path in catalog.cameras) === (group === 'loading'));
+    const layers = entries.flatMap(([, layers]) => layers);
+    const meshes = new Set(layers.flatMap(layer => layer.trailMesh ? [layer.mesh, layer.trailMesh] : [layer.mesh]));
+    const materialKeys = new Set(layers.flatMap(layer => layer.trailMaterial ? [layer.material, layer.trailMaterial] : [layer.material]));
+    for (const key of meshes) {
+      const mesh = catalog.meshes[key]!;
+      const vertices = mesh.vertices.length / 3;
+      const zero = new Float32Array(vertices * 4);
+      this.meshes.set(key, this.renderer.createMesh({
+        ...mesh, ...(mesh.normals?.length ? { normals: mesh.normals } : { normals: new Float32Array(vertices * 3) }),
+        ...(mesh.uv0?.length ? { uv0: mesh.uv0 } : { uv0: new Float32Array(vertices * 2) }),
+        uv1: mesh.uv1?.length ? mesh.uv1 : new Float32Array(vertices * 2),
+        texcoord1: zero, texcoord2: zero,
+      }));
+    }
+    await Promise.all([...materialKeys].map(async key => {
+      const material = catalog.materials[key]!, program = catalog.shaders[material.shader]!;
+      const textures: Record<string, GlMeshTexture> = {};
+      for (const match of (program.vertex + program.fragment).matchAll(/uniform\s+(?:(?:lowp|mediump|highp)\s+)?sampler2D\s+(\w+)/g)) {
+        const name = match[1]!, id = material.textures[name]!;
+        if (id === 'white' || id === 'black') textures[name] = id;
+        else {
+          const source = catalog.textures[id];
+          if (!source) throw new Error(`原特效材质缺纹理 ${name} (${key})`);
+          textures[name] = { url: new URL(source.url, root()).href, filter: source.filter === 0 ? 'point' : 'bilinear',
+            wrapU: wrap[source.wrapU]!, wrapV: wrap[source.wrapV]! };
+        }
+      }
+      const [src, dst] = material.blend;
+      if (dst === 1) this.additive.add(key);
+      const cull = material.cull === 1 ? 'front' : material.cull === 2 ? 'back' : undefined;
+      this.materials.set(key, await this.renderer.createMaterial({
+        vertexShader: program.vertex, fragmentShader: program.fragment, textures,
+        uniforms: { _ImageExporterRenderShaderBlendMASK: 0, _WorldSpaceLightPos0: [0,0,0,0],
+          _ClipBox: [0,0,0,0], ...material.scalars, ...material.vectors },
+        blend: { src: blend[src]!, dst: blend[dst]! },
+        ...(cull ? { cull } : {}),
+      }));
+    }));
+    this.prefabs = Object.fromEntries(entries);
+    this.cameras = catalog.cameras;
+  }
+
+  private modelHistory(model: NativeModel, layers: SourceLayer[]): PositionHistory[] {
+    const age = model.age ?? 0;
+    if (model.instance === undefined || !layers.some(layer => layer.particle?.world || layer.trailMesh)) {
+      return [{ age, position: model.position }];
+    }
+    let samples = this.history.get(model.instance);
+    if (!samples || age < samples.at(-1)!.age) {
+      samples = [];
+      this.history.set(model.instance, samples);
+    }
+    const previous = samples.at(-1);
+    if (!previous || age > previous.age) samples.push({ age, position: model.position });
+    while (samples.length > 2 && samples[1]!.age < age - 5) samples.shift();
+    return samples;
+  }
+
+  layers(models: NativeModel[], seconds: number): Layer[] {
+    const draws: Layer[] = [];
+    const live = new Set<number>();
+    for (const model of models) {
+      const layers = this.prefabs[model.path];
+      if (!layers) continue;
+      if (model.instance !== undefined) live.add(model.instance);
+      const { x: sx, y: sy, z: sz } = model.scale;
+      if (!sx || !sy || !sz) continue;
+      const angle = model.right ? Math.atan2(model.right.y, model.right.x) : 0;
+      const { x,y,z } = model.position;
+      const base = transform([x,y,z], [sx,sy,sz], [0,0,angle]);
+      const sourceCamera = this.cameras[model.path];
+      const viewProjection = sourceCamera ? projection(sourceCamera, this.canvas.width, this.canvas.height) : battleProjection;
+      const cameraPosition = sourceCamera?.position ?? battleCamera;
+      const history = this.modelHistory(model, layers);
+      const age = model.age ?? 0;
+      for (const [index, layer] of layers.entries()) {
+        const world = { pose: multiply(base.pose, layer.transform), inverse: multiply(layer.inverse, base.inverse) };
+        const command = (mesh: string, material: string, pose: MatrixPose, color: number[], particle?: ParticleSample) => {
+          draws.push({ order: model.order + layer.order, depth: pose.pose[14]! + (layer.sortingFudge ?? 0),
+            additive: this.additive.has(material),
+            command: { mesh: this.meshes.get(mesh)!, material: this.materials.get(material)!,
+              objectToWorld: pose.pose, worldToObject: pose.inverse, viewProjection, cameraPosition,
+              time: [seconds/20,seconds,seconds*2,seconds*3], vertexColor: color,
+              ...(particle?.uv ? { uvRect: particle.uv } : {}), ...(particle?.custom1 ? { custom1: particle.custom1 } : {}),
+            },
+          });
+        };
+        const emitter = layer.particle;
+        if (!emitter) {
+          command(layer.mesh, layer.material, world, layer.color);
+          continue;
+        }
+        const samples = particleSamples(emitter, layer.color, age, model.instance ?? 0, index, model.path.endsWith(boulderPath));
+        for (const sample of samples) {
+          if (!sample.size.every(value => value > 0) || !sample.color[3]) continue;
+          const old = emitter.world ? positionBehind(history, sample.emittedAt) : model.position;
+          const delta: Vec3 = [old.x - x, old.y - y, old.z - z];
+          if (layer.mode !== 5) command(layer.mesh, layer.material, drawPose(layer, world, sample, delta), sample.color, sample);
+          if (!emitter.trail || !layer.trailMesh || !layer.trailMaterial) continue;
+          const duration = evaluateCurve(emitter.trail.life, 0);
+          const back = positionBehind(history, age - duration);
+          const dx = x - back.x, dy = y - back.y;
+          const distance = Math.hypot(dx, dy);
+          if (!distance) continue;
+          const width = Math.abs(sy) * sample.size[0] * evaluateCurve(emitter.trail.width, 0);
+          const head = applyPoint(world.pose, origin);
+          const tail = transform([head[0]-dx,head[1]-dy,head[2]], [distance,width,1], [0,0,Math.atan2(dy,dx)]);
+          command(layer.trailMesh, layer.trailMaterial, tail, sample.color);
+        }
+      }
+    }
+    for (const key of this.history.keys()) if (!live.has(key)) this.history.delete(key);
+    return draws.sort((a,b) => a.order-b.order || b.depth-a.depth);
+  }
+
+  draw(context: CanvasRenderingContext2D, layers: Layer[]): void {
+    if (!layers.length) return;
+    context.save();
+    try {
+      let start = 0;
+      while (start < layers.length) {
+        const additive = layers[start]!.additive;
+        let end = start + 1;
+        while (end < layers.length && layers[end]!.additive === additive) end++;
+        this.renderer.render(layers.slice(start, end).map(layer => layer.command));
+        context.globalCompositeOperation = additive ? 'lighter' : 'source-over';
+        context.drawImage(this.canvas,0,0);
+        start = end;
+      }
+    } finally {
+      context.restore();
+    }
+  }
+
+  dispose(): void { this.renderer.dispose(); }
+}

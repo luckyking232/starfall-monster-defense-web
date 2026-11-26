@@ -1,0 +1,1259 @@
+[
+  {
+    "id": 78010110,
+    "name": "潮汐冲击",
+    "des": "发射一道水波，对魔物造成100%%当前攻击力的伤害。",
+    "icon": "ActivityDungeon1017Battle:Skill_10018_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10018_1",
+    "type": 1,
+    "card_id": 78000101,
+    "damage_rate": 10000,
+    "bullet_speed": 750,
+    "level_max": 1,
+    "total_f": 23,
+    "hurt_point": 12,
+    "effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000118_skill1.prefab",
+    "bullet_effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000118_skill1_bullet.prefab",
+    "bullet_scale": 10000,
+    "bullet_size": 20
+  },
+  {
+    "id": 78010111,
+    "name": "潮汐增幅",
+    "des": "安妮斯基础攻击力+30%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10018_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10018_1",
+    "type": 11,
+    "card_id": 78000101,
+    "target_type": 3001,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040101:3001:10000"
+    ],
+    "appear_pre": [
+      78010110
+    ],
+    "appear_round": 1,
+    "level_max": -1,
+    "appear_prob": 10
+  },
+  {
+    "id": 78010112,
+    "name": "潮汐穿透",
+    "des": "水波穿透目标数量+1。",
+    "icon": "ActivityDungeon1017Battle:Skill_10018_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10018_1",
+    "type": 11,
+    "card_id": 78000101,
+    "target_type": 3001,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040102:3001:10000"
+    ],
+    "appear_pre": [
+      78010110
+    ],
+    "appear_round": 1,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010113,
+    "name": "潮汐禁锢",
+    "des": "水波命中魔物，会使魔物基础移动速度降低50%%，持续10秒，最大可以叠加1层。",
+    "icon": "ActivityDungeon1017Battle:Skill_10018_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10018_1",
+    "type": 11,
+    "card_id": 78000101,
+    "target_type": 3001,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040103:3001:10000"
+    ],
+    "appear_pre": [
+      78010110
+    ],
+    "appear_round": 2,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010120,
+    "name": "裂波术",
+    "des": "水波命中后分裂出2个小水波，单个小水波对魔物造成50%%当前攻击力的伤害",
+    "icon": "ActivityDungeon1017Battle:Skill_10018_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10018_2",
+    "type": 2,
+    "card_id": 78000101,
+    "damage_rate": 5000,
+    "bullet_speed": 750,
+    "active_buff_list": [
+      "78040111:3001:10000"
+    ],
+    "appear_round": 2,
+    "level_max": 1,
+    "appear_prob": 100,
+    "bullet_effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000118_skill2_bullet.prefab",
+    "bullet_scale": 5000,
+    "bullet_size": 20
+  },
+  {
+    "id": 78010121,
+    "name": "潮汐增幅",
+    "des": "小水波穿透目标数量+1。",
+    "icon": "ActivityDungeon1017Battle:Skill_10018_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10018_2",
+    "type": 12,
+    "card_id": 78000101,
+    "target_type": 3001,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040112:3001:10000"
+    ],
+    "appear_pre": [
+      78010120
+    ],
+    "appear_round": 3,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010122,
+    "name": "潮汐穿透",
+    "des": "小水波分裂数量+1。",
+    "icon": "ActivityDungeon1017Battle:Skill_10018_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10018_2",
+    "type": 12,
+    "card_id": 78000101,
+    "target_type": 3001,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040113:3001:10000"
+    ],
+    "appear_pre": [
+      78010120
+    ],
+    "appear_round": 3,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010123,
+    "name": "潮汐禁锢",
+    "des": "小水波命中魔物，会使魔物基础移动速度降低50%%，持续10秒，最大可以叠加1层。",
+    "icon": "ActivityDungeon1017Battle:Skill_10018_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10018_2",
+    "type": 12,
+    "card_id": 78000101,
+    "target_type": 3001,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040114:3001:10000"
+    ],
+    "appear_pre": [
+      78010120
+    ],
+    "appear_round": 4,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010130,
+    "name": "冰封永冻",
+    "des": "召唤一片半径为40的圆形冰冻区域，对区域内的魔物造成300%%当前攻击力的伤害，并使受到攻击的敌方目标陷入冰冻状态，持续5秒。",
+    "icon": "ActivityDungeon1017Battle:Skill_10018_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10018_3",
+    "type": 3,
+    "card_id": 78000101,
+    "trigger_condition": [
+      1001
+    ],
+    "trigger_cd": 180,
+    "target_type": 2001,
+    "damage_rate": 30000,
+    "buff_list": [
+      "78040121:1000:10000"
+    ],
+    "range_type": 1,
+    "range_x": 40,
+    "range_y": 40,
+    "appear_round": 4,
+    "level_max": 1,
+    "appear_prob": 300,
+    "effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000118_skill3.prefab"
+  },
+  {
+    "id": 78010131,
+    "name": "冰封爆破",
+    "des": "冰冻区域造成的伤害+50%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10018_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10018_3",
+    "type": 13,
+    "card_id": 78000101,
+    "target_type": 3001,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040122:3001:10000"
+    ],
+    "appear_pre": [
+      78010130
+    ],
+    "appear_round": 5,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010132,
+    "name": "冰封领域",
+    "des": "冰冻范围半径+40。",
+    "icon": "ActivityDungeon1017Battle:Skill_10018_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10018_3",
+    "type": 13,
+    "card_id": 78000101,
+    "target_type": 3001,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040123:3001:10000"
+    ],
+    "appear_pre": [
+      78010130
+    ],
+    "appear_round": 5,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010133,
+    "name": "多重冰封",
+    "des": "召唤冰冻区域数量+1。",
+    "icon": "ActivityDungeon1017Battle:Skill_10018_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10018_3",
+    "type": 13,
+    "card_id": 78000101,
+    "target_type": 3001,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040124:3001:10000"
+    ],
+    "appear_pre": [
+      78010130
+    ],
+    "appear_round": 6,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010210,
+    "name": "剑岚斩",
+    "des": "发射一道剑气，对魔物造成100%%当前攻击力的伤害。",
+    "icon": "ActivityDungeon1017Battle:Skill_10034_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10034_1",
+    "type": 1,
+    "card_id": 78000102,
+    "damage_rate": 10000,
+    "bullet_speed": 500,
+    "level_max": 1,
+    "total_f": 23,
+    "hurt_point": 12,
+    "effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000134_skill1.prefab",
+    "bullet_effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000134_skill1_bullet.prefab",
+    "bullet_scale": 10000,
+    "bullet_size": 20
+  },
+  {
+    "id": 78010211,
+    "name": "剑岚增幅",
+    "des": "蒂娜基础攻击力+30%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10034_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10034_1",
+    "type": 11,
+    "card_id": 78000102,
+    "target_type": 3001,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040201:3001:10000"
+    ],
+    "appear_pre": [
+      78010210
+    ],
+    "appear_round": 1,
+    "level_max": -1,
+    "appear_prob": 10
+  },
+  {
+    "id": 78010212,
+    "name": "剑岚齐发",
+    "des": "剑气齐发+1。",
+    "icon": "ActivityDungeon1017Battle:Skill_10034_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10034_1",
+    "type": 11,
+    "card_id": 78000102,
+    "target_type": 3001,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040202:3001:10000"
+    ],
+    "appear_pre": [
+      78010210
+    ],
+    "appear_round": 1,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010213,
+    "name": "剑岚凝滞",
+    "des": "剑气命中魔物，会使魔物时停2秒。",
+    "icon": "ActivityDungeon1017Battle:Skill_10034_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10034_1",
+    "type": 11,
+    "card_id": 78000102,
+    "target_type": 3001,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040203:3001:10000"
+    ],
+    "appear_pre": [
+      78010210
+    ],
+    "appear_round": 2,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010220,
+    "name": "剑气毒泽",
+    "des": "剑气命中后，会形成以命中目标为中心且半径为30的圆形中毒区域，每秒对该区域内的全部魔物造成8.5%%当前攻击力的持续伤害，持续3秒。",
+    "icon": "ActivityDungeon1017Battle:Skill_10034_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10034_2",
+    "type": 2,
+    "card_id": 78000102,
+    "damage_rate": 850,
+    "active_buff_list": [
+      "78040211:3001:10000"
+    ],
+    "appear_round": 2,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010221,
+    "name": "毒泽侵蚀",
+    "des": "中毒区域造成的伤害+20%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10034_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10034_2",
+    "type": 12,
+    "card_id": 78000102,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040213:3001:10000"
+    ],
+    "appear_pre": [
+      78010220
+    ],
+    "appear_round": 3,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010222,
+    "name": "毒泽蔓延",
+    "des": "中毒范围半径+10。",
+    "icon": "ActivityDungeon1017Battle:Skill_10034_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10034_2",
+    "type": 12,
+    "card_id": 78000102,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040214:3001:10000"
+    ],
+    "appear_pre": [
+      78010220
+    ],
+    "appear_round": 3,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010223,
+    "name": "毒泽噬骨",
+    "des": "中毒持续时间+2秒。",
+    "icon": "ActivityDungeon1017Battle:Skill_10034_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10034_2",
+    "type": 12,
+    "card_id": 78000102,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040215:3001:10000"
+    ],
+    "appear_pre": [
+      78010220
+    ],
+    "appear_round": 4,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010230,
+    "name": "崩山巨岩",
+    "des": "召唤一块巨石向前碾压魔物，对被碾压的魔物造成500%%当前攻击力的伤害，并使受到攻击的魔物后退40的距离。",
+    "icon": "ActivityDungeon1017Battle:Skill_10034_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10034_3",
+    "type": 3,
+    "card_id": 78000102,
+    "trigger_condition": [
+      1001
+    ],
+    "trigger_cd": 450,
+    "damage_rate": 50000,
+    "bullet_speed": 120,
+    "active_buff_list": [
+      "78040221:3001:10000"
+    ],
+    "appear_round": 4,
+    "level_max": 1,
+    "appear_prob": 300,
+    "effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000134_skill3.prefab",
+    "bullet_effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000134_skill3_bullet.prefab",
+    "bullet_scale": 10000,
+    "bullet_size": 40
+  },
+  {
+    "id": 78010231,
+    "name": "岩巨化",
+    "des": "巨石的体积+50%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10034_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10034_3",
+    "type": 13,
+    "card_id": 78000102,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040223:3001:10000"
+    ],
+    "appear_pre": [
+      78010230
+    ],
+    "appear_round": 5,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010232,
+    "name": "岩击震退",
+    "des": "巨石击退距离+40。",
+    "icon": "ActivityDungeon1017Battle:Skill_10034_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10034_3",
+    "type": 13,
+    "card_id": 78000102,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040224:3001:10000"
+    ],
+    "appear_pre": [
+      78010230
+    ],
+    "appear_round": 5,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010233,
+    "name": "多重岩击",
+    "des": "召唤巨石数量+1。",
+    "icon": "ActivityDungeon1017Battle:Skill_10034_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10034_3",
+    "type": 13,
+    "card_id": 78000102,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040225:3001:10000"
+    ],
+    "appear_pre": [
+      78010230
+    ],
+    "appear_round": 6,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010310,
+    "name": "星焰矢",
+    "des": "发射一支无限穿透的箭矢，对魔物造成20%%当前攻击力的伤害。",
+    "icon": "ActivityDungeon1017Battle:Skill_10004_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10004_1",
+    "type": 1,
+    "card_id": 78000103,
+    "damage_rate": 2000,
+    "bullet_speed": 1000,
+    "pierce_num": 9999,
+    "level_max": 1,
+    "total_f": 20,
+    "hurt_point": 12,
+    "effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000104_skill1.prefab",
+    "bullet_effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000104_skill1_bullet.prefab",
+    "bullet_scale": 10000,
+    "bullet_size": 20
+  },
+  {
+    "id": 78010311,
+    "name": "星焰增幅",
+    "des": "尼莉莎基础攻击力+30%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10004_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10004_1",
+    "type": 11,
+    "card_id": 78000103,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040301:3001:10000"
+    ],
+    "appear_pre": [
+      78010310
+    ],
+    "appear_round": 1,
+    "level_max": -1,
+    "appear_prob": 10
+  },
+  {
+    "id": 78010312,
+    "name": "星焰暴袭",
+    "des": "箭矢造成伤害时，暴击率+25%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10004_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10004_1",
+    "type": 11,
+    "card_id": 78000103,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040302:3001:10000"
+    ],
+    "appear_pre": [
+      78010310
+    ],
+    "appear_round": 1,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010313,
+    "name": "重焰齐射",
+    "des": "箭矢齐发+1。",
+    "icon": "ActivityDungeon1017Battle:Skill_10004_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10004_1",
+    "type": 11,
+    "card_id": 78000103,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040303:3001:10000"
+    ],
+    "appear_pre": [
+      78010310
+    ],
+    "appear_round": 2,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010320,
+    "name": "炎矢分裂",
+    "des": "箭矢第一次命中魔物后分裂出1支无限穿透的小箭矢，小箭矢对魔物造成20%%当前攻击力的伤害。",
+    "icon": "ActivityDungeon1017Battle:Skill_10004_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10004_2",
+    "type": 2,
+    "card_id": 78000103,
+    "damage_rate": 2000,
+    "bullet_speed": 1000,
+    "active_buff_list": [
+      "78040311:3001:10000"
+    ],
+    "appear_round": 2,
+    "level_max": 1,
+    "appear_prob": 100,
+    "effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000104_skill2.prefab",
+    "bullet_effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000104_skill2_bullet.prefab",
+    "bullet_scale": 10000,
+    "bullet_size": 20
+  },
+  {
+    "id": 78010321,
+    "name": "炎矢强袭",
+    "des": "小箭矢造成的伤害+50%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10004_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10004_2",
+    "type": 12,
+    "card_id": 78000103,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040312:3001:10000"
+    ],
+    "appear_pre": [
+      78010320
+    ],
+    "appear_round": 3,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010322,
+    "name": "炎矢暴燃",
+    "des": "小箭矢造成伤害时，暴击率+25%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10004_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10004_2",
+    "type": 12,
+    "card_id": 78000103,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040313:3001:10000"
+    ],
+    "appear_pre": [
+      78010320
+    ],
+    "appear_round": 3,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010323,
+    "name": "炎矢无限",
+    "des": "小箭矢分裂数量+1。",
+    "icon": "ActivityDungeon1017Battle:Skill_10004_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10004_2",
+    "type": 12,
+    "card_id": 78000103,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040314:3001:10000"
+    ],
+    "appear_pre": [
+      78010320
+    ],
+    "appear_round": 4,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010330,
+    "name": "星焰波动",
+    "des": "发射一束冲击波，每秒对冲击波覆盖区域的魔物造成1600%%当前攻击力的持续伤害，持续3秒。",
+    "icon": "ActivityDungeon1017Battle:Skill_10004_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10004_3",
+    "type": 3,
+    "card_id": 78000103,
+    "trigger_condition": [
+      1001
+    ],
+    "trigger_cd": 600,
+    "damage_rate": 160000,
+    "active_buff_list": [
+      "78040321:3001:10000"
+    ],
+    "appear_round": 4,
+    "level_max": 1,
+    "appear_prob": 300
+  },
+  {
+    "id": 78010331,
+    "name": "波动增幅",
+    "des": "冲击波伤害+50%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10004_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10004_3",
+    "type": 13,
+    "card_id": 78000103,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040323:3001:10000"
+    ],
+    "appear_pre": [
+      78010330
+    ],
+    "appear_round": 5,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010332,
+    "name": "波动延烧",
+    "des": "冲击波持续时间+2秒。",
+    "icon": "ActivityDungeon1017Battle:Skill_10004_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10004_3",
+    "type": 13,
+    "card_id": 78000103,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040324:3001:10000"
+    ],
+    "appear_pre": [
+      78010330
+    ],
+    "appear_round": 5,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010333,
+    "name": "波动扩张",
+    "des": "冲击波范围+20%%。（宽度+16）",
+    "icon": "ActivityDungeon1017Battle:Skill_10004_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10004_3",
+    "type": 13,
+    "card_id": 78000103,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040325:3001:10000"
+    ],
+    "appear_pre": [
+      78010330
+    ],
+    "appear_round": 6,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010410,
+    "name": "影刃弹射",
+    "des": "发射一枚弹射5次的暗器，对魔物造成35%%当前攻击力的伤害。",
+    "icon": "ActivityDungeon1017Battle:Skill_10001_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10001_1",
+    "type": 1,
+    "card_id": 78000104,
+    "damage_rate": 3500,
+    "bullet_speed": 800,
+    "active_buff_list": [
+      "78040401:3001:10000"
+    ],
+    "level_max": 1,
+    "total_f": 23,
+    "hurt_point": 12,
+    "effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000101_skill1.prefab",
+    "bullet_effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000101_skill1_bullet.prefab",
+    "bullet_scale": 10000,
+    "bullet_size": 20
+  },
+  {
+    "id": 78010411,
+    "name": "影刃增幅",
+    "des": "菲尼斯基础攻击力+30%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10001_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10001_1",
+    "type": 11,
+    "card_id": 78000104,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040402:3001:10000"
+    ],
+    "appear_pre": [
+      78010410
+    ],
+    "appear_round": 1,
+    "level_max": -1,
+    "appear_prob": 10
+  },
+  {
+    "id": 78010412,
+    "name": "弹射增幅",
+    "des": "暗器弹射数量+3。",
+    "icon": "ActivityDungeon1017Battle:Skill_10001_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10001_1",
+    "type": 11,
+    "card_id": 78000104,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040403:3001:10000"
+    ],
+    "appear_pre": [
+      78010410
+    ],
+    "appear_round": 1,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010413,
+    "name": "连发影刃",
+    "des": "暗器连发数量+1。",
+    "icon": "ActivityDungeon1017Battle:Skill_10001_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10001_1",
+    "type": 11,
+    "card_id": 78000104,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040404:3001:10000"
+    ],
+    "appear_pre": [
+      78010410
+    ],
+    "appear_round": 2,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010420,
+    "name": "血蚀印记",
+    "des": "暗器命中魔物时，有50%%的概率会给魔物附加流血效果，每秒造成5%%当前攻击力的伤害，持续3秒。",
+    "icon": "ActivityDungeon1017Battle:Skill_10001_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10001_2",
+    "type": 2,
+    "card_id": 78000104,
+    "trigger_condition": [
+      1002
+    ],
+    "damage_rate": 3000,
+    "buff_list": [
+      "78040411:1001:5000"
+    ],
+    "appear_round": 2,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010421,
+    "name": "血蚀增幅",
+    "des": "流血造成的伤害+50%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10001_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10001_2",
+    "type": 12,
+    "card_id": 78000104,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040412:3001:10000"
+    ],
+    "appear_pre": [
+      78010420
+    ],
+    "appear_round": 3,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010422,
+    "name": "血蚀延绵",
+    "des": "流血持续时间+2秒。",
+    "icon": "ActivityDungeon1017Battle:Skill_10001_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10001_2",
+    "type": 12,
+    "card_id": 78000104,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040413:3001:10000"
+    ],
+    "appear_pre": [
+      78010420
+    ],
+    "appear_round": 3,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010423,
+    "name": "血蚀加深",
+    "des": "流血概率+50%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10001_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10001_2",
+    "type": 12,
+    "card_id": 78000104,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040414:3001:10000"
+    ],
+    "appear_pre": [
+      78010420
+    ],
+    "appear_round": 4,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010430,
+    "name": "幽影旋刃",
+    "des": "召唤一枚移动的切割暗器在战场中弹射，对区域内的魔物每秒造成400%%当前攻击力的持续伤害，持续20秒。",
+    "icon": "ActivityDungeon1017Battle:Skill_10001_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10001_3",
+    "type": 3,
+    "card_id": 78000104,
+    "trigger_condition": [
+      1001
+    ],
+    "trigger_cd": 900,
+    "damage_rate": 40000,
+    "active_buff_list": [
+      "78040421:3001:10000"
+    ],
+    "appear_round": 4,
+    "level_max": 1,
+    "appear_prob": 300
+  },
+  {
+    "id": 78010431,
+    "name": "旋刃增幅",
+    "des": "切割暗器伤害+50%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10001_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10001_3",
+    "type": 13,
+    "card_id": 78000104,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040423:3001:10000"
+    ],
+    "appear_pre": [
+      78010430
+    ],
+    "appear_round": 5,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010432,
+    "name": "旋刃扩张",
+    "des": "切割暗器半径+30。",
+    "icon": "ActivityDungeon1017Battle:Skill_10001_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10001_3",
+    "type": 13,
+    "card_id": 78000104,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040424:3001:10000"
+    ],
+    "appear_pre": [
+      78010430
+    ],
+    "appear_round": 5,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010433,
+    "name": "旋刃永续",
+    "des": "切割暗器持续时间+5秒",
+    "icon": "ActivityDungeon1017Battle:Skill_10001_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10001_3",
+    "type": 13,
+    "card_id": 78000104,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040425:3001:10000"
+    ],
+    "appear_pre": [
+      78010430
+    ],
+    "appear_round": 6,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010510,
+    "name": "剑意法球",
+    "des": "发射3个法球，对魔物造成60%%当前攻击力的伤害。",
+    "icon": "ActivityDungeon1017Battle:Skill_10098_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10098_1",
+    "type": 1,
+    "card_id": 78000105,
+    "damage_rate": 6000,
+    "bullet_speed": 700,
+    "active_buff_list": [
+      "78040501:3001:10000"
+    ],
+    "level_max": 1,
+    "total_f": 23,
+    "hurt_point": 15,
+    "effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000198_skill1.prefab",
+    "bullet_effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000198_skill1_bullet.prefab",
+    "bullet_scale": 10000,
+    "bullet_size": 20
+  },
+  {
+    "id": 78010511,
+    "name": "法球增幅",
+    "des": "列蒂西雅基础攻击力+30%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10098_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10098_1",
+    "type": 11,
+    "card_id": 78000105,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040502:3001:10000"
+    ],
+    "appear_pre": [
+      78010510
+    ],
+    "appear_round": 1,
+    "level_max": -1,
+    "appear_prob": 10
+  },
+  {
+    "id": 78010512,
+    "name": "法球齐射",
+    "des": "法球齐发数量+2。",
+    "icon": "ActivityDungeon1017Battle:Skill_10098_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10098_1",
+    "type": 11,
+    "card_id": 78000105,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040503:3001:10000"
+    ],
+    "appear_pre": [
+      78010510
+    ],
+    "appear_round": 1,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010513,
+    "name": "法球连发",
+    "des": "法球连发数量+1。",
+    "icon": "ActivityDungeon1017Battle:Skill_10098_1",
+    "icon_ui": "ActivityDungeon1017:Skill_10098_1",
+    "type": 11,
+    "card_id": 78000105,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040504:3001:10000"
+    ],
+    "appear_pre": [
+      78010510
+    ],
+    "appear_round": 2,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010520,
+    "name": "剑爆领域",
+    "des": "法球命中后，会以命中目标为中心且半径为30的圆形爆炸区域，对该区域内的全部魔物造成30%%当前攻击力的伤害。",
+    "icon": "ActivityDungeon1017Battle:Skill_10098_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10098_2",
+    "type": 2,
+    "card_id": 78000105,
+    "damage_rate": 3000,
+    "active_buff_list": [
+      "78040511:3001:10000"
+    ],
+    "range_type": 1,
+    "range_x": 30,
+    "range_y": 30,
+    "appear_round": 2,
+    "level_max": 1,
+    "appear_prob": 100,
+    "effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_10000198_skill2.prefab"
+  },
+  {
+    "id": 78010521,
+    "name": "剑爆增幅",
+    "des": "爆炸区域造成的伤害+50%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10098_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10098_2",
+    "type": 12,
+    "card_id": 78000105,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040513:3001:10000"
+    ],
+    "appear_pre": [
+      78010520
+    ],
+    "appear_round": 3,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010522,
+    "name": "剑爆扩张",
+    "des": "爆炸范围半径+10。",
+    "icon": "ActivityDungeon1017Battle:Skill_10098_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10098_2",
+    "type": 12,
+    "card_id": 78000105,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040514:3001:10000"
+    ],
+    "appear_pre": [
+      78010520
+    ],
+    "appear_round": 3,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010523,
+    "name": "剑爆震退",
+    "des": "法球命中魔物，会使受到攻击的魔物后退15的距离。（爆炸区域造成的伤害不会触发击退效果）",
+    "icon": "ActivityDungeon1017Battle:Skill_10098_2",
+    "icon_ui": "ActivityDungeon1017:Skill_10098_2",
+    "type": 12,
+    "card_id": 78000105,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040515:3001:10000"
+    ],
+    "appear_pre": [
+      78010520
+    ],
+    "appear_round": 4,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010530,
+    "name": "战意号角",
+    "des": "我方全体成员，基础攻击力+200%%，普攻间隔时间-0.2秒，持续15秒。",
+    "icon": "ActivityDungeon1017Battle:Skill_10098_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10098_3",
+    "type": 3,
+    "card_id": 78000105,
+    "trigger_condition": [
+      1001
+    ],
+    "trigger_cd": 900,
+    "damage_rate": 0,
+    "buff_list": [
+      "78040521:3004:10000",
+      "78040522:3004:10000"
+    ],
+    "appear_round": 4,
+    "level_max": 1,
+    "appear_prob": 300
+  },
+  {
+    "id": 78010531,
+    "name": "战意复苏",
+    "des": "栅栏恢复20%%生命上限的生命值。",
+    "icon": "ActivityDungeon1017Battle:Skill_10098_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10098_3",
+    "type": 13,
+    "card_id": 78000105,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040523:3003:10000"
+    ],
+    "appear_pre": [
+      78010530
+    ],
+    "appear_round": 5,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010532,
+    "name": "战意暴涨",
+    "des": "全体成员暴击率+15%%。",
+    "icon": "ActivityDungeon1017Battle:Skill_10098_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10098_3",
+    "type": 13,
+    "card_id": 78000105,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040524:3004:10000"
+    ],
+    "appear_pre": [
+      78010530
+    ],
+    "appear_round": 5,
+    "level_max": 1,
+    "appear_prob": 100
+  },
+  {
+    "id": 78010533,
+    "name": "战意疾袭",
+    "des": "全体成员普攻间隔时间-0.1秒。",
+    "icon": "ActivityDungeon1017Battle:Skill_10098_3",
+    "icon_ui": "ActivityDungeon1017:Skill_10098_3",
+    "type": 13,
+    "card_id": 78000105,
+    "damage_rate": 0,
+    "active_buff_list": [
+      "78040525:3004:10000"
+    ],
+    "appear_pre": [
+      78010530
+    ],
+    "appear_round": 6,
+    "level_max": 2,
+    "appear_prob": 100
+  },
+  {
+    "id": 78020110,
+    "type": 1,
+    "damage_rate": 10000,
+    "level_max": 1,
+    "total_f": 23,
+    "hurt_point": 12,
+    "name": "",
+    "des": ""
+  },
+  {
+    "id": 78020210,
+    "type": 1,
+    "damage_rate": 10000,
+    "level_max": 1,
+    "total_f": 20,
+    "hurt_point": 12,
+    "name": "",
+    "des": ""
+  },
+  {
+    "id": 78020310,
+    "type": 1,
+    "damage_rate": 10000,
+    "bullet_speed": 1000,
+    "level_max": 1,
+    "total_f": 24,
+    "hurt_point": 9,
+    "bullet_effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_20010_skill1_bullet.prefab",
+    "bullet_scale": 10000,
+    "bullet_size": 10,
+    "name": "",
+    "des": ""
+  },
+  {
+    "id": 78020410,
+    "type": 1,
+    "damage_rate": 10000,
+    "bullet_speed": 1000,
+    "level_max": 1,
+    "total_f": 23,
+    "hurt_point": 18,
+    "bullet_effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_20306_skill1_bullet.prefab",
+    "bullet_scale": 10000,
+    "bullet_size": 10,
+    "name": "",
+    "des": ""
+  },
+  {
+    "id": 78020510,
+    "type": 1,
+    "damage_rate": 10000,
+    "level_max": 1,
+    "total_f": 21,
+    "hurt_point": 9,
+    "name": "",
+    "des": ""
+  },
+  {
+    "id": 78020610,
+    "type": 1,
+    "damage_rate": 10000,
+    "bullet_speed": 1000,
+    "level_max": 1,
+    "total_f": 18,
+    "hurt_point": 9,
+    "bullet_effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_20108_skill1_bullet.prefab",
+    "bullet_scale": 10000,
+    "bullet_size": 10,
+    "name": "",
+    "des": ""
+  },
+  {
+    "id": 78020710,
+    "type": 1,
+    "damage_rate": 10000,
+    "bullet_speed": 1000,
+    "level_max": 1,
+    "total_f": 23,
+    "hurt_point": 12,
+    "bullet_effect": "Assets/Art/Effects/Prefab/UI_prefab/MiniGame/MiniGame022/Minigame022_20411_skill1_bullet.prefab",
+    "bullet_scale": 10000,
+    "bullet_size": 10,
+    "name": "",
+    "des": ""
+  }
+]

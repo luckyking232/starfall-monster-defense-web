@@ -1,0 +1,49 @@
+:root {
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --usable-width: calc(100vw - var(--safe-left) - var(--safe-right));
+  --usable-height: calc(100vh - var(--safe-top) - var(--safe-bottom));
+  --frame-width-limit: var(--usable-width);
+  --frame-height-limit: var(--usable-height);
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --usable-width: calc(100dvw - var(--safe-left) - var(--safe-right));
+    --usable-height: calc(100dvh - var(--safe-top) - var(--safe-bottom));
+  }
+}
+
+:root body {
+  height: 100vh;
+  height: 100dvh;
+  padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+}
+
+:root .game-frame {
+  width: min(var(--frame-width-limit), calc(var(--frame-height-limit) * 1334 / 750));
+  height: min(var(--frame-height-limit), calc(var(--frame-width-limit) * 750 / 1334));
+}
+
+@media (orientation: portrait) {
+  :root {
+    --frame-width-limit: var(--usable-height);
+    --frame-height-limit: var(--usable-width);
+  }
+
+  :root .game-frame {
+    transform: rotate(90deg);
+  }
+}
+
+/* The frame already has the design ratio. Phaser FIT sees the transformed parent rectangle. */
+.game-frame canvas[data-game-viewport-canvas] {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  touch-action: none;
+}

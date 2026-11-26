@@ -1,2 +1,0 @@
-.canonical-world-stack #stage78-hud{display:none;position:absolute;inset:0;height:100%;pointer-events:none;background:transparent}
-.canonical-world-stack[data-world-visible="true"] #stage78-hud[data-hud-visible="true"]{display:block}

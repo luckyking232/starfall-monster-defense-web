@@ -1,0 +1,971 @@
+{
+ "animations": {
+  "clips": []
+ },
+ "bundle": {
+  "cabName": "CAB-bdb2820d526c43907d3602b24730e5eb",
+  "dependencies": [
+   {
+    "hash": "26a3662067f58ef598c3266aa751de04",
+    "manifestIndex": 5193,
+    "name": "auto_effects_texture_beam_mask004_png.bundle"
+   },
+   {
+    "hash": "8da0cc713a14791e9960ebff598db393",
+    "manifestIndex": 5192,
+    "name": "auto_effects_texture_beam_png.bundle"
+   },
+   {
+    "hash": "fcb54c0ebfe8fe5d2af35834a1796dd7",
+    "manifestIndex": 2,
+    "name": "default_material_sprites_default_shadow_mat.bundle"
+   },
+   {
+    "hash": "918bc43e5b6e82751f9bc319604170d7",
+    "manifestIndex": 3,
+    "name": "shaders.bundle"
+   }
+  ],
+  "file": "5d9887f19cdf925e93311026e38d59a9.bundle",
+  "headerOffsetStripped": 32,
+  "manifestIndex": 4559,
+  "name": "minigame022_prefab_minigamespine_zhalan_pixel_prefab.bundle",
+  "originalMd5": "5d9887f19cdf925e93311026e38d59a9",
+  "originalSha256": "64ff854f697b6d960007cb467c739ef332c285f4f91e8f7d21da06c2b0bfa865",
+  "processedSha256": "79928d43f0ad42c7ba830361811ec5ec144fc4c95e700c79e8a9eb341b5d0f25",
+  "processedSizeBytes": 9944,
+  "sizeBytes": 9976
+ },
+ "conventions": {
+  "clipKeys": "decoded from m_MuscleClip.m_Clip.data streamed words; key.time is seconds from clip start, rawTime is the serialized time (-FLT_MAX sentinel clamps to startTime), spriteIndex addresses pptrCurveMapping",
+  "framePng": "byte-exact AssetStudio export of the sprite's trimmed textureRect; place it at textureRectOffset inside sprite.rect (y up), then anchor at sprite.pivot",
+  "lengthUnit": "Unity units; sprite pixels convert via sprite.pixelsToUnits",
+  "pathIds": "all Unity path ids are decimal strings (64-bit safe for JSON consumers)",
+  "spriteRect": "pixel rect inside the source texture, origin at texture bottom-left, y up",
+  "transform": "localPosition/localRotation/localScale are parent-relative, exactly as serialized"
+ },
+ "diagnostics": [],
+ "key": "minigamespine_zhalan_pixel",
+ "kind": "wall",
+ "objects": {
+  "animatorControllers": [],
+  "animators": [],
+  "gameObjects": [
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "1819464663576627069",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "model",
+    "pathId": "-9032559864788868142",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "1084887982127247577",
+      "type": "Transform"
+     },
+     {
+      "pathId": "2587227763219203177",
+      "type": "SpriteRenderer"
+     }
+    ],
+    "layer": 0,
+    "name": "minigamespine_zhalan_pixel_5",
+    "pathId": "-6110286874758283495",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "6892496228030406620",
+      "type": "Transform"
+     },
+     {
+      "pathId": "-7891191928125809354",
+      "type": "SpriteRenderer"
+     }
+    ],
+    "layer": 0,
+    "name": "minigamespine_zhalan_pixel_7",
+    "pathId": "-3853724259412125752",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "-6340766072837636414",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "minigamespine_zhalan_pixel",
+    "pathId": "-2551854468249458337",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "1482529049945143079",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "hit",
+    "pathId": "-840856459954333964",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "7165753042771381389",
+      "type": "Transform"
+     },
+     {
+      "pathId": "4074046985401463670",
+      "type": "SpriteRenderer"
+     }
+    ],
+    "layer": 0,
+    "name": "minigamespine_zhalan_pixel_2",
+    "pathId": "934109878242127206",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "-3022442028092746166",
+      "type": "Transform"
+     },
+     {
+      "pathId": "-6333886349606037185",
+      "type": "SpriteRenderer"
+     }
+    ],
+    "layer": 0,
+    "name": "minigamespine_zhalan_pixel_4",
+    "pathId": "1539519013843801854",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "4485566867546351538",
+      "type": "Transform"
+     },
+     {
+      "pathId": "-839074950087057780",
+      "type": "SpriteRenderer"
+     }
+    ],
+    "layer": 0,
+    "name": "minigamespine_zhalan_pixel_6",
+    "pathId": "3597447957361052347",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "2828690556378372810",
+      "type": "Transform"
+     },
+     {
+      "pathId": "-5386718104830124055",
+      "type": "SpriteRenderer"
+     }
+    ],
+    "layer": 0,
+    "name": "minigamespine_zhalan_pixel_8",
+    "pathId": "3774961944683471300",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "-1821874879616083794",
+      "type": "Transform"
+     }
+    ],
+    "layer": 0,
+    "name": "bullet",
+    "pathId": "4093289736644912284",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "1945088041514176548",
+      "type": "Transform"
+     },
+     {
+      "pathId": "-6443577263972575624",
+      "type": "SpriteRenderer"
+     }
+    ],
+    "layer": 0,
+    "name": "minigamespine_zhalan_pixel_3",
+    "pathId": "4216041309626490891",
+    "tag": 0
+   },
+   {
+    "active": true,
+    "components": [
+     {
+      "pathId": "-3330038064976549531",
+      "type": "Transform"
+     },
+     {
+      "pathId": "-4850957077141406730",
+      "type": "SpriteRenderer"
+     }
+    ],
+    "layer": 0,
+    "name": "minigamespine_zhalan_pixel_1",
+    "pathId": "5018796743915188101",
+    "tag": 0
+   }
+  ],
+  "spriteRenderers": [
+   {
+    "adaptiveModeThreshold": 0.5,
+    "color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "drawMode": 0,
+    "enabled": true,
+    "flipX": false,
+    "flipY": false,
+    "gameObject": "-3853724259412125752",
+    "maskInteraction": 0,
+    "materials": [
+     {
+      "external": {
+       "name": "CAB-04db504a550024548ac4aa9c9445b447",
+       "path": "archive:/CAB-04db504a550024548ac4aa9c9445b447/CAB-04db504a550024548ac4aa9c9445b447"
+      },
+      "fileId": 1,
+      "pathId": "-8462337135408142746",
+      "resolved": {
+       "bundle": "fcb54c0ebfe8fe5d2af35834a1796dd7",
+       "objectName": "Sprites-Default_Shadow"
+      }
+     }
+    ],
+    "pathId": "-7891191928125809354",
+    "size": {
+     "x": 1.0199999809265137,
+     "y": 0.8399999737739563
+    },
+    "sortingLayer": 0,
+    "sortingLayerId": 0,
+    "sortingOrder": 7,
+    "sprite": "-8874190297655503965",
+    "spriteSortPoint": 0,
+    "spriteTileMode": 0
+   },
+   {
+    "adaptiveModeThreshold": 0.5,
+    "color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "drawMode": 0,
+    "enabled": true,
+    "flipX": false,
+    "flipY": false,
+    "gameObject": "4216041309626490891",
+    "maskInteraction": 0,
+    "materials": [
+     {
+      "external": {
+       "name": "CAB-04db504a550024548ac4aa9c9445b447",
+       "path": "archive:/CAB-04db504a550024548ac4aa9c9445b447/CAB-04db504a550024548ac4aa9c9445b447"
+      },
+      "fileId": 1,
+      "pathId": "-8462337135408142746",
+      "resolved": {
+       "bundle": "fcb54c0ebfe8fe5d2af35834a1796dd7",
+       "objectName": "Sprites-Default_Shadow"
+      }
+     }
+    ],
+    "pathId": "-6443577263972575624",
+    "size": {
+     "x": 1.0199999809265137,
+     "y": 0.8399999737739563
+    },
+    "sortingLayer": 0,
+    "sortingLayerId": 0,
+    "sortingOrder": 3,
+    "sprite": "-8874190297655503965",
+    "spriteSortPoint": 0,
+    "spriteTileMode": 0
+   },
+   {
+    "adaptiveModeThreshold": 0.5,
+    "color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "drawMode": 0,
+    "enabled": true,
+    "flipX": false,
+    "flipY": false,
+    "gameObject": "1539519013843801854",
+    "maskInteraction": 0,
+    "materials": [
+     {
+      "external": {
+       "name": "CAB-04db504a550024548ac4aa9c9445b447",
+       "path": "archive:/CAB-04db504a550024548ac4aa9c9445b447/CAB-04db504a550024548ac4aa9c9445b447"
+      },
+      "fileId": 1,
+      "pathId": "-8462337135408142746",
+      "resolved": {
+       "bundle": "fcb54c0ebfe8fe5d2af35834a1796dd7",
+       "objectName": "Sprites-Default_Shadow"
+      }
+     }
+    ],
+    "pathId": "-6333886349606037185",
+    "size": {
+     "x": 1.0199999809265137,
+     "y": 0.8399999737739563
+    },
+    "sortingLayer": 0,
+    "sortingLayerId": 0,
+    "sortingOrder": 4,
+    "sprite": "-8874190297655503965",
+    "spriteSortPoint": 0,
+    "spriteTileMode": 0
+   },
+   {
+    "adaptiveModeThreshold": 0.5,
+    "color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "drawMode": 0,
+    "enabled": true,
+    "flipX": false,
+    "flipY": false,
+    "gameObject": "3774961944683471300",
+    "maskInteraction": 0,
+    "materials": [
+     {
+      "external": {
+       "name": "CAB-04db504a550024548ac4aa9c9445b447",
+       "path": "archive:/CAB-04db504a550024548ac4aa9c9445b447/CAB-04db504a550024548ac4aa9c9445b447"
+      },
+      "fileId": 1,
+      "pathId": "-8462337135408142746",
+      "resolved": {
+       "bundle": "fcb54c0ebfe8fe5d2af35834a1796dd7",
+       "objectName": "Sprites-Default_Shadow"
+      }
+     }
+    ],
+    "pathId": "-5386718104830124055",
+    "size": {
+     "x": 1.0199999809265137,
+     "y": 0.8399999737739563
+    },
+    "sortingLayer": 0,
+    "sortingLayerId": 0,
+    "sortingOrder": 8,
+    "sprite": "-8874190297655503965",
+    "spriteSortPoint": 0,
+    "spriteTileMode": 0
+   },
+   {
+    "adaptiveModeThreshold": 0.5,
+    "color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "drawMode": 0,
+    "enabled": true,
+    "flipX": false,
+    "flipY": false,
+    "gameObject": "5018796743915188101",
+    "maskInteraction": 0,
+    "materials": [
+     {
+      "external": {
+       "name": "CAB-04db504a550024548ac4aa9c9445b447",
+       "path": "archive:/CAB-04db504a550024548ac4aa9c9445b447/CAB-04db504a550024548ac4aa9c9445b447"
+      },
+      "fileId": 1,
+      "pathId": "-8462337135408142746",
+      "resolved": {
+       "bundle": "fcb54c0ebfe8fe5d2af35834a1796dd7",
+       "objectName": "Sprites-Default_Shadow"
+      }
+     }
+    ],
+    "pathId": "-4850957077141406730",
+    "size": {
+     "x": 1.0199999809265137,
+     "y": 0.8399999737739563
+    },
+    "sortingLayer": 0,
+    "sortingLayerId": 0,
+    "sortingOrder": 0,
+    "sprite": "-8874190297655503965",
+    "spriteSortPoint": 0,
+    "spriteTileMode": 0
+   },
+   {
+    "adaptiveModeThreshold": 0.5,
+    "color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "drawMode": 0,
+    "enabled": true,
+    "flipX": false,
+    "flipY": false,
+    "gameObject": "3597447957361052347",
+    "maskInteraction": 0,
+    "materials": [
+     {
+      "external": {
+       "name": "CAB-04db504a550024548ac4aa9c9445b447",
+       "path": "archive:/CAB-04db504a550024548ac4aa9c9445b447/CAB-04db504a550024548ac4aa9c9445b447"
+      },
+      "fileId": 1,
+      "pathId": "-8462337135408142746",
+      "resolved": {
+       "bundle": "fcb54c0ebfe8fe5d2af35834a1796dd7",
+       "objectName": "Sprites-Default_Shadow"
+      }
+     }
+    ],
+    "pathId": "-839074950087057780",
+    "size": {
+     "x": 1.0199999809265137,
+     "y": 0.8399999737739563
+    },
+    "sortingLayer": 0,
+    "sortingLayerId": 0,
+    "sortingOrder": 6,
+    "sprite": "-8874190297655503965",
+    "spriteSortPoint": 0,
+    "spriteTileMode": 0
+   },
+   {
+    "adaptiveModeThreshold": 0.5,
+    "color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "drawMode": 0,
+    "enabled": true,
+    "flipX": false,
+    "flipY": false,
+    "gameObject": "-6110286874758283495",
+    "maskInteraction": 0,
+    "materials": [
+     {
+      "external": {
+       "name": "CAB-04db504a550024548ac4aa9c9445b447",
+       "path": "archive:/CAB-04db504a550024548ac4aa9c9445b447/CAB-04db504a550024548ac4aa9c9445b447"
+      },
+      "fileId": 1,
+      "pathId": "-8462337135408142746",
+      "resolved": {
+       "bundle": "fcb54c0ebfe8fe5d2af35834a1796dd7",
+       "objectName": "Sprites-Default_Shadow"
+      }
+     }
+    ],
+    "pathId": "2587227763219203177",
+    "size": {
+     "x": 1.0199999809265137,
+     "y": 0.8399999737739563
+    },
+    "sortingLayer": 0,
+    "sortingLayerId": 0,
+    "sortingOrder": 5,
+    "sprite": "-8874190297655503965",
+    "spriteSortPoint": 0,
+    "spriteTileMode": 0
+   },
+   {
+    "adaptiveModeThreshold": 0.5,
+    "color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "drawMode": 0,
+    "enabled": true,
+    "flipX": false,
+    "flipY": false,
+    "gameObject": "934109878242127206",
+    "maskInteraction": 0,
+    "materials": [
+     {
+      "external": {
+       "name": "CAB-04db504a550024548ac4aa9c9445b447",
+       "path": "archive:/CAB-04db504a550024548ac4aa9c9445b447/CAB-04db504a550024548ac4aa9c9445b447"
+      },
+      "fileId": 1,
+      "pathId": "-8462337135408142746",
+      "resolved": {
+       "bundle": "fcb54c0ebfe8fe5d2af35834a1796dd7",
+       "objectName": "Sprites-Default_Shadow"
+      }
+     }
+    ],
+    "pathId": "4074046985401463670",
+    "size": {
+     "x": 1.0199999809265137,
+     "y": 0.8399999737739563
+    },
+    "sortingLayer": 0,
+    "sortingLayerId": 0,
+    "sortingOrder": 2,
+    "sprite": "-8874190297655503965",
+    "spriteSortPoint": 0,
+    "spriteTileMode": 0
+   }
+  ],
+  "sprites": [
+   {
+    "alphaTexture": "0",
+    "border": {
+     "w": 0.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "downscaleMultiplier": 1.0,
+    "extrude": 1,
+    "frame": {
+     "file": "frames/minigamespine_zhalan_pixel_0.png",
+     "height": 84,
+     "sha256": "eb6d52340c38b25d86ab1920238922653e35cd32b383679df291eb93104ea600",
+     "source": "assets/exported/assets/art/models/minigame022/prefab/minigamespine_zhalan_pixel_0.png",
+     "width": 102
+    },
+    "isPolygon": false,
+    "mesh": {
+     "indexCount": 18,
+     "indices": [
+      7,
+      6,
+      5,
+      0,
+      5,
+      6,
+      4,
+      5,
+      0,
+      3,
+      4,
+      0,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+     ],
+     "vertexCount": 8
+    },
+    "name": "minigamespine_zhalan_pixel_0",
+    "offset": {
+     "x": 0.0,
+     "y": -42.0
+    },
+    "pathId": "-8874190297655503965",
+    "pivot": {
+     "x": 0.5,
+     "y": 0.0
+    },
+    "pixelsToUnits": 100.0,
+    "rect": {
+     "height": 84.0,
+     "width": 102.0,
+     "x": 0.0,
+     "y": 0.0
+    },
+    "texture": "-5439123662890776005",
+    "textureRect": {
+     "height": 84.0,
+     "width": 102.0,
+     "x": 0.0,
+     "y": 0.0
+    },
+    "textureRectOffset": {
+     "x": 0.0,
+     "y": 0.0
+    }
+   }
+  ],
+  "textures": [
+   {
+    "dataSize": 3808,
+    "height": 84,
+    "mipCount": 1,
+    "name": "minigamespine_zhalan_pixel",
+    "pathId": "-5439123662890776005",
+    "textureFormat": 50,
+    "width": 102
+   }
+  ],
+  "transforms": [
+   {
+    "children": [
+     "1819464663576627069"
+    ],
+    "gameObject": "-2551854468249458337",
+    "localPosition": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "minigamespine_zhalan_pixel",
+    "parent": "0",
+    "path": "minigamespine_zhalan_pixel",
+    "pathId": "-6340766072837636414",
+    "siblingIndex": 0
+   },
+   {
+    "children": [],
+    "gameObject": "5018796743915188101",
+    "localPosition": {
+     "x": 0.0,
+     "y": 1.7999999523162842,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "minigamespine_zhalan_pixel_1",
+    "parent": "1819464663576627069",
+    "path": "minigamespine_zhalan_pixel/model/minigamespine_zhalan_pixel_1",
+    "pathId": "-3330038064976549531",
+    "siblingIndex": 0
+   },
+   {
+    "children": [],
+    "gameObject": "1539519013843801854",
+    "localPosition": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "minigamespine_zhalan_pixel_4",
+    "parent": "1819464663576627069",
+    "path": "minigamespine_zhalan_pixel/model/minigamespine_zhalan_pixel_4",
+    "pathId": "-3022442028092746166",
+    "siblingIndex": 3
+   },
+   {
+    "children": [],
+    "gameObject": "4093289736644912284",
+    "localPosition": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "bullet",
+    "parent": "1819464663576627069",
+    "path": "minigamespine_zhalan_pixel/model/bullet",
+    "pathId": "-1821874879616083794",
+    "siblingIndex": 8
+   },
+   {
+    "children": [],
+    "gameObject": "-6110286874758283495",
+    "localPosition": {
+     "x": 0.0,
+     "y": -0.6000000238418579,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "minigamespine_zhalan_pixel_5",
+    "parent": "1819464663576627069",
+    "path": "minigamespine_zhalan_pixel/model/minigamespine_zhalan_pixel_5",
+    "pathId": "1084887982127247577",
+    "siblingIndex": 4
+   },
+   {
+    "children": [],
+    "gameObject": "-840856459954333964",
+    "localPosition": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "hit",
+    "parent": "1819464663576627069",
+    "path": "minigamespine_zhalan_pixel/model/hit",
+    "pathId": "1482529049945143079",
+    "siblingIndex": 9
+   },
+   {
+    "children": [
+     "-3330038064976549531",
+     "7165753042771381389",
+     "1945088041514176548",
+     "-3022442028092746166",
+     "1084887982127247577",
+     "4485566867546351538",
+     "6892496228030406620",
+     "2828690556378372810",
+     "-1821874879616083794",
+     "1482529049945143079"
+    ],
+    "gameObject": "-9032559864788868142",
+    "localPosition": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "model",
+    "parent": "-6340766072837636414",
+    "path": "minigamespine_zhalan_pixel/model",
+    "pathId": "1819464663576627069",
+    "siblingIndex": 0
+   },
+   {
+    "children": [],
+    "gameObject": "4216041309626490891",
+    "localPosition": {
+     "x": 0.0,
+     "y": 0.6000000238418579,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "minigamespine_zhalan_pixel_3",
+    "parent": "1819464663576627069",
+    "path": "minigamespine_zhalan_pixel/model/minigamespine_zhalan_pixel_3",
+    "pathId": "1945088041514176548",
+    "siblingIndex": 2
+   },
+   {
+    "children": [],
+    "gameObject": "3774961944683471300",
+    "localPosition": {
+     "x": 0.0,
+     "y": -2.4000000953674316,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "minigamespine_zhalan_pixel_8",
+    "parent": "1819464663576627069",
+    "path": "minigamespine_zhalan_pixel/model/minigamespine_zhalan_pixel_8",
+    "pathId": "2828690556378372810",
+    "siblingIndex": 7
+   },
+   {
+    "children": [],
+    "gameObject": "3597447957361052347",
+    "localPosition": {
+     "x": 0.0,
+     "y": -1.2000000476837158,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "minigamespine_zhalan_pixel_6",
+    "parent": "1819464663576627069",
+    "path": "minigamespine_zhalan_pixel/model/minigamespine_zhalan_pixel_6",
+    "pathId": "4485566867546351538",
+    "siblingIndex": 5
+   },
+   {
+    "children": [],
+    "gameObject": "-3853724259412125752",
+    "localPosition": {
+     "x": 0.0,
+     "y": -1.7999999523162842,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "minigamespine_zhalan_pixel_7",
+    "parent": "1819464663576627069",
+    "path": "minigamespine_zhalan_pixel/model/minigamespine_zhalan_pixel_7",
+    "pathId": "6892496228030406620",
+    "siblingIndex": 6
+   },
+   {
+    "children": [],
+    "gameObject": "934109878242127206",
+    "localPosition": {
+     "x": 0.0,
+     "y": 1.2000000476837158,
+     "z": 0.0
+    },
+    "localRotation": {
+     "w": 1.0,
+     "x": -0.0,
+     "y": -0.0,
+     "z": -0.0
+    },
+    "localScale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "name": "minigamespine_zhalan_pixel_2",
+    "parent": "1819464663576627069",
+    "path": "minigamespine_zhalan_pixel/model/minigamespine_zhalan_pixel_2",
+    "pathId": "7165753042771381389",
+    "siblingIndex": 1
+   }
+  ]
+ },
+ "prefab": {
+  "container": "assets/art/models/minigame022/prefab/minigamespine_zhalan_pixel.prefab",
+  "rootGameObject": "-2551854468249458337",
+  "rootTransform": "-6340766072837636414"
+ },
+ "schema": "starfall-native-prefab/1"
+}

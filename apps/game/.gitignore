@@ -1,0 +1,8 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+public/assets/*.js
+public/assets/*.map
+local-inputs/*
+!local-inputs/ui-dependencies.json

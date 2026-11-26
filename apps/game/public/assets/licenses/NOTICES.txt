@@ -1,0 +1,8 @@
+Third-party notices / 第三方版权说明
+
+Project-authored code uses the project's separate license; it does not cover game assets.
+Original game Lua and graphical assets retain their original rightsholders' rights. The project owner confirmed permission for this project's public distribution of those included game materials; this statement does not grant any further license or imply official endorsement.
+
+Wasmoon 1.16.0: MIT; see Wasmoon-MIT.txt.
+Lua runtime within Wasmoon: Lua license; see Lua-License.txt.
+Source Han Sans SC Medium Version 2.004: Adobe, SIL Open Font License 1.1; see Source-Han-Sans-OFL-1.1.txt. The asset's packaged filename is an alias, not the font family name.

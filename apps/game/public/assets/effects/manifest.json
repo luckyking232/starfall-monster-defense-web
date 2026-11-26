@@ -1,0 +1,285 @@
+{
+  "files": {
+    "mesh-effects.json": {
+      "sha256": "2196cd976f530db8ff5903f6380bb4eb3137b4ba800850b39856db243ba551d4"
+    },
+    "textures/-1023745063818664537.png": {
+      "sha256": "9c20cca1dd8509372b48383847c5331998144c589630ac357755269a753d55c0"
+    },
+    "textures/-112216396556119786.png": {
+      "sha256": "041e52a7d1942d41ae3305cf5d76c9a0c7460e2ffefa8b2b5b3169f8bfc71c77"
+    },
+    "textures/-1724930611187304140.png": {
+      "sha256": "63841da2ff955a1537ac757297428154576c7f31eadcd9f0230a6c344a1c3115"
+    },
+    "textures/-1762514740419280320.png": {
+      "sha256": "7fb28917cde33c9e994b5bb6803d37ce197359a853b96987522fd0ceb717d82f"
+    },
+    "textures/-2039006108182003108.png": {
+      "sha256": "8a6a4f58a7449382f6d1f327c771c291b0e640642d0d4e99a1c09d36d2a0f905"
+    },
+    "textures/-2354210209912748527.png": {
+      "sha256": "6c178f555ad5cf5ce74766fa522a6dc930860f156504a9e82cb7253cb5609314"
+    },
+    "textures/-2507355167277524482.png": {
+      "sha256": "82738fdf0cb31a054a5fe70af625a5e115bee998a763649256d2f942df03231a"
+    },
+    "textures/-2651872867508334179.png": {
+      "sha256": "8091ea07ddedf58bf51deb94eb03e2914bd89a51b01dafa378364fba55ec390c"
+    },
+    "textures/-3071816774911791192.png": {
+      "sha256": "7db5468088e164cd057de2a30fafb14837542ed0b4516d3fc0ddf9f7259542b4"
+    },
+    "textures/-3209857257859601642.png": {
+      "sha256": "1fb45d6522efad56f38bde6015e5d02e4231ece64a16ae362cd6f39eeb585315"
+    },
+    "textures/-3481625582851267160.png": {
+      "sha256": "ffde9904fdc32a0fd440f3f703f49e158d56de5de5274d54d15699752823274a"
+    },
+    "textures/-3902113540324740620.png": {
+      "sha256": "f220ccf6ddb1982058a1f343431d8b62dbcb878fb25325f3d73b16ce492bdac9"
+    },
+    "textures/-4102134212907137455.png": {
+      "sha256": "c166b01acdbbff0e79ce10e368f1e6cc682b5c831f663add32c2e199119677f0"
+    },
+    "textures/-4193382773178010531.png": {
+      "sha256": "549333a615130cdcb5791cab6666325fb54bcc7d97adb590cfc6a405b680ef49"
+    },
+    "textures/-4568622728905615698.png": {
+      "sha256": "9f612bc69579c821574a65525dd1fe4dd2ebc538c9fb7c49d09d971b9cf94865"
+    },
+    "textures/-4648645693273390841.png": {
+      "sha256": "fb2139ea1b1969a22cdc4160c4ee0cfe9eee1e3d98bfad2c6fa4fc3a94aad059"
+    },
+    "textures/-5370303301079123571.png": {
+      "sha256": "63ca8b581aa6e51bdc8e1a97ebcec106179de371b5870d3eaebb4947874d2c6b"
+    },
+    "textures/-556017399175704749.png": {
+      "sha256": "1dbb13330773849a3b078cd4e74a633baacc3ef2c01899e5039766ca204a96aa"
+    },
+    "textures/-5646905007096709338.png": {
+      "sha256": "079830d65fb6cda297c7bcc2c983097494623efdd9b5491e7cc7c43548284243"
+    },
+    "textures/-5772432476229183065.png": {
+      "sha256": "6a15e3566501b79cd893d655d22e7f104735d6006d5818cf46406c44250a6b4e"
+    },
+    "textures/-5969861834921198091.png": {
+      "sha256": "5ff368bbad1a0453d86e0426cda8f81bc343dc6d4eff5c989f10b696920c6f74"
+    },
+    "textures/-5979034824651990853.png": {
+      "sha256": "780d4c03c6c411b36282eafea66fab983a29beef61a8c1c659a95246c628d602"
+    },
+    "textures/-6169783101247613353.png": {
+      "sha256": "e4e8adf9ed9d65f761eddf92d6f50a89d621be56b5c5d9e1ca90f5f49c61df13"
+    },
+    "textures/-6622242413339531243.png": {
+      "sha256": "68478a08a912f8d59f5c81171dd660120458fcb1757581d7880693956f86eecb"
+    },
+    "textures/-694235850360109309.png": {
+      "sha256": "749a54f4cefa0f8206450d31da3b1e44fc9b6f6daca1ae3768bbf54fc495e1c6"
+    },
+    "textures/-707801625270136516.png": {
+      "sha256": "41399d01d46620c8e5351981f7d8db9518f7e68468d4b3a453755e2f7d2b4800"
+    },
+    "textures/-7230860157546800321.png": {
+      "sha256": "0ce742df0933d79030f86213d20b1e9cfd992ca173d5c139f6ba4db6e376f3b5"
+    },
+    "textures/-7645464810898197770.png": {
+      "sha256": "8268f1c5ed86c20a40fd67c8530058658c174d15bbd490597981aee86b6b6603"
+    },
+    "textures/-7954784862995064063.png": {
+      "sha256": "b7864084539cfa6426edab9ebcce3e643e9ae3bf6663df503f1da1f440935568"
+    },
+    "textures/-8112743642248771690.png": {
+      "sha256": "5b3e3e541f0edeaa8c6996c26419a3c95e809f8f6536195488b88b2e973555bc"
+    },
+    "textures/-8466341507817750462.png": {
+      "sha256": "617e1a0eab5fafeeb49dcaa5399c00a4a43f6d023d012b34192f0df54872fb9f"
+    },
+    "textures/-8581525899208969957.png": {
+      "sha256": "588faa48ac141661681e000a3e0b926bbf155a451a7a6a949a0132e834aeff5b"
+    },
+    "textures/-8863624616379602576.png": {
+      "sha256": "0083da771cedaf2211891c59ac9739bd146fe428d94bb91b4a218d2a2e594b19"
+    },
+    "textures/-8936680108125323936.png": {
+      "sha256": "8517b339fced97abb0127c1aa74aad4ae91715ed009a0962bc66da29f52c12fc"
+    },
+    "textures/-9063030760624718460.png": {
+      "sha256": "1f0eef0401bded7c24c748218ca9796bd54ddb03cbfcf1d1965f33860beb99f9"
+    },
+    "textures/-906796445014047843.png": {
+      "sha256": "1284cf6b5b79017876393b18dd202ebd23c21bac45334432f16490b4e28108db"
+    },
+    "textures/-960214744509026609.png": {
+      "sha256": "3811b8a50a5774ca115e0c7b064b4b08db76601d5352d18aa631b481597e9b19"
+    },
+    "textures/1318945395960182833.png": {
+      "sha256": "0084cce184bc759998287553621a0520a859b23b7e6c2611910e5739cf760c88"
+    },
+    "textures/1354737907076393072.png": {
+      "sha256": "0a06510a8e188136de24f9034c63fb9743604d0a448f6ac127cdb0e94432a698"
+    },
+    "textures/1378245021242999330.png": {
+      "sha256": "0f1e808cd415b2fb64f3bb6ea649ef522d2ffdbbb10557cf8c3f8f3df22f57f6"
+    },
+    "textures/1575850433256647956.png": {
+      "sha256": "ffb7905aeb9958019e4fdd0154d55955ed08a3bdca3ef7688f16d761160fc60f"
+    },
+    "textures/2286132104186117211.png": {
+      "sha256": "acf548744b89fc028affe4fe678220433c8731f9eff0d741012d6f1391f8786a"
+    },
+    "textures/2733599313001885288.png": {
+      "sha256": "2949ecc7982da3a57c8e2ff8a3a45963b366d78f8fe529e9808c5c80266dc46d"
+    },
+    "textures/2863733495794432215.png": {
+      "sha256": "4ac4b6df80ccb9d7e4557a3aca64ab583b6a4615b80b9f8c0576f1730329e95c"
+    },
+    "textures/3595047735118625576.png": {
+      "sha256": "7e5f67b1faf8ed1d4f6ceb6feb9117acd354c3ad9c9fee2792e373b647b247ac"
+    },
+    "textures/4540079870465811912.png": {
+      "sha256": "70c042659afd58a4252683440a16bfea3cce2a194c04d8396144ab4c74a49748"
+    },
+    "textures/4733724671308459362.png": {
+      "sha256": "27e4cc69bf108bb62c426f06d86f87661742408885084eb813bab87db1aedc52"
+    },
+    "textures/48396914060991412.png": {
+      "sha256": "eed410c86bb72caaa265926dda4a390f53c37bff4c1de1a2000421e409338c66"
+    },
+    "textures/5018816127598815682.png": {
+      "sha256": "a93f694ff2d00a9592d59d68823c7efb578b78b20cdb05eb0880208d003bfcb0"
+    },
+    "textures/5513574724975046379.png": {
+      "sha256": "c59ab5fb35f001c6effd7b72681d9ab1c7828b37b7ed5c48f3ae35e287f030c2"
+    },
+    "textures/6405679449338520090.png": {
+      "sha256": "f00acd5221222b206abc73f9d33931c18fe51794adf63c734cea265b1d525dd7"
+    },
+    "textures/64750956338317967.png": {
+      "sha256": "bd4c91d2474ea88628387b0f7b2937a5f066c37592cac8264b5fb7da25e6ceee"
+    },
+    "textures/6557067454686353685.png": {
+      "sha256": "95c1891c008390950b2b57174e4f9c1d66f374a4bcc39258457cd1f9c5f1626c"
+    },
+    "textures/7166397556285050390.png": {
+      "sha256": "2bfcd8d4381cdfd9d2c0aca53bbc9248097cc7023943bb31e27e7e103088072d"
+    },
+    "textures/7634278197479101355.png": {
+      "sha256": "75cdffb5423c5b5b329a49a0e66972467af147500af2c37f6b7edb4bfafb53f8"
+    },
+    "textures/7808670273340909868.png": {
+      "sha256": "761bead4fc73b33a3cf4b09a243dac07ba38a0426ccabd8fa54bc305d988e501"
+    },
+    "textures/7846722589522967725.png": {
+      "sha256": "4dc92870fc2765e5c3d5ee50a30f8f51cf0ab168f55b1605438153051c234475"
+    },
+    "textures/8335221931347786078.png": {
+      "sha256": "0358752d737467f348f771300847e3ed98e8af3d7e418b544db0c3c91140c522"
+    },
+    "textures/8650085340704422552.png": {
+      "sha256": "996fca7beb203e8797055993aad3e3ed1002d7bd9af43db8f6f62e6f7f2458c7"
+    },
+    "textures/9019387678579206477.png": {
+      "sha256": "31a3dac297fce14544f64bc2fd1163f6d5070d13509f90f25e992efc40400233"
+    }
+  },
+  "lifetimes": {
+    "assets/art/effects/prefab/ui_prefab/loading/fx_ui_loading.prefab": {
+      "loop": false,
+      "seconds": 3.0
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000101_skill1_bullet.prefab": {
+      "loop": true,
+      "seconds": 1.2000000476837158
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000101_skill2_buff.prefab": {
+      "loop": true,
+      "seconds": 4.200000047683716
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000101_skill3_summon.prefab": {
+      "loop": true,
+      "seconds": 6.350000023841858
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000104_skill1_bullet.prefab": {
+      "loop": false,
+      "seconds": 1.2000000476837158
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000104_skill2_bullet.prefab": {
+      "loop": false,
+      "seconds": 1.2000000476837158
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000104_skill3_summon.prefab": {
+      "loop": true,
+      "seconds": 3.600000023841858
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000118_frost.prefab": {
+      "loop": false,
+      "seconds": 1.0
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000118_skill1_bullet.prefab": {
+      "loop": false,
+      "seconds": 1.2000000476837158
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000118_skill2_bullet.prefab": {
+      "loop": true,
+      "seconds": 1.2000000476837158
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000118_skill3.prefab": {
+      "loop": false,
+      "seconds": 1.0
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000134_skill1_bullet.prefab": {
+      "loop": false,
+      "seconds": 1.2000000476837158
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000134_skill2_summon.prefab": {
+      "loop": true,
+      "seconds": 6.0
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000134_skill3_bullet.prefab": {
+      "loop": true,
+      "seconds": 5.699999988079071
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000198_skill1_bullet.prefab": {
+      "loop": true,
+      "seconds": 6.350000023841858
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000198_skill2.prefab": {
+      "loop": false,
+      "seconds": 2.200000047683716
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000198_skill3_buff.prefab": {
+      "loop": true,
+      "seconds": 6.350000023841858
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_10000198_skill3_heal.prefab": {
+      "loop": false,
+      "seconds": 1.850000023841858
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_20010_skill1_bullet.prefab": {
+      "loop": false,
+      "seconds": 5.0
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_20108_skill1_bullet.prefab": {
+      "loop": false,
+      "seconds": 5.0
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_20306_skill1_bullet.prefab": {
+      "loop": false,
+      "seconds": 5.0
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_20411_skill1_bullet.prefab": {
+      "loop": false,
+      "seconds": 5.0
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_monster_appear.prefab": {
+      "loop": false,
+      "seconds": 1.850000023841858
+    },
+    "assets/art/effects/prefab/ui_prefab/minigame/minigame022/minigame022_slowmotion_buff.prefab": {
+      "loop": true,
+      "seconds": 3.600000023841858
+    }
+  }
+}

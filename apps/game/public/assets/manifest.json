@@ -1,0 +1,175 @@
+{
+  "schema": "starfall.monster-defense.assets/1",
+  "gameResourceVersion": "134395529309427262",
+  "licenseReviewRequired": true,
+  "files": {
+    "ui/home-background.png": {
+      "bytes": 1361593,
+      "sha256": "7fc05d62b59dc8bdf798130e11b3e3184e5d0b70d075957c3e73d0d692365c8c",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3oheq.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/stage-unlocked-top.png": {
+      "bytes": 5394,
+      "sha256": "f727e518df613247bc63f0678c74392cecabec469ff1414c94f8ab03923a5a10",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3ohgz.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/stage-unlocked-bottom.png": {
+      "bytes": 5564,
+      "sha256": "7d8a2456068263d51d2edf28f148020cd8bd8c53501d589aa7bc41726e66a64b",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3ohh1.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/stage-locked-top.png": {
+      "bytes": 4588,
+      "sha256": "abfce096401bec9044f2d654ab531c74d68e5c0bac383ab6d74205a93a4b09af",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3ohgy.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/stage-locked-bottom.png": {
+      "bytes": 4165,
+      "sha256": "eea1d5754ae2a947129ce72eb7a4594628a921632c7bde03c3addf29176a55b9",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3ohh0.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/stage-node.png": {
+      "bytes": 161,
+      "sha256": "102314b6b09b6d0b8960ea2dccdc8a91d4c6bfe2019f17a4b1a7635e214935bb",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3ohh2.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/stage-lock.png": {
+      "bytes": 383,
+      "sha256": "1c3dfb3a8d4be4f85338505653c81dc172ee68c4a87aab56eab557e772d64b3f",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3ohh3.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/stage-infinite.png": {
+      "bytes": 2933,
+      "sha256": "1a0c2ba0be5b9615af883f0917731bb0b90dc77f25aafb007f1c4d17e41c1cd4",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3ohh7.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/stage-infinite-lock.png": {
+      "bytes": 5605,
+      "sha256": "0f16066fbffdef0a688c93dc9fec04882c8d62b58d31f40d4da70e6eca3a0c15",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3ohh8.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/stage-line.png": {
+      "bytes": 177,
+      "sha256": "1ab50d26b846a40b6996cde8addf1fbc4674afc6135306de12e218156d688c6e",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3ohh9.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/avatar-bar.png": {
+      "bytes": 732,
+      "sha256": "e623f36864ef99f71b02f5dbb414eb9a19d1a44c31e043202b0a754f251cb94f",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3ohhb.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/avatar-frame.png": {
+      "bytes": 226,
+      "sha256": "370fe028401cd8260585061843e46deeb877ba001949417f2c9348974df9001f",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3ohhc.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/avatar-selected.png": {
+      "bytes": 448,
+      "sha256": "a34d65443e0e6814d39eef27ce72f358a7883e8fabc2dae67e40bd229ad03e3c",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3ohhe.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/avatar-lock.png": {
+      "bytes": 710,
+      "sha256": "83689abfaffe69beea2adcf14449444ee38a024396147f71d9b04ef1783e73da",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/q3ohhg.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/clear-mark.png": {
+      "bytes": 6040,
+      "sha256": "c805e306a71f54b18312c6cef2c559e83708930a67fcbd7dcc3dd50d4ae8c4db",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/h8pjiy.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/card-78000101.png": {
+      "bytes": 5463,
+      "sha256": "3621f5edeb7bfe3258317ba26033c3e8b47d3141ea4f31cbc22f7405bf564073",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/spxeid.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/card-78000102.png": {
+      "bytes": 6190,
+      "sha256": "1e51e0a813e8819292eff1f0a8151e4d91c616e533d2421348d2d1f60264ee50",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/spxeie.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/card-78000103.png": {
+      "bytes": 5896,
+      "sha256": "e542ca416c304106b640f7546af63e952bfd1b499cd924210d4ebc3207038593",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/spxeic.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/card-78000104.png": {
+      "bytes": 5528,
+      "sha256": "bb3b455bab89dd6982d11afc3cddf38014e69ff2a26ef54771c1c921b19ab386",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/spxeib.png",
+      "provenance": "original-game-fgui"
+    },
+    "ui/card-78000105.png": {
+      "bytes": 6723,
+      "sha256": "0da22ce515b02f11b6f4d34082c661e90663b35c2fa40cb48892d235ae7f2dfb",
+      "source": "assets/fgui-sprites-by-id/ActivityDungeon1017/spxeif.png",
+      "provenance": "original-game-fgui"
+    },
+    "maps/map1.png": {
+      "bytes": 299244,
+      "sha256": "fca1255adc80435f465130867798f8c45b04fe943ab8bf9bf736b88b332d8232",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/MiniGame022_map1.png",
+      "provenance": "original-game-map"
+    },
+    "maps/map2.png": {
+      "bytes": 296575,
+      "sha256": "7ed1d4d90f7827a4f21ebd92bf5e4bbf2162cb0b5daf88e9cbb469f1eebcbe70",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/MiniGame022_map2.png",
+      "provenance": "original-game-map"
+    },
+    "maps/map3.png": {
+      "bytes": 382241,
+      "sha256": "81f40146acded0fb549a78a458fd28e838c0ad68bcfa12110990d975f8e037ac",
+      "source": "assets/exported/assets/art/models/minigame022/prefab/MiniGame022_map3.png",
+      "provenance": "original-game-map"
+    },
+    "fonts/source-han-sans.otf": {
+      "bytes": 16523904,
+      "sha256": "c43383a8ac94024203f062537b5b3a0d0a5bf056172eff78673636ea8fb3c039",
+      "source": "web/dist/native-font-shell/SOURCEHANSANSSC-NORMAL-2.otf",
+      "provenance": "third-party-font"
+    },
+    "licenses/Lua-License.txt": {
+      "bytes": 1112,
+      "sha256": "fce99dce100557696d8d8b8a2e040d68f816cfe52692d4373aa40e22247beeb6",
+      "source": "web/dist/LICENSES/Lua-License.txt",
+      "provenance": "license-notice"
+    },
+    "licenses/Source-Han-Sans-OFL-1.1.txt": {
+      "bytes": 4381,
+      "sha256": "8d0f91a6f2007777d23a7173bcc8daa7b73733408a7bfb083827b5d0fad0b669",
+      "source": "web/dist/LICENSES/Source-Han-Sans-OFL-1.1.txt",
+      "provenance": "license-notice"
+    },
+    "licenses/NOTICES.txt": {
+      "bytes": 694,
+      "sha256": "096f9d4e42a5641fb7f1834fc7de600fcdd9b56ab6f276f3ea8c7f5d838d887f",
+      "source": "web/dist/LICENSES/NOTICES.txt",
+      "provenance": "license-notice"
+    },
+    "licenses/Wasmoon-MIT.txt": {
+      "bytes": 1074,
+      "sha256": "9ed9226c0138819a0859cf3c55a3414b4a186a17a4eaf4b5a51ceed7937615ac",
+      "source": "web/dist/LICENSES/Wasmoon-MIT.txt",
+      "provenance": "license-notice"
+    }
+  }
+}

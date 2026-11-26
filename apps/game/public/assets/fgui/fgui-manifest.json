@@ -1,0 +1,165 @@
+{
+ "generator": "apps/game/scripts/prepare_fgui.py",
+ "packageSchema": "starfall-fgui-package/1",
+ "packages": [
+  {
+   "atlases": [
+    {
+     "file": "ActivityDungeon1017_atlas0.png",
+     "sha256": "19ca3e030182aaf2532e517dd475eab3ef2c2f7ffcc61d7b5ec59c8652028af0"
+    },
+    {
+     "file": "ActivityDungeon1017_atlas0_1.png",
+     "sha256": "eaab0f1328a228b18a3e033075c50537cb4e5c638c2f45142f0dce97e5f2a335"
+    },
+    {
+     "file": "ActivityDungeon1017_atlas0_10.png",
+     "sha256": "cae1cc99e996897649d861c62b22bf70a8c10a1c78f11ea3bdd532379cb96b32"
+    },
+    {
+     "file": "ActivityDungeon1017_atlas0_2.png",
+     "sha256": "9482e6098fe47b745b49c4e524c867e0de424f9a865f481145fe60f59d7f8d68"
+    },
+    {
+     "file": "ActivityDungeon1017_atlas0_3.png",
+     "sha256": "54c9e4b182381194905f17a56a1d8c52535f4adeabce08de4990df24607687d7"
+    },
+    {
+     "file": "ActivityDungeon1017_atlas0_4.png",
+     "sha256": "8869c0027c70d1fd419f63748e8c1e0fed9cedd043e7f8f4ce6d2ad9974e7ddd"
+    },
+    {
+     "file": "ActivityDungeon1017_atlas0_5.png",
+     "sha256": "d0593f98d2e962c146e798820ab33e9708ac86448045f2aac58cb9f79e0a92be"
+    },
+    {
+     "file": "ActivityDungeon1017_atlas0_6.png",
+     "sha256": "76a5f56d309f88750321a713590b0bf37dc7541acb927d4d460ce1bcb20092f8"
+    },
+    {
+     "file": "ActivityDungeon1017_atlas0_7.png",
+     "sha256": "f825de6b3ace3d62cce3291272aaeffb95b50cadfaedce1b52be47c83ce4e23a"
+    },
+    {
+     "file": "ActivityDungeon1017_atlas0_8.png",
+     "sha256": "4362dd30a9da34f56e637070cb08ab9624dfe3dcfacb56c37cee67381cd888d2"
+    },
+    {
+     "file": "ActivityDungeon1017_atlas0_9.png",
+     "sha256": "ff443fbab4cdc9f684e456e848a7b0b6e4aaa06423e5b13ea62728fa3e27176b"
+    }
+   ],
+   "dependencies": [
+    {
+     "id": "kzx5isdl",
+     "name": "ActivityDungeon1"
+    },
+    {
+     "id": "tey9g4p9",
+     "name": "CommonResource"
+    },
+    {
+     "id": "3s99lv35",
+     "name": "字体"
+    }
+   ],
+   "fui": "ActivityDungeon1017_fui.bytes",
+   "fuiSha256": "9593e073d932eab98bf65c957c597398ad7923f0d140522a80edc2db2ef2c2f1",
+   "json": "ActivityDungeon1017.json",
+   "jsonSha256": "c20771a96e1ae2bfdd0c83efc04d774206232644754a93c5d0622a28b5f62984",
+   "name": "ActivityDungeon1017",
+   "packageId": "aonql508"
+  },
+  {
+   "atlases": [
+    {
+     "file": "ActivityDungeon1017Battle_atlas0.png",
+     "sha256": "9df115aaae70a12fc1d2bba3bc32326868ba86c8ad2fc41600174b3052405053"
+    }
+   ],
+   "dependencies": [
+    {
+     "id": "txl3omuj",
+     "name": "Battle"
+    },
+    {
+     "id": "tey9g4p9",
+     "name": "CommonResource"
+    },
+    {
+     "id": "3s99lv35",
+     "name": "字体"
+    }
+   ],
+   "fui": "ActivityDungeon1017Battle_fui.bytes",
+   "fuiSha256": "3c902bf28dda6e17d0cb28bc3b28f6d03047b41fa5baa252d113b1bd14ba8a56",
+   "json": "ActivityDungeon1017Battle.json",
+   "jsonSha256": "eaad8202ce2c34800119d85caa1ccc19788cd319d88c42626fe391e75456182e",
+   "name": "ActivityDungeon1017Battle",
+   "packageId": "1hbjipo6"
+  },
+  {
+   "atlases": [
+    {
+     "file": "CommonResource_atlas0.png",
+     "sha256": "dc349d68b9003a223468c05b0690c1acf422e87a65715981b790132fab214717"
+    },
+    {
+     "file": "CommonResource_atlas0_1.png",
+     "sha256": "66b698c10290aeb87c692e41f1c3dbe6e600cedbc6f28bd5ac67066f8bbf259b"
+    },
+    {
+     "file": "CommonResource_atlas0_2.png",
+     "sha256": "ed2be655418dd2bd960660ab3756f2310252b6acfe7dfc57caab2ad83c8154b0"
+    },
+    {
+     "file": "CommonResource_atlas0_3.png",
+     "sha256": "37ab3db31fd87601723b4b1ce37731a835873c1b22133bec4116d01e9776504a"
+    }
+   ],
+   "dependencies": [
+    {
+     "id": "kxwn1fnz",
+     "name": "SkillIcon"
+    },
+    {
+     "id": "3s99lv35",
+     "name": "字体"
+    }
+   ],
+   "fui": "CommonResource_fui.bytes",
+   "fuiSha256": "e5547c6da5293872730eca0748777252b0e187aadc7f4f11174df9076fe348ea",
+   "json": "CommonResource.json",
+   "jsonSha256": "819c699a19fc65b5dd453ab753261aaafd47ddfa71904e993355dd5939014727",
+   "name": "CommonResource",
+   "packageId": "tey9g4p9"
+  },
+  {
+   "atlases": [],
+   "dependencies": [
+    {
+     "id": "tey9g4p9",
+     "name": "CommonResource"
+    }
+   ],
+   "fui": "Loading_fui.bytes",
+   "fuiSha256": "f29218c53da4e26605d55fb1c32e0b13b1d2de37a978ab3bcb79f371a4e0a645",
+   "json": "Loading.json",
+   "jsonSha256": "89e68ec8457ae42bbff73d4a71c43dfc02c39d5e8cfc6e2850096329c3ad0175",
+   "name": "Loading",
+   "packageId": "sjqdmk59"
+  }
+ ],
+ "schema": "starfall-fgui-manifest/1",
+ "source": {
+  "format": {
+   "endianness": "big",
+   "magic": "FGUI",
+   "reference": "FairyGUI-unity UIPackage.LoadPackage (master)",
+   "referenceUrl": "https://raw.githubusercontent.com/fairygui/FairyGUI-unity/master/Assets/Scripts/UI/UIPackage.cs",
+   "version": 6
+  },
+  "root": "server-exports/monster-defense-research-20261125",
+  "uiDir": "assets/exported/assets/fairygui/ui"
+ }
+}

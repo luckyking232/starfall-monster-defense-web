@@ -1,0 +1,844 @@
+{
+  "platformModules": {
+    "GlobalConst.lua": {
+      "file": "platform/GlobalConst.lua",
+      "sha256": "b7f70c20f94b957483400ca03977251f81f65e45a774f4ebb5aa5700280e0591",
+      "originalTextAsset": {
+        "bundle": "ec924a9e2a5847185f4eda867d6849bd.bundle",
+        "bundleMd5": "ec924a9e2a5847185f4eda867d6849bd",
+        "pathId": "-64398529716216139",
+        "bytecodeSha256": "8834693599b690e71fd8098bce0cade0869cd5be10671e893249ee9f5a98ac5e",
+        "decodedSha256": "b7f70c20f94b957483400ca03977251f81f65e45a774f4ebb5aa5700280e0591",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    },
+    "TimeUtil.lua": {
+      "file": "platform/TimeUtil.lua",
+      "sha256": "5c3a6db2442946d2d6629586d274f8784120c2a7b89cff156c4043272b7513c2",
+      "originalTextAsset": {
+        "bundle": "ec924a9e2a5847185f4eda867d6849bd.bundle",
+        "bundleMd5": "ec924a9e2a5847185f4eda867d6849bd",
+        "pathId": "669807397060922271",
+        "bytecodeSha256": "9ccdcbf1f6d59f15af1b1c0cbbf47378573d54bc675b696e2f6036e5eec92f56",
+        "decodedSha256": "5c3a6db2442946d2d6629586d274f8784120c2a7b89cff156c4043272b7513c2",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    },
+    "UIUtil.lua": {
+      "file": "platform/UIUtil.lua",
+      "sha256": "369ca21c072fa9056bb4426e0a32380b17824d58fc795d3c0640e942e50ef304",
+      "originalTextAsset": {
+        "bundle": "ec924a9e2a5847185f4eda867d6849bd.bundle",
+        "bundleMd5": "ec924a9e2a5847185f4eda867d6849bd",
+        "pathId": "-1797636632872197959",
+        "bytecodeSha256": "af231ebef0267f43b71c467b0735c4c9ef92d9b1b849e08a1f8ee1be8390e7c1",
+        "decodedSha256": "369ca21c072fa9056bb4426e0a32380b17824d58fc795d3c0640e942e50ef304",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    },
+    "SoundUtil.lua": {
+      "file": "platform/SoundUtil.lua",
+      "sha256": "d33474e4208b2c45cbed27af214a3cb89877cd01a7807edf08664a0f0ee91a4b",
+      "originalTextAsset": {
+        "bundle": "ec924a9e2a5847185f4eda867d6849bd.bundle",
+        "bundleMd5": "ec924a9e2a5847185f4eda867d6849bd",
+        "pathId": "-7209335729811706762",
+        "bytecodeSha256": "cbaf7381896496f6340dbad6377f32c9b866a22b58f53878ffc968507da35cdd",
+        "decodedSha256": "d33474e4208b2c45cbed27af214a3cb89877cd01a7807edf08664a0f0ee91a4b",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    }
+  },
+  "schema": "starfall.monster-defense.ui-input/1",
+  "gameResourceVersion": "134395529309427262",
+  "entryPoint": "Activity17MiniGame2MainWindow",
+  "loadOrder": [
+    "CommonResource_BackGroundByName.lua",
+    "ActivityDungeon1017_MiniMain2_IntegralByName.lua",
+    "ActivityDungeon1017_MiniMain2_TopByName.lua",
+    "ActivityDungeon1017_PassReward_ItemFrame_EByName.lua",
+    "ActivityDungeon1017_PassReward_ItemCardPicByName.lua",
+    "ActivityDungeon1017_PassReward_CardFrame_EByName.lua",
+    "ActivityDungeon1017_PassReward_AllFrame_EByName.lua",
+    "CommonResource_RedDotByName.lua",
+    "ActivityDungeon1017_MiniMain2_TodayTaskByName.lua",
+    "ActivityDungeon1017_MiniMain2_BottonByName.lua",
+    "ActivityDungeon1017_MiniGame2ByName.lua",
+    "ActivityDungeon1017_MiniGame2WindowByName.lua",
+    "Activity17MiniGame2MainWindow.lua",
+    "ActivityDungeon1017_MiniGameChoice2_CardRegionByName.lua",
+    "ActivityDungeon1017_MiniGameChoice2ByName.lua",
+    "ActivityDungeon1017_MiniGameChoice2WindowByName.lua",
+    "Activity17MiniGameChoice2Window.lua",
+    "CommonResource_PopupBgByName.lua",
+    "ActivityDungeon1017_MiniGameChoice2_CardInfoLockByName.lua",
+    "ActivityDungeon1017_MiniGameChoice2_InfoRegionByName.lua",
+    "ActivityDungeon1017_MiniGameChoice2_InfoSkillByName.lua",
+    "ActivityDungeon1017_MiniGameChoice2_InfoSkillWindowByName.lua",
+    "Activity17MiniGameChoice2_InfoSkillWindow.lua",
+    "ActivityDungeon1017Battle_NumberByName.lua",
+    "ActivityDungeon1017Battle_ExpByName.lua",
+    "ActivityDungeon1017Battle_TimeByName.lua",
+    "ActivityDungeon1017Battle_ProgressByName.lua",
+    "ActivityDungeon1017Battle_BattleTopByName.lua",
+    "ActivityDungeon1017Battle_DPS1ByName.lua",
+    "ActivityDungeon1017Battle_DPS1RegionByName.lua",
+    "ActivityDungeon1017Battle_DPSInfoSwitchByName.lua",
+    "ActivityDungeon1017Battle_BuildHPByName.lua",
+    "ActivityDungeon1017Battle_BottomByName.lua",
+    "ActivityDungeon1017Battle_BattleUIByName.lua",
+    "ActivityDungeon1017Battle_BattleUIWindowByName.lua",
+    "MiniGameBattleUIWindow.lua",
+    "ActivityDungeon1017Battle_SkillChoice_TimeByName.lua",
+    "ActivityDungeon1017Battle_SkillChoiceByName.lua",
+    "ActivityDungeon1017Battle_SkillChoiceWindowByName.lua",
+    "MiniGameSkillChoiceWindow.lua",
+    "ActivityDungeon1017Battle_BattlePauseByName.lua",
+    "ActivityDungeon1017Battle_BattlePauseWindowByName.lua",
+    "MiniGameBattlePauseWindow.lua",
+    "ActivityDungeon1017Battle_BattleExitByName.lua",
+    "ActivityDungeon1017Battle_BattleExitWindowByName.lua",
+    "MiniGameBattleExitWindow.lua",
+    "ActivityDungeon1017Battle_BattleEnd_InfoByName.lua",
+    "ActivityDungeon1017Battle_BattleEndByName.lua",
+    "ActivityDungeon1017Battle_BattleEndWindowByName.lua",
+    "MiniGameBattleEndWindow.lua",
+    "MiniGameBattleHurtNum.lua",
+    "CommonResource_Activity17_MonsterHPByName.lua",
+    "MiniGameBattleMessageBar.lua",
+    "MiniGameBattleActionDisplay.lua",
+    "SortingHelper.lua",
+    "MiniGameBattleBackground.lua",
+    "Activity17_MiniGameData.lua",
+    "Activity17_MiniGameService.lua",
+    "Activity17_MiniGameScriptList.lua",
+    "ActivityDungeonData.lua",
+    "BaseActivityStageGame.lua",
+    "BaseActivityStageConfig.lua",
+    "BaseActivity.lua",
+    "BaseWord_cn.lua",
+    "Loading_EffectAniByName.lua",
+    "Loading_BattleLoadingWindowByName.lua",
+    "BattleLoadingWindow.lua",
+    "BaseSoundPath.lua"
+  ],
+  "nativeDependencies": [],
+  "files": {
+    "CommonResource_BackGroundByName.lua": {
+      "file": "original/CommonResource_BackGroundByName.lua",
+      "bytes": 220,
+      "sha256": "a4cbc80746923e31b0c3417b886fc0b52026eae51adce5416b830d6520126927",
+      "source": "local-inputs/ui-decoded/CommonResource_BackGroundByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [],
+      "originalTextAsset": {
+        "bundle": "ec924a9e2a5847185f4eda867d6849bd.bundle",
+        "bundleMd5": "ec924a9e2a5847185f4eda867d6849bd",
+        "pathId": "1976986203436305876",
+        "bytecodeSha256": "80fb2176cc5e690790ffb0fa3b0df70d076279c4e147c7fb446fcff90ff92407",
+        "decodedSha256": "a4cbc80746923e31b0c3417b886fc0b52026eae51adce5416b830d6520126927",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    },
+    "ActivityDungeon1017_MiniMain2_IntegralByName.lua": {
+      "file": "original/ActivityDungeon1017_MiniMain2_IntegralByName.lua",
+      "bytes": 201,
+      "sha256": "18ed3a53ca59f6ea49314cac678140e6f482bea55a67d9edc46094bb00f93ac7",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_MiniMain2_IntegralByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "ActivityDungeon1017_MiniMain2_TopByName.lua": {
+      "file": "original/ActivityDungeon1017_MiniMain2_TopByName.lua",
+      "bytes": 255,
+      "sha256": "1dac4d76433125d347e1a5e32813e4b7d3a6dd1f8dcacda302c55c611d289384",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_MiniMain2_TopByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017_MiniMain2_IntegralByName"
+      ]
+    },
+    "ActivityDungeon1017_PassReward_ItemFrame_EByName.lua": {
+      "file": "original/ActivityDungeon1017_PassReward_ItemFrame_EByName.lua",
+      "bytes": 325,
+      "sha256": "05eec0540ad6f246e7e7e5fe81482921e176bcef9570467bac417040b4da12cf",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_PassReward_ItemFrame_EByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "ActivityDungeon1017_PassReward_ItemCardPicByName.lua": {
+      "file": "original/ActivityDungeon1017_PassReward_ItemCardPicByName.lua",
+      "bytes": 205,
+      "sha256": "4779668915b0798003c301bff6364815abeb2223b6b6097cc4c150ddc29df2fc",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_PassReward_ItemCardPicByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "ActivityDungeon1017_PassReward_CardFrame_EByName.lua": {
+      "file": "original/ActivityDungeon1017_PassReward_CardFrame_EByName.lua",
+      "bytes": 392,
+      "sha256": "55906ee8ddd618d5922991e40b6df55a7ec8743beb5e15efb25fb14288a6b808",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_PassReward_CardFrame_EByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017_PassReward_ItemCardPicByName"
+      ]
+    },
+    "ActivityDungeon1017_PassReward_AllFrame_EByName.lua": {
+      "file": "original/ActivityDungeon1017_PassReward_AllFrame_EByName.lua",
+      "bytes": 554,
+      "sha256": "2967ff46b67b3d78afb32cd9df70efb4d6d7316ceff32966b15e45f0244783bd",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_PassReward_AllFrame_EByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017_PassReward_ItemFrame_EByName",
+        "ActivityDungeon1017_PassReward_CardFrame_EByName"
+      ]
+    },
+    "CommonResource_RedDotByName.lua": {
+      "file": "original/CommonResource_RedDotByName.lua",
+      "bytes": 100,
+      "sha256": "eba00543c2289a23d12cfce1084772e9ee76774a193510efb75c0ff218de2f5c",
+      "source": "local-inputs/ui-decoded/CommonResource_RedDotByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [],
+      "originalTextAsset": {
+        "bundle": "ec924a9e2a5847185f4eda867d6849bd.bundle",
+        "bundleMd5": "ec924a9e2a5847185f4eda867d6849bd",
+        "pathId": "9094542287341725744",
+        "bytecodeSha256": "e7c0a8779154b2e76e879b94006828041cb432f167fe7d4059220fa74b0a9fcf",
+        "decodedSha256": "eba00543c2289a23d12cfce1084772e9ee76774a193510efb75c0ff218de2f5c",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    },
+    "ActivityDungeon1017_MiniMain2_TodayTaskByName.lua": {
+      "file": "original/ActivityDungeon1017_MiniMain2_TodayTaskByName.lua",
+      "bytes": 438,
+      "sha256": "d14a4a31a22b2a7dc0a8ce7a2ceec04095065ac78074d2c8e0e2dd3f2ddf5501",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_MiniMain2_TodayTaskByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017_PassReward_AllFrame_EByName",
+        "CommonResource_RedDotByName"
+      ]
+    },
+    "ActivityDungeon1017_MiniMain2_BottonByName.lua": {
+      "file": "original/ActivityDungeon1017_MiniMain2_BottonByName.lua",
+      "bytes": 302,
+      "sha256": "318effc79591c370f1395373cf9b6b00f671011c22c025cd054838b8769ee3cd",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_MiniMain2_BottonByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017_MiniMain2_TodayTaskByName"
+      ]
+    },
+    "ActivityDungeon1017_MiniGame2ByName.lua": {
+      "file": "original/ActivityDungeon1017_MiniGame2ByName.lua",
+      "bytes": 577,
+      "sha256": "33e2f3380682cb147e731b3d62d8d83b220c872c66d0ca6202578d0931053922",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_MiniGame2ByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "CommonResource_BackGroundByName",
+        "ActivityDungeon1017_MiniMain2_TopByName",
+        "ActivityDungeon1017_MiniMain2_BottonByName"
+      ]
+    },
+    "ActivityDungeon1017_MiniGame2WindowByName.lua": {
+      "file": "original/ActivityDungeon1017_MiniGame2WindowByName.lua",
+      "bytes": 231,
+      "sha256": "3fadf3a88e737e391718abab6499019e1371a605d4572cc1a7836ecd3f135d44",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_MiniGame2WindowByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017_MiniGame2ByName"
+      ]
+    },
+    "Activity17MiniGame2MainWindow.lua": {
+      "file": "original/Activity17MiniGame2MainWindow.lua",
+      "bytes": 3837,
+      "sha256": "a2efe0ddc8b6394897e4851d942a26b9c8a3dac76416a69deae14e5f9805dbc4",
+      "source": "lua/134395529309427262/decoded/Activity17MiniGame2MainWindow.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017_MiniGame2WindowByName"
+      ]
+    },
+    "ActivityDungeon1017_MiniGameChoice2_CardRegionByName.lua": {
+      "file": "original/ActivityDungeon1017_MiniGameChoice2_CardRegionByName.lua",
+      "bytes": 167,
+      "sha256": "d01cfefd674a7988de65a5f7682f8ca1f2c95840f71902c351e15e6f6e00e323",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_MiniGameChoice2_CardRegionByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "ActivityDungeon1017_MiniGameChoice2ByName.lua": {
+      "file": "original/ActivityDungeon1017_MiniGameChoice2ByName.lua",
+      "bytes": 486,
+      "sha256": "45b74f60a813063756487c464256af1a9302b302ff5986dadf87d9cfc6edc83e",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_MiniGameChoice2ByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "CommonResource_BackGroundByName",
+        "ActivityDungeon1017_MiniGameChoice2_CardRegionByName"
+      ]
+    },
+    "ActivityDungeon1017_MiniGameChoice2WindowByName.lua": {
+      "file": "original/ActivityDungeon1017_MiniGameChoice2WindowByName.lua",
+      "bytes": 249,
+      "sha256": "0263d28b771d952373fc1e68951534983edf1f69255c5e9808d3c7eabc8596d9",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_MiniGameChoice2WindowByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017_MiniGameChoice2ByName"
+      ]
+    },
+    "Activity17MiniGameChoice2Window.lua": {
+      "file": "original/Activity17MiniGameChoice2Window.lua",
+      "bytes": 7375,
+      "sha256": "fdcb0b2e65b341227730a82dfc6196d17dd3e7f56208b5481cd99f7e7bb05e6c",
+      "source": "lua/134395529309427262/decoded/Activity17MiniGameChoice2Window.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017_MiniGameChoice2WindowByName"
+      ]
+    },
+    "CommonResource_PopupBgByName.lua": {
+      "file": "original/CommonResource_PopupBgByName.lua",
+      "bytes": 147,
+      "sha256": "a4c81b8595b037f1529e5d07b3b20aab453950a5ce0b31c979bd36b655f51e0b",
+      "source": "local-inputs/ui-decoded/CommonResource_PopupBgByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [],
+      "originalTextAsset": {
+        "bundle": "ec924a9e2a5847185f4eda867d6849bd.bundle",
+        "bundleMd5": "ec924a9e2a5847185f4eda867d6849bd",
+        "pathId": "-4948880302277211070",
+        "bytecodeSha256": "4b3717d7ee0f4b577e5afbb9263ea4a04075bdf77a79cb2b86781ae3b03955c2",
+        "decodedSha256": "a4c81b8595b037f1529e5d07b3b20aab453950a5ce0b31c979bd36b655f51e0b",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    },
+    "ActivityDungeon1017_MiniGameChoice2_CardInfoLockByName.lua": {
+      "file": "original/ActivityDungeon1017_MiniGameChoice2_CardInfoLockByName.lua",
+      "bytes": 167,
+      "sha256": "5dc890752fa3e5408fdd308975a9b56f484968fcd0bce3e1d5aa04cf04153858",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_MiniGameChoice2_CardInfoLockByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "ActivityDungeon1017_MiniGameChoice2_InfoRegionByName.lua": {
+      "file": "original/ActivityDungeon1017_MiniGameChoice2_InfoRegionByName.lua",
+      "bytes": 364,
+      "sha256": "105c61565938a928a7f4e6c0af6246b220ecf1c9c45477f938803bd87c9550cd",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_MiniGameChoice2_InfoRegionByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017_MiniGameChoice2_CardInfoLockByName"
+      ]
+    },
+    "ActivityDungeon1017_MiniGameChoice2_InfoSkillByName.lua": {
+      "file": "original/ActivityDungeon1017_MiniGameChoice2_InfoSkillByName.lua",
+      "bytes": 440,
+      "sha256": "9208258ef6bf93cd942eb39df4518bcd9b380520d6ef97457c8bf85f78282342",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_MiniGameChoice2_InfoSkillByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "CommonResource_PopupBgByName",
+        "ActivityDungeon1017_MiniGameChoice2_InfoRegionByName"
+      ]
+    },
+    "ActivityDungeon1017_MiniGameChoice2_InfoSkillWindowByName.lua": {
+      "file": "original/ActivityDungeon1017_MiniGameChoice2_InfoSkillWindowByName.lua",
+      "bytes": 279,
+      "sha256": "3dbb752c08faac99549d599a30f8116d804540739b17fca74144b38edc95082b",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017_MiniGameChoice2_InfoSkillWindowByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017_MiniGameChoice2_InfoSkillByName"
+      ]
+    },
+    "Activity17MiniGameChoice2_InfoSkillWindow.lua": {
+      "file": "original/Activity17MiniGameChoice2_InfoSkillWindow.lua",
+      "bytes": 3607,
+      "sha256": "e0d16c10a90581b4ce31beec4f8f251a310bd39d0a2be6dbe30565fbe83e3406",
+      "source": "lua/134395529309427262/decoded/Activity17MiniGameChoice2_InfoSkillWindow.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017_MiniGameChoice2_InfoSkillWindowByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_NumberByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_NumberByName.lua",
+      "bytes": 155,
+      "sha256": "571542eef3523942d907e85e184e3ab398243e4d15f79d04c0a461e45aec298b",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_NumberByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "ActivityDungeon1017Battle_ExpByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_ExpByName.lua",
+      "bytes": 242,
+      "sha256": "0e07f04bace34b118b0ea2b6858dc986e7df65d1609ee67fe0af34be9db3f8e5",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_ExpByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "ActivityDungeon1017Battle_TimeByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_TimeByName.lua",
+      "bytes": 149,
+      "sha256": "fe98c0f82ef5a7761177405fb3f27f7af8418ffa398d72182fc24f610a0d2118",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_TimeByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "ActivityDungeon1017Battle_ProgressByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_ProgressByName.lua",
+      "bytes": 153,
+      "sha256": "0d3859e913dfe8a1e064572e696b1b9d9ef6b55064b4b515a6738af7e3df1cb3",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_ProgressByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "ActivityDungeon1017Battle_BattleTopByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_BattleTopByName.lua",
+      "bytes": 744,
+      "sha256": "af59d9bac4ead970a09ec63426022b500007d6c5e80acedb93bcb771dc0f7283",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_BattleTopByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_NumberByName",
+        "ActivityDungeon1017Battle_ExpByName",
+        "ActivityDungeon1017Battle_TimeByName",
+        "ActivityDungeon1017Battle_ProgressByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_DPS1ByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_DPS1ByName.lua",
+      "bytes": 245,
+      "sha256": "d62bdb3cbf8699b9a44812f7057bf10a36c80dece185208925e65ffc9a43afbf",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_DPS1ByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "ActivityDungeon1017Battle_DPS1RegionByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_DPS1RegionByName.lua",
+      "bytes": 532,
+      "sha256": "9d220581befc6f0464251256a9f226bfa85a17fc4cd12f3079c1fd2f7d5028fe",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_DPS1RegionByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_DPS1ByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_DPSInfoSwitchByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_DPSInfoSwitchByName.lua",
+      "bytes": 249,
+      "sha256": "7188d2660760fa7a13c43b24eb1a033bef79646e8a54f6f708bf1d697f5bb16e",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_DPSInfoSwitchByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_DPS1RegionByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_BuildHPByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_BuildHPByName.lua",
+      "bytes": 250,
+      "sha256": "eb23f8e100b31826c9df6163b4ebc75ee0f9f2bdfcdf9ff8714d5c00acda33cd",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_BuildHPByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "ActivityDungeon1017Battle_BottomByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_BottomByName.lua",
+      "bytes": 441,
+      "sha256": "8e2d356617a5e55ede6acc26ed422aab64578dcc45e0fab869c23450822cf886",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_BottomByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_DPSInfoSwitchByName",
+        "ActivityDungeon1017Battle_BuildHPByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_BattleUIByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_BattleUIByName.lua",
+      "bytes": 369,
+      "sha256": "c5fe00b63dee6c8c73965871ca42faeebbfe3bc9d242b5b8a2e013e592813891",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_BattleUIByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_BattleTopByName",
+        "ActivityDungeon1017Battle_BottomByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_BattleUIWindowByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_BattleUIWindowByName.lua",
+      "bytes": 246,
+      "sha256": "9782fb0e59ac97c1295285d94993edbd111f3c3aaf149f18d527a0511e611f8d",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_BattleUIWindowByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_BattleUIByName"
+      ]
+    },
+    "MiniGameBattleUIWindow.lua": {
+      "file": "original/MiniGameBattleUIWindow.lua",
+      "bytes": 10165,
+      "sha256": "61604a632913795c4406561331f914923cd22dc2bd3d1a1f45fbcca9f911929b",
+      "source": "lua/134395529309427262/decoded/MiniGameBattleUIWindow.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_BattleUIWindowByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_SkillChoice_TimeByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_SkillChoice_TimeByName.lua",
+      "bytes": 277,
+      "sha256": "f0f2f2813556c1c48852c475624842ab2cab8b5fe16cd66b88ecfe3793594f41",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_SkillChoice_TimeByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "ActivityDungeon1017Battle_SkillChoiceByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_SkillChoiceByName.lua",
+      "bytes": 412,
+      "sha256": "533423b7d48a78bad3c4c8ac441ed0205d03c97d94e1f4f5366bb3485c06ec25",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_SkillChoiceByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "CommonResource_PopupBgByName",
+        "ActivityDungeon1017Battle_SkillChoice_TimeByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_SkillChoiceWindowByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_SkillChoiceWindowByName.lua",
+      "bytes": 255,
+      "sha256": "783e78aa5164de732f8baf2ef58f99e116fbaf8c3e9b99d72aa694070d76479f",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_SkillChoiceWindowByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_SkillChoiceByName"
+      ]
+    },
+    "MiniGameSkillChoiceWindow.lua": {
+      "file": "original/MiniGameSkillChoiceWindow.lua",
+      "bytes": 6140,
+      "sha256": "9980dd5a27f4c73c785f44a9a54dd70388419f91572e51a10af3109d1ad4a8b5",
+      "source": "lua/134395529309427262/decoded/MiniGameSkillChoiceWindow.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_SkillChoiceWindowByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_BattlePauseByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_BattlePauseByName.lua",
+      "bytes": 361,
+      "sha256": "39e13afecabb38888e2f8f792731b753281e87f26655e1651d58ff9734651ad9",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_BattlePauseByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "CommonResource_PopupBgByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_BattlePauseWindowByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_BattlePauseWindowByName.lua",
+      "bytes": 255,
+      "sha256": "9e07a8ea68cc5c46d1f6c63120909cd233d5eb47fa256d36cf656619bb1bd4e7",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_BattlePauseWindowByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_BattlePauseByName"
+      ]
+    },
+    "MiniGameBattlePauseWindow.lua": {
+      "file": "original/MiniGameBattlePauseWindow.lua",
+      "bytes": 1133,
+      "sha256": "75bd9df2c83f3f170cc28437e717bc1de7d2a3ab623d6057ca0e18b94a6ebdd3",
+      "source": "lua/134395529309427262/decoded/MiniGameBattlePauseWindow.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_BattlePauseWindowByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_BattleExitByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_BattleExitByName.lua",
+      "bytes": 390,
+      "sha256": "4e152388b149d6b1b8678df7175da5cbaef7cc1fe8b296910f650c8dc44aba14",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_BattleExitByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "CommonResource_PopupBgByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_BattleExitWindowByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_BattleExitWindowByName.lua",
+      "bytes": 252,
+      "sha256": "ddab82fb995d6e3cd48055da52b8f82caec333a374c34bf13309d40b964f5b07",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_BattleExitWindowByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_BattleExitByName"
+      ]
+    },
+    "MiniGameBattleExitWindow.lua": {
+      "file": "original/MiniGameBattleExitWindow.lua",
+      "bytes": 1383,
+      "sha256": "eea43fbf88686a08342ab16efee165d43b89fe9b57409adda2c2ad6117601344",
+      "source": "lua/134395529309427262/decoded/MiniGameBattleExitWindow.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_BattleExitWindowByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_BattleEnd_InfoByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_BattleEnd_InfoByName.lua",
+      "bytes": 203,
+      "sha256": "35a36c5bb6fb0e82452f4ef366942e2f94b4a3ef4883cbe9e811220355730596",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_BattleEnd_InfoByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "ActivityDungeon1017Battle_BattleEndByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_BattleEndByName.lua",
+      "bytes": 530,
+      "sha256": "c820f97c36d5fc89ccf661be6bf3a9b45b675396a931461fb38eb1e05619ea28",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_BattleEndByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "CommonResource_PopupBgByName",
+        "ActivityDungeon1017Battle_BattleEnd_InfoByName"
+      ]
+    },
+    "ActivityDungeon1017Battle_BattleEndWindowByName.lua": {
+      "file": "original/ActivityDungeon1017Battle_BattleEndWindowByName.lua",
+      "bytes": 249,
+      "sha256": "4ef2405ea02ca97aeed4c71974863243cc8b8f90562124fab3f3fa70ca271a1d",
+      "source": "lua/134395529309427262/decoded/ActivityDungeon1017Battle_BattleEndWindowByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_BattleEndByName"
+      ]
+    },
+    "MiniGameBattleEndWindow.lua": {
+      "file": "original/MiniGameBattleEndWindow.lua",
+      "bytes": 1569,
+      "sha256": "be9417279fdd00bd9a9eadc5a634ca547c2bd9b218489750744032af4fe76476",
+      "source": "lua/134395529309427262/decoded/MiniGameBattleEndWindow.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "ActivityDungeon1017Battle_BattleEndWindowByName"
+      ]
+    },
+    "MiniGameBattleHurtNum.lua": {
+      "file": "original/MiniGameBattleHurtNum.lua",
+      "bytes": 2588,
+      "sha256": "8dbc5b0d6eee7355efe2abd94ab6133e5060fb679a43a2a3d5033add4bdc7356",
+      "source": "lua/134395529309427262/decoded/MiniGameBattleHurtNum.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "CommonResource_Activity17_MonsterHPByName.lua": {
+      "file": "original/CommonResource_Activity17_MonsterHPByName.lua",
+      "bytes": 340,
+      "sha256": "468d59572fb142b4b927fe72d7963259ff7c431572c50c36d9c78a0c5d21d078",
+      "source": "lua/134395529309427262/decoded/CommonResource_Activity17_MonsterHPByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "MiniGameBattleMessageBar.lua": {
+      "file": "original/MiniGameBattleMessageBar.lua",
+      "bytes": 2211,
+      "sha256": "b8a0d54ac6aa063961fc7fb30e9c035bfb29d60f7b7f2a8162b12edca4632398",
+      "source": "lua/134395529309427262/decoded/MiniGameBattleMessageBar.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "CommonResource_Activity17_MonsterHPByName"
+      ]
+    },
+    "MiniGameBattleActionDisplay.lua": {
+      "file": "original/MiniGameBattleActionDisplay.lua",
+      "bytes": 3849,
+      "sha256": "0c83419feda468808c4cd7be6093b6d751af90cb5ae1864adf966faca78f0d5d",
+      "source": "lua/134395529309427262/decoded/MiniGameBattleActionDisplay.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "SortingHelper.lua": {
+      "file": "original/SortingHelper.lua",
+      "bytes": 311,
+      "sha256": "26702b7003ebe0c3b43c2e6a055d982a8e98eecfc33634d3216c47241636779f",
+      "source": "lua/134395529309427262/decoded/SortingHelper.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "MiniGameBattleBackground.lua": {
+      "file": "original/MiniGameBattleBackground.lua",
+      "bytes": 807,
+      "sha256": "0d9e2709739f1df8b8c29b21461bf0e3d8b9567ec15c32b6dafa3e3b5ee1b940",
+      "source": "lua/134395529309427262/decoded/MiniGameBattleBackground.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "SortingHelper"
+      ]
+    },
+    "Activity17_MiniGameData.lua": {
+      "file": "original/Activity17_MiniGameData.lua",
+      "bytes": 557,
+      "sha256": "5449e784ec75f5a2813adf1875a9160efe4d415a063e6fe4e2412bde66d55915",
+      "source": "lua/134395529309427262/decoded/Activity17_MiniGameData.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "Activity17_MiniGameService.lua": {
+      "file": "original/Activity17_MiniGameService.lua",
+      "bytes": 3965,
+      "sha256": "412b389e45a38bcf9f25f294ebda37533715ab9fb60956d0723dc0f4abd6fba8",
+      "source": "lua/134395529309427262/decoded/Activity17_MiniGameService.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "Activity17_MiniGameScriptList.lua": {
+      "file": "original/Activity17_MiniGameScriptList.lua",
+      "bytes": 130,
+      "sha256": "a469d9c39671fbe218b3d6c0876823401b26e268175286a03b15b08c2121a9c2",
+      "source": "lua/134395529309427262/decoded/Activity17_MiniGameScriptList.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "Activity17_MiniGameData",
+        "Activity17_MiniGameService"
+      ]
+    },
+    "ActivityDungeonData.lua": {
+      "file": "original/ActivityDungeonData.lua",
+      "bytes": 2763,
+      "sha256": "46b837ada1358361ef0d8f2a135beaf43666b253f98c5b8dec4a7a563d4fb18c",
+      "source": "local-inputs/ui-decoded/ActivityDungeonData.lua",
+      "provenance": "original-lua-ui",
+      "requires": [],
+      "originalTextAsset": {
+        "bundle": "ec924a9e2a5847185f4eda867d6849bd.bundle",
+        "bundleMd5": "ec924a9e2a5847185f4eda867d6849bd",
+        "pathId": "2475555461691557606",
+        "bytecodeSha256": "6f4f4e5caa21fad19818f9ec379b4982fbe095e7a9b13208e489d4cc73e6c77c",
+        "decodedSha256": "46b837ada1358361ef0d8f2a135beaf43666b253f98c5b8dec4a7a563d4fb18c",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    },
+    "BaseActivityStageGame.lua": {
+      "file": "original/BaseActivityStageGame.lua",
+      "bytes": 31457,
+      "sha256": "4bf26443b9e240784fc41c3fac89633ec9145cef88daa1dab5e362e27ea18caa",
+      "source": "local-inputs/ui-decoded/BaseActivityStageGame.lua",
+      "provenance": "original-lua-ui",
+      "requires": [],
+      "originalTextAsset": {
+        "bundle": "904ee34c766c4bfeb496b9ebe55a1571.bundle",
+        "bundleMd5": "904ee34c766c4bfeb496b9ebe55a1571",
+        "pathId": "8147334343226331722",
+        "bytecodeSha256": "82572cd8d81d4ab1160bd164d9bd3507c11b2831e46b48b839d7b9d9faac06d6",
+        "decodedSha256": "4bf26443b9e240784fc41c3fac89633ec9145cef88daa1dab5e362e27ea18caa",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    },
+    "BaseActivityStageConfig.lua": {
+      "file": "original/BaseActivityStageConfig.lua",
+      "bytes": 78793,
+      "sha256": "6baeb2ab6e6d20fdc98c7f981328acbb3c485c8062abd58fb884dff517799cfc",
+      "source": "local-inputs/ui-decoded/BaseActivityStageConfig.lua",
+      "provenance": "original-lua-ui",
+      "requires": [],
+      "originalTextAsset": {
+        "bundle": "904ee34c766c4bfeb496b9ebe55a1571.bundle",
+        "bundleMd5": "904ee34c766c4bfeb496b9ebe55a1571",
+        "pathId": "-6660362867507164548",
+        "bytecodeSha256": "818cb28cf2b4eb6c06d6ab4d1cc197854c2319a53c6ebdde5b3761bda2dfe99e",
+        "decodedSha256": "6baeb2ab6e6d20fdc98c7f981328acbb3c485c8062abd58fb884dff517799cfc",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    },
+    "BaseActivity.lua": {
+      "file": "original/BaseActivity.lua",
+      "bytes": 70517,
+      "sha256": "5ebbed8c9e7c7141078acd9265054d6fb3dfb1c70c346475f21c280b353e3cde",
+      "source": "local-inputs/ui-decoded/BaseActivity.lua",
+      "provenance": "original-lua-ui",
+      "requires": [],
+      "originalTextAsset": {
+        "bundle": "904ee34c766c4bfeb496b9ebe55a1571.bundle",
+        "bundleMd5": "904ee34c766c4bfeb496b9ebe55a1571",
+        "pathId": "4591289586571371012",
+        "bytecodeSha256": "ba2f18622e796e754e33c61514a2e85e5488ca6ec3e945a53d50fbfe8f40fd75",
+        "decodedSha256": "5ebbed8c9e7c7141078acd9265054d6fb3dfb1c70c346475f21c280b353e3cde",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    },
+    "BaseWord_cn.lua": {
+      "file": "original/BaseWord_cn.lua",
+      "bytes": 8209382,
+      "sha256": "92aeaa94aaea03812f7f7172430771fbb4a2ac1736c0359958de26c83ad5702a",
+      "source": "lua/134395529309427262/decoded/BaseWord_cn.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    },
+    "Loading_EffectAniByName.lua": {
+      "file": "original/Loading_EffectAniByName.lua",
+      "bytes": 196,
+      "sha256": "b8d093e37cbbdbb37b72e95054db96beb6857fd3d3ef68c98a78ef9b2e737c9c",
+      "source": "local-inputs/ui-decoded/Loading_EffectAniByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [],
+      "originalTextAsset": {
+        "bundle": "ec924a9e2a5847185f4eda867d6849bd.bundle",
+        "bundleMd5": "ec924a9e2a5847185f4eda867d6849bd",
+        "pathId": "-8048754627893289715",
+        "bytecodeSha256": "4ec2a1afb231e0078fed6ba4117b5dbb575dc1bc5a8e33199c02ac13114a4678",
+        "decodedSha256": "b8d093e37cbbdbb37b72e95054db96beb6857fd3d3ef68c98a78ef9b2e737c9c",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    },
+    "Loading_BattleLoadingWindowByName.lua": {
+      "file": "original/Loading_BattleLoadingWindowByName.lua",
+      "bytes": 209,
+      "sha256": "75f424a13146a2b3f1df82d2676211147557118d09d9d93271c7fd75fa2536fa",
+      "source": "local-inputs/ui-decoded/Loading_BattleLoadingWindowByName.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "Loading_EffectAniByName"
+      ],
+      "originalTextAsset": {
+        "bundle": "ec924a9e2a5847185f4eda867d6849bd.bundle",
+        "bundleMd5": "ec924a9e2a5847185f4eda867d6849bd",
+        "pathId": "-8310356718537228901",
+        "bytecodeSha256": "63e2ef4576de15268395196a406b7e4bb56ab6feb0a0fd01ff24f8924399016c",
+        "decodedSha256": "75f424a13146a2b3f1df82d2676211147557118d09d9d93271c7fd75fa2536fa",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    },
+    "BattleLoadingWindow.lua": {
+      "file": "original/BattleLoadingWindow.lua",
+      "bytes": 2701,
+      "sha256": "988038ba335e0e4e5b5e4f2c62725ed33ebb42c869a5f42bf272cb6f2e9725e8",
+      "source": "local-inputs/ui-decoded/BattleLoadingWindow.lua",
+      "provenance": "original-lua-ui",
+      "requires": [
+        "Loading_BattleLoadingWindowByName"
+      ],
+      "originalTextAsset": {
+        "bundle": "ec924a9e2a5847185f4eda867d6849bd.bundle",
+        "bundleMd5": "ec924a9e2a5847185f4eda867d6849bd",
+        "pathId": "7844703553501856019",
+        "bytecodeSha256": "ec0a51e5f1a7b8c226874d83ecf55615dbbe69bdd104a60136459b4bb73bd55e",
+        "decodedSha256": "988038ba335e0e4e5b5e4f2c62725ed33ebb42c869a5f42bf272cb6f2e9725e8",
+        "toolSha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+      }
+    },
+    "BaseSoundPath.lua": {
+      "file": "original/BaseSoundPath.lua",
+      "bytes": 454945,
+      "sha256": "f1e141f9b01d9927535209cd6957ecde86f4d1c65076401c7650d1d6c7b2da9f",
+      "source": "lua/134395529309427262/decoded/BaseSoundPath.lua",
+      "provenance": "original-lua-ui",
+      "requires": []
+    }
+  }
+}
