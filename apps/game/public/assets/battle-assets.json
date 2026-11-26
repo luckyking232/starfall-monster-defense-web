@@ -1045,17 +1045,21 @@
       "source": "assets/audio/minigame022/44_MiniGame022_10000104_tianfu_loop.wav",
       "provenance": "original-sfx"
     },
-    "audio/01_B02-R.wav": {
-      "bytes": 26051784,
-      "sha256": "09a0476560af5f34a6b0d7ae0a296394ee01701de6e42cc8253aab5d09abafcd",
+    "audio/01_B02-R.flac": {
+      "bytes": 12241747,
+      "sha256": "681403d52782fd1a6533b058a1351210477c23f63dd0eca41ba9a1385a193988",
       "source": "assets/audio/bgm_b02/01_B02-R.wav",
-      "provenance": "original-bgm"
+      "provenance": "lossless-original-bgm",
+      "sourceSha256": "09a0476560af5f34a6b0d7ae0a296394ee01701de6e42cc8253aab5d09abafcd",
+      "pcmSha256": "32365bc2c542b72750d07dd2402aec1ee06e138d2615d90b0f25f963e667b454"
     },
-    "audio/02_B02-O.wav": {
-      "bytes": 26051784,
-      "sha256": "a7cdbdc37baf787ada5443166f56a4c9dd06f66ebd79cf632c57286faa273a8d",
+    "audio/02_B02-O.flac": {
+      "bytes": 13279885,
+      "sha256": "c5c1c40477ba1fe15ec0f1f307ab060eb60ddbe7430076ea2c4117af3edc7d3a",
       "source": "assets/audio/bgm_b02/02_B02-O.wav",
-      "provenance": "original-bgm"
+      "provenance": "lossless-original-bgm",
+      "sourceSha256": "a7cdbdc37baf787ada5443166f56a4c9dd06f66ebd79cf632c57286faa273a8d",
+      "pcmSha256": "f60f5fa4d98ebf3ab73da5e69562a9edbde11a977805a04d6ab4fa6354aa573a"
     }
   }
 }

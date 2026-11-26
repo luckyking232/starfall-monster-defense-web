@@ -9,7 +9,7 @@
     "event": "event:/bgm/bgm_btl/bgm_btl_b02_112bpm",
     "layers": [
       {
-        "file": "02_B02-O.wav",
+        "file": "02_B02-O.flac",
         "start": 0,
         "offset": 27724,
         "loopFrom": 1985514,
@@ -17,7 +17,7 @@
         "gainDb": -11
       },
       {
-        "file": "01_B02-R.wav",
+        "file": "01_B02-R.flac",
         "start": 6444,
         "offset": 34167,
         "loopFrom": 1985513,

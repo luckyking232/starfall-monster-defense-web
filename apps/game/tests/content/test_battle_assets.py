@@ -4,7 +4,9 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import shutil
 import struct
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -95,8 +97,33 @@ class BattleAssetsTest(unittest.TestCase):
         for name, record in self.files.items():
             source = RESEARCH / record['source']
             self.assertTrue(source.is_file(), name)
-            self.assertEqual(sha(source), record['sha256'], name)
+            self.assertEqual(sha(source), record.get('sourceSha256', record['sha256']), name)
             self.assertTrue(record['provenance'], name)
+
+    def test_music_is_packaged_once_and_preserves_both_timeline_layers(self) -> None:
+        cues = load(APP / 'runtime' / 'audio-cues.json')
+        self.assertEqual(cues['clockHz'], 48000)
+        self.assertEqual(cues['music']['layers'], [
+            {'file': '02_B02-O.flac', 'start': 0, 'offset': 27724, 'loopFrom': 1985514, 'loopTo': 6305514, 'gainDb': -11},
+            {'file': '01_B02-R.flac', 'start': 6444, 'offset': 34167, 'loopFrom': 1985513, 'loopTo': 6305513, 'gainDb': -13},
+        ])
+        for layer in cues['music']['layers']:
+            target = APP / 'public' / 'assets' / 'audio' / layer['file']
+            self.assertFalse(target.with_suffix('.wav').exists())
+            self.assertEqual(self.files[f'audio/{target.name}']['provenance'], 'lossless-original-bgm')
+
+    @unittest.skipUnless(shutil.which('ffmpeg'), 'FFmpeg is required for the decoded PCM comparison')
+    def test_music_decodes_to_the_original_pcm_hashes(self) -> None:
+        for name, record in self.files.items():
+            if record['provenance'] != 'lossless-original-bgm':
+                continue
+            target = APP / 'public' / 'assets' / name
+            for path in (target, RESEARCH / record['source']):
+                result = subprocess.run(
+                    ['ffmpeg', '-v', 'error', '-nostdin', '-i', str(path), '-c:a', 'pcm_s16le',
+                     '-f', 'hash', '-hash', 'sha256', '-'], capture_output=True, check=True, text=True,
+                )
+                self.assertEqual(result.stdout.strip(), 'SHA256=' + record['pcmSha256'], path)
 
 
 @unittest.skipUnless(RESEARCH.is_dir(), f'research directory missing: {RESEARCH}')

@@ -506,7 +506,11 @@ test.each(effectRoles)('$name sends its three original combat effects into the w
         break;
       }
       case 78000103: {
-        expect(talentModels[0]!.right!.x).toBeGreaterThan(0);
+        const summon = talentState.units.find((unit) => unit.cardId === 78000302)!;
+        const farthest = talentState.units.filter((unit) => unit.cardId === 78000201)
+          .reduce((previous, unit) => unit.x > previous.x ? unit : previous);
+        expect(summon.model!.right).toEqual({ x: farthest.x-summon.x, y: farthest.y-summon.y, z: 0 });
+        expect(summon.model!.scale.x).toBeGreaterThan(0);
         const second = await frame('__TestCard:SaveSkill(78010333); __TestTalent()');
         const third = await frame('__TestCard:SaveSkill(78010333); __TestTalent()');
         expect(models(second, talent)[0]!.scale.x).toBeCloseTo(talentModels[0]!.scale.x);

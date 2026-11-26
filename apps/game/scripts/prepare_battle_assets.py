@@ -5,7 +5,9 @@ import argparse
 import hashlib
 import json
 import shutil
+import subprocess
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 APP = Path(__file__).resolve().parents[1]
 FRAME_SETS = (
@@ -30,9 +32,18 @@ def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def pcm_sha(path: Path, ffmpeg: str) -> str:
+    result = subprocess.run(
+        [ffmpeg, '-v', 'error', '-nostdin', '-i', str(path), '-c:a', 'pcm_s16le', '-f', 'hash', '-hash', 'sha256', '-'],
+        capture_output=True, check=True, text=True,
+    )
+    return result.stdout.strip().split('=', 1)[1]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, required=True)
+    parser.add_argument('--ffmpeg', default='ffmpeg', help='FFmpeg executable used to encode battle music as FLAC')
     args = parser.parse_args()
     source = args.source.resolve(strict=True)
     prefab = source / 'assets' / 'exported' / 'assets' / 'art' / 'models' / 'minigame022' / 'prefab'
@@ -63,7 +74,32 @@ def main() -> None:
     for path in sorted((source / 'assets' / 'audio' / 'minigame022').glob('*.wav')):
         copy(path, f'audio/{path.name}', 'original-sfx')
     for path in sorted((source / 'assets' / 'audio' / 'bgm_b02').glob('*.wav')):
-        copy(path, f'audio/{path.name}', 'original-bgm')
+        target_name = f'audio/{path.stem}.flac'
+        target = destination / target_name
+        source_hash = sha(path)
+        legacy_copy = target.with_suffix('.wav')
+        if legacy_copy.exists() and sha(legacy_copy) != source_hash:
+            raise ValueError(f'The existing WAV does not match its source: {legacy_copy}')
+        with TemporaryDirectory(dir=target.parent) as directory:
+            encoded = Path(directory) / target.name
+            subprocess.run(
+                [args.ffmpeg, '-v', 'error', '-nostdin', '-y', '-i', str(path), '-map_metadata', '-1',
+                 '-c:a', 'flac', '-compression_level', '12', str(encoded)],
+                check=True,
+            )
+            original_pcm = pcm_sha(path, args.ffmpeg)
+            if original_pcm != pcm_sha(encoded, args.ffmpeg):
+                raise ValueError(f'Decoded music samples changed: {path.name}')
+            encoded.replace(target)
+        legacy_copy.unlink(missing_ok=True)
+        records[target_name] = {
+            'bytes': target.stat().st_size,
+            'sha256': sha(target),
+            'source': path.relative_to(source).as_posix(),
+            'provenance': 'lossless-original-bgm',
+            'sourceSha256': source_hash,
+            'pcmSha256': original_pcm,
+        }
 
     manifest = {'schema': 'starfall.monster-defense.battle-assets/1', 'files': records}
     (destination / 'battle-assets.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

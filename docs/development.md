@@ -25,4 +25,6 @@ npx playwright test
 
 Windows 默认使用本机 Microsoft Edge，Linux 使用 Playwright Chromium，也可设置 `CHROME_PATH` 指向可执行文件路径。设 `STARFALL_PLAYER_RUN=1` 可运行完整首关的浏览器验收；`STARFALL_FULL_MATRIX=1` 启用延时较长的 21 关原规则单测。开发者持有对应版本的原始包体和解包资料时，可通过 `STARFALL_RESEARCH_DIR` 指定目录，执行 `npm run test:content` 复验来源。
 
-GitHub Actions 校验输入、运行测试并从当前提交构建。Pages 在 `/play/` 提供游戏。构建成功后可运行 `python scripts/package_release.py --build apps/game/dist --out MonsterDefense-v1.0.0.zip` 生成可在静态服务器上使用的离线包。
+首屏先准备菜单所需的界面、规则和引擎。打开选关后，浏览器在后台准备原过场、战场图像和特效，并下载、解码启用的两条战斗音乐。立即选关时，等待界面会列出尚未就绪的部分。已解码的资源在同一页面的后续对局中复用。音效滑杆从静音到原增益的 10%；音乐使用单独的增益总线。
+
+GitHub Actions 校验输入、运行测试并从当前提交构建。Pages 在 `/play/` 提供游戏。构建成功后可运行 `python scripts/package_release.py --build apps/game/dist --out MonsterDefense-v1.0.1.zip` 生成可在静态服务器上使用的离线包。

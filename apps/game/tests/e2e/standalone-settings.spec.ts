@@ -7,7 +7,7 @@ test('网页设置记住音量和帧率，新旧档独立并能删除', async ({
   const settings = page.getByRole('button', { name: '网页设置' });
   await settings.click();
   const effects = page.getByRole('slider', { name: '音效音量' });
-  await expect(effects).toHaveValue('20');
+  await expect(effects).toHaveValue('100');
   await page.screenshot({path:test.info().outputPath('settings.png')});
   await effects.focus();
   await effects.press('Home');

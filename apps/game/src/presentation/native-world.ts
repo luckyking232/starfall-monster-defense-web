@@ -117,6 +117,11 @@ export class NativeBattlefield {
     drawPrefabSprites(this.context, pending, resolveFrame);
   }
 
+  reset(): void {
+    this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
+    this.effects.layers([],0);
+  }
+
   dispose(): void {
     this.effects.dispose();
     this.canvas.remove();

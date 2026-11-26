@@ -396,6 +396,11 @@ class Extractor:
                              streams=r['m_VertexStreams'], mode=mode, alignment=r['m_RenderAlignment'],
                              lengthScale=r['m_LengthScale'], velocityScale=r['m_VelocityScale'],
                              sortingFudge=r['m_SortingFudge'], particle=particle)
+                pivot = components(r['m_Pivot'], 'xyz')
+                if any(pivot):
+                    vertices = np.asarray(self.meshes[mesh]['vertices']).reshape(-1, 3)
+                    # Unity expresses renderer pivot offsets in diameters of the particle geometry.
+                    layer['pivotOffset'] = (np.ptp(vertices, axis=0) * pivot).tolist()
                 if particle.get('trail'):
                     trail_material = self.material(self.resolve(renderer, r['m_Materials'][-1]))
                     gradient = particle['trail']
