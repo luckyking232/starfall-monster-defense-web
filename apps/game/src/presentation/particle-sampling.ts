@@ -1,6 +1,8 @@
 type Vec3 = [number, number, number];
 type Gradient = [time: number, ...channels: number[]][];
-type Curve = number | [number, number] | [{ scale: number; keys: [number, number, number | null, number | null][] }];
+type CurveKey = [number, number, number | null, number | null];
+type KeyedCurve = { scale: number; keys: CurveKey[] };
+type Curve = number | [number, number] | [KeyedCurve];
 
 export interface ParticleEmitter {
   delay: number;
@@ -52,6 +54,14 @@ const tau = Math.PI * 2;
 
 const interpolate = (from: number, to: number, fraction: number) => from + (to - from) * fraction;
 
+function sampleSegment([start, from, , outSlope]: CurveKey, [end, to, inSlope]: CurveKey, at: number): number {
+  if (outSlope === null || inSlope === null) return from;
+  const t = (at - start) / (end - start);
+  const t2 = t * t, t3 = t2 * t;
+  return (2 * t3 - 3 * t2 + 1) * from + (t3 - 2 * t2 + t) * (end - start) * outSlope
+    + (-2 * t3 + 3 * t2) * to + (t3 - t2) * (end - start) * inSlope;
+}
+
 export function evaluateCurve(curve: Curve | undefined, at: number, random = 0, fallback = 0): number {
   if (curve === undefined) return fallback;
   if (typeof curve === 'number') return curve;
@@ -62,13 +72,39 @@ export function evaluateCurve(curve: Curve | undefined, at: number, random = 0, 
   const upper = keys.findIndex(([time]) => time > at);
   if (upper < 0) return keys.at(-1)![1] * scale;
   if (upper === 0) return first[1] * scale;
-  const [start, from, , outSlope] = keys[upper - 1]!;
-  const [end, to, inSlope] = keys[upper]!;
-  if (outSlope === null || inSlope === null) return from * scale;
-  const t = (at - start) / (end - start);
-  const t2 = t * t, t3 = t2 * t;
-  return scale * ((2 * t3 - 3 * t2 + 1) * from + (t3 - 2 * t2 + t) * (end - start) * outSlope
-    + (-2 * t3 + 3 * t2) * to + (t3 - t2) * (end - start) * inSlope);
+  return scale * sampleSegment(keys[upper - 1]!, keys[upper]!, at);
+}
+
+function integratedCurve({ scale, keys }: KeyedCurve, end: number): number {
+  const first = keys[0];
+  if (!first) return 0;
+  let area = first[1] * Math.max(0, Math.min(end, first[0]));
+  for (let index = 1; index < keys.length; index++) {
+    const left = keys[index - 1]!, right = keys[index]!;
+    const start = Math.max(0, left[0]), stop = Math.min(end, right[0]);
+    if (stop <= start) continue;
+    // Simpson's rule integrates a Hermite cubic exactly within each knot interval.
+    area += (stop - start) / 6 * (sampleSegment(left, right, start) + 4 * sampleSegment(left, right, (start + stop) / 2)
+      + sampleSegment(left, right, stop));
+  }
+  const last = keys.at(-1)!;
+  area += last[1] * Math.max(0, end - Math.max(0, last[0]));
+  return area * scale;
+}
+
+function rotationOffset(curve: Curve | undefined, elapsed: number, life: number, ring: number,
+  [loopStart, loopEnd]: [number, number], random: number): number {
+  if (curve === undefined) return 0;
+  if (typeof curve === 'number') return curve * elapsed;
+  if (typeof curve[0] === 'number') return interpolate(curve[0], curve[1] as number, random) * elapsed;
+  const phase = elapsed / life;
+  if (ring !== 2 || phase <= 1 || loopEnd <= loopStart) return life * integratedCurve(curve[0], phase);
+  const span = loopEnd - loopStart;
+  const passed = phase - 1;
+  const beforeLoop = integratedCurve(curve[0], loopStart);
+  const cycle = integratedCurve(curve[0], loopEnd) - beforeLoop;
+  const remainder = integratedCurve(curve[0], loopStart + passed % span) - beforeLoop;
+  return life * (integratedCurve(curve[0], 1) + Math.floor(passed / span) * cycle + remainder);
 }
 
 function gradient(keys: Gradient | undefined, time: number): number[] {
@@ -167,7 +203,7 @@ function particleBirths(source: ParticleEmitter, time: number, instance: number,
   return alive.filter(({ birth, life }) => source.ring || birth + life > time);
 }
 
-export function particleSamples(source: ParticleEmitter, baseColor: number[], seconds: number, instance: number, emitter: number, continuousSpin: boolean): ParticleSample[] {
+export function particleSamples(source: ParticleEmitter, baseColor: number[], seconds: number, instance: number, emitter: number): ParticleSample[] {
   const time = seconds * source.speed - source.delay;
   if (time < -1e-6 || !source.limit) return [];
   return particleBirths(source, Math.max(0, time), instance, emitter).map(({ index, birth, life }) => {
@@ -207,11 +243,14 @@ export function particleSamples(source: ParticleEmitter, baseColor: number[], se
     const position = shape.position.map((value, axis) => value + velocity[axis]! * travel
       + (axis === 1 ? gravity * age * age / 2 : 0)
       + (axis < 2 && noise ? jitter * evaluateCurve(noise.position, normalized) : 0)) as Vec3;
-    const rotateAge = continuousSpin ? elapsed : age;
+    // Ring retention still governs position, tint and UV. Keep advancing the rendered rotation
+    // while the original model owns the particle, with the source angular-velocity curve.
+    const spin = (curve: Curve | undefined, property: number) =>
+      rotationOffset(curve, elapsed, life, source.ring, source.ringRange, random(property));
     const rotation: Vec3 = [
-      evaluateCurve(source.rotation[0], normalized, random(11)) + evaluateCurve(source.spinXY?.[0], normalized) * rotateAge,
-      evaluateCurve(source.rotation[1], normalized, random(12)) + evaluateCurve(source.spinXY?.[1], normalized) * rotateAge,
-      evaluateCurve(source.rotation[2], normalized, random(13)) + evaluateCurve(source.spin, normalized) * rotateAge
+      evaluateCurve(source.rotation[0], normalized, random(11)) + spin(source.spinXY?.[0], 17),
+      evaluateCurve(source.rotation[1], normalized, random(12)) + spin(source.spinXY?.[1], 18),
+      evaluateCurve(source.rotation[2], normalized, random(13)) + spin(source.spin, 19)
         + (noise ? jitter * evaluateCurve(noise.rotation, normalized) : 0),
     ];
     const size = [0, 1, 2].map((axis) => startingSize * Math.max(0,

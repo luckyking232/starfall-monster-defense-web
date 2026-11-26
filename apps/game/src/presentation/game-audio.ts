@@ -59,7 +59,10 @@ interface Voice {
   layers: readonly GameAudioMusicLayer[];
   sources: Map<AudioSource, GainNode | undefined>;
   starting: boolean;
+  keepBuffers: boolean;
 }
+
+const MAX_SFX_GAIN = 0.10;
 
 async function fetchAudio(url: string, signal: AbortSignal): Promise<ArrayBuffer> {
   const response = await fetch(url, { signal });
@@ -81,6 +84,8 @@ function checkLayerTiming(layer: GameAudioMusicLayer): void {
 export class GameAudio {
   private readonly voices = new Map<GameAudioId, Voice>();
   private readonly buffers = new Map<string, Promise<AudioBuffer>>();
+  private readonly musicBuffers = new Map<string, Promise<AudioBuffer>>();
+  private readonly musicLoads = new AbortController();
   private readonly visibility;
   private readonly loadBytes;
   private sceneLoads = new AbortController();
@@ -91,13 +96,18 @@ export class GameAudio {
   private unlocked = false;
   private backgrounded: boolean;
   private sfxRate = 1;
-  private readonly volumes = { bgm: 1, sfx: 0.2 };
+  private readonly volumes = { bgm: 1, sfx: MAX_SFX_GAIN };
   private readonly outputs = new Map<GameAudioCue['kind'], GainNode>();
 
   setVolumes(music: number, effects: number): void {
+    const wasMuted = this.volumes.bgm === 0;
     this.volumes.bgm = Math.max(0, Math.min(1, music));
-    this.volumes.sfx = Math.max(0, Math.min(1, effects));
+    this.volumes.sfx = Math.max(0, Math.min(1, effects)) * MAX_SFX_GAIN;
     for (const [kind, gain] of this.outputs) gain.gain.value = this.volumes[kind];
+    if (wasMuted && this.volumes.bgm > 0 && this.bgm !== null) {
+      const voice = this.voices.get(this.bgm);
+      if (voice) void this.start(voice).catch((error: unknown) => this.options.onError?.(error));
+    }
   }
 
   private output(context: PlaybackContext, kind: GameAudioCue['kind']): AudioNode {
@@ -124,12 +134,16 @@ export class GameAudio {
     void this.setBackgrounded(hidden).catch((error: unknown) => this.options.onError?.(error));
   };
 
+  private contextForPlayback(): PlaybackContext {
+    return this.context ??= (this.options.createContext ?? (() => new AudioContext()))();
+  }
+
   /** Call directly from a trusted pointer or keyboard event. */
   async unlock(): Promise<void> {
     if (this.closing) return;
     if (this.unlocked) return this.syncVisibility();
     if (!this.unlocking) {
-      const context = this.context ??= (this.options.createContext ?? (() => new AudioContext()))();
+      const context = this.contextForPlayback();
       this.unlocking = context.resume().then(() => {
         if (this.closing) return;
         this.unlocked = true;
@@ -153,15 +167,22 @@ export class GameAudio {
       checkLayerTiming(layer);
       return { ...layer };
     });
-    return this.playVoice(cue.id, 'bgm', layers);
+    return this.playVoice(cue.id, 'bgm', layers, true);
   }
 
-  private async playVoice(id: GameAudioId, kind: GameAudioCue['kind'], layers: readonly GameAudioMusicLayer[]): Promise<void> {
+  /** Decode the music in advance without unlocking or starting any voices. */
+  async prepareMusic(cue: GameAudioMusicCue): Promise<void> {
+    if (this.closing || this.volumes.bgm === 0) return;
+    const context = this.contextForPlayback();
+    await Promise.all(cue.layers.map(layer => this.bufferFor(context, layer.url, true)));
+  }
+
+  private async playVoice(id: GameAudioId, kind: GameAudioCue['kind'], layers: readonly GameAudioMusicLayer[], keepBuffers = false): Promise<void> {
     if (this.closing) return;
     if (kind === 'bgm' && this.bgm !== null) this.stop(this.bgm);
     this.stop(id);
     if (kind === 'bgm') this.bgm = id;
-    const voice: Voice = { id, kind, layers, sources: new Map(), starting: false };
+    const voice: Voice = { id, kind, layers, sources: new Map(), starting: false, keepBuffers };
     this.voices.set(id, voice);
     await this.start(voice);
   }
@@ -200,6 +221,8 @@ export class GameAudio {
       });
       this.visibility?.removeEventListener('visibilitychange', this.onVisibility);
       this.stopAll();
+      this.musicLoads.abort();
+      this.musicBuffers.clear();
     }
     return this.closing;
   }
@@ -227,16 +250,20 @@ export class GameAudio {
     return !this.closing && this.unlocked && !this.backgrounded && this.context?.state === 'running';
   }
 
+  private canStart(voice: Voice): boolean {
+    return this.canPlay() && (voice.kind === 'sfx' || this.volumes.bgm > 0);
+  }
+
   private async start(voice: Voice): Promise<void> {
     const context = this.context;
-    if (!context || !this.canPlay() || voice.starting || voice.sources.size) return;
+    if (!context || !this.canStart(voice) || voice.starting || voice.sources.size) return;
     voice.starting = true;
     try {
       const layers = await Promise.all(voice.layers.map(async (layer) => ({
         layer,
-        buffer: await this.bufferFor(context, layer.url),
+        buffer: await this.bufferFor(context, layer.url, voice.keepBuffers),
       })));
-      if (this.voices.get(voice.id) !== voice || !this.canPlay()) return;
+      if (this.voices.get(voice.id) !== voice || !this.canStart(voice)) return;
       const anchor = context.currentTime;
       for (const { layer, buffer } of layers) {
         this.startLayer(context, voice, layer, buffer, anchor + layer.startOffsetSeconds);
@@ -298,17 +325,21 @@ export class GameAudio {
     voice.sources.clear();
   }
 
-  private bufferFor(context: PlaybackContext, url: string): Promise<AudioBuffer> {
-    const cached = this.buffers.get(url);
+  private bufferFor(context: PlaybackContext, url: string, keep = false): Promise<AudioBuffer> {
+    const buffers = keep ? this.musicBuffers : this.buffers;
+    const cached = buffers.get(url);
     if (cached) return cached;
-    const { signal } = this.sceneLoads;
+    const { signal } = keep ? this.musicLoads : this.sceneLoads;
     const pending = this.loadBytes(url, signal).then((bytes) => {
       signal.throwIfAborted();
-      return context.decodeAudioData(bytes);
+      return context.decodeAudioData(bytes).then(buffer => {
+        signal.throwIfAborted();
+        return buffer;
+      });
     });
-    this.buffers.set(url, pending);
+    buffers.set(url, pending);
     void pending.catch(() => {
-      if (this.buffers.get(url) === pending) this.buffers.delete(url);
+      if (buffers.get(url) === pending) buffers.delete(url);
     });
     return pending;
   }

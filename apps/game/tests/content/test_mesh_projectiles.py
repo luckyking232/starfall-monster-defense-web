@@ -48,6 +48,30 @@ class MeshProjectileInputs(unittest.TestCase):
         self.assertEqual(len(layers), 13)
         self.assertEqual(sum('tiles' in layer['particle'] for layer in layers), 1)
 
+    def test_retained_rotation_layers_preserve_source_emission_settings(self):
+        prefabs = {Path(path).stem: layers for path, layers in self.catalog['prefabs'].items()}
+        blades = [layer['particle'] for layer in prefabs['minigame022_10000101_skill3_summon']
+                  if layer['particle'].get('spin')]
+        self.assertEqual(len(blades), 4)
+        self.assertEqual({tuple(particle['life']) for particle in blades}, {(3, 3)})
+        self.assertTrue(all(particle['ring'] == 1 and not particle['loop'] for particle in blades))
+        cube, = [layer['particle'] for layer in prefabs['fx_ui_loading']
+                 if 'particle' in layer and layer['particle'].get('spinXY')]
+        self.assertEqual(cube['life'], [2, 2])
+        self.assertEqual(cube['ring'], 1)
+        self.assertIs(cube['loop'], False)
+        self.assertEqual(len(cube['spinXY']), 2)
+
+    def test_stellar_wave_keeps_the_authored_edge_pivot_and_forward_texture_axis(self):
+        layers = next(layers for path, layers in self.catalog['prefabs'].items()
+                      if path.endswith('10000104_skill3_summon.prefab'))
+        beam = layers[0]
+        self.assertEqual(beam['pivotOffset'], [1, 0, 0])
+        self.assertTrue(all('pivotOffset' not in layer for layer in layers[1:]))
+        mesh = self.catalog['meshes'][beam['mesh']]
+        self.assertEqual(set(zip(mesh['vertices'][::3], mesh['uv0'][::2])), {(1, 0), (-1, 1)})
+        self.assertEqual(self.catalog['materials'][beam['material']]['scalars']['_ScrollX'], 1)
+
     def test_original_shader_variants_bind_full_texture_inputs(self):
         for material in self.catalog['materials'].values():
             program = self.catalog['shaders'][material['shader']]

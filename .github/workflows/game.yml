@@ -26,7 +26,7 @@ jobs:
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - name: Test game entry, loading, saves and player controls
-        run: npx playwright test startup-screen product-entry standalone-settings
+        run: npx playwright test startup-screen product-entry standalone-settings battle-preparation
       - name: Prepare Pages
         working-directory: .
         run: |

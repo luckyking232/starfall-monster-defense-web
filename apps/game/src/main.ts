@@ -8,6 +8,8 @@ import { OriginalUiClient } from './ui/client';
 import { OriginalUiWindow } from './ui/original-window';
 import { element } from './scenes/dom';
 import { WebSettings } from './ui/web-settings';
+import { BattleWait } from './ui/battle-wait';
+import type { UiEvent } from '../runtime/ui/protocol';
 import { showStartup, finishStartup, failStartup } from './app/startup';
 import './styles/main.css';
 
@@ -36,9 +38,15 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   const progress = new ProgressStore(storage);
   const client = new OriginalUiClient(undefined,progress);
   const audio = new BattleAudio();
+  const battleWait = new BattleWait();
+  root.append(battleWait.root);
+  worldLayer.hidden = true;
   let world: NativeBattlefield | null = null;
   let generation = 0;
   let running = false;
+  let entering = false;
+  let musicSkipped = false;
+  let queuedMusic: Extract<UiEvent,{name:'audio-play'}> | undefined;
   let modalOpen = false;
   let scheduled = 0;
   let clockEpoch = 0;
@@ -47,10 +55,31 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   let stopped = false;
   let activeKey = '';
   let waitingForWorld: Promise<void> = Promise.resolve();
+  let waitingForCurtain: Promise<void> = Promise.resolve();
+  function prepareWorld(): Promise<void> {
+    const prepared = world ??= new NativeBattlefield(worldLayer);
+    return prepared.ready.catch(error => {
+      if (world === prepared) {
+        prepared.dispose();
+        world = null;
+      }
+      throw error;
+    });
+  }
+
+  function prefetchBattle(): void {
+    // A failed speculative request is retried by the foreground loading screen.
+    void Promise.allSettled([
+      Promise.resolve().then(() => loading.prepare()),
+      Promise.resolve().then(prepareWorld),
+      Promise.resolve().then(() => audio.prepareMusic()),
+    ]);
+  }
   function fail(reason: unknown): void {
     if (stopped) return;
     stopped = true;
     cancelAnimationFrame(scheduled);
+    battleWait.close();
     world?.dispose();
     loading.dispose();
     audio.dispose();
@@ -65,8 +94,13 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   }
   function syncLayers(): void {
     const windows = [...view.runtime.views];
+    const previousKey = activeKey;
     activeKey = view.runtime.topWindow ?? '';
-    loading.show(view.runtime.views.has('BattleLoadingWindow'));
+    const loadingVisible = view.runtime.views.has('BattleLoadingWindow');
+    loading.show(loadingVisible);
+    battleWait.nativeVisible(loadingVisible);
+    if (running && loadingVisible) battleWait.close();
+    if (activeKey === 'Activity17MiniGameChoice2Window' && previousKey !== activeKey) prefetchBattle();
     const fighting = windows.some(([key]) => key.startsWith('MiniGameBattle') || key === 'MiniGameSkillChoiceWindow');
     const currentMenu = windows.filter(([key]) => key.startsWith('Activity')).at(-1)?.[0];
     for (const [key,window] of windows) {
@@ -87,7 +121,8 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     } catch (error) { fail(error); }
   }
   const view = new OriginalUiWindow(uiLayer,client,(event) => {
-    audio.handle(event);
+    if (event.name === 'audio-play' && event.kind === 'bgm' && entering && !running) queuedMusic = event;
+    else if (!(event.name === 'audio-play' && event.kind === 'bgm' && musicSkipped)) audio.handle(event);
     if (event.name === 'souvenir') {
       settings.souvenir(event.kind);
     } else if (event.name === 'warn-tips' || event.name === 'progress-save-failed') {
@@ -98,10 +133,22 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       root.ownerDocument.body.dataset['map'] = getStage(event.stageId).map;
       const id = ++generation;
       notice.textContent = '';
-      world = new NativeBattlefield(worldLayer);
-      waitingForWorld = world.ready.then(() => {
+      entering = true;
+      musicSkipped = false;
+      queuedMusic = undefined;
+      battleWait.open();
+      waitingForCurtain = battleWait.prepare({label:'过场画面',prepare:() => loading.prepare()});
+      waitingForWorld = Promise.all([
+        waitingForCurtain,
+        battleWait.prepare({label:'战场画面',prepare:prepareWorld}),
+        battleWait.prepare({label:'战斗音乐',prepare:() => audio.prepareMusic(),skip:() => { musicSkipped = true; }}),
+      ]).then(() => {
         if (id !== generation || stopped) return;
+        worldLayer.hidden = false;
         running = true;
+        if (queuedMusic && !musicSkipped) audio.handle(queuedMusic);
+        queuedMusic = undefined;
+        if (view.runtime.views.has('BattleLoadingWindow')) battleWait.close();
         last = performance.now();
         if (!document.hidden && !modalOpen) scheduled = requestAnimationFrame(tick);
       }).catch(fail);
@@ -113,13 +160,17 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       ++generation;
       ++clockEpoch;
       running = false;
+      entering = false;
+      queuedMusic = undefined;
+      musicSkipped = false;
+      battleWait.close();
       cancelAnimationFrame(scheduled);
-      world?.dispose();
-      world = null;
+      worldLayer.hidden = true;
+      world?.reset();
       audio.clear();
     }
   },fail,async (key) => {
-    if (key === 'BattleLoadingWindow') await loading.prepare();
+    if (key === 'BattleLoadingWindow') await waitingForCurtain;
     if (key === 'MiniGameBattleUIWindow') await waitingForWorld;
   }, fraction => showStartup(75 + fraction * 24, '正在装配界面图集'));
   const loading = new LoadingEffect(
@@ -129,7 +180,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   const settings = new WebSettings(root,storage,progress,{
     applyVolume: (music,effects) => audio.setVolumes(music,effects),
     getFps: () => view.runtime.renderFps,
-    inBattle: () => !!world || activeKey === 'BattleLoadingWindow',
+    inBattle: () => entering || activeKey === 'BattleLoadingWindow',
     canLevel: () => running && activeKey === 'MiniGameBattleUIWindow',
     levelUp: () => client.levelUp(),
     modalChanged(open) {

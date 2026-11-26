@@ -1,6 +1,6 @@
 import evidence from '../../runtime/audio-cues.json';
 import type { UiEvent } from '../../runtime/ui/protocol';
-import { GameAudio } from './game-audio';
+import { GameAudio, type GameAudioMusicCue } from './game-audio';
 
 interface Sample { file:string; offset:number; weight:number }
 interface EventCue { samples?:Sample[]; duration?:number; loop?:number[]; stop?:string }
@@ -8,8 +8,13 @@ const effects: Record<string,EventCue> = evidence.effects;
 const hz=evidence.clockHz;
 const asset=(file:string)=>new URL('assets/audio/'+file,document.baseURI).href;
 
+function musicCue(): GameAudioMusicCue {
+  return { id:'bgm', layers:evidence.music.layers.map(l=>({ url:asset(l.file), startOffsetSeconds:l.start/hz,
+    sourceOffsetSeconds:l.offset/hz, loopStartSeconds:l.loopFrom/hz, loopEndSeconds:l.loopTo/hz, gainDb:l.gainDb })) };
+}
+
 export class BattleAudio {
-  private readonly player=new GameAudio();
+  private readonly player=new GameAudio({onError:this.report});
   private readonly loops=new Map<string,Set<number>>();
   private readonly onGesture=()=>{void this.player.unlock().catch(this.report);};
   private report(error:unknown):void { console.warn('战斗声音播放失败',error); }
@@ -19,6 +24,8 @@ export class BattleAudio {
     document.addEventListener('keydown',this.onGesture,{capture:true});
   }
 
+  prepareMusic(): Promise<void> { return this.player.prepareMusic(musicCue()); }
+
   handle(event:UiEvent):void {
     if(event.name==='audio-speed') this.player.setSpeed(event.speed);
     if(event.name==='audio-stop') {
@@ -27,9 +34,7 @@ export class BattleAudio {
     }
     if(event.name!=='audio-play') return;
     if(event.kind==='bgm') {
-      if(event.path===evidence.music.event) void this.player.playMusic({id:'bgm',
-        layers:evidence.music.layers.map(l=>({url:asset(l.file),startOffsetSeconds:l.start/hz,
-          sourceOffsetSeconds:l.offset/hz,loopStartSeconds:l.loopFrom/hz,loopEndSeconds:l.loopTo/hz,gainDb:l.gainDb}))}).catch(this.report);
+      if(event.path===evidence.music.event) void this.player.playMusic(musicCue()).catch(this.report);
       return;
     }
     const cue=effects[event.path];

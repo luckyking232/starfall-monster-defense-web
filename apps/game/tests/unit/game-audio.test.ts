@@ -45,6 +45,10 @@ class TestDocument extends EventTarget {
 const firstBgm = { id: 'first', url: 'first.wav', kind: 'bgm' } as const;
 const secondBgm = { id: 'second', url: 'second.wav', kind: 'bgm' } as const;
 const chime = (id: number) => ({ id, url: 'chime.wav', kind: 'sfx' } as const);
+const musicCue = { id: 'layered', layers: [
+  { url: 'intro.wav', startOffsetSeconds: 0 },
+  { url: 'main.wav', startOffsetSeconds: 0.13425 },
+] } as const;
 
 function createAudio() {
   const context = new TestContext();
@@ -68,14 +72,77 @@ describe('GameAudio', () => {
     await audio.play(chime(1));
     await audio.playMusic({ id:'music', layers:[{ url:'theme.wav', gainDb:-6, startOffsetSeconds:0 }] });
     const [fx, layer, music] = nodes;
-    expect(fx!.gain.value).toBeCloseTo(0.2);
+    expect(fx!.gain.value).toBeCloseTo(0.1);
     expect(layer!.gain.value).toBeCloseTo(10 ** (-6 / 20));
     expect(layer!.connect).toHaveBeenCalledWith(music);
     audio.setVolumes(0.5,0.2);
-    expect(fx!.gain.value).toBeCloseTo(0.2);
+    expect(fx!.gain.value).toBeCloseTo(0.02);
     expect(music!.gain.value).toBeCloseTo(0.5);
     expect(layer!.gain.value).toBeCloseTo(10 ** (-6 / 20));
+    audio.setVolumes(0,1);
+    expect(fx!.gain.value).toBeCloseTo(0.1);
+    expect(music!.gain.value).toBe(0);
     await audio.dispose();
+  });
+
+  it('prepares both music layers without starting audio and reuses them for another battle', async () => {
+    const { audio, context, loadBytes } = createAudio();
+    await Promise.all([audio.prepareMusic(musicCue), audio.prepareMusic(musicCue)]);
+    expect(loadBytes.mock.calls.map(([url]) => url)).toEqual(['intro.wav', 'main.wav']);
+    expect(context.decodeAudioData).toHaveBeenCalledTimes(2);
+    expect(context.resume).not.toHaveBeenCalled();
+    expect(context.sources).toHaveLength(0);
+
+    await audio.playMusic(musicCue);
+    expect(context.sources).toHaveLength(0);
+    await audio.unlock();
+    expect(context.sources).toHaveLength(2);
+    audio.stopAll();
+    await audio.prepareMusic(musicCue);
+    await audio.playMusic(musicCue);
+    expect(loadBytes).toHaveBeenCalledTimes(2);
+    expect(context.sources).toHaveLength(4);
+    await audio.dispose();
+  });
+
+  it('skips muted preparation, starts deferred music on unmute, and preserves playback through later mute', async () => {
+    const { audio, context, loadBytes } = createAudio();
+    audio.setVolumes(0, 1);
+    await audio.prepareMusic(musicCue);
+    expect(loadBytes).not.toHaveBeenCalled();
+    expect(context.decodeAudioData).not.toHaveBeenCalled();
+    await audio.unlock();
+    await audio.playMusic(musicCue);
+    expect(loadBytes).not.toHaveBeenCalled();
+    await audio.play(chime(1));
+    expect(context.sources).toHaveLength(1);
+
+    audio.setVolumes(1, 1);
+    await vi.waitFor(() => expect(context.sources).toHaveLength(3));
+    expect(loadBytes).toHaveBeenCalledTimes(3);
+    audio.setVolumes(0, 1);
+    audio.setVolumes(1, 1);
+    expect(context.sources).toHaveLength(3);
+    expect(context.sources[1]?.stop).not.toHaveBeenCalled();
+    await audio.dispose();
+  });
+
+  it('retries only a failed music layer and keeps in-flight music through a scene change', async () => {
+    const { audio, context, loadBytes } = createAudio();
+    loadBytes.mockRejectedValueOnce(new Error('offline'));
+    await expect(audio.prepareMusic(musicCue)).rejects.toThrow('offline');
+    let finish!: (bytes: ArrayBuffer) => void;
+    loadBytes.mockImplementationOnce(() => new Promise(resolve => { finish = resolve; }));
+    const retry = audio.prepareMusic(musicCue);
+    const signal = loadBytes.mock.calls.at(-1)?.[1];
+    audio.stopAll();
+    expect(signal?.aborted).toBe(false);
+    finish(new ArrayBuffer(8));
+    await retry;
+    expect(loadBytes.mock.calls.map(([url]) => url)).toEqual(['intro.wav', 'main.wav', 'intro.wav']);
+    expect(context.decodeAudioData).toHaveBeenCalledTimes(2);
+    await audio.dispose();
+    expect(signal?.aborted).toBe(true);
   });
 
   it('starts gated voices only after calling resume in the gesture handler', async () => {

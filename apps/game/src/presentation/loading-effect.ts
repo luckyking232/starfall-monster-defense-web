@@ -22,8 +22,14 @@ export class LoadingEffect {
     this.context = context;
   }
   prepare(): Promise<void> {
-    this.effects ??= new MeshProjectiles(this.canvas.width,this.canvas.height,'loading');
-    return this.effects.ready;
+    const effects = this.effects ??= new MeshProjectiles(this.canvas.width,this.canvas.height,'loading');
+    return effects.ready.catch(error => {
+      if (this.effects === effects) {
+        effects.dispose();
+        delete this.effects;
+      }
+      throw error;
+    });
   }
   show(visible: boolean): void {
     if (visible === !this.canvas.hidden) return;

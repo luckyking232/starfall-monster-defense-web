@@ -12,6 +12,10 @@ test('ordinary player opens the original pause and exit windows then enters a fr
   test.setTimeout(80000);
   const errors: string[] = [];
   page.on('pageerror',error=>errors.push(error.message));
+  let preparedRequests = 0;
+  page.on('request', request => {
+    if (/\/assets\/(native\/frames\/|effects\/textures\/|audio\/0[12]_B02-)/.test(new URL(request.url()).pathname)) preparedRequests++;
+  });
   await enter(page);
   // The original HUD enables input when its authored entrance transition ends.
   await expect(async () => {
@@ -32,8 +36,11 @@ test('ordinary player opens the original pause and exit windows then enters a fr
 
   await expect(page.getByRole('region',{name:'选择关卡'})).toBeVisible();
   expect(await page.evaluate(()=>localStorage.getItem('starfall.monster-defense.progress/2/default/clear/78000001'))).toBeNull();
+  const beforeReplay = preparedRequests;
+  expect(beforeReplay).toBeGreaterThan(1);
   await originalClick(page,145,274);
   await expect(page.getByRole('region',{name:'魔物抵御战战场'})).toBeVisible();
+  expect(preparedRequests).toBe(beforeReplay);
   expect(errors).toEqual([]);
 });
 

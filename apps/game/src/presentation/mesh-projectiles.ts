@@ -20,6 +20,7 @@ interface SourceLayer {
   lengthScale?: number;
   velocityScale?: number;
   sortingFudge?: number;
+  pivotOffset?: Vec3;
   particle?: ParticleEmitter;
   trailMaterial?: string;
   trailMesh?: string;
@@ -53,7 +54,6 @@ interface Layer { order: number; depth: number; additive: boolean; command: Draw
 interface MatrixPose { pose: ArrayLike<number>; inverse: ArrayLike<number> }
 interface PositionHistory { age: number; position: Point3 }
 
-const boulderPath = '/minigame022_10000134_skill3_bullet.prefab';
 const root = () => new URL('assets/effects/', document.baseURI);
 const wrap = ['repeat','clamp','mirror','mirror'] as const;
 // Unity BlendMode values correspond to the original GLES material pass state.
@@ -95,10 +95,11 @@ function projection(source: EffectCamera, width: number, height: number) {
   return multiply(perspective, source.view);
 }
 
-function transform(position: Vec3, scale: Vec3, rotation: Vec3): MatrixPose {
-  const [x,y,z] = position;
+function transform(position: Vec3, scale: Vec3, rotation: Vec3, pivot?: Vec3): MatrixPose {
   const [sx,sy,sz] = scale;
   const [axisX,axisY,axisZ] = rotationAxes(rotation);
+  const [x,y,z] = pivot ? position.map((value, axis) => value +
+    axisX[axis]! * sx * pivot[0] + axisY[axis]! * sy * pivot[1] + axisZ[axis]! * sz * pivot[2]) as Vec3 : position;
   const pose = [axisX[0]*sx,axisX[1]*sx,axisX[2]*sx,0,
     axisY[0]*sy,axisY[1]*sy,axisY[2]*sy,0, axisZ[0]*sz,axisZ[1]*sz,axisZ[2]*sz,0, x,y,z,1];
   const inverse = [axisX[0]/sx,axisY[0]/sy,axisZ[0]/sz,0, axisX[1]/sx,axisY[1]/sy,axisZ[1]/sz,0,
@@ -144,9 +145,9 @@ function drawPose(layer: SourceLayer, world: MatrixPose, sample: ParticleSample,
       size[1] *= Math.max(1, layer.lengthScale ?? 1) + Math.hypot(dx, dy) * (layer.velocityScale ?? 0);
       if (dx || dy) rotation[2] += Math.atan2(dy, dx) - Math.PI / 2;
     }
-    return transform(worldPosition, size, rotation);
+    return transform(worldPosition, size, rotation, layer.pivotOffset);
   }
-  const local = transform(sample.position, sample.size, sample.rotation);
+  const local = transform(sample.position, sample.size, sample.rotation, layer.pivotOffset);
   const pose = multiply(world.pose, local.pose);
   translate(pose, delta);
   const inverse = multiply(local.inverse, world.inverse);
@@ -268,7 +269,7 @@ export class MeshProjectiles {
           command(layer.mesh, layer.material, world, layer.color);
           continue;
         }
-        const samples = particleSamples(emitter, layer.color, age, model.instance ?? 0, index, model.path.endsWith(boulderPath));
+        const samples = particleSamples(emitter, layer.color, age, model.instance ?? 0, index);
         for (const sample of samples) {
           if (!sample.size.every(value => value > 0) || !sample.color[3]) continue;
           const old = emitter.world ? positionBehind(history, sample.emittedAt) : model.position;
