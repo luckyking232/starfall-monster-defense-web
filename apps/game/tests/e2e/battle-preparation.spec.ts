@@ -23,7 +23,7 @@ test('选关只预取推荐关，改选第二关时增量准备所需资源', as
   expect(count(map(2))).toBe(0);
   expect(count(map(3))).toBe(0);
   expect(count('/native/units/minigamespine_20108_pixel.json')).toBe(0);
-  await originalClick(page, 525, 274);
+  await originalClick(page, 335, 444);
   await expect(page.getByRole('region', { name: '魔物抵御战战场' })).toBeVisible({ timeout: 30000 });
   await expect(page.locator('body')).toHaveAttribute('data-map', 'map2');
   expect(count(map(2))).toBe(1);
