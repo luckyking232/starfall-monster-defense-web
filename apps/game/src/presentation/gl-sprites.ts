@@ -1,4 +1,5 @@
 import type { PrefabSpriteCommand } from './prefab-player';
+import { glFailure } from './gl-context';
 
 interface AtlasFrame {
   texture: WebGLTexture;
@@ -28,19 +29,19 @@ void main() { gl_FragColor = texture2D(atlas, uv) * alpha; }`;
 
 function linkSprites(gl: WebGLRenderingContext): WebGLProgram {
   const program = gl.createProgram();
-  if (!program) throw new Error('无法建立战场精灵程序');
+  if (!program) throw glFailure(gl, '无法建立战场精灵程序');
   try {
     for (const [kind, source] of [[gl.VERTEX_SHADER, vertexSource], [gl.FRAGMENT_SHADER, fragmentSource]] as const) {
       const shader = gl.createShader(kind);
-      if (!shader) throw new Error('无法建立战场精灵着色器');
+      if (!shader) throw glFailure(gl, '无法建立战场精灵着色器');
       gl.shaderSource(shader, source);
       gl.compileShader(shader);
       gl.attachShader(program, shader);
       gl.deleteShader(shader);
-      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(shader) ?? '战场精灵着色器编译失败');
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw glFailure(gl, gl.getShaderInfoLog(shader) ?? '战场精灵着色器编译失败');
     }
     gl.linkProgram(program);
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program) ?? '战场精灵程序链接失败');
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw glFailure(gl, gl.getProgramInfoLog(program) ?? '战场精灵程序链接失败');
     return program;
   } catch (error) {
     gl.deleteProgram(program);
@@ -63,7 +64,7 @@ export class GlSprites {
     const buffer = gl.createBuffer();
     if (!buffer) {
       gl.deleteProgram(program);
-      throw new Error('无法建立战场精灵顶点缓冲区');
+      throw glFailure(gl, '无法建立战场精灵顶点缓冲区');
     }
     this.buffer = buffer;
     this.attributes = ['position', 'texcoord', 'opacity'].map(name => gl.getAttribLocation(program, name));
@@ -83,6 +84,7 @@ export class GlSprites {
     const pending = [...images].filter(([file]) => !this.frames.has(file));
     if (!pending.length) return;
     const max = Number(gl.getParameter(gl.MAX_TEXTURE_SIZE));
+    if (!max) throw glFailure(gl, '无法读取战场精灵纹理尺寸上限');
     const size = Math.min(2048, max);
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
@@ -93,7 +95,7 @@ export class GlSprites {
     const upload = () => {
       if (page.length === 0) return;
       const texture = gl.createTexture();
-      if (!texture) throw new Error('无法建立战场精灵纹理');
+      if (!texture) throw glFailure(gl, '无法建立战场精灵纹理');
       this.textures.set(texture, page.map(frame => frame.file));
       gl.bindTexture(gl.TEXTURE_2D, texture);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);

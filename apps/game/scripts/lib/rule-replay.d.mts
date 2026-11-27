@@ -1,4 +1,5 @@
 import type { createOriginalUiHost } from '../../runtime/ui/host.ts';
+import type { UiEvent } from '../../runtime/ui/protocol.ts';
 import type { RuleRecord } from './rule-trace-diff.ts';
 
 export function replayRules(options: {
@@ -11,6 +12,7 @@ export function replayRules(options: {
   stepBudget?: number;
   extraRandomFrame?: number;
   writeRecord?: (raw: string) => void;
+  observeEvent?: (event: UiEvent) => void;
 }): Promise<{
   records: (RuleRecord & { events?: unknown[] })[];
   seedCalls: number;

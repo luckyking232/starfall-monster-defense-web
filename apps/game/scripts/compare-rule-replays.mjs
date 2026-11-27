@@ -9,7 +9,8 @@ import { pathToFileURL } from 'node:url';
 import { createGunzip, createGzip } from 'node:zlib';
 import { rolldown } from 'rolldown';
 import { replayRules } from './lib/rule-replay.mjs';
-import { compareRuleRecord } from './lib/rule-trace-diff.ts';
+import { createPresentationEvidence } from './lib/presentation-evidence.ts';
+import { compareRuleRecord, firstRuleDifference } from './lib/rule-trace-diff.ts';
 
 const [referenceRoot, candidateRoot, outputDir, scenarioSelection] = process.argv.slice(2);
 if (!referenceRoot || !candidateRoot || !outputDir) {
@@ -51,6 +52,7 @@ async function buildHost(root, label) {
     worktree: git('status', '--porcelain'),
     hostBundleSha256: sha256(readFileSync(destination)),
     diagnosticsSha256: sha256(readFileSync(new URL('./lib/rule-trace.lua', import.meta.url))),
+    presentationDiagnosticsSha256: sha256(readFileSync(new URL('./lib/presentation-evidence.ts', import.meta.url))),
   };
   writeJson(label + '-build.json', metadata);
   return { createHost: (await import(pathToFileURL(destination).href)).createOriginalUiHost, publicDir: path.join(app, 'public') };
@@ -60,9 +62,10 @@ async function capture(label, name, host, scenario) {
   const filename = path.join(evidence, `${label}-${name}.ndjson`);
   const fd = openSync(filename, 'w');
   const result = { trace: filename + '.gz', scenario };
+  const presentation = createPresentationEvidence(name === 'stress');
   try {
     const { seedCalls, inputs, summary } = await replayRules({
-      ...host, seed: 70441022, ...scenario, writeRecord: raw => writeSync(fd, raw + '\n'),
+      ...host, seed: 70441022, ...scenario, writeRecord: raw => writeSync(fd, raw + '\n'), observeEvent: presentation.observe,
     });
     Object.assign(result, { seedCalls, inputs, summary });
   } catch (error) {
@@ -73,8 +76,18 @@ async function capture(label, name, host, scenario) {
     unlinkSync(filename);
   }
   result.traceSha256 = sha256(readFileSync(result.trace));
+  const appearance = presentation.frames();
+  let effects = [];
+  if (name === 'stress') {
+    const manifest = JSON.parse(readFileSync(path.join(host.publicDir, 'assets/effects/manifest.json'), 'utf8'));
+    const lifetimes = new Map(Object.entries(manifest.lifetimes).map(([file, lifetime]) => [path.basename(file), lifetime]));
+    effects = presentation.effects().map(effect => ({ ...effect, originalLifetime: lifetimes.get(effect.asset) }));
+  }
+  const presentationFile = `${label}-${name}-presentation.json`;
+  writeJson(presentationFile, { audioCues: presentation.audio, snapshots: appearance, effects });
+  result.presentation = { file: presentationFile, sha256: sha256(readFileSync(path.join(evidence, presentationFile))) };
   writeJson(`${label}-${name}.json`, result);
-  return result;
+  return { ...result, audio: presentation.audio, appearance, effects };
 }
 
 async function compareFiles(reference, candidate) {
@@ -112,7 +125,14 @@ for (const name of names) {
   const first = await capture('reference', name, reference, scenario);
   const second = await capture('candidate', name, candidate, { ...scenario, stepBudget: candidateStepBudget });
   const comparison = await compareFiles(first.trace, second.trace);
+  const audioDifference = firstRuleDifference(first.audio, second.audio);
+  const visualDifference = firstRuleDifference(first.appearance, second.appearance);
+  const battleSfx = first.audio.filter(({ event }) => event.kind === 'sfx' && event.frame > 0).length;
   report[name] = { ...comparison, reference: first.summary, candidate: second.summary,
+    presentation: {
+      audioCues: first.audio.length, battleSfx, audioDifference, sampledVisualFrames: first.appearance.length, visualDifference,
+      referenceFile: first.presentation.file, candidateFile: second.presentation.file,
+    },
     referenceError: first.error, candidateError: second.error };
   console.log(name, JSON.stringify(report[name]));
   const files = new Set([...Object.keys(first.inputs ?? {}), ...Object.keys(second.inputs ?? {})]);
@@ -121,7 +141,18 @@ for (const name of names) {
     report[name].firstDifferentOriginalInput = differingInput;
     process.exitCode = 1;
   }
-  if (comparison.difference || first.error || second.error) process.exitCode = 1;
+  if (comparison.difference || audioDifference || visualDifference || battleSfx === 0 || first.error || second.error) {
+    process.exitCode = 1;
+  }
+  if (name === 'stress') {
+    report[name].presentation.effectPaths = first.effects.filter(effect => effect.frames > 0);
+    const missingEffectPaths = first.effects.filter(effect => effect.frames === 0).map(effect => effect.asset);
+    if (missingEffectPaths.length) {
+      report[name].presentation.missingEffectPaths = missingEffectPaths;
+      console.error('Missing representative effect paths', missingEffectPaths);
+      process.exitCode = 1;
+    }
+  }
   if (name === 'stage18' && !first.error) {
     const changed = await capture('negative-control', name, reference, { ...scenario, lastFrame: 12, extraRandomFrame: 8 });
     const negative = await compareFiles(first.trace, changed.trace);

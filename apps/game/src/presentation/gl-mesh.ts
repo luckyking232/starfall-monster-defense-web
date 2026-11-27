@@ -1,3 +1,5 @@
+import { GlContextLost, glFailure } from './gl-context';
+
 type Numbers = ArrayLike<number>;
 type UniformValue = number | Numbers;
 type TextureWrap = 'clamp' | 'repeat' | 'mirror';
@@ -100,25 +102,25 @@ function floats(value: Numbers, length: number, label: string): Float32Array<Arr
 function linkProgram(gl: WebGLRenderingContext, { vertexShader, fragmentShader }: GlMeshMaterial): WebGLProgram {
   const shaders: WebGLShader[] = [];
   const program = gl.createProgram();
-  if (!program) throw new Error('Cannot allocate a WebGL program.');
+  if (!program) throw glFailure(gl, 'Cannot allocate a WebGL program.');
   try {
     for (const [kind, source, label] of [
       [gl.VERTEX_SHADER, vertexShader, 'Vertex'],
       [gl.FRAGMENT_SHADER, fragmentShader, 'Fragment'],
     ] as const) {
       const shader = gl.createShader(kind);
-      if (!shader) throw new Error(`Cannot allocate the ${label.toLowerCase()} shader.`);
+      if (!shader) throw glFailure(gl, `Cannot allocate the ${label.toLowerCase()} shader.`);
       shaders.push(shader);
       gl.shaderSource(shader, source);
       gl.compileShader(shader);
       if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        throw new Error(`${label} shader compilation failed. ${gl.getShaderInfoLog(shader) ?? ''}`);
+        throw glFailure(gl, `${label} shader compilation failed. ${gl.getShaderInfoLog(shader) ?? ''}`);
       }
       gl.attachShader(program, shader);
     }
     gl.linkProgram(program);
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-      throw new Error(`Shader link failed. ${gl.getProgramInfoLog(program) ?? ''}`);
+      throw glFailure(gl, `Shader link failed. ${gl.getProgramInfoLog(program) ?? ''}`);
     }
     for (const shader of shaders) gl.detachShader(program, shader);
     return program;
@@ -146,21 +148,21 @@ function reflectProgram(gl: WebGLRenderingContext, program: WebGLProgram) {
   const attributeCount = Number(gl.getProgramParameter(program, gl.ACTIVE_ATTRIBUTES));
   for (let i = 0; i < attributeCount; i++) {
     const info = gl.getActiveAttrib(program, i);
-    if (!info) throw new Error('Could not read a shader attribute.');
+    if (!info) throw glFailure(gl, 'Could not read a shader attribute.');
     const components = attributeComponents(gl, info.type);
     if (!attributeNames.has(info.name) || !components || info.size !== 1) {
       throw new Error(`Unsupported shader attribute ${info.name}.`);
     }
     const location = gl.getAttribLocation(program, info.name);
-    if (location < 0) throw new Error(`Missing location for attribute ${info.name}.`);
+    if (location < 0) throw glFailure(gl, `Missing location for attribute ${info.name}.`);
     attributes.push({ name: info.name, location, components });
   }
   const uniformCount = Number(gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS));
   for (let i = 0; i < uniformCount; i++) {
     const info = gl.getActiveUniform(program, i);
-    if (!info) throw new Error('Could not read a shader uniform.');
+    if (!info) throw glFailure(gl, 'Could not read a shader uniform.');
     const location = gl.getUniformLocation(program, info.name);
-    if (location === null) throw new Error(`Missing location for uniform ${info.name}.`);
+    if (location === null) throw glFailure(gl, `Missing location for uniform ${info.name}.`);
     uniforms.push({ name: info.name.replace(/\[0\]$/, ''), size: info.size, type: info.type, location });
   }
   return { attributes, uniforms };
@@ -245,7 +247,7 @@ function uploadTexture(
     throw new Error(`WebGL1 texture ${label} must use clamp for non-power-of-two dimensions.`);
   }
   const texture = gl.createTexture();
-  if (!texture) throw new Error(`Cannot allocate texture ${label}.`);
+  if (!texture) throw glFailure(gl, `Cannot allocate texture ${label}.`);
   try {
     gl.bindTexture(gl.TEXTURE_2D, texture);
     if (image) {
@@ -276,7 +278,7 @@ function uploadTexture(
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, solid ? gl.CLAMP_TO_EDGE : textureWrap(gl, input.wrapU));
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, solid ? gl.CLAMP_TO_EDGE : textureWrap(gl, input.wrapV));
     const error = gl.getError();
-    if (error !== gl.NO_ERROR) throw new Error(`Texture ${label} upload failed with WebGL error ${error}.`);
+    if (error !== gl.NO_ERROR) throw glFailure(gl, `Texture ${label} upload failed with WebGL error ${error}.`, error);
     return texture;
   } catch (error) {
     gl.deleteTexture(texture);
@@ -350,6 +352,7 @@ export class GlMeshRenderer {
   private readonly meshes = new Map<GlMesh, MeshBuffers>();
   private readonly materials = new Map<GlMeshMaterialHandle, MaterialProgram>();
   private disposed = false;
+  private invalidated = false;
 
   constructor(canvas: HTMLCanvasElement, private readonly compositeEffects = false) {
     const gl = canvas.getContext('webgl', {
@@ -358,20 +361,20 @@ export class GlMeshRenderer {
     if (!gl) throw new Error('Could not create a WebGL1 context.');
     const setup = gl.getContextAttributes();
     if (!setup?.alpha || !setup.preserveDrawingBuffer) {
-      throw new Error('A transparent WebGL1 drawing buffer with preservation is required.');
+      throw glFailure(gl, 'A transparent WebGL1 drawing buffer with preservation is required.');
     }
     this.gl = gl;
   }
 
   private assertReady(): void {
+    if (this.invalidated || this.gl.isContextLost()) throw new GlContextLost();
     if (this.disposed) throw new Error('The WebGL mesh renderer is disposed.');
-    if (this.gl.isContextLost()) throw new Error('The WebGL1 context was lost.');
   }
 
   private createBuffer(target: number, data: ArrayBufferView<ArrayBuffer>, usage: number): WebGLBuffer {
     const gl = this.gl;
     const buffer = gl.createBuffer();
-    if (!buffer) throw new Error('Cannot allocate a WebGL buffer.');
+    if (!buffer) throw glFailure(gl, 'Cannot allocate a WebGL buffer.');
     gl.bindBuffer(target, buffer);
     gl.bufferData(target, data, usage);
     return buffer;
@@ -424,7 +427,7 @@ export class GlMeshRenderer {
         }
         const wide = indices.some((index) => index > 65535);
         if (wide && !gl.getExtension('OES_element_index_uint')) {
-          throw new Error('32-bit mesh indices require OES_element_index_uint.');
+          throw glFailure(gl, '32-bit mesh indices require OES_element_index_uint.');
         }
         const packed = wide ? Uint32Array.from(indices) : Uint16Array.from(indices);
         mesh.indices = {
@@ -449,7 +452,7 @@ export class GlMeshRenderer {
       const { attributes, uniforms } = reflectProgram(gl, program);
       const samplers = uniforms.filter(({ type }) => type === gl.SAMPLER_2D || type === gl.SAMPLER_CUBE);
       if (samplers.length > Number(gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS))) {
-        throw new Error('The material exceeds the WebGL texture unit limit.');
+        throw glFailure(gl, 'The material exceeds the WebGL texture unit limit.');
       }
       const images = await Promise.all(samplers.map(async (uniform) => {
         if (uniform.type !== gl.SAMPLER_2D || uniform.size !== 1) {
@@ -470,8 +473,10 @@ export class GlMeshRenderer {
       });
       return handle;
     } catch (error) {
-      for (const { texture } of textures) gl.deleteTexture(texture);
-      gl.deleteProgram(program);
+      if (!this.invalidated) {
+        for (const { texture } of textures) gl.deleteTexture(texture);
+        gl.deleteProgram(program);
+      }
       throw error;
     }
   }
@@ -529,8 +534,9 @@ export class GlMeshRenderer {
   }
 
   endFrame(): void {
+    if (this.invalidated || this.disposed) this.assertReady();
     const error = this.gl.getError();
-    if (error !== this.gl.NO_ERROR) throw new Error(`Mesh draw failed with WebGL error ${error}.`);
+    if (error !== this.gl.NO_ERROR) throw glFailure(this.gl, `Mesh draw failed with WebGL error ${error}.`, error);
   }
 
   draw(instance: GlMeshInstance): void {
@@ -604,8 +610,14 @@ export class GlMeshRenderer {
     if (mesh.sheet) this.gl.deleteBuffer(mesh.sheet.buffer);
   }
 
+  invalidate(): void {
+    this.invalidated = true;
+    this.meshes.clear();
+    this.materials.clear();
+  }
+
   dispose(): void {
-    if (this.disposed) return;
+    if (this.disposed || this.invalidated) return;
     this.disposed = true;
     const gl = this.gl;
     gl.useProgram(null);

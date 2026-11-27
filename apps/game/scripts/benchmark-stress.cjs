@@ -417,6 +417,12 @@ async function main(settings) {
     }
     page.setDefaultTimeout(45000);
     page.on('pageerror', error => result.pageErrors.push(error.stack ?? error.message));
+    result.browserWarnings = [];
+    page.on('console', message => {
+      if (['warning', 'error'].includes(message.type()) && result.browserWarnings.length < 60) {
+        result.browserWarnings.push({ type: message.type(), text: message.text().slice(0, 1500) });
+      }
+    });
     page.on('request', request => {
       if (!/^(data|blob):/.test(request.url()) && new URL(request.url()).origin !== base.origin) result.otherOrigins.push(request.url());
     });
@@ -587,7 +593,16 @@ async function main(settings) {
       workerTickRoundTrip: result.final.workerTickRoundTrip, paths: result.final.paths, screenshotErrors: result.screenshotErrors }));
   } catch (error) {
     result.fatal = error.stack ?? String(error);
-    if (page && result.initial && !result.final) result.lastObservation = await page.evaluate(observePage).catch(() => null);
+    if (page && result.initial && !result.final) {
+      result.lastObservation = await page.evaluate(observePage).catch(() => null);
+      result.failureScreen = await page.evaluate(() => ({
+        scene: document.querySelector('#app .screen')?.getAttribute('aria-label'),
+        alerts: [...document.querySelectorAll('[role="alert"], .fatal-panel')].map(panel => panel.textContent?.trim()),
+        body: document.body.innerText.slice(0, 1600),
+        canvases: [...document.querySelectorAll('canvas')].map(canvas => ({ label: canvas.ariaLabel, width: canvas.width, height: canvas.height })),
+      })).catch(() => null);
+      await capture('failure', image => page.screenshot({ path: image, timeout: 5000 }));
+    }
     throw error;
   } finally {
     result.endUtc = new Date().toISOString();
