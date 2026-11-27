@@ -2,7 +2,24 @@
 .web-gear,.web-panel button,.web-panel input,.web-panel select { font:inherit; }
 .web-gear { right:.5%; top:1%; width:clamp(32px,3.1cqw,46px); height:clamp(32px,3.1cqw,46px); line-height:1; border:1px solid #897550; border-radius:3px; background:#1c1919d9; color:#eedcc0; font-size:clamp(19px,2cqw,28px); cursor:pointer; }
 .web-fps { top:1.3%; left:50%; transform:translateX(-50%); font:600 clamp(10px,1cqw,14px) monospace; background:#131316dc; color:#e5daae; padding:1px 5px; pointer-events:none; }
-.web-backdrop { inset:0; padding:clamp(6px,2.2cqh,24px); display:grid; place-items:center; background:#0c0b10b8; }
+.web-backdrop {
+  z-index:8;
+  left:calc((100% + var(--safe-left) - var(--safe-right)) / 2);
+  top:calc((100% + var(--safe-top) - var(--safe-bottom)) / 2);
+  width:var(--usable-width);
+  height:var(--usable-height);
+  transform:translate(-50%,-50%);
+  padding:clamp(6px,2.2cqh,24px);
+  display:grid;
+  grid-template:minmax(0,1fr) / minmax(0,1fr);
+  place-items:center;
+  background:#0c0b10b8;
+}
+:root[data-frame-rotation="90"] .web-backdrop {
+  width:var(--usable-height);
+  height:var(--usable-width);
+  transform:translate(-50%,-50%) rotate(90deg);
+}
 .web-backdrop[hidden],.web-fps[hidden],.web-gear[hidden] { display:none; }
 .web-panel { color:#f7efdf; width:min(440px,92%); max-height:100%; overflow:auto; overscroll-behavior:contain; padding:clamp(12px,2.8cqh,24px); font:normal clamp(14px,1.65cqh,17px)/1.5 'SourceHanSans','Microsoft YaHei',sans-serif; background:#221e1b; border:1px solid #af966b; box-shadow:0 10px 30px #0009; border-radius:4px; }
 .web-panel header,.web-panel nav,.web-actions,.web-check,.web-volume { display:flex; align-items:center; gap:8px; }
