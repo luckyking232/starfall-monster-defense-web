@@ -202,6 +202,104 @@ test('mounted list resizes keep the common prefix and release discarded nodes an
   }
 });
 
+test('playback completion and owner release preserve siblings, labels and same-frame replacement', async () => {
+  const collector = new Collector();
+  const io = nodeIo();
+  const { createLuaEngine } = io;
+  let engine!: LuaEngineLike;
+  io.createLuaEngine = async (vendor, wasm) => {
+    engine = await createLuaEngine(vendor, wasm);
+    return {
+      global: engine.global,
+      doString: source => engine.doString(source === UI_PRELUDE_LUA ? source + `
+        local calls = {}
+        local function record(name) calls[#calls + 1] = name end
+
+        function __TestPlaybacks(keptId, removedId, rootId, window)
+          local kept, removed = __GetProxy(keptId), __GetProxy(removedId)
+          PlayUITrans(kept, 'fixture-first', function()
+            record('complete')
+            PlayUITrans(kept, 'fixture-replacement', function() record('replacement') end)
+          end):SetHook('label', function() record('label') end)
+          PlayUITrans(kept, 'fixture-sibling', function() record('sibling') end)
+          PlayUITrans(removed, 'fixture-removed', function() record('removed') end)
+          __GetProxy(rootId).onClick:Set(function() UIMgr:CloseWindow(window) end)
+        end
+
+        function __TestTrimPlaybacks(listId)
+          setmetatable(__Animations, {__pairs = function() error('playback release scanned unrelated owners') end})
+          __GetProxy(listId).numItems = 1
+        end
+
+        function __TestPlaybackCalls() return table.concat(calls, ',') end
+
+        function __TestPlaybackRemoved(id, name, playId)
+          assert(__HostCall('transition.active', id, name) == false, 'JS playback survived owner release')
+          assert(__Animations[playId] == nil, 'Lua playback survived owner release')
+          __HostDispatch('transition', playId)
+        end
+
+        function __TestPlaybackSecondOwner(id)
+          PlayUITrans(__GetProxy(id), 'fixture-reopened', function() record('reopened') end)
+        end
+      ` : source),
+    };
+  };
+  const host = await makeHost(collector, { io });
+  try {
+    let requestId = 1;
+    const session = host.session;
+    const startId = pathOf(collector.lastOpen('Activity17MiniGame2MainWindow').tree, 'Main', 'StartBtn').id;
+    const present = (signal: Parameters<OriginalUiHost['present']>[2]) => host.present(++requestId, session, signal);
+    const findPlayback = (name: string) => {
+      const op = collector.ops().find(op => op.op === 'transition-play' && op.name === name);
+      if (op?.op !== 'transition-play') throw new Error(`missing fixture playback ${name}`);
+      return op.playId;
+    };
+    const confirm = (playId: number, label?: string) => present({ kind: 'transition', playId, ...(label === undefined ? {} : { label }) });
+
+    await host.click(++requestId, session, startId);
+    const chooser = collector.lastOpen('Activity17MiniGameChoice2Window');
+    const list = pathOf(chooser.tree, 'Main', 'CardRegion', 'HeadList').id;
+    const rows = collector.lastListItems(list);
+    const kept = rows[0]!.id, removed = rows.at(-1)!.id;
+    expect(kept).not.toBe(removed);
+    await engine.doString(`__TestPlaybacks(${kept}, ${removed}, ${chooser.rootId}, ${JSON.stringify(chooser.window)})`);
+    await present({ kind: 'shown', rootId: chooser.rootId });
+    const first = findPlayback('fixture-first');
+    const sibling = findPlayback('fixture-sibling');
+    const removedPlayback = findPlayback('fixture-removed');
+    await confirm(first, 'label');
+    await confirm(first, 'label');
+    await confirm(first);
+    const replacement = findPlayback('fixture-replacement');
+
+    await engine.doString(`__TestTrimPlaybacks(${list})`);
+    await engine.doString(`__TestPlaybackRemoved(${removed}, 'fixture-removed', ${removedPlayback})`);
+    await confirm(removedPlayback);
+    await confirm(first);
+    await confirm(replacement);
+    const calls = engine.global.get('__TestPlaybackCalls') as () => string;
+    expect(calls()).toBe('label,complete,replacement');
+
+    await host.click(++requestId, session, chooser.rootId);
+    await engine.doString(`__TestPlaybackRemoved(${kept}, 'fixture-sibling', ${sibling})`);
+    await confirm(sibling);
+    expect(calls()).toBe('label,complete,replacement');
+
+    await host.click(++requestId, session, startId);
+    const reopened = collector.lastOpen('Activity17MiniGameChoice2Window');
+    expect(reopened.rootId).not.toBe(chooser.rootId);
+    await engine.doString(`__TestPlaybackSecondOwner(${reopened.rootId})`);
+    await present({ kind: 'shown', rootId: reopened.rootId });
+    await confirm(findPlayback('fixture-reopened'));
+    expect(calls()).toBe('label,complete,replacement,reopened');
+    expect(collector.byType('error')).toEqual([]);
+  } finally {
+    await host.dispose();
+  }
+});
+
 async function completeOriginalTransition(host:OriginalUiHost, collector:Collector, name:string) {
   const op=collector.ops().filter(o=>o.op==='transition-play' && o.name===name).at(-1);
   if(op?.op!=='transition-play') throw new Error('Missing original transition '+name+': '+JSON.stringify(collector.byType('error')));
