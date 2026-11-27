@@ -60,10 +60,31 @@ async function mountHarness(page: Page): Promise<void> {
 
 test.use({ hasTouch: true, isMobile: true });
 
+test('manual portrait mode releases on rotation and keeps touch aligned after the toolbar changes',async ({page}) => {
+  await page.setViewportSize({width:390,height:844});
+  await mountHarness(page);
+  const root = page.locator('html');
+  await expect(root).toHaveAttribute('data-frame-rotation','0');
+  await page.getByRole('button',{name:'竖持横屏'}).click();
+  await expect(root).toHaveAttribute('data-frame-rotation','90');
+  await page.setViewportSize({width:844,height:390});
+  await expect(root).toHaveAttribute('data-frame-rotation','0');
+  await page.setViewportSize({width:844,height:315});
+  await expect(page.locator('canvas')).toBeInViewport({ratio:0.99});
+  const rect = (await page.locator('canvas').boundingBox())!;
+  await page.touchscreen.tap(rect.x + rect.width * targets[1]!.x / DESIGN_WIDTH,rect.y + rect.height * targets[1]!.y / DESIGN_HEIGHT);
+  await expect.poll(() => page.evaluate(() => (window as Window & {viewportHits:string[]}).viewportHits)).toEqual(['lower-right']);
+  await page.setViewportSize({width:390,height:844});
+  await expect(root).toHaveAttribute('data-frame-rotation','90');
+  await page.getByRole('button',{name:'恢复自然方向'}).click();
+  await expect(root).toHaveAttribute('data-frame-rotation','0');
+});
+
 for (const size of [{ width: 390, height: 844 }, { width: 360, height: 640 }, { width: 844, height: 390 }, { width: 1920, height: 900 }]) {
   test(`fills the available landscape area and accepts real input at ${size.width}×${size.height}`, async ({ page }) => {
     await page.setViewportSize(size);
     await mountHarness(page);
+    if (size.width < size.height) await page.getByRole('button',{name:'竖持横屏'}).click();
     const canvas = page.locator('canvas');
     await expect(canvas).toBeInViewport({ ratio: 0.99 });
     const bounds = (await canvas.boundingBox())!;
