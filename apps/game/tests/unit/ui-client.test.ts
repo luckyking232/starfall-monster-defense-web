@@ -60,6 +60,8 @@ class FakeWorker {
       this.emit({ protocol: UI_PROTOCOL, session: SESSION, type: 'settled', requestId });
     } else if (type === 'dispose') {
       this.emit({ protocol: UI_PROTOCOL, session: SESSION, type: 'disposed', requestId });
+    } else if (type === 'presentation' && ['start-stress', 'finish-stress'].includes(String((message['signal'] as { kind?: string })?.kind))) {
+      this.emit({ protocol: UI_PROTOCOL, session: SESSION, type: 'settled', requestId });
     }
   }
 
@@ -189,6 +191,35 @@ describe('OriginalUiClient', () => {
     expect(results).toHaveLength(1);
     expect(results[0]).toMatchObject({event: {newRecord: true}});
     expect(progress.loadEndless(nextSlot).practice).toBeNull();
+    await client.dispose();
+  });
+
+  test('starts stress through the session without reserving or updating a progress record', async () => {
+    const progress = new ProgressStore(new MemoryStorage());
+    const client = new OriginalUiClient('https://app.test/assets/ui-host-worker.js', progress);
+    const worker = FakeWorker.instances[0]!;
+    const emit = (event: Extract<UiHostMessage, {type: 'event'}>['event']) =>
+      worker.emit({ protocol: UI_PROTOCOL, session: SESSION, type: 'event', event });
+    await client.init({ activityStartStamp: 1, serverNowStamp: 2 });
+    await client.startStress();
+    expect(worker.posted[1]).toMatchObject({
+      type: 'presentation', session: SESSION, signal: { kind: 'start-stress' },
+    });
+    emit({ name: 'start-battle', stageId: 78000021, stress: true });
+    emit({ name: 'clear-earned', stageId: 78000001 });
+    const result = { name: 'settlement', stageId: 78000021, frame: 90, win: false, loss: false,
+      kills: 450, wave: 3, endless: { source: 'natural', endedBy: 'exit' } } as const;
+    emit(result);
+    await client.finishStress();
+    expect(worker.posted[2]).toMatchObject({
+      type: 'presentation', session: SESSION, signal: { kind: 'finish-stress' },
+    });
+    emit({ name: 'battle-close' });
+    expect(progress.load().clearedStageIds).toEqual([]);
+    expect(progress.loadEndless().natural).toBeNull();
+    emit({ name: 'start-battle', stageId: 78000021 });
+    emit({ ...result, kills: 42 });
+    expect(progress.loadEndless().natural?.kills).toBe(42);
     await client.dispose();
   });
 

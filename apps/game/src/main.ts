@@ -4,6 +4,8 @@ import { scopedStorage } from './platform/channel';
 import { installViewportTracking } from './platform/viewport';
 import { NativeBattlefield } from './presentation/native-world';
 import { WorldFrameTime } from './presentation/world-frame-time';
+import { StressSession } from './presentation/stress-session';
+import { StressReport } from './ui/stress-report';
 import type { RuleState } from './engine/protocol';
 import { BattleAudio } from './presentation/battle-audio';
 import { LoadingEffect } from './presentation/loading-effect';
@@ -13,7 +15,7 @@ import { element } from './scenes/dom';
 import { WebSettings } from './ui/web-settings';
 import { BattleWait } from './ui/battle-wait';
 import { EndlessRecordView } from './ui/endless-record-view';
-import type { UiEvent } from '../runtime/ui/protocol';
+import type { UiEvent, UiStressLoadoutReport } from '../runtime/ui/protocol';
 import { showStartup, finishStartup, failStartup } from './app/startup';
 import './styles/main.css';
 
@@ -50,11 +52,17 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   const client = new OriginalUiClient(undefined,progress);
   const audio = new BattleAudio();
   const frameTime = new WorldFrameTime();
+  const stress = new StressSession();
+  const stressReport = new StressReport(root);
+  let stressRenderer: 'webgl' | 'canvas' = 'canvas';
+  let loadout: UiStressLoadoutReport | null = null;
   const battleWait = new BattleWait();
   const endlessRecords = new EndlessRecordView(root);
   root.append(battleWait.root);
   worldLayer.hidden = true;
   let world: NativeBattlefield | null = null;
+  const normalRenderer = new URLSearchParams(location.search).get('world') === 'webgl' ? 'webgl' : 'canvas';
+  let worldRenderer = normalRenderer;
   let economy = false;
   let generation = 0;
   let running = false;
@@ -74,7 +82,13 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   let waitingForCurtain: Promise<void> = Promise.resolve();
   function prepareWorld(stageId: number): Promise<void> {
     const preparedGeneration = generation;
-    const prepared = world ??= new NativeBattlefield(worldLayer);
+    const renderer = stress.metrics ? stressRenderer : normalRenderer;
+    if (world && worldRenderer !== renderer) {
+      world.dispose();
+      world = null;
+    }
+    worldRenderer = renderer;
+    const prepared = world ??= new NativeBattlefield(worldLayer,renderer === 'webgl');
     prepared.setEconomy(economy);
     return prepared.prepareStage(stageId).catch(error => {
       if (world === prepared && generation === preparedGeneration) {
@@ -137,6 +151,10 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     }
     if (activeKey) uiLayer.setAttribute('aria-label',names[activeKey] ?? activeKey);
     else uiLayer.removeAttribute('aria-label');
+    if (stress.metrics && activeKey !== 'MiniGameBattleUIWindow') {
+      stress.interrupt(performance.now());
+      stressReport.setLive(false);
+    }
     syncEndlessRecords();
   }
   function syncEndlessRecords(): void {
@@ -164,12 +182,31 @@ async function bootstrap(root: HTMLElement): Promise<void> {
         world?.render(state);
         if (state.paused) frameTime.reset();
         else frameTime.rendered(performance.now());
+        if (stress.metrics) {
+          if (state.paused || state.fixedFrame <= 0 || activeKey !== 'MiniGameBattleUIWindow') {
+            stress.interrupt(performance.now());
+            stressReport.setLive(false);
+          } else {
+            const canvas = worldLayer.firstElementChild as HTMLCanvasElement | null;
+            if (canvas) {
+              const now = performance.now();
+              stress.rendered(now,state,{renderer:canvas.dataset['renderer'] ?? 'canvas',
+                width:canvas.width,height:canvas.height,speed:state.speedIndex ?? 1});
+              stressReport.setLive(true);
+              stressReport.frame(now,stress.metrics);
+            }
+          }
+        }
       }
       catch (error) { fail(error); }
     });
   }
   function stopWorldFrame(): void {
     frameTime.reset();
+    if (stress.metrics) {
+      stress.interrupt(performance.now());
+      stressReport.setLive(false);
+    }
     cancelAnimationFrame(worldFrame);
     worldFrame = 0;
   }
@@ -178,6 +215,8 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     else if (!(event.name === 'audio-play' && event.kind === 'bgm' && musicSkipped)) audio.handle(event);
     if (event.name === 'souvenir') {
       settings.souvenir(event.kind);
+    } else if (event.name === 'stress-loadout') {
+      loadout = event.report;
     } else if (event.name === 'endless-record') {
       endlessRecords.setResult(event);
       syncEndlessRecords();
@@ -189,6 +228,12 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       clearTimeout(noticeTimer);
       noticeTimer = window.setTimeout(() => { notice.textContent = ''; },2200);
     } else if (event.name === 'start-battle') {
+      if (event.stress) {
+        loadout = null;
+        stress.begin();
+        stressReport.reset();
+        root.dataset['stressActive'] = 'true';
+      }
       endlessRecords.setResult(undefined);
       root.ownerDocument.body.dataset['map'] = getStage(event.stageId).map;
       const id = ++generation;
@@ -219,6 +264,15 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       pendingWorld = event.state;
       scheduleWorldFrame();
     } else if (event.name === 'battle-close') {
+      const finishedStress = stress.metrics !== null;
+      if (finishedStress) {
+        stress.end(performance.now());
+        stressReport.setLive(false);
+        delete root.dataset['stressActive'];
+        notice.textContent = '压测已结束，可在网页设置的「压测」中查看结果。';
+        clearTimeout(noticeTimer);
+        noticeTimer = window.setTimeout(() => { notice.textContent = ''; },3500);
+      }
       endlessRecords.setResult(undefined);
       delete root.ownerDocument.body.dataset['map'];
       ++generation;
@@ -249,8 +303,23 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     getFps: () => view.runtime.renderFps,
     battleFrameTime: () => running ? frameTime.summary() : null,
     inBattle: () => entering || activeKey === 'BattleLoadingWindow',
-    canLevel: () => running && activeKey === 'MiniGameBattleUIWindow',
+    canLevel: () => !stress.metrics && running && activeKey === 'MiniGameBattleUIWindow',
     levelUp: () => client.levelUp(),
+    canStartStress: () => !entering && !stopped &&
+      (activeKey === 'Activity17MiniGame2MainWindow' || activeKey === 'Activity17MiniGameChoice2Window'),
+    startStress: renderer => {
+      stressRenderer = renderer;
+      return client.startStress();
+    },
+    canFinishStress: () => stress.metrics !== null && running && !stopped &&
+      ['MiniGameBattleUIWindow','MiniGameBattlePauseWindow','MiniGameBattleExitWindow'].includes(activeKey),
+    finishStress: async () => {
+      await client.finishStress();
+      await view.idle();
+      syncLayers();
+    },
+    stressLoadout: () => loadout,
+    stressSummary: () => stress.summary(),
     modalChanged(open) {
       modalOpen = open;
       uiLayer.inert = open;
@@ -269,6 +338,9 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   // The original Lua opens BattleLoadingWindow in UILayer.Loading, above the HUD.
   view.runtime.setWindowLayer('BattleLoadingWindow', 1);
   client.onMessage((message) => {
+    if (stress.metrics && running && !document.hidden && !modalOpen && activeKey === 'MiniGameBattleUIWindow' && message.type === 'ops') {
+      stress.observe(message.ops);
+    }
     if (message.type === 'startup') showStartup(message.percent,message.phase);
     if (message.type === 'ops' && activeKey === 'Activity17MiniGameChoice2Window' &&
         message.ops.some(op => op.op === 'list-items')) void view.idle().then(syncEndlessRecords).catch(fail);

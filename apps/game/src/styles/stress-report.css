@@ -1,0 +1,67 @@
+.stress-live {
+  position: absolute;
+  left: 1%;
+  bottom: 1%;
+  z-index: 5;
+  max-width: 98%;
+  padding: 2px 6px;
+  border: 1px solid #91794f;
+  border-radius: 3px;
+  background: #1a1816e8;
+  color: #ffe4ae;
+  font: 600 clamp(10px, 1.05cqw, 14px)/1.35 'SourceHanSans', 'Microsoft YaHei', sans-serif;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.stress-report {
+  margin-block: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.stress-values {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  border: 1px solid #65543d;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #65543d;
+}
+
+.stress-values > div {
+  min-width: 0;
+  padding: 4px 7px;
+  background: #2c251d;
+}
+
+.stress-values dt,
+.stress-meta {
+  color: #d9c9ae;
+  font-size: .86em;
+  overflow-wrap: anywhere;
+}
+
+.stress-values dd {
+  margin: 1px 0 0;
+  color: #ffdfa2;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.stress-window {
+  margin-block: 10px;
+}
+
+.stress-window h3 {
+  margin: 0;
+  color: #f5e4af;
+  font-size: 1em;
+}
+
+.stress-method {
+  padding-top: 8px;
+  border-top: 1px solid #63523d;
+}

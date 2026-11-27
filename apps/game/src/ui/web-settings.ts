@@ -1,9 +1,13 @@
-import type { UiLevelUpResult } from '../../runtime/ui/protocol';
+import type { UiLevelUpResult, UiStressLoadoutReport } from '../../runtime/ui/protocol';
 import { ProgressStore } from '../platform/progress';
 import { isTestSite } from '../platform/channel';
 import { editSaveIndex, exportSaves, importSaves, MAX_BACKUP_BYTES } from '../platform/save-transfer';
 import { readPreferences, savePreferences, type Preferences } from '../platform/preferences';
 import { createFullscreenButton } from '../platform/fullscreen';
+import { renderStressDetails } from './stress-report';
+import { STRESS_STAGE, stressMonsterTarget } from '../content/stress-stage';
+import { RULES_FPS } from '../engine/protocol';
+import type { StressSummary } from '../presentation/stress-metrics';
 import { element } from '../scenes/dom';
 import '../styles/web-settings.css';
 
@@ -15,6 +19,12 @@ interface WebControls {
   inBattle(): boolean;
   canLevel(): boolean;
   levelUp(): Promise<UiLevelUpResult>;
+  canStartStress(): boolean;
+  startStress(renderer: 'canvas' | 'webgl'): Promise<void>;
+  canFinishStress(): boolean;
+  finishStress(): Promise<void>;
+  stressSummary(): StressSummary | null;
+  stressLoadout(): UiStressLoadoutReport | null;
   modalChanged(open: boolean): void;
 }
 
@@ -38,6 +48,8 @@ export class WebSettings {
   private selected = '';
   private readonly slotId: string;
   private previousFocus: HTMLElement | null = null;
+  private stressRenderer: 'canvas' | 'webgl' = new URLSearchParams(location.search).get('world') === 'webgl' ? 'webgl' : 'canvas';
+  private startingStress = false;
 
   constructor(root: HTMLElement, private readonly storage: Storage | null, private readonly progress: ProgressStore,
     private readonly controls: WebControls) {
@@ -96,11 +108,11 @@ export class WebSettings {
     (this.previousFocus?.isConnected && this.previousFocus !== document.body ? this.previousFocus : this.launcher).focus({preventScroll:true});
   }
 
-  private showSettings(): void {
+  private showSettings(tab = 0): void {
     this.open(isTestSite() ? '网页设置 · 测试版' : '网页设置');
     const nav = element('nav');
     nav.setAttribute('aria-label','设置分类');
-    const tabs = [['设置', () => this.preferences()], ['存档', () => this.saves()], ['调试', () => this.debug()]] as const;
+    const tabs = [['设置', () => this.preferences()], ['存档', () => this.saves()], ['调试', () => this.debug()], ['压测', () => this.stress()]] as const;
     const activate = (index: number) => {
       for (const [i, item] of [...nav.children].entries()) item.setAttribute('aria-pressed', String(i === index));
       this.feedback.textContent = '';
@@ -109,7 +121,95 @@ export class WebSettings {
     };
     tabs.forEach(([title], index) => nav.append(button(title, () => activate(index))));
     this.panel.insertBefore(nav, this.body);
-    activate(0);
+    activate(tab);
+  }
+
+  private stress(): void {
+    this.body.append(element('h3',undefined,'全技能怪海压测'));
+    const summary = this.controls.stressSummary();
+    if (this.controls.canStartStress()) {
+      this.body.append(element('p','web-meta','五名角色开场解锁全部技能，每人分配 27 次强化。达到词条上限的次数转给本角色其他可升级词条。'));
+      const tierSeconds = STRESS_STAGE.tierFrames / RULES_FPS;
+      this.body.append(element('p','web-meta',`开场 ${STRESS_STAGE.initialSpeed}×。在场活怪目标每 ${tierSeconds} 个游戏秒由 ${STRESS_STAGE.initialMonsters} 升至 ${stressMonsterTarget(STRESS_STAGE.tierFrames)}、${STRESS_STAGE.maxMonsters}，持续补怪。城墙可恢复，全程免选卡，压测成绩单独统计。`));
+      const row = element('label','web-stress-backend');
+      const select = element('select');
+      select.setAttribute('aria-label','压测渲染方式');
+      for (const [value,text] of [['canvas','Canvas（默认）'],['webgl','合并 WebGL（实验）']] as const) {
+        const option = element('option',undefined,text);
+        option.value = value;
+        select.append(option);
+      }
+      select.value = this.stressRenderer;
+      select.onchange = () => { this.stressRenderer = select.value === 'webgl' ? 'webgl' : 'canvas'; };
+      row.append('渲染方式 ',select);
+      const start = button('开始怪海压测',async () => {
+        if (this.startingStress || !this.controls.canStartStress()) return;
+        this.startingStress = true;
+        start.disabled = true;
+        this.close();
+        try { await this.controls.startStress(this.stressRenderer); }
+        catch (error) {
+          this.showSettings(3);
+          this.feedback.textContent = error instanceof Error ? error.message : String(error);
+        } finally { this.startingStress = false; }
+      });
+      const actions = element('div','web-actions');
+      actions.append(start);
+      this.body.append(row,actions);
+    } else if (this.controls.canFinishStress()) {
+      const finish = button('结束压测',async () => {
+        finish.disabled = true;
+        try {
+          await this.controls.finishStress();
+          this.showSettings(3);
+        } catch (error) {
+          this.feedback.textContent = error instanceof Error ? error.message : String(error);
+          finish.disabled = false;
+        }
+      });
+      this.body.append(finish);
+    } else if (!summary) {
+      this.body.append(element('p','web-meta','回到活动主页或选关界面后可开始压测。'));
+    }
+    if (!summary) return;
+    const loadout = this.controls.stressLoadout();
+    if (loadout) this.body.append(this.stressBuild(loadout));
+    this.body.append(element('h3',undefined,this.controls.canFinishStress() ? '本次采样' : '上次采样'));
+    const details = renderStressDetails(summary);
+    this.body.append(details,button('复制压测结果',async () => {
+      const preset = loadout ? `${loadout.cards.length} 名角色 · ${loadout.upgrades} 次强化` : '';
+      const report = [`全技能怪海压测 · 活怪目标 ${STRESS_STAGE.maxMonsters}`,preset,details.innerText].filter(Boolean).join('\n');
+      try {
+        await navigator.clipboard.writeText(report);
+        this.feedback.textContent = '压测结果已复制';
+      } catch {
+        const text = element('textarea');
+        text.value = report;
+        text.readOnly = true;
+        text.setAttribute('aria-label','压测结果文本');
+        this.feedback.replaceChildren(text);
+        text.select();
+      }
+    }));
+  }
+
+  private stressBuild(report: UiStressLoadoutReport): HTMLDetailsElement {
+    const details = element('details');
+    details.className = 'web-stress-build';
+    const skills = report.cards.reduce((n,card)=>n+card.skills.filter(skill=>skill.unlocked).length,0);
+    details.append(element('summary',undefined,`实际配置 · ${skills} 项技能 · ${report.upgrades} 次强化`));
+    const names: Record<number,string> = {78000101:'安妮斯',78000102:'蒂娜',78000103:'尼莉莎',78000104:'菲尼斯',78000105:'列蒂西雅'};
+    const table = element('table');
+    const head = table.createTHead().insertRow();
+    for (const title of ['角色','普攻','特殊','天赋']) head.append(element('th',undefined,title));
+    const body = table.createTBody();
+    for (const card of report.cards) {
+      const row = body.insertRow();
+      row.append(element('th',undefined,names[card.id] ?? String(card.id)));
+      for (const skill of card.skills) row.insertCell().textContent = skill.options.map(option=>option.level).join(' / ');
+    }
+    details.append(table);
+    return details;
   }
 
   private persist(): void {
