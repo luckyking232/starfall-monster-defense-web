@@ -1,14 +1,18 @@
 import {expect,test} from '@playwright/test';
-import type {UiHostMessage} from '../../runtime/ui/protocol';
+import type {UiClientRequest,UiHostMessage} from '../../runtime/ui/protocol';
 import {openChooser,originalClick} from './navigation';
 
 test('从空档设置进入全技能怪海，报告最慢时段并保留原存档',async({page},info)=>{
   test.setTimeout(120000);
   await page.addInitScript(()=>{
-    const seen={starts:0,frame:0,opponents:0,heroes:[] as number[],choiceWindows:0};
+    const seen={starts:0,frame:0,opponents:0,heroes:[] as number[],choiceWindows:0,clicks:0};
     Object.assign(window,{stressObservation:seen});
     const Base=window.Worker;
     window.Worker=class extends Base {
+      override postMessage(message:UiClientRequest,options?:StructuredSerializeOptions|Transferable[]) {
+        if(message.type==='click') seen.clicks++;
+        super.postMessage(message,options as StructuredSerializeOptions);
+      }
       constructor(url:string|URL,options?:WorkerOptions){
         super(url,options);
         this.addEventListener('message',({data}:MessageEvent<UiHostMessage>)=>{
@@ -24,7 +28,18 @@ test('从空档设置进入全技能怪海，报告最慢时段并保留原存�
       }
     };
   });
-  const observation=()=>page.evaluate(()=>(window as Window & {stressObservation?:{starts:number;frame:number;opponents:number;heroes:number[];choiceWindows:number}}).stressObservation!);
+  const observation=()=>page.evaluate(()=>(window as Window & {stressObservation?:{starts:number;frame:number;opponents:number;heroes:number[];choiceWindows:number;clicks:number}}).stressObservation!);
+  async function pressHudOnce(x:number,expectedWindow:string) {
+    const before=(await observation()).clicks;
+    // An input before the authored transition is ready may be ignored. Once sent, let
+    // the busy worker handle it. A second tap on the original pause screen resumes play.
+    await expect(async()=>{
+      if((await observation()).clicks===before) await originalClick(page,x,47);
+      expect((await observation()).clicks).toBeGreaterThan(before);
+    }).toPass({timeout:15000});
+    await expect(page.getByRole('region',{name:expectedWindow})).toBeVisible({timeout:25000});
+    expect((await observation()).clicks).toBe(before+1);
+  }
   const openTab=async()=>{
     await page.getByRole('button',{name:'网页设置'}).click();
     await page.getByRole('button',{name:'压测',exact:true}).click();
@@ -40,10 +55,7 @@ test('从空档设置进入全技能怪海，报告最慢时段并保留原存�
   await expect.poll(async()=>(await observation()).opponents,{timeout:25000}).toBeGreaterThanOrEqual(60);
   await expect.poll(async()=>(await observation()).frame,{timeout:20000}).toBeGreaterThan(125);
   expect((await observation()).heroes).toHaveLength(5);
-  await expect(async()=>{
-    await originalClick(page,163,47);
-    await expect(page.getByRole('region',{name:'战斗暂停'})).toBeVisible({timeout:700});
-  }).toPass({timeout:15000});
+  await pressHudOnce(163,'战斗暂停');
   await openTab();
   await expect(page.getByRole('dialog')).toContainText('P99');
   const report = page.getByRole('region',{name:'压测统计'});
@@ -72,10 +84,7 @@ test('从空档设置进入全技能怪海，报告最慢时段并保留原存�
   await expect(report).toContainText(renderer === 'webgl' ? 'WebGL' : 'Canvas');
   await expect(report.getByText('最差一秒',{exact:true}).locator('..').locator('dd')).toHaveText(/^\d+ FPS$/);
   await page.getByRole('button',{name:'关闭',exact:true}).click();
-  await expect(async()=>{
-    await originalClick(page,79,47);
-    await expect(page.getByRole('region',{name:'确认退出战斗'})).toBeVisible({timeout:650});
-  }).toPass({timeout:12000});
+  await pressHudOnce(79,'确认退出战斗');
   await originalClick(page,977,575);
   await expect(page.getByRole('region',{name:'选择关卡',exact:true})).toBeVisible({timeout:15000});
   await openTab();
