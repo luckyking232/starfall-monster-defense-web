@@ -44,7 +44,7 @@ jobs:
           npm run preview -- --outDir dist --port 4173 --strictPort > /tmp/starfall-preview.log 2>&1 &
           trap 'kill $!' EXIT
           curl --retry 20 --retry-connrefused --retry-delay 1 -fsS "$STARFALL_TEST_BASE_URL" > /dev/null
-          npx playwright test startup-screen product-entry standalone-settings battle-preparation save-transfer viewport-rotation economy-mode endless-records
+          npx playwright test startup-screen product-entry standalone-settings battle-preparation save-transfer viewport-rotation mobile-fullscreen economy-mode endless-records
       - name: Prepare Pages
         if: github.ref == 'refs/heads/test' && github.event_name != 'pull_request'
         working-directory: .

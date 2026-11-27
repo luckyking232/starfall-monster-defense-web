@@ -2,6 +2,7 @@ import { ProgressStore } from '../platform/progress';
 import { isTestSite } from '../platform/channel';
 import { editSaveIndex, exportSaves, importSaves, MAX_BACKUP_BYTES } from '../platform/save-transfer';
 import { readPreferences, savePreferences, type Preferences } from '../platform/preferences';
+import { createFullscreenButton } from '../platform/fullscreen';
 import { element } from '../scenes/dom';
 import '../styles/web-settings.css';
 
@@ -31,6 +32,7 @@ export class WebSettings {
   private readonly body = element('div', 'web-body');
   private readonly feedback = element('p', 'web-feedback');
   private readonly prefs: Preferences;
+  private readonly fullscreen: HTMLButtonElement | null;
   private fpsTimer = 0;
   private selected = '';
   private readonly slotId: string;
@@ -40,6 +42,7 @@ export class WebSettings {
     private readonly controls: WebControls) {
     this.slotId = progress.listSlots().activeSlotId;
     this.prefs = readPreferences(storage);
+    this.fullscreen = createFullscreenButton(root.ownerDocument, message => { this.feedback.textContent = message; });
     this.launcher.className = 'web-gear';
     this.launcher.title = '网页设置';
     this.launcher.setAttribute('aria-label', '网页设置');
@@ -162,6 +165,11 @@ export class WebSettings {
     };
     quality.append(economy,'省电画质（降低战场分辨率）');
     this.body.append(quality);
+    if (this.fullscreen) {
+      const actions = element('div','web-actions');
+      actions.append(this.fullscreen);
+      this.body.append(actions);
+    }
   }
 
   private saves(): void {

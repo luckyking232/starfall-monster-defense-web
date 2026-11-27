@@ -1,7 +1,7 @@
 import { expect, test, type Page, type TestInfo } from '@playwright/test';
 import { writeFileSync } from 'node:fs';
 import { openFixture } from './fixture';
-import { openChooser, originalClick } from './navigation';
+import { openChooser, originalClick, originalPointMapper } from './navigation';
 
 async function screenshot(page: Page, info: TestInfo, name: string) {
   await page.evaluate(() => new Promise<void>((done) => requestAnimationFrame(() => requestAnimationFrame(() => done()))));
@@ -247,23 +247,27 @@ test('the stage route connector and transparent corners never activate a sign', 
 test.describe('mobile touch input', () => {
   test.use({ hasTouch: true, isMobile: true, viewport: { width: 390, height: 844 } });
 
-  test('a finger drag scrolls the route on the rotated phone canvas', async ({ page }, info) => {
-    await page.goto('./');
-    await openChooser(page, 'touch');
-    const canvas = await page.locator('#app canvas:visible').last().boundingBox();
-    if (!canvas) throw new Error('Missing chooser canvas');
-    const cdp = await page.context().newCDPSession(page);
-    const at = (x: number) => ({ x: canvas.x + canvas.width * (1 - 274 / 750), y: canvas.y + canvas.height * x / 1334 });
-    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [at(525)] });
-    for (let x = 501; x > 145; x -= 24) {
-      await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [at(x)] });
-    }
-    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [at(145)] });
-    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
-    await expect(page.getByRole('region', { name: '选择关卡', exact: true })).toBeVisible();
-    await expect(page.locator('.game-notice')).toHaveText('');
-    await originalClick(page, 145, 274, 'touch');
-    await expect(page.getByRole('status')).toHaveText('前置关卡未通过');
-    await screenshot(page, info, 'stage-route-after-touch.png');
-  });
+  for (const mode of ['natural portrait', 'manual landscape'] as const) {
+    test(`a finger drag scrolls the route in ${mode}`, async ({ page }, info) => {
+      await page.goto('./');
+      const manual = mode === 'manual landscape';
+      if (manual) await page.getByRole('button', { name: '竖持横屏' }).tap();
+      await expect(page.locator('html')).toHaveAttribute('data-frame-rotation', manual ? '90' : '0');
+      await openChooser(page, 'touch');
+      const point = await originalPointMapper(page);
+      const at = (x: number) => point(x, 274);
+      const cdp = await page.context().newCDPSession(page);
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [at(525)] });
+      for (let x = 501; x > 145; x -= 24) {
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [at(x)] });
+      }
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [at(145)] });
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+      await expect(page.getByRole('region', { name: '选择关卡', exact: true })).toBeVisible();
+      await expect(page.locator('.game-notice')).toHaveText('');
+      await originalClick(page, 145, 274, 'touch');
+      await expect(page.getByRole('status')).toHaveText('前置关卡未通过');
+      await screenshot(page, info, 'stage-route-after-touch.png');
+    });
+  }
 });

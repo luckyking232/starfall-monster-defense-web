@@ -41,11 +41,13 @@ export function installViewportTracking(): () => void {
   update();
   window.addEventListener('resize', update);
   window.addEventListener('orientationchange', update);
+  document.addEventListener('fullscreenchange', update);
   viewport?.addEventListener('resize', update);
   viewport?.addEventListener('scroll', update);
   return () => {
     window.removeEventListener('resize', update);
     window.removeEventListener('orientationchange', update);
+    document.removeEventListener('fullscreenchange', update);
     viewport?.removeEventListener('resize', update);
     viewport?.removeEventListener('scroll', update);
     hint.remove();
