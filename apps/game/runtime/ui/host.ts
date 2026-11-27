@@ -327,6 +327,7 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
   const tasks: Task[] = [];
   const shown = new Set<number>();
   const animations = new Map<number, { nodeId: number; name: string; labels: Set<string> }>();
+  const animationsByOwner = new Map<number, Set<number>>();
   const opsBuffer: UiOp[] = [];
   const resolvedWindows = new Map<string, { packageId: string; packageName: string; comName: string }>();
   let entryPoint = '';
@@ -534,6 +535,13 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
     return removeNodeTrees(removed);
   }
 
+  function forgetAnimation(playId: number, ownerId: number): void {
+    animations.delete(playId);
+    const owned = animationsByOwner.get(ownerId);
+    owned?.delete(playId);
+    if (owned?.size === 0) animationsByOwner.delete(ownerId);
+  }
+
   function removeNodeTrees(ids: Iterable<number>, retiredClicks?: Set<number>): string {
     const removed = new Set<number>();
     function remove(id: number): void {
@@ -546,8 +554,11 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
       removed.add(id);
     }
     for (const id of ids) remove(id);
-    for (const [key, animation] of animations) {
-      if (removed.has(animation.nodeId)) animations.delete(key);
+    for (const owner of removed) {
+      const owned = animationsByOwner.get(owner);
+      if (!owned) continue;
+      for (const id of owned) animations.delete(id);
+      animationsByOwner.delete(owner);
     }
     return [...removed].join(',');
   }
@@ -883,7 +894,15 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
         const target = node(Number(a));
         const name = String(b);
         const playId = requireNumber(c, 'playId');
+        const existing = animations.get(playId);
+        if (existing && existing.nodeId !== target.id) forgetAnimation(playId, existing.nodeId);
         animations.set(playId, { nodeId: target.id, name, labels: new Set() });
+        let owned = animationsByOwner.get(target.id);
+        if (!owned) {
+          owned = new Set();
+          animationsByOwner.set(target.id, owned);
+        }
+        owned.add(playId);
         pushOp({ op: 'transition-play', id: target.id, name, playId, labels: [] });
         return 0;
       }
@@ -1437,7 +1456,7 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
             shown.add(signal.rootId);
             await dispatch('window.shown', record.key);
           } else if (signal.kind === 'transition' && animation) {
-            if (signal.label === undefined) animations.delete(signal.playId);
+            if (signal.label === undefined) forgetAnimation(signal.playId, animation.nodeId);
             if (signal.label === undefined || animation.labels.delete(signal.label)) {
               await dispatch('transition', signal.playId, signal.label);
             }
@@ -1459,6 +1478,8 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
       tasks.length = 0;
       nodes.clear();
       windows.clear();
+      animations.clear();
+      animationsByOwner.clear();
       if (lua) {
         lua.global.close();
         lua = null;

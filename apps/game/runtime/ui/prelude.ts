@@ -334,11 +334,18 @@ function __ObjMethods.GetController(self, name)
   return __GetControllerProxy(id, name)
 end
 local __Animations = {}
+local __AnimationsByOwner = {}
 function PlayUITrans(com, name, complete)
   local id = __NextToken()
   local playback = { owner = com.__id, complete = complete, hooks = {}, playId = id }
   __HostCall('transition.play', com.__id, name, id)
   __Animations[id] = playback
+  local owned = __AnimationsByOwner[playback.owner]
+  if not owned then
+    owned = {}
+    __AnimationsByOwner[playback.owner] = owned
+  end
+  owned[id] = true
   function playback:SetHook(label, callback)
     if __Animations[id] ~= self then return self end
     self.hooks[label] = callback
@@ -359,10 +366,15 @@ local function __ReleaseNodes(ids)
     __ClickHandlers[id] = nil
     __ListRenderers[id] = nil
   end
-  for id, play in pairs(__Animations) do
-    if removed[play.owner] then
-      play.complete, play.hooks = nil, {}
-      __Animations[id] = nil
+  for owner in pairs(removed) do
+    local owned = __AnimationsByOwner[owner]
+    if owned then
+      for id in pairs(owned) do
+        local play = __Animations[id]
+        play.complete, play.hooks = nil, {}
+        __Animations[id] = nil
+      end
+      __AnimationsByOwner[owner] = nil
     end
   end
   if __UiClearTimerOwners then __UiClearTimerOwners(removed) end
@@ -584,6 +596,9 @@ function __HostDispatch(kind, a, b, c)
       callback = play.complete
       play.complete, play.hooks = nil, {}
       __Animations[a] = nil
+      local owned = __AnimationsByOwner[play.owner]
+      owned[a] = nil
+      if next(owned) == nil then __AnimationsByOwner[play.owner] = nil end
     end
     if callback then callback() end
     return
