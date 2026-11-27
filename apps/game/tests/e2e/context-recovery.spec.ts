@@ -125,6 +125,8 @@ for (const renderer of ['canvas', 'webgl'] as const) {
     await expect.poll(async () => (await observe()).effects ?? 0, {timeout:25000}).toBeGreaterThan(0);
     await expect.poll(async () => (await observe()).hud ?? 0).toBeGreaterThan(0);
     await expect.poll(async () => (await observe()).heroes.length).toBe(5);
+    await expect.poll(async () => (await observe()).frame, {timeout:20000}).toBeGreaterThan(125);
+    await expect(page.locator('.stress-live')).toBeVisible();
     const before = await observe();
 
     const lost = await page.evaluate(async () => {
