@@ -73,6 +73,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   let modalOpen = false;
   let scheduled = 0;
   let worldFrame = 0;
+  let latestWorld: RuleState | undefined;
   let pendingWorld: RuleState | undefined;
   let clockEpoch = 0;
   const clock = new ForegroundClock();
@@ -91,7 +92,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       world = null;
     }
     worldRenderer = renderer;
-    const prepared = world ??= new NativeBattlefield(worldLayer,renderer === 'webgl');
+    const prepared = world ??= new NativeBattlefield(worldLayer,renderer === 'webgl', {restored: redrawWorld, fail});
     prepared.setEconomy(economy);
     return prepared.prepareStage(stageId).catch(error => {
       if (world === prepared && generation === preparedGeneration) {
@@ -191,7 +192,14 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       pendingWorld = undefined;
       if (!state || !running || stopped || document.hidden || modalOpen) return;
       try {
-        world?.render(state);
+        if (!world?.render(state)) {
+          frameTime.reset();
+          if (stress.metrics) {
+            stress.interrupt(performance.now());
+            stressReport.setLive(false);
+          }
+          return;
+        }
         if (state.paused) frameTime.reset();
         else frameTime.rendered(performance.now());
         if (stress.metrics) {
@@ -212,6 +220,10 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       }
       catch (error) { fail(error); }
     });
+  }
+  function redrawWorld(): void {
+    pendingWorld ??= latestWorld;
+    scheduleWorldFrame();
   }
   function stopWorldFrame(): void {
     frameTime.reset();
@@ -274,7 +286,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       }).catch(fail);
     } else if (event.name === 'world') {
       view.setTransitionTimeScale(event.state.paused ? 0 : event.state.speedIndex ?? 1);
-      pendingWorld = event.state;
+      pendingWorld = latestWorld = event.state;
       scheduleWorldFrame();
     } else if (event.name === 'battle-close') {
       const finishedStress = stress.metrics !== null;
@@ -298,7 +310,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       battleWait.close();
       cancelAnimationFrame(scheduled);
       stopWorldFrame();
-      pendingWorld = undefined;
+      pendingWorld = latestWorld = undefined;
       worldLayer.hidden = true;
       world?.reset();
       audio.clear();
@@ -309,7 +321,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   }, fraction => showStartup(75 + fraction * 24, '正在装配界面图集'));
   const loading = new LoadingEffect(
     () => view.runtime.views.get('BattleLoadingWindow')?.root.children.get('EffectAni')?.container.alpha ?? 0,
-    () => modalOpen || document.hidden);
+    () => modalOpen || document.hidden, fail);
   root.insertBefore(loading.canvas,notice);
   const settings = new WebSettings(root,storage,progress,{
     applyVolume: (music,effects) => audio.setVolumes(music,effects),

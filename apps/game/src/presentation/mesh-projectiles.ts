@@ -1,4 +1,5 @@
 import { GlMeshRenderer, loadBattleImage, type GlMeshTexture } from './gl-mesh';
+import { GlContextLost, GlContextRecovery } from './gl-context';
 import type { NativeModel } from './native-world';
 import type { Point3 } from './orthographic';
 import { evaluateCurve, particleSamples, rotationAxes, type ParticleEmitter, type ParticleSample } from './particle-sampling';
@@ -54,6 +55,18 @@ interface Catalog {
 interface Layer { order: number; depth: number; additive: boolean; command: Draw }
 interface MatrixPose { pose: ArrayLike<number>; inverse: ArrayLike<number> }
 interface PositionHistory { age: number; position: Point3 }
+
+function projectileGraphics(canvas: HTMLCanvasElement) {
+  return {
+    renderer: new GlMeshRenderer(canvas, true),
+    meshes: new Map<string, ReturnType<GlMeshRenderer['createMesh']>>(),
+    materials: new Map<string, Material>(),
+    materialLoads: new Map<string, Promise<void>>(),
+    additive: new Set<string>(),
+    prefabs: {} as Catalog['prefabs'],
+    cameras: {} as Catalog['cameras'],
+  };
+}
 
 const root = () => assetUrl('effects/');
 const wrap = ['repeat','clamp','mirror','mirror'] as const;
@@ -183,18 +196,22 @@ function drawPose(layer: SourceLayer, world: MatrixPose, sample: ParticleSample,
 }
 
 export class MeshProjectiles {
-  private readonly canvas: HTMLCanvasElement;
-  readonly renderer: GlMeshRenderer;
-  private readonly meshes = new Map<string, ReturnType<GlMeshRenderer['createMesh']>>();
-  private readonly materials = new Map<string, Material>();
-  private readonly materialLoads = new Map<string, Promise<void>>();
-  private readonly additive = new Set<string>();
+  private graphics: ReturnType<typeof projectileGraphics>;
+  private readonly recovery: GlContextRecovery;
   private readonly history = new Map<number, PositionHistory[]>();
   private readonly draws: Layer[] = [];
   private readonly live = new Set<number>();
-  private prefabs: Catalog['prefabs'] = {};
-  private cameras: Catalog['cameras'] = {};
+  private requested: {paths: ReadonlySet<string> | undefined} | undefined;
+  private rebuilding: Promise<void> | undefined;
+  private restorationFailure: {reason: unknown} | undefined;
+  private disposed = false;
   readonly ready: Promise<void>;
+
+  get renderer(): GlMeshRenderer { return this.graphics.renderer; }
+
+  get drawable(): boolean {
+    return !this.disposed && !this.recovery.waiting && !this.rebuilding && !this.restorationFailure;
+  }
 
   static async prefetch(paths?: ReadonlySet<string>): Promise<HTMLImageElement[]> {
     const catalog = await loadCatalog();
@@ -211,57 +228,109 @@ export class MeshProjectiles {
     if (this.canvas.height !== height) this.canvas.height = height;
   }
 
-  constructor(width: number, height: number, group: 'battle' | 'loading' = 'battle', canvas = document.createElement('canvas')) {
-    this.canvas = canvas;
+  constructor(width: number, height: number, private readonly group: 'battle' | 'loading',
+    private readonly callbacks: {restored?: () => void; fail: (reason: unknown) => void},
+    private readonly canvas = document.createElement('canvas')) {
     this.canvas.width = width;
     this.canvas.height = height;
-    this.renderer = new GlMeshRenderer(this.canvas, true);
-    this.ready = group === 'loading' ? this.load(group) : Promise.resolve();
+    this.graphics = projectileGraphics(canvas);
+    this.recovery = new GlContextRecovery(canvas, this.renderer.gl, () => this.renderer.invalidate(), this.restore);
+    this.ready = group === 'loading' ? this.prepare() : Promise.resolve();
   }
 
-  prepare(paths?: ReadonlySet<string>): Promise<void> { return this.load('battle', paths); }
+  prepare(paths?: ReadonlySet<string>): Promise<void> {
+    this.requested = {paths};
+    return this.loadWhenAvailable(paths);
+  }
 
-  private async load(group: 'battle' | 'loading', paths?: ReadonlySet<string>): Promise<void> {
+  private readonly restore = () => {
+    try {
+      this.graphics = projectileGraphics(this.canvas);
+      const rebuilding = this.requested ? this.loadWhenAvailable(this.requested.paths) : Promise.resolve();
+      this.rebuilding = rebuilding;
+      void rebuilding.then(() => {
+        if (this.disposed || this.rebuilding !== rebuilding) return;
+        this.rebuilding = undefined;
+        this.callbacks.restored?.();
+      }).catch(error => this.failRestore(error));
+    } catch (error) {
+      if (!this.recoverFrom(error)) this.failRestore(error);
+    }
+  };
+
+  private failRestore(reason: unknown): void {
+    this.restorationFailure = {reason};
+    if (!this.disposed) this.callbacks.fail(reason);
+  }
+
+  recoverFrom(error: unknown): boolean {
+    return error instanceof GlContextLost && !!this.recovery.waiting;
+  }
+
+  private async loadWhenAvailable(paths?: ReadonlySet<string>): Promise<void> {
+    while (!this.disposed) {
+      if (this.restorationFailure) throw this.restorationFailure.reason;
+      const waiting = this.recovery.waiting;
+      if (waiting) {
+        await waiting;
+        continue;
+      }
+      const graphics = this.graphics;
+      try {
+        await this.load(graphics, paths);
+        if (graphics === this.graphics && !this.recovery.waiting) return;
+      } catch (error) {
+        if (!(error instanceof GlContextLost) || (graphics === this.graphics && !this.recovery.waiting)) throw error;
+      }
+    }
+  }
+
+  private async load(graphics: ReturnType<typeof projectileGraphics>, paths?: ReadonlySet<string>): Promise<void> {
+    const {renderer, meshes, prefabs} = graphics;
     const catalog = await loadCatalog();
-    const entries = effectEntries(catalog, group, paths).filter(([path]) => !(path in this.prefabs));
+    if (this.disposed) return;
+    const entries = effectEntries(catalog, this.group, paths).filter(([path]) => !(path in prefabs));
     const layers = entries.flatMap(([, layers]) => layers);
-    const meshes = new Set(layers.flatMap(layer => layer.trailMesh ? [layer.mesh, layer.trailMesh] : [layer.mesh]));
-    for (const key of meshes) {
-      if (this.meshes.has(key)) continue;
+    const meshKeys = new Set(layers.flatMap(layer => layer.trailMesh ? [layer.mesh, layer.trailMesh] : [layer.mesh]));
+    for (const key of meshKeys) {
+      if (meshes.has(key)) continue;
       const mesh = catalog.meshes[key]!;
       const vertices = mesh.vertices.length / 3;
       const zero = new Float32Array(vertices * 4);
-      this.meshes.set(key, this.renderer.createMesh({
+      meshes.set(key, renderer.createMesh({
         ...mesh, ...(mesh.normals?.length ? { normals: mesh.normals } : { normals: new Float32Array(vertices * 3) }),
         ...(mesh.uv0?.length ? { uv0: mesh.uv0 } : { uv0: new Float32Array(vertices * 2) }),
         uv1: mesh.uv1?.length ? mesh.uv1 : new Float32Array(vertices * 2),
         texcoord1: zero, texcoord2: zero,
       }));
     }
-    await Promise.all([...materialKeys(layers)].map(key => this.loadMaterial(catalog, key)));
-    for (const [path, layers] of entries) this.prefabs[path] = layers;
-    this.cameras = catalog.cameras;
+    await Promise.all([...materialKeys(layers)].map(key => this.loadMaterial(graphics, catalog, key)));
+    if (this.disposed) return;
+    renderer.endFrame();
+    for (const [path, layers] of entries) prefabs[path] = layers;
+    graphics.cameras = catalog.cameras;
   }
 
-  private loadMaterial(catalog: Catalog, key: string): Promise<void> | undefined {
-    if (this.materials.has(key)) return;
-    const cached = this.materialLoads.get(key);
+  private loadMaterial(graphics: ReturnType<typeof projectileGraphics>, catalog: Catalog, key: string): Promise<void> | undefined {
+    const {renderer, materials, materialLoads, additive} = graphics;
+    if (materials.has(key)) return;
+    const cached = materialLoads.get(key);
     if (cached) return cached;
     const load = (async () => {
       const material = catalog.materials[key]!, program = catalog.shaders[material.shader]!;
       const [src, dst] = material.blend;
-      if (dst === 1) this.additive.add(key);
+      if (dst === 1) additive.add(key);
       const cull = material.cull === 1 ? 'front' : material.cull === 2 ? 'back' : undefined;
-      const ready = await this.renderer.createMaterial({
+      const ready = await renderer.createMaterial({
         vertexShader: program.vertex, fragmentShader: program.fragment, textures: materialTextures(catalog, key),
         uniforms: { _ImageExporterRenderShaderBlendMASK: 0, _WorldSpaceLightPos0: [0,0,0,0],
           _ClipBox: [0,0,0,0], ...material.scalars, ...material.vectors },
         blend: { src: blend[src]!, dst: blend[dst]! },
         ...(cull ? { cull } : {}),
       });
-      this.materials.set(key, ready);
-    })().finally(() => this.materialLoads.delete(key));
-    this.materialLoads.set(key, load);
+      materials.set(key, ready);
+    })().finally(() => materialLoads.delete(key));
+    materialLoads.set(key, load);
     return load;
   }
 
@@ -283,11 +352,12 @@ export class MeshProjectiles {
 
   layers(models: readonly NativeModel[], seconds: number): Layer[] {
     const { draws, live } = this;
+    const { prefabs, cameras, additive, meshes, materials } = this.graphics;
     draws.length = 0;
     live.clear();
     const time = [seconds/20,seconds,seconds*2,seconds*3];
     for (const model of models) {
-      const layers = this.prefabs[model.path];
+      const layers = prefabs[model.path];
       if (!layers) continue;
       if (model.instance !== undefined) live.add(model.instance);
       const { x: sx, y: sy, z: sz } = model.scale;
@@ -295,7 +365,7 @@ export class MeshProjectiles {
       const angle = model.right ? Math.atan2(model.right.y, model.right.x) : 0;
       const { x,y,z } = model.position;
       const base = transform([x,y,z], [sx,sy,sz], [0,0,angle]);
-      const sourceCamera = this.cameras[model.path];
+      const sourceCamera = cameras[model.path];
       const viewProjection = sourceCamera ? projection(sourceCamera, this.canvas.width, this.canvas.height) : battleProjection;
       const cameraPosition = sourceCamera?.position ?? battleCamera;
       const history = this.modelHistory(model, layers);
@@ -304,8 +374,8 @@ export class MeshProjectiles {
         const world = { pose: multiply(base.pose, layer.transform), inverse: multiply(layer.inverse, base.inverse) };
         const command = (mesh: string, material: string, pose: MatrixPose, color: number[], particle?: ParticleSample) => {
           draws.push({ order: model.order + layer.order, depth: pose.pose[14]! + (layer.sortingFudge ?? 0),
-            additive: this.additive.has(material),
-            command: { mesh: this.meshes.get(mesh)!, material: this.materials.get(material)!,
+            additive: additive.has(material),
+            command: { mesh: meshes.get(mesh)!, material: materials.get(material)!,
               objectToWorld: pose.pose, worldToObject: pose.inverse, viewProjection, cameraPosition,
               time, vertexColor: color,
               ...(particle?.uv ? { uvRect: particle.uv } : {}), ...(particle?.custom1 ? { custom1: particle.custom1 } : {}),
@@ -365,5 +435,10 @@ export class MeshProjectiles {
     for (let i = start; i < end; i++) this.renderer.draw(layers[i]!.command);
   }
 
-  dispose(): void { this.renderer.dispose(); }
+  dispose(): void {
+    if (this.disposed) return;
+    this.disposed = true;
+    this.recovery.dispose();
+    this.renderer.dispose();
+  }
 }

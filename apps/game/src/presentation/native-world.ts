@@ -2,7 +2,7 @@ import { createOrthographicProjection, type Point3 } from './orthographic';
 import { compilePrefabPlayer, drawPrefabSpriteRange, type PrefabSpriteCommand } from './prefab-player';
 import type { RuleState } from '../engine/protocol';
 import { MeshProjectiles } from './mesh-projectiles';
-import { loadBattleImage } from './gl-mesh';
+import { loadBattleImage, type GlMeshRenderer } from './gl-mesh';
 import { assetUrl } from '../platform/assets';
 import { GlSprites } from './gl-sprites';
 import { visitWorldLayers } from './world-layers';
@@ -102,6 +102,7 @@ export class NativeBattlefield {
   private context: CanvasRenderingContext2D | undefined;
   private effects!: MeshProjectiles;
   private sprites: GlSprites | undefined;
+  private spriteRenderer: GlMeshRenderer | undefined;
   private resources: Awaited<ReturnType<typeof loadStage>> | undefined;
   private readonly commands: PrefabSpriteCommand[] = [];
   private readonly models: NativeModel[] = [];
@@ -124,7 +125,8 @@ export class NativeBattlefield {
     this.mapCommands.length = 0;
   }
 
-  constructor(private readonly parent: HTMLElement, merged = new URLSearchParams(location.search).get('world') === 'webgl') {
+  constructor(private readonly parent: HTMLElement, merged: boolean,
+    private readonly callbacks: {restored: () => void; fail: (reason: unknown) => void}) {
     this.ready = this.prepareRenderer(merged);
   }
 
@@ -135,21 +137,31 @@ export class NativeBattlefield {
     const dependencies = stageAssets.get(stageId);
     const [, resources] = await Promise.all([this.ready, loadStage(stageId)]);
     if (this.disposed || generation !== this.generation) return;
-    await this.effects.prepare(dependencies);
-    if (this.disposed || generation !== this.generation) return;
-    if (this.sprites) {
+    while (!this.disposed && generation === this.generation) {
+      await this.effects.prepare(dependencies);
+      if (this.disposed || generation !== this.generation) return;
       try {
-        this.sprites.prepare(resources.frames);
-        this.effects.renderer.endFrame();
-      } catch {
-        this.sprites.dispose();
-        this.sprites = undefined;
-        this.effects.dispose();
+        this.prepareSprites(resources.frames);
+      } catch (error) {
+        if (this.effects.recoverFrom(error)) continue;
+        if (this.context) throw error;
+        this.disposeGraphics();
         await this.prepareRenderer(false);
-        await this.effects.prepare(dependencies);
+        continue;
       }
+      this.resources = resources;
+      return;
     }
-    if (!this.disposed && generation === this.generation) this.resources = resources;
+  }
+
+  private prepareSprites(images: StageResources['frames']): void {
+    if (this.context) return;
+    if (this.spriteRenderer !== this.effects.renderer) {
+      this.sprites = new GlSprites(this.effects.renderer.gl);
+      this.spriteRenderer = this.effects.renderer;
+    }
+    this.sprites!.prepare(images);
+    this.effects.renderer.endFrame();
   }
 
   private async prepareRenderer(merged: boolean): Promise<void> {
@@ -166,16 +178,10 @@ export class NativeBattlefield {
         if (!context) throw new Error('浏览器无法创建战场画布');
         this.context = context;
       }
-      this.effects = new MeshProjectiles(canvas.width, canvas.height, 'battle', merged ? canvas : undefined);
-      if (merged) {
-        this.sprites = new GlSprites(this.effects.renderer.gl);
-        this.effects.renderer.endFrame();
-      }
+      this.effects = new MeshProjectiles(canvas.width, canvas.height, 'battle', this.callbacks, merged ? canvas : undefined);
       this.parent.replaceChildren(canvas);
     } catch (error) {
-      this.sprites?.dispose();
-      this.sprites = undefined;
-      this.effects?.dispose();
+      this.disposeGraphics();
       if (!merged || this.disposed) throw error;
       await this.prepareRenderer(false);
     }
@@ -194,8 +200,19 @@ export class NativeBattlefield {
 
   private readonly resolveFrame = (file: string) => this.resources!.frames.get(file);
 
-  render(state: RuleState): void {
-    if (!this.resources) return;
+  render(state: RuleState): boolean {
+    if (!this.resources || !this.effects.drawable) return false;
+    try {
+      if (!this.context && this.spriteRenderer !== this.effects.renderer) this.prepareSprites(this.resources.frames);
+      this.draw(state);
+      return true;
+    } catch (error) {
+      if (this.effects.recoverFrom(error)) return false;
+      throw error;
+    }
+  }
+
+  private draw(state: RuleState): void {
     const { commands, models, context, sprites, effects } = this;
     const map = state.background;
     if (!sameMap(this.map, map)) {
@@ -227,7 +244,10 @@ export class NativeBattlefield {
     this.generation++;
     this.resources = undefined;
     this.context?.clearRect(0,0,this.canvas.width,this.canvas.height);
-    if (this.sprites) this.effects.renderer.beginFrame();
+    if (this.sprites && this.effects.drawable) {
+      try { this.effects.renderer.beginFrame(); }
+      catch (error) { if (!this.effects.recoverFrom(error)) throw error; }
+    }
     this.effects?.layers([],0);
     this.map = undefined;
     this.mapCommands.length = this.commands.length = this.models.length = 0;
@@ -237,10 +257,18 @@ export class NativeBattlefield {
     if (this.disposed) return;
     this.disposed = true;
     this.resources = undefined;
-    this.sprites?.dispose();
-    this.effects?.dispose();
-    this.effects?.renderer.gl.getExtension('WEBGL_lose_context')?.loseContext();
+    this.disposeGraphics();
     this.canvas.remove();
+  }
+
+  private disposeGraphics(): void {
+    // A replaced context cannot delete handles from the previous generation.
+    if (this.effects && this.spriteRenderer === this.effects.renderer && this.effects.drawable) this.sprites?.dispose();
+    this.sprites = undefined;
+    this.spriteRenderer = undefined;
+    this.effects?.dispose();
+    const gl = this.effects?.renderer.gl;
+    if (gl && !gl.isContextLost()) gl.getExtension('WEBGL_lose_context')?.loseContext();
   }
 }
 

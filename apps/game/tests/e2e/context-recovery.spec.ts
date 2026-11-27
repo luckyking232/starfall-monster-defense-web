@@ -64,10 +64,14 @@ for (const renderer of ['canvas', 'webgl'] as const) {
           this.addEventListener('message', ({data}: MessageEvent<UiHostMessage>) => {
             if (data.type !== 'event') return;
             const event = data.event;
-            if (event.name === 'start-battle') probe.starts++;
+            if (event.name === 'start-battle') {
+              probe.starts++;
+              probe.frame = 0;
+            }
             if (event.name !== 'world') return;
             probe.frame = event.state.fixedFrame;
-            probe.heroes = [...new Set(event.state.units.filter(u => u.cardId >= 78000101 && u.cardId <= 78000105).map(u => u.cardId))];
+            probe.heroes = [...new Set(event.state.units
+              .filter(u => u.cardId >= 78000101 && u.cardId <= 78000105).map(u => u.cardId))].sort();
           });
         }
       };
@@ -86,7 +90,7 @@ for (const renderer of ['canvas', 'webgl'] as const) {
         effects:effects && (probe.draws.get(effects) ?? 0), hud:hud && (probe.draws.get(hud) ?? 0),
         fatal:document.querySelector('.fatal-panel')?.textContent};
     });
-    await page.goto('./');
+    await page.goto(renderer === 'webgl' ? './?world=webgl' : './');
     await openChooser(page);
     const beforeSave = await save();
     expect(beforeSave.some(([, value]) => value === '1')).toBe(true);
@@ -119,8 +123,11 @@ for (const renderer of ['canvas', 'webgl'] as const) {
     });
     const afterLoss = await observe();
     await info.attach('after-context-loss', {body:JSON.stringify({lost, before, afterLoss}), contentType:'application/json'});
-    await expect.poll(async () => (await observe()).frame, {timeout:10000,
-      message:'The same battle should advance while the rendering contexts are lost'}).toBeGreaterThan(before.frame + 25);
+    await expect.poll(async () => {
+      const state = await observe();
+      return {continued:state.frame > before.frame + 25, fatal:state.fatal ?? null};
+    }, {timeout:10000, message:'The same battle should advance while the rendering contexts are lost'})
+      .toEqual({continued:true, fatal:null});
     await expect(battle).toBeVisible();
     expect(lost).toEqual([true, true]);
     const waiting = await observe();
@@ -151,6 +158,13 @@ for (const renderer of ['canvas', 'webgl'] as const) {
     await expect(exit).toBeVisible({timeout:20000});
     await originalClick(page, 977, 575);
     await expect(page.getByRole('region', {name:'选择关卡'})).toBeVisible({timeout:15000});
+    expect(await save()).toEqual(beforeSave);
+
+    await originalClick(page, 145, 274);
+    await expect(battle).toBeVisible({timeout:45000});
+    await expect(surface).toHaveAttribute('data-renderer', renderer);
+    await expect.poll(async () => (await observe()).starts).toBe(2);
+    await expect.poll(async () => (await observe()).frame).toBeGreaterThan(10);
     expect(await save()).toEqual(beforeSave);
     expect(pageErrors).toEqual([]);
   });
