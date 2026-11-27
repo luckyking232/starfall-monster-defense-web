@@ -1,4 +1,5 @@
-import type { StressConfig, StressCounts, StressMetrics, StressSecond, StressSummary } from '../presentation/stress-metrics';
+import type { StressConfig, StressCounts, StressMetrics, StressSecond } from '../presentation/stress-metrics';
+import type { StressRunSummary } from '../presentation/stress-session';
 import { element } from '../scenes/dom';
 import '../styles/stress-report.css';
 
@@ -48,11 +49,12 @@ function windowDetails(sample: StressSecond): HTMLElement {
   return section;
 }
 
-export function renderStressDetails(summary: StressSummary): HTMLElement {
+export function renderStressDetails(summary: StressRunSummary): HTMLElement {
   const section = element('section', 'stress-report');
   section.setAttribute('aria-label', '压测统计');
   section.append(values([
     ['最差一秒', fps(summary.worstSecond?.fps ?? null)], ['有效计时', seconds(summary.activeMs)],
+    ['游戏时间推进', `${summary.gameSeconds.toFixed(2)} 秒`],
     ['帧间隔 P95', milliseconds(summary.p95Ms)], ['帧间隔 P99', milliseconds(summary.p99Ms)],
     ['最长帧间隔', milliseconds(summary.maxGapMs)], ['帧间隔 > 100 ms', `${summary.gapsOver100Ms} 次`],
     ['帧间隔 > 1 秒', `${summary.stallsOver1s} 次`], ['帧间隔样本', summary.intervals],

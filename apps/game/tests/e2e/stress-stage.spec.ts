@@ -61,10 +61,19 @@ test('从空档设置进入全技能怪海，报告最慢时段并保留原存�
   const report = page.getByRole('region',{name:'压测统计'});
   await expect(report.getByText('最差一秒',{exact:true}).locator('..').locator('dd')).toHaveText(/^\d+ FPS$/);
   await expect(report.getByText('帧间隔 P99',{exact:true}).locator('..').locator('dd')).toHaveText(/\d+\.\d ms/);
+  const simulated = await report.getByText('游戏时间推进',{exact:true}).locator('..').locator('dd').innerText();
+  expect(parseFloat(simulated)).toBeGreaterThan(0);
   await expect(page.getByText('实际配置 · 15 项技能 · 135 次强化')).toBeVisible();
   await page.getByText('实际配置 · 15 项技能 · 135 次强化').click();
   await expect(page.getByRole('cell',{name:'16 / 2 / 1'})).toHaveCount(5);
-  await expect(page.getByRole('button',{name:'复制压测结果'})).toBeVisible();
+  await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{
+    configurable:true,value:{writeText:async(value:string)=>{document.documentElement.dataset['copiedReport']=value;}},
+  }));
+  await page.getByRole('button',{name:'复制压测结果'}).click();
+  const copied=await page.locator('html').getAttribute('data-copied-report');
+  expect(copied).toContain('游戏时间推进');
+  expect(copied).toContain(simulated);
+  expect(copied).toContain(await page.locator('meta[name="game-build"]').getAttribute('content'));
   await page.screenshot({path:info.outputPath('stress-report.png')});
   await page.getByRole('button',{name:'结束压测',exact:true}).click();
   await expect(page.getByRole('button',{name:'开始怪海压测'})).toBeEnabled();

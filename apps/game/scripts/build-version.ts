@@ -6,9 +6,14 @@ function revision(ref: string): string | null {
   catch { return null; }
 }
 export function gameVersion(): Plugin {
-  return {name:'game-version', apply:'build', generateBundle() {
-    this.emitFile({type:'asset',fileName:'version.json',source: JSON.stringify({
-      commit:revision('HEAD'), tree:revision('HEAD^{tree}'),
-    })});
-  }};
+  const version = {commit:revision('HEAD'),tree:revision('HEAD^{tree}')};
+  return {
+    name:'game-version', apply:'build',
+    transformIndexHtml() {
+      return version.commit ? [{tag:'meta',attrs:{name:'game-build',content:version.commit},injectTo:'head'}] : [];
+    },
+    generateBundle() {
+      this.emitFile({type:'asset',fileName:'version.json',source:JSON.stringify(version)});
+    },
+  };
 }
