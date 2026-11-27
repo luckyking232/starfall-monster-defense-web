@@ -171,8 +171,8 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     const epoch = clockEpoch;
     try {
       do {
-        const elapsed = unfinishedTick ? 0 : clock.take(now, activeKey === 'MiniGameBattleUIWindow');
-        const more = await client.tick(elapsed, 2, unfinishedTick);
+        const batch = unfinishedTick ? undefined : clock.take(now, activeKey === 'MiniGameBattleUIWindow');
+        const more = await client.tick(batch?.milliseconds ?? 0, 2, unfinishedTick, batch?.timeScale);
         if (generation !== battle) return;
         unfinishedTick = more === true;
       } while (unfinishedTick && epoch === clockEpoch && !document.hidden && !modalOpen && running);
@@ -353,6 +353,11 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   // The original Lua opens BattleLoadingWindow in UILayer.Loading, above the HUD.
   view.runtime.setWindowLayer('BattleLoadingWindow', 1);
   client.onMessage((message) => {
+    if (message.type === 'event' && message.event.name === 'battle-clock') {
+      const { at, timeScale } = message.event;
+      clock.setTimeScale(at - performance.timeOrigin, timeScale,
+        running && !document.hidden && !modalOpen && activeKey === 'MiniGameBattleUIWindow');
+    }
     if (stress.metrics && running && !document.hidden && !modalOpen && activeKey === 'MiniGameBattleUIWindow' && message.type === 'ops') {
       stress.observe(message.ops);
     }

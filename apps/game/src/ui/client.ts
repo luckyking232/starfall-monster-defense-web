@@ -189,8 +189,8 @@ export class OriginalUiClient {
     return this.request('click', { session: this.session, componentId }) as Promise<void>;
   }
 
-  tick(ms: number, stepBudget?: number, resume = false): Promise<true | undefined> {
-    return this.request('presentation', { session: this.session, signal: { kind: 'tick', ms, stepBudget, resume } });
+  tick(ms: number, stepBudget?: number, resume = false, timeScale?: number): Promise<true | undefined> {
+    return this.request('presentation', { session: this.session, signal: { kind: 'tick', ms, stepBudget, resume, timeScale } });
   }
 
   startStress(): Promise<void> {

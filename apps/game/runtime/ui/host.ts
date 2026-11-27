@@ -1,4 +1,5 @@
 import { UI_PRELUDE_LUA } from './prelude';
+import { adaptHurtNumberDisplay, bufferedTransition, shiftHurtNumberStack } from './battle-hurt-display-optimization';
 import { decodeBattleSnapshot } from './battle-snapshot';
 import { BATTLE_BASE, BATTLE_COMBAT, BATTLE_PLATFORM } from './battle';
 import { STRESS_ARENA_LUA } from './stress-arena';
@@ -332,7 +333,7 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
   let modelMetadata = '{}';
   let effectLifetimes = '{}';
   let tickBattle: ((ms: number) => string) | undefined;
-  let tickSlice: ((ms: number, stepBudget: number, resume: boolean) => string) | undefined;
+  let tickSlice: ((ms: number, stepBudget: number, resume: boolean, timeScale?: number) => string) | undefined;
   const preferences = new Map<string, number>();
   let nextSound = 0;
   let activeStage: number | null = null;
@@ -732,6 +733,9 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
       }
       case 'progress.cleared': return completed(requireNumber(a, 'stageId'));
       case 'audio.speed': postEvent({ name: 'audio-speed', speed: Number(a) }); return 0;
+      case 'battle.clock':
+        postEvent({ name: 'battle-clock', timeScale: requireNumber(a, 'timeScale'), at: performance.timeOrigin + performance.now() });
+        return 0;
       case 'audio.play': {
         const id = ++nextSound;
         postEvent({ name:'audio-play', id, kind: a === 'bgm' ? 'bgm' : 'sfx', path: String(b),
@@ -832,8 +836,11 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
       case 'transition.exists': {
         return (node(Number(a)).transitions ?? []).some((t) => (t as {name:string}).name === b);
       }
+      case 'battle.hurt.shiftStack':
+        shiftHurtNumberStack(String(a), node, pushOp);
+        return 0;
       case 'transition.scaled': {
-        const op = opsBuffer.find(o=>o.op==='transition-play' && o.playId===Number(a));
+        const op = bufferedTransition(opsBuffer, Number(a));
         if(op?.op==='transition-play') op.scaled=b===true;
         return 0;
       }
@@ -1180,7 +1187,8 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
         const bytes = await loadVerified(`assets/runtime/ui/${file}`, entry.payloadSha256 ?? entry.sha256);
         const module = name.replace(/\.lua$/, '');
         const source = decoder.decode(bytes);
-        sources.set(module, options.allUnlocked && module === STAGE_CHOOSER ? allowStagePractice(source) : source);
+        const adapted = options.gameplay && module === 'MiniGameBattleHurtNum' ? adaptHurtNumberDisplay(source) : source;
+        sources.set(module, options.allUnlocked && module === STAGE_CHOOSER ? allowStagePractice(source) : adapted);
       }),
     );
     await Promise.all(
@@ -1402,7 +1410,10 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
             if (!Number.isFinite(signal.ms) || signal.ms < 0 || signal.ms > 1000) fail('bad-clock', String(signal.ms));
             if (signal.stepBudget !== undefined) {
               if (!Number.isSafeInteger(signal.stepBudget) || signal.stepBudget < 1) fail('bad-clock', 'invalid step budget');
-              const raw = tickSlice!(signal.ms, signal.stepBudget, signal.resume === true);
+              if (signal.timeScale !== undefined && (!Number.isFinite(signal.timeScale) || signal.timeScale <= 0 || signal.timeScale > 2)) {
+                fail('bad-clock', 'invalid foreground time scale');
+              }
+              const raw = tickSlice!(signal.ms, signal.stepBudget, signal.resume === true, signal.timeScale);
               moreSteps = raw === '';
               const state = moreSteps ? null : decodeBattleSnapshot(raw);
               if (state) postEvent({ name: 'world', state });

@@ -309,6 +309,113 @@ test('a native pause takes effect between slices and no suspended battle steps r
   } finally { await host.dispose(); }
 },30000);
 
+test('interrupting a sliced tick displays the already performed movement before pausing', async () => {
+  const collector = new Collector();
+  const io = nodeIo();
+  let engine!: LuaEngineLike;
+  const host = await enterGameplay(collector, 1, { ...io, async createLuaEngine(vendor, wasm) {
+    engine = await io.createLuaEngine(vendor, wasm);
+    return engine;
+  } });
+  try {
+    const uid = await engine.doString(`
+      MiniGameBattleSceneMgr.AddMonster(78000201, 2005, 0, 0)
+      local moving = MiniGameBattleScene.aliveMonsterList[1]
+      moving:SetState(BATTLE_STATE_ENUM.MOVE)
+      return moving.uid
+    `);
+    const world = () => collector.events().filter(event => event.name === 'world').at(-1)!.state;
+    const moving = () => world().units.find(unit => unit.uid === uid)!;
+    const hud = collector.lastOpen('MiniGameBattleUIWindow').tree;
+    await host.present(921,host.session,{kind:'tick',ms:0,stepBudget:2});
+    const initial = moving();
+    await host.present(922,host.session,{kind:'tick',ms:100,stepBudget:2});
+    expect(collector.byType('settled').at(-1)?.moreSteps).toBe(true);
+    await host.click(923,host.session,pathOf(hud,'Main','Top','PauseBtn').id);
+    await host.present(924,host.session,{kind:'tick',ms:0,stepBudget:2,resume:true});
+    expect(world()).toMatchObject({fixedFrame:2,paused:true});
+    expect(moving().x).toBeLessThan(initial.x);
+    expect(moving().model!.position.x).toBeCloseTo(moving().x / 75);
+    expect(moving().model!.time - initial.model!.time).toBeCloseTo(2/30);
+  } finally { await host.dispose(); }
+},30000);
+
+test('a rapid pause and continue discards only the unfinished tail, even before the continuation acknowledges it', async () => {
+  const collector = new Collector();
+  const host = await enterGameplay(collector, 1);
+  try {
+    const hud = collector.lastOpen('MiniGameBattleUIWindow').tree;
+    const world = () => collector.events().filter(event => event.name === 'world').at(-1)!.state;
+    await host.present(925,host.session,{kind:'tick',ms:250,stepBudget:2});
+    await host.click(926,host.session,pathOf(hud,'Main','Top','PauseBtn').id);
+    const pause = collector.lastOpen('MiniGameBattlePauseWindow').tree;
+    await host.click(927,host.session,pathOf(pause,'Main','TouchScreenBtn').id);
+    await host.present(928,host.session,{kind:'tick',ms:0,stepBudget:2,resume:true});
+    expect(world()).toMatchObject({fixedFrame:2,paused:false});
+    expect(collector.byType('settled').at(-1)?.moreSteps).toBeUndefined();
+    await host.present(929,host.session,{kind:'tick',ms:34,stepBudget:2});
+    expect(world()).toMatchObject({fixedFrame:3,paused:false});
+  } finally { await host.dispose(); }
+},30000);
+
+test('changing speeds between slices leaves the admitted batch and its animation on the original clock', async () => {
+  const collector = new Collector();
+  const host = await enterGameplay(collector, 1);
+  try {
+    const world = () => collector.events().filter(event => event.name === 'world').at(-1)!.state;
+    const idleCard = () => world().units.find(unit => unit.cardId === 78000101)!;
+    const hud = collector.lastOpen('MiniGameBattleUIWindow').tree;
+    const speed = pathOf(hud,'Main','Top','SpeedBtn').id;
+    await host.present(931,host.session,{kind:'tick',ms:100});
+    const initial = idleCard().model!;
+    const initialFrame = world().fixedFrame;
+    await host.click(932,host.session,speed);
+    await host.present(933,host.session,{kind:'tick',ms:200/3,stepBudget:2});
+    expect(collector.byType('settled').at(-1)?.moreSteps).toBe(true);
+    await host.click(934,host.session,speed);
+    await host.present(935,host.session,{kind:'tick',ms:0,stepBudget:2,resume:true});
+    expect(world()).toMatchObject({fixedFrame:initialFrame+4,speedIndex:1});
+    expect(idleCard().model!.time - initial.time).toBeCloseTo(4/30);
+    await host.present(936,host.session,{kind:'tick',ms:34,stepBudget:2});
+    expect(world().fixedFrame).toBe(initialFrame+5);
+  } finally { await host.dispose(); }
+},30000);
+
+test('settling an old foreground batch preserves its scaled time and the native pause still uses zero', async () => {
+  const collector = new Collector();
+  const io = nodeIo();
+  let engine!: LuaEngineLike;
+  const host = await enterGameplay(collector, 1, { ...io, async createLuaEngine(vendor, wasm) {
+    engine = await io.createLuaEngine(vendor, wasm);
+    return engine;
+  } });
+  try {
+    await engine.doString(`
+      local advance=__UiAdvanceTimers
+      __UiAdvanceTimers=function(ms,scale)
+        LastClockInput=tostring(ms)..':'..tostring(scale)
+        return advance(ms,scale)
+      end
+    `);
+    const world = () => collector.events().filter(event => event.name === 'world').at(-1)!.state;
+    const idleCard = () => world().units.find(unit => unit.cardId === 78000101)!;
+    const top = pathOf(collector.lastOpen('MiniGameBattleUIWindow').tree,'Main','Top');
+    await host.present(941,host.session,{kind:'tick',ms:100});
+    const initial = idleCard().model!;
+    const initialFrame = world().fixedFrame;
+    await host.present(942,host.session,{kind:'tick',ms:50,stepBudget:2,timeScale:2});
+    expect(collector.byType('settled').at(-1)?.moreSteps).toBe(true);
+    await host.present(943,host.session,{kind:'tick',ms:0,stepBudget:2,resume:true});
+    expect(world()).toMatchObject({fixedFrame:initialFrame+3,speedIndex:1});
+    expect(await engine.doString('return LastClockInput')).toBe('50:2');
+    expect(idleCard().model!.time - initial.time).toBeCloseTo(.1);
+    await host.click(944,host.session,child(top,'PauseBtn').id);
+    await host.present(945,host.session,{kind:'tick',ms:100,stepBudget:2,timeScale:2});
+    expect(await engine.doString('return LastClockInput')).toBe('100:0');
+    expect(world()).toMatchObject({fixedFrame:initialFrame+3,paused:true});
+  } finally { await host.dispose(); }
+},30000);
+
 async function finishIntro(collector: Collector, host: OriginalUiHost): Promise<void> {
   const session = host.session;
   expect(collector.byType('error')).toEqual([]);
