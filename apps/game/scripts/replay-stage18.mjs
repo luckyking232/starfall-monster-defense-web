@@ -36,13 +36,10 @@ function instrumentOverlap(source) {
   source = source.replaceAll('\r\n', '\n');
   source = replace(source, '  let pendingWorld: RuleState | undefined;', `  let pendingWorld: RuleState | undefined;
   const probeOverlap = new URLSearchParams(location.search).has('probeOverlap');`);
-  const tick = source.includes('await client.tick(elapsed);')
-    ? 'await client.tick(elapsed);'
-    : 'const more = await client.tick(elapsed, 2, unfinishedTick);';
-  const arguments_ = tick.includes('unfinishedTick') ? 'elapsed, 2, unfinishedTick' : 'elapsed';
-  source = replace(source, tick, `const completion = client.tick(${arguments_});
+  source = replace(source, /(const more = )?await client\.tick\(([^;]+)\);/, (_match, binding = '', args) =>
+    `const completion = client.tick(${args});
         if (probeOverlap) paintPendingWorld();
-        ${tick.startsWith('const more') ? 'const more = ' : ''}await completion;`);
+        ${binding}await completion;`);
   source = replace(source, `    if (worldFrame || !pendingWorld || !running || stopped || document.hidden || modalOpen) return;
     worldFrame = requestAnimationFrame(() => {`, `    if (probeOverlap || worldFrame || !pendingWorld || !running || stopped || document.hidden || modalOpen) return;
     worldFrame = requestAnimationFrame(paintPendingWorld);
@@ -85,7 +82,7 @@ const bundle = await rolldown({input:path.join(root,'runtime/ui/host-worker.ts')
       ]) source = replace(source,before,after);
       if (/\btickSlice!\s*\(/.test(source)) {
         source = replace(source,
-          /const\s+raw\s*=\s*tickSlice!\(\s*signal\.ms\s*,\s*signal\.stepBudget\s*,\s*signal\.resume\s*===\s*true\s*\)\s*;/,
+          /\bconst\s+raw\s*=\s*tickSlice!\s*\([^;]+?\)\s*;/,
           'const data = self.__perfLua = {start:performance.now()}; $& data.luaEnd=performance.now(); data.rawBytes=raw.length;');
         source = replace(source, /const\s+state\s*=\s*moreSteps\s*\?\s*null\s*:\s*decodeBattleSnapshot\(\s*raw\s*\)\s*;/,
           '$& data.parseEnd=performance.now(); if (state) state.samplePerf=data;');
