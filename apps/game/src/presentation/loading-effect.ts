@@ -11,7 +11,8 @@ export class LoadingEffect {
   private effects?: MeshProjectiles;
   private frame = 0;
 
-  constructor(private readonly alpha: () => number, private readonly paused: () => boolean) {
+  constructor(private readonly alpha: () => number, private readonly paused: () => boolean,
+    private readonly fail: (reason: unknown) => void) {
     this.canvas.className = 'loading-art';
     this.canvas.setAttribute('aria-hidden','true');
     this.canvas.width = 1334;
@@ -22,8 +23,17 @@ export class LoadingEffect {
     this.context = context;
   }
   prepare(): Promise<void> {
-    const effects = this.effects ??= new MeshProjectiles(this.canvas.width,this.canvas.height,'loading');
-    return effects.ready.catch(error => {
+    const effects = this.effects ??= new MeshProjectiles(this.canvas.width,this.canvas.height,'loading',{
+      fail: reason => {
+        if (this.effects !== effects) return;
+        if (!this.canvas.hidden) this.fail(reason);
+        else {
+          effects.dispose();
+          delete this.effects;
+        }
+      },
+    });
+    return effects.prepare().catch(error => {
       if (this.effects === effects) {
         effects.dispose();
         delete this.effects;
@@ -41,9 +51,19 @@ export class LoadingEffect {
     const paint = (now:number) => {
       if (!this.paused()) age += Math.min(0.1,(now-last)/1000);
       last = now;
-      this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
-      this.context.globalAlpha = this.alpha();
-      this.effects!.draw(this.context,this.effects!.layers([{...model,age,time:age}],age));
+      const effects = this.effects;
+      if (effects?.drawable) {
+        try {
+          this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
+          this.context.globalAlpha = this.alpha();
+          effects.draw(this.context,effects.layers([{...model,age,time:age}],age));
+        } catch (error) {
+          if (!effects.recoverFrom(error)) {
+            this.fail(error);
+            return;
+          }
+        }
+      }
       this.frame = requestAnimationFrame(paint);
     };
     this.frame = requestAnimationFrame(paint);
