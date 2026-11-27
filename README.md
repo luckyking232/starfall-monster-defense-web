@@ -2,7 +2,7 @@
 
 《星落》活动小游戏「魔物抵御战」的独立网页版。浏览器在本地运行原版 Lua 战斗与 FairyGUI 窗口，保留出怪、角色技能、升级选择和结算规则。支持鼠标和触屏。
 
-**[开始游戏](https://luckyking232.github.io/starfall-monster-defense-web/play/)** · [下载正式版](https://github.com/luckyking232/starfall-monster-defense-web/releases/latest)
+**[正式游玩](https://fallstar.online/)** · [测试版](https://luckyking232.github.io/starfall-monster-defense-web/play/) · [下载正式版](https://github.com/luckyking232/starfall-monster-defense-web/releases/latest)
 
 ![首关中的蒂娜滚石与防御工事](docs/images/battle.webp)
 

@@ -4,10 +4,11 @@ import {
   type UiReadyMessage,
 } from '../../runtime/ui/protocol';
 import { isProgressStorageEvent, ProgressStore, type StorageLike } from '../platform/progress';
+import { localEventKey, scopedStorage } from '../platform/channel';
 
 function browserStorage(): StorageLike | null {
   try {
-    return typeof window === 'undefined' ? null : window.localStorage;
+    return typeof window === 'undefined' ? null : scopedStorage(window.localStorage);
   } catch {
     return null;
   }
@@ -34,7 +35,8 @@ export class OriginalUiClient {
   private progressSlotId = '';
   private closed = false;
   private readonly onStorage = (event: StorageEvent): void => {
-    if (!this.session || this.closed || !isProgressStorageEvent(event.key, this.progressSlotId)) return;
+    const key = localEventKey(event.key);
+    if (key === undefined || !this.session || this.closed || !isProgressStorageEvent(key, this.progressSlotId)) return;
     const { clearedStageIds, assistedStageIds } = this.progressStore.load(this.progressSlotId);
     void this.request('presentation', { session: this.session, signal: { kind: 'progress', clearedStageIds, assistedStageIds } })
       .catch(() => { /* The worker may have closed or been reinitialized. */ });
