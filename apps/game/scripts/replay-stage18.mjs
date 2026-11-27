@@ -2,6 +2,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { build } from 'vite';
@@ -16,6 +18,7 @@ const endFrame = Number(process.argv[4] ?? 1550);
 const captureFrames = process.argv[5]?.split(',').map(Number) ?? [];
 const clockMode = process.env.STARFALL_BENCH_CLOCK ?? 'fixed';
 const speed = Number(process.env.STARFALL_BENCH_SPEED ?? 1);
+const replaySeed = 70441022;
 if (!['fixed', 'real'].includes(clockMode) || ![1, 2].includes(speed) || (speed === 2 && clockMode !== 'real')) {
   throw new Error('Use STARFALL_BENCH_CLOCK=fixed|real and STARFALL_BENCH_SPEED=1|2 (2× requires real mode)');
 }
@@ -32,10 +35,13 @@ function instrumentOverlap(source) {
   source = source.replaceAll('\r\n', '\n');
   source = replace(source, '  let pendingWorld: RuleState | undefined;', `  let pendingWorld: RuleState | undefined;
   const probeOverlap = new URLSearchParams(location.search).has('probeOverlap');`);
-  source = replace(source, '      await client.tick(elapsed);', `      const completion = client.tick(elapsed);
-      // Submit the next Lua step before drawing the previous snapshot in this RAF.
-      if (probeOverlap) paintPendingWorld();
-      await completion;`);
+  const tick = source.includes('await client.tick(elapsed);')
+    ? 'await client.tick(elapsed);'
+    : 'const more = await client.tick(elapsed, 2, unfinishedTick);';
+  const arguments_ = tick.includes('unfinishedTick') ? 'elapsed, 2, unfinishedTick' : 'elapsed';
+  source = replace(source, tick, `const completion = client.tick(${arguments_});
+        if (probeOverlap) paintPendingWorld();
+        ${tick.startsWith('const more') ? 'const more = ' : ''}await completion;`);
   source = replace(source, `    if (worldFrame || !pendingWorld || !running || stopped || document.hidden || modalOpen) return;
     worldFrame = requestAnimationFrame(() => {`, `    if (probeOverlap || worldFrame || !pendingWorld || !running || stopped || document.hidden || modalOpen) return;
     worldFrame = requestAnimationFrame(paintPendingWorld);
@@ -70,11 +76,19 @@ const bundle = await rolldown({input:path.join(root,'runtime/ui/host-worker.ts')
     if (filename.endsWith('/runtime/ui/host.ts')) {
       const decode = source.includes('decodeBattleSnapshot(tickBattle(signal.ms))') ? 'decodeBattleSnapshot' : 'JSON.parse';
       for (const [before,after] of [
-        ["case 'rng.seed': return io.randomSeed?.() ?? (crypto.getRandomValues(new Uint32Array(1))[0]! & 0x7fffffff);", "case 'rng.seed': return 70441022;"],
+        ['const io = options.io ?? defaultIo(options.runtimeBase);',
+          `const io = options.io ?? { ...defaultIo(options.runtimeBase), randomSeed: () => ${replaySeed} };`],
         ["lua.global.set('__HostCall', hostCall);", "lua.global.set('__HostCall', hostCall);\n lua.global.set('__PerfNow', key => { self.__perfLua[key] = performance.now(); });"],
         [`const state = ${decode}(tickBattle(signal.ms));`, `const data = self.__perfLua = {start:performance.now()}; const raw = tickBattle(signal.ms); data.luaEnd=performance.now(); const state = ${decode}(raw); data.parseEnd=performance.now(); data.rawBytes=raw.length; if (state) state.samplePerf=data;`],
         ['options.postMessage(message);', 'options.postMessage({...message, perfSent: performance.timeOrigin + performance.now()});'],
       ]) source = replace(source,before,after);
+      const sliced = 'const raw=tickSlice!(signal.ms,signal.stepBudget,signal.resume===true);';
+      if (source.includes(sliced)) {
+        source = replace(source, sliced,
+          `const data = self.__perfLua = {start:performance.now()}; ${sliced} data.luaEnd=performance.now(); data.rawBytes=raw.length;`);
+        source = replace(source, 'const state=moreSteps ? null : decodeBattleSnapshot(raw);',
+          'const state=moreSteps ? null : decodeBattleSnapshot(raw); data.parseEnd=performance.now(); if (state) state.samplePerf=data;');
+      }
       return source;
     }
     if (filename.endsWith('/runtime/ui/battle.ts')) {
@@ -93,6 +107,25 @@ const bundle = await rolldown({input:path.join(root,'runtime/ui/host-worker.ts')
 const { output } = await bundle.generate({format:'iife'});
 const worker = output.find(item => item.type === 'chunk').code;
 await bundle.close();
+const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
+const workerPath = path.join(dist, 'assets/ui-host-worker.js');
+fs.writeFileSync(workerPath, worker);
+const git = (...args) => execFileSync('git', ['-C', root, ...args], { encoding: 'utf8' }).trim();
+const manifests = [
+  'runtime/manifest.json', 'runtime/ui/manifest.json', 'effects/manifest.json', 'native/manifest.json',
+  'fgui/ActivityDungeon1017.json', 'fgui/ActivityDungeon1017Battle.json', 'fgui/CommonResource.json', 'fgui/Loading.json',
+];
+const provenance = {
+  commit: git('rev-parse', 'HEAD'),
+  tree: git('rev-parse', 'HEAD^{tree}'),
+  worktree: git('status', '--porcelain'),
+  source: root,
+  dist,
+  replaySeed,
+  workerSha256: sha256(fs.readFileSync(workerPath)),
+  inputManifests: Object.fromEntries(manifests.map(name => [name, sha256(fs.readFileSync(path.join(root, 'public/assets', name)))])),
+};
+fs.writeFileSync(path.join(evidence,`${runId}-provenance.json`),JSON.stringify(provenance,null,2));
 
 const mime = {
   '.html':'text/html', '.js':'text/javascript', '.css':'text/css', '.json':'application/json',
@@ -106,10 +139,7 @@ const server = http.createServer((req, res) => {
   const compiled = path.join(dist, relative);
   const file = fs.existsSync(compiled) ? compiled : path.join(root, 'public', relative);
   const contentType = mime[path.extname(file)] ?? 'application/octet-stream';
-  if (name === '/assets/ui-host-worker.js') {
-    res.writeHead(200, {'content-type':contentType});
-    res.end(worker);
-  } else if (fs.existsSync(file) && fs.statSync(file).isFile()) {
+  if (fs.existsSync(file) && fs.statSync(file).isFile()) {
     res.writeHead(200, {'content-type':contentType});
     fs.createReadStream(file).pipe(res);
   } else {
@@ -262,7 +292,7 @@ async function run(browser, origin, variant) {
       postMessage(message,...extra){
         if (message.type==='presentation' && message.signal.kind==='tick') {
           rec={requestId:message.requestId,started:performance.now(),realDelta:message.signal.ms};
-          if (clockMode === 'fixed') message.signal.ms=1000/30;
+          if (clockMode === 'fixed' && !message.signal.resume) message.signal.ms=1000/30;
           rec.inputMs = message.signal.ms;
         }
         return super.postMessage(message,...extra);
@@ -363,12 +393,39 @@ async function run(browser, origin, variant) {
   fs.writeFileSync(path.join(evidence, `${label}.json`),JSON.stringify(data));
   console.log(variant, 'complete', {ticks:data.ticks.length, frame:data.frame,picks, errors:data.errors,pageErrors:errors,renderers:data.graphics});
   await context.close();
-  if (errors.length || data.errors.length || data.frame < endFrame || (renderer === 'webgl' && data.worldRenderer !== 'webgl')) {
+  const missingCaptures = captureFrames.filter(frame => !data.captures[frame]);
+  const reachedRenderer = data.worldRenderer === renderer ||
+    (renderer === 'canvas' && data.worldRenderer === 'baseline' && data.ticks.some(tick => tick.world2d > 0));
+  if (errors.length || data.errors.length || data.frame < endFrame || !reachedRenderer ||
+      (clockMode === 'fixed' && missingCaptures.length)) {
+    if (missingCaptures.length) console.error(variant, 'missing captures', missingCaptures);
     throw new Error('Stage 18 replay did not reach the requested frame and renderer without errors');
   }
+  return data;
+}
+
+function compareFixedReplays(reference, candidate) {
+  const byFrame = replay => {
+    const frames = new Map();
+    for (const tick of replay.ticks) if (!frames.has(tick.frame)) frames.set(tick.frame,tick);
+    return frames;
+  };
+  const first = byFrame(reference), second = byFrame(candidate);
+  const fields = ['paused', 'speed', 'enemies', 'kills', 'wave', 'level', 'bullets', 'effects', 'state'];
+  for (let frame=1; frame<=endFrame; frame++) {
+    if (!first.has(frame) || !second.has(frame)) throw new Error(`Stage 18 replay is missing displayed frame ${frame}`);
+    for (const field of fields) {
+      if (first.get(frame)[field] !== second.get(frame)[field]) {
+        throw new Error(`Stage 18 backends first disagree at frame ${frame}, field ${field}`);
+      }
+    }
+  }
+  if (JSON.stringify(reference.picks) !== JSON.stringify(candidate.picks)) throw new Error('Stage 18 choice frames differ');
+  return { comparedFrames: endFrame, fields, picks: reference.picks, captureFrames };
 }
 
 (async()=> {
+  if (process.env.STARFALL_BENCH_BUILD_ONLY === '1') return;
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   const origin=`http://127.0.0.1:${server.address().port}/`;
   let browser;
@@ -379,7 +436,14 @@ async function run(browser, origin, variant) {
     const cdp=await browser.newBrowserCDPSession();
     const system=await cdp.send('SystemInfo.getInfo');
     fs.writeFileSync(path.join(evidence,`${runId}-graphics.json`),JSON.stringify(system.gpu,null,2));
-    for (const variant of variants) await run(browser,origin,variant);
+    const replays = [];
+    for (const variant of variants) replays.push(await run(browser,origin,variant));
+    if (clockMode === 'fixed' && replays.length > 1) {
+      const comparisons = replays.slice(1).map((replay,index) => ({
+        variant: variants[index + 1], ...compareFixedReplays(replays[0],replay),
+      }));
+      fs.writeFileSync(path.join(evidence,`${runId}-parity.json`),JSON.stringify({ reference: variants[0], comparisons },null,2));
+    }
   } finally {
     await browser?.close();
     server.close();
