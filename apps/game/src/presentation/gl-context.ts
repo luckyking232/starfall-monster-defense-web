@@ -37,9 +37,10 @@ export class GlContextRecovery {
 
   private readonly restored = () => {
     const pending = this.pending;
+    if (!pending || this.gl.isContextLost()) return;
     this.pending = undefined;
     try { this.restore(); }
-    finally { pending?.resume(); }
+    finally { pending.resume(); }
   };
 
   dispose(): void {

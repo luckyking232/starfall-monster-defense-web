@@ -11,6 +11,8 @@ interface GraphicsProbe {
   contexts: Map<HTMLCanvasElement, WebGLRenderingContext | WebGL2RenderingContext>;
   draws: Map<HTMLCanvasElement, number>;
   extensions: WEBGL_lose_context[];
+  awaitingPixels: Set<HTMLCanvasElement>;
+  paintedPixels: Set<HTMLCanvasElement>;
 }
 
 declare global {
@@ -27,7 +29,19 @@ for (const renderer of ['canvas', 'webgl'] as const) {
         localStorage.setItem(prefix + 'starfall.monster-defense.progress/2/default/all-unlocked', '1');
       }
       const probe: GraphicsProbe = window.graphicsProbe = {starts:0, frame:0, clicks:0, heroes:[],
-        contexts:new Map(), draws:new Map(), extensions:[]};
+        contexts:new Map(), draws:new Map(), extensions:[], awaitingPixels:new Set(), paintedPixels:new Set()};
+      function recordPixels(canvas: HTMLCanvasElement, gl: WebGLRenderingContext | WebGL2RenderingContext): void {
+        if (!probe.awaitingPixels.has(canvas) || gl.isContextLost() || gl.getParameter(gl.FRAMEBUFFER_BINDING)) return;
+        const {drawingBufferWidth:width, drawingBufferHeight:height} = gl;
+        const pixels = new Uint8Array(width * height * 4);
+        gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+        for (let alpha = 3; alpha < pixels.length; alpha += 4) {
+          if (!pixels[alpha]) continue;
+          probe.awaitingPixels.delete(canvas);
+          probe.paintedPixels.add(canvas);
+          break;
+        }
+      }
       const getContext = HTMLCanvasElement.prototype.getContext;
       HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement, type: string, options?: unknown) {
         const context = getContext.call(this, type, options);
@@ -38,8 +52,13 @@ for (const renderer of ['canvas', 'webgl'] as const) {
         (this: CanvasRenderingContext2D, image: CanvasImageSource, ...coordinates: number[]) => void;
       CanvasRenderingContext2D.prototype.drawImage = function (image, ...coordinates: number[]) {
         drawImage.call(this, image, ...coordinates);
-        if (this.canvas.getAttribute('aria-label') === '战场画面' && image instanceof HTMLCanvasElement && probe.contexts.has(image)) {
-          probe.effects = image;
+        if (this.canvas.getAttribute('aria-label') === '战场画面' && image instanceof HTMLCanvasElement) {
+          const gl = probe.contexts.get(image);
+          if (gl) {
+            probe.effects = image;
+            // Read the actual effect surface just copied to the visible Canvas.
+            recordPixels(image, gl);
+          }
         }
       };
       for (const prototype of [WebGLRenderingContext.prototype, WebGL2RenderingContext.prototype]) {
@@ -48,6 +67,8 @@ for (const renderer of ['canvas', 'webgl'] as const) {
           const canvas = gl.canvas;
           if (canvas instanceof HTMLCanvasElement && !gl.isContextLost()) {
             probe.draws.set(canvas, (probe.draws.get(canvas) ?? 0) + 1);
+            // Phaser need not preserve its drawing buffer after this task.
+            if (canvas !== probe.effects) recordPixels(canvas, gl);
           }
         }
         prototype.drawArrays = function (this: WebGLRenderingContext, ...args) { drawArrays.apply(this, args); count(this); };
@@ -86,8 +107,9 @@ for (const renderer of ['canvas', 'webgl'] as const) {
       const world = document.querySelector<HTMLCanvasElement>('canvas[aria-label="战场画面"]');
       const hud = document.querySelector<HTMLCanvasElement>('section.screen canvas');
       const effects = world?.dataset['renderer'] === 'webgl' ? world : probe.effects;
-      return {frame:probe.frame, starts:probe.starts, clicks:probe.clicks, heroes:probe.heroes,
+      return {at:performance.now(), frame:probe.frame, starts:probe.starts, clicks:probe.clicks, heroes:probe.heroes,
         effects:effects && (probe.draws.get(effects) ?? 0), hud:hud && (probe.draws.get(hud) ?? 0),
+        pixels: {effects:!!effects && probe.paintedPixels.has(effects), hud:!!hud && probe.paintedPixels.has(hud)},
         fatal:document.querySelector('.fatal-panel')?.textContent};
     });
     await page.goto(renderer === 'webgl' ? './?world=webgl' : './');
@@ -125,18 +147,34 @@ for (const renderer of ['canvas', 'webgl'] as const) {
     await info.attach('after-context-loss', {body:JSON.stringify({lost, before, afterLoss}), contentType:'application/json'});
     await expect.poll(async () => {
       const state = await observe();
-      return {continued:state.frame > before.frame + 65, fatal:state.fatal ?? null};
+      return {continued:state.frame > afterLoss.frame + 25, enoughTime:state.at - afterLoss.at >= 2100,
+        fatal:state.fatal ?? null};
     }, {timeout:10000, message:'The same battle should advance while the rendering contexts are lost'})
-      .toEqual({continued:true, fatal:null});
+      .toEqual({continued:true, enoughTime:true, fatal:null});
     await expect(battle).toBeVisible();
     expect(lost).toEqual([true, true]);
     const waiting = await observe();
 
-    await page.evaluate(() => {
-      for (const extension of window.graphicsProbe.extensions) extension.restoreContext();
+    const wasCleared = await page.evaluate(() => {
+      const probe = window.graphicsProbe;
+      const world = document.querySelector<HTMLCanvasElement>('canvas[aria-label="战场画面"]')!;
+      const hud = document.querySelector<HTMLCanvasElement>('section.screen canvas')!;
+      const effects = world.dataset['renderer'] === 'webgl' ? world : probe.effects!;
+      let cleared = true;
+      if (world !== effects) {
+        const context = world.getContext('2d')!;
+        context.clearRect(0, 0, world.width, world.height);
+        cleared = context.getImageData(Math.floor(world.width / 2), Math.floor(world.height / 2), 1, 1).data[3] === 0;
+      }
+      probe.awaitingPixels.add(effects);
+      probe.awaitingPixels.add(hud);
+      for (const extension of probe.extensions) extension.restoreContext();
+      return cleared;
     });
+    expect(wasCleared).toBe(true);
     await expect.poll(async () => (await observe()).effects ?? 0, {timeout:20000}).toBeGreaterThan(waiting.effects!);
     await expect.poll(async () => (await observe()).hud ?? 0).toBeGreaterThan(waiting.hud!);
+    await expect.poll(async () => (await observe()).pixels, {timeout:20000}).toEqual({effects:true, hud:true});
     await expect.poll(() => surface.evaluate((canvas: HTMLCanvasElement) => {
       const gl = window.graphicsProbe.contexts.get(canvas);
       const x = Math.floor(canvas.width / 2), y = Math.floor(canvas.height / 2);

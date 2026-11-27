@@ -23,8 +23,17 @@ export class LoadingEffect {
     this.context = context;
   }
   prepare(): Promise<void> {
-    const effects = this.effects ??= new MeshProjectiles(this.canvas.width,this.canvas.height,'loading',{fail:this.fail});
-    return effects.ready.catch(error => {
+    const effects = this.effects ??= new MeshProjectiles(this.canvas.width,this.canvas.height,'loading',{
+      fail: reason => {
+        if (this.effects !== effects) return;
+        if (!this.canvas.hidden) this.fail(reason);
+        else {
+          effects.dispose();
+          delete this.effects;
+        }
+      },
+    });
+    return effects.prepare().catch(error => {
       if (this.effects === effects) {
         effects.dispose();
         delete this.effects;

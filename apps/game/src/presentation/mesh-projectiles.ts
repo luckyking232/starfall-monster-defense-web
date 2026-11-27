@@ -55,6 +55,11 @@ interface Catalog {
 interface Layer { order: number; depth: number; additive: boolean; command: Draw }
 interface MatrixPose { pose: ArrayLike<number>; inverse: ArrayLike<number> }
 interface PositionHistory { age: number; position: Point3 }
+interface ProjectileRequest {
+  paths: ReadonlySet<string> | undefined;
+  prepared: boolean;
+  pending?: Promise<void>;
+}
 
 function projectileGraphics(canvas: HTMLCanvasElement) {
   return {
@@ -201,11 +206,10 @@ export class MeshProjectiles {
   private readonly history = new Map<number, PositionHistory[]>();
   private readonly draws: Layer[] = [];
   private readonly live = new Set<number>();
-  private requested: {paths: ReadonlySet<string> | undefined} | undefined;
+  private requested: ProjectileRequest | undefined;
   private rebuilding: Promise<void> | undefined;
   private restorationFailure: {reason: unknown} | undefined;
   private disposed = false;
-  readonly ready: Promise<void>;
 
   get renderer(): GlMeshRenderer { return this.graphics.renderer; }
 
@@ -235,24 +239,35 @@ export class MeshProjectiles {
     this.canvas.height = height;
     this.graphics = projectileGraphics(canvas);
     this.recovery = new GlContextRecovery(canvas, this.renderer.gl, () => this.renderer.invalidate(), this.restore);
-    this.ready = group === 'loading' ? this.prepare() : Promise.resolve();
   }
 
   prepare(paths?: ReadonlySet<string>): Promise<void> {
-    this.requested = {paths};
-    return this.loadWhenAvailable(paths);
+    const active = this.requested;
+    if (active?.pending && active.paths === paths) return active.pending;
+    const request: ProjectileRequest = {paths, prepared:false};
+    this.requested = request;
+    request.pending = this.loadWhenAvailable(request).then(() => {
+      request.prepared = this.isCurrent(request);
+    }).finally(() => { delete request.pending; });
+    return request.pending;
   }
 
   private readonly restore = () => {
     try {
       this.graphics = projectileGraphics(this.canvas);
-      const rebuilding = this.requested ? this.loadWhenAvailable(this.requested.paths) : Promise.resolve();
+      const request = this.requested;
+      // Pending callers already wait for this context and retain their own error handling.
+      const rebuilding = request?.prepared ? this.loadWhenAvailable(request) : Promise.resolve();
       this.rebuilding = rebuilding;
       void rebuilding.then(() => {
         if (this.disposed || this.rebuilding !== rebuilding) return;
         this.rebuilding = undefined;
         this.callbacks.restored?.();
-      }).catch(error => this.failRestore(error));
+      }, error => {
+        if (this.disposed || this.rebuilding !== rebuilding) return;
+        this.rebuilding = undefined;
+        if (this.requested === request) this.failRestore(error);
+      });
     } catch (error) {
       if (!this.recoverFrom(error)) this.failRestore(error);
     }
@@ -267,8 +282,10 @@ export class MeshProjectiles {
     return error instanceof GlContextLost && !!this.recovery.waiting;
   }
 
-  private async loadWhenAvailable(paths?: ReadonlySet<string>): Promise<void> {
-    while (!this.disposed) {
+  private isCurrent(request: ProjectileRequest): boolean { return !this.disposed && this.requested === request; }
+
+  private async loadWhenAvailable(request: ProjectileRequest): Promise<void> {
+    while (this.isCurrent(request)) {
       if (this.restorationFailure) throw this.restorationFailure.reason;
       const waiting = this.recovery.waiting;
       if (waiting) {
@@ -277,19 +294,20 @@ export class MeshProjectiles {
       }
       const graphics = this.graphics;
       try {
-        await this.load(graphics, paths);
+        await this.load(graphics, request);
         if (graphics === this.graphics && !this.recovery.waiting) return;
       } catch (error) {
+        if (!this.isCurrent(request)) return;
         if (!(error instanceof GlContextLost) || (graphics === this.graphics && !this.recovery.waiting)) throw error;
       }
     }
   }
 
-  private async load(graphics: ReturnType<typeof projectileGraphics>, paths?: ReadonlySet<string>): Promise<void> {
+  private async load(graphics: ReturnType<typeof projectileGraphics>, request: ProjectileRequest): Promise<void> {
     const {renderer, meshes, prefabs} = graphics;
     const catalog = await loadCatalog();
-    if (this.disposed) return;
-    const entries = effectEntries(catalog, this.group, paths).filter(([path]) => !(path in prefabs));
+    if (!this.isCurrent(request)) return;
+    const entries = effectEntries(catalog, this.group, request.paths).filter(([path]) => !(path in prefabs));
     const layers = entries.flatMap(([, layers]) => layers);
     const meshKeys = new Set(layers.flatMap(layer => layer.trailMesh ? [layer.mesh, layer.trailMesh] : [layer.mesh]));
     for (const key of meshKeys) {
@@ -305,7 +323,7 @@ export class MeshProjectiles {
       }));
     }
     await Promise.all([...materialKeys(layers)].map(key => this.loadMaterial(graphics, catalog, key)));
-    if (this.disposed) return;
+    if (!this.isCurrent(request)) return;
     renderer.endFrame();
     for (const [path, layers] of entries) prefabs[path] = layers;
     graphics.cameras = catalog.cameras;
@@ -433,6 +451,13 @@ export class MeshProjectiles {
 
   drawRange(layers: readonly Layer[], start: number, end: number): void {
     for (let i = start; i < end; i++) this.renderer.draw(layers[i]!.command);
+  }
+
+  clearStage(): void {
+    this.requested = undefined;
+    this.history.clear();
+    this.live.clear();
+    this.draws.length = 0;
   }
 
   dispose(): void {

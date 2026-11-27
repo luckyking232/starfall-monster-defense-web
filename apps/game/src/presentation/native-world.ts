@@ -248,7 +248,7 @@ export class NativeBattlefield {
       try { this.effects.renderer.beginFrame(); }
       catch (error) { if (!this.effects.recoverFrom(error)) throw error; }
     }
-    this.effects?.layers([],0);
+    this.effects?.clearStage();
     this.map = undefined;
     this.mapCommands.length = this.commands.length = this.models.length = 0;
   }
