@@ -125,8 +125,11 @@ for (const renderer of ['canvas', 'webgl'] as const) {
     await expect.poll(async () => (await observe()).effects ?? 0, {timeout:25000}).toBeGreaterThan(0);
     await expect.poll(async () => (await observe()).hud ?? 0).toBeGreaterThan(0);
     await expect.poll(async () => (await observe()).heroes.length).toBe(5);
-    await expect.poll(async () => (await observe()).frame, {timeout:20000}).toBeGreaterThan(125);
-    await expect(page.locator('.stress-live')).toBeVisible();
+    const liveReport = page.locator('.stress-live');
+    await expect(liveReport).toBeVisible();
+    // A completed wall-clock window proves that presented frames are being measured.
+    // The number of rules steps in that window depends on the renderer and host load.
+    await expect(liveReport).toContainText(/最差一秒 \d+ FPS/, {timeout:25000});
     const before = await observe();
 
     const lost = await page.evaluate(async () => {
