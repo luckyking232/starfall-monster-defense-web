@@ -125,7 +125,7 @@ for (const renderer of ['canvas', 'webgl'] as const) {
     await info.attach('after-context-loss', {body:JSON.stringify({lost, before, afterLoss}), contentType:'application/json'});
     await expect.poll(async () => {
       const state = await observe();
-      return {continued:state.frame > before.frame + 25, fatal:state.fatal ?? null};
+      return {continued:state.frame > before.frame + 65, fatal:state.fatal ?? null};
     }, {timeout:10000, message:'The same battle should advance while the rendering contexts are lost'})
       .toEqual({continued:true, fatal:null});
     await expect(battle).toBeVisible();
@@ -148,6 +148,12 @@ for (const renderer of ['canvas', 'webgl'] as const) {
     expect((await observe()).frame).toBeGreaterThan(before.frame);
     expect((await observe()).heroes).toEqual(before.heroes);
     expect((await observe()).starts).toBe(1);
+
+    await page.getByRole('button', {name:'网页设置'}).click();
+    await page.getByRole('button', {name:'压测', exact:true}).click();
+    const report = page.getByRole('region', {name:'压测统计'});
+    await expect(report.getByText('最差一秒', {exact:true}).locator('..').locator('dd')).toHaveText('0 FPS');
+    await page.getByRole('button', {name:'关闭', exact:true}).click();
 
     const exit = page.getByRole('region', {name:'确认退出战斗'});
     const clicks = (await observe()).clicks;

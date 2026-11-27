@@ -73,6 +73,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   let modalOpen = false;
   let scheduled = 0;
   let worldFrame = 0;
+  let drewWorld = false;
   let latestWorld: RuleState | undefined;
   let pendingWorld: RuleState | undefined;
   let clockEpoch = 0;
@@ -192,12 +193,11 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       pendingWorld = undefined;
       if (!state || !running || stopped || document.hidden || modalOpen) return;
       try {
-        if (!world?.render(state)) {
-          frameTime.reset();
-          if (stress.metrics) {
-            stress.interrupt(performance.now());
-            stressReport.setLive(false);
-          }
+        drewWorld = world?.render(state) === true;
+        if (!drewWorld) {
+          if (state.paused) frameTime.reset();
+          // A render outage during visible battle is part of the next real frame interval.
+          stressReport.setLive(false);
           return;
         }
         if (state.paused) frameTime.reset();
@@ -226,6 +226,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     scheduleWorldFrame();
   }
   function stopWorldFrame(): void {
+    drewWorld = false;
     frameTime.reset();
     if (stress.metrics) {
       stress.interrupt(performance.now());
@@ -327,7 +328,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     applyVolume: (music,effects) => audio.setVolumes(music,effects),
     applyEconomy: enabled => { economy = enabled; world?.setEconomy(enabled); },
     getFps: () => view.runtime.renderFps,
-    battleFrameTime: () => running ? frameTime.summary() : null,
+    battleFrameTime: () => running && drewWorld ? frameTime.summary() : null,
     inBattle: () => entering || activeKey === 'BattleLoadingWindow',
     canLevel: () => !stress.metrics && running && activeKey === 'MiniGameBattleUIWindow',
     levelUp: () => client.levelUp(),
