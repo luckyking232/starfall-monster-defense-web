@@ -1,11 +1,12 @@
 name: Build and publish the game
 on:
   push:
-    branches: [main]
+    branches: [test, main]
   pull_request:
   workflow_dispatch:
 permissions:
   contents: read
+  statuses: read
 jobs:
   build:
     name: public-preflight
@@ -15,6 +16,14 @@ jobs:
         working-directory: apps/game
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Verify tested production candidate
+        if: github.event_name == 'pull_request' && github.base_ref == 'main'
+        working-directory: .
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/check-promotion.mjs
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -26,7 +35,13 @@ jobs:
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - name: Test game entry, loading, saves and player controls
-        run: npx playwright test startup-screen product-entry standalone-settings battle-preparation
+        env:
+          STARFALL_TEST_BASE_URL: http://127.0.0.1:4173
+        run: |
+          npm run preview -- --outDir dist --port 4173 --strictPort > /tmp/starfall-preview.log 2>&1 &
+          trap 'kill $!' EXIT
+          curl --retry 20 --retry-connrefused --retry-delay 1 -fsS "$STARFALL_TEST_BASE_URL" > /dev/null
+          npx playwright test startup-screen product-entry standalone-settings battle-preparation save-transfer
       - name: Prepare Pages
         working-directory: .
         run: |
@@ -34,12 +49,14 @@ jobs:
           cp index.html _site/
           touch _site/.nojekyll
           rsync -a --exclude='*.map' apps/game/dist/ _site/play/
+          sed -i 's/name="game-channel" content="production"/name="game-channel" content="test"/' _site/play/index.html
+          grep -q 'name="game-channel" content="test"' _site/play/index.html
       - uses: actions/upload-pages-artifact@v3
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/test' && github.event_name != 'pull_request'
         with:
           path: _site
   deploy:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/test' && github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     permissions:

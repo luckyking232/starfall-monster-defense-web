@@ -1,5 +1,6 @@
 import { ACTIVITY_START_STAMP, getStage } from './content/stages';
 import { ProgressStore } from './platform/progress';
+import { scopedStorage } from './platform/channel';
 import { installViewportTracking } from './platform/viewport';
 import { NativeBattlefield } from './presentation/native-world';
 import { BattleAudio } from './presentation/battle-audio';
@@ -34,7 +35,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   notice.setAttribute('role','status');
   root.replaceChildren(worldLayer,uiLayer,notice);
   let storage = null;
-  try { storage = window.localStorage; } catch { /* Private browsing can disable storage. */ }
+  try { storage = scopedStorage(window.localStorage); } catch { /* Private browsing can disable storage. */ }
   const progress = new ProgressStore(storage);
   const client = new OriginalUiClient(undefined,progress);
   const audio = new BattleAudio();

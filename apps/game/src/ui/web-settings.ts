@@ -1,4 +1,6 @@
 import { ProgressStore } from '../platform/progress';
+import { isTestSite } from '../platform/channel';
+import { exportSaves, importSaves, MAX_BACKUP_BYTES } from '../platform/save-transfer';
 import { readPreferences, savePreferences, type Preferences } from '../platform/preferences';
 import { element } from '../scenes/dom';
 import '../styles/web-settings.css';
@@ -204,6 +206,38 @@ export class WebSettings {
     })),
       change, button('重命名', () => attempt(() => { this.progress.renameSlot(select.value,name.value); this.saves(); })), del);
     this.body.append(select,name,actions);
+    const download = (store: ProgressStore) => {
+      const url = URL.createObjectURL(new Blob([exportSaves(store)], {type:'application/json'}));
+      const anchor = element('a');
+      anchor.href = url;
+      anchor.download = '魔物抵御战-本地存档.json';
+      anchor.click();
+      window.setTimeout(() => URL.revokeObjectURL(url),30000);
+    };
+    const file = element('input');
+    file.type = 'file';
+    file.accept = '.json,application/json';
+    file.hidden = true;
+    file.onchange = async () => {
+      try {
+        const chosen = file.files?.[0];
+        if (!chosen) return;
+        if (!this.storage || chosen.size > MAX_BACKUP_BYTES) throw new Error('无法导入，请选择 1 MB 以内的备份。');
+        importSaves(this.storage,await chosen.text());
+        location.reload();
+      } catch (error) {
+        this.feedback.textContent = error instanceof Error ? error.message : String(error);
+        file.value = '';
+      }
+    };
+    const transfer = element('div','web-actions');
+    transfer.append(button('导出全部存档',() => attempt(() => download(this.progress))),
+      button('导入到新存档',() => file.click()),file);
+    this.body.append(transfer);
+    if (isTestSite()) {
+      this.body.append(element('p','web-meta','这里是测试站。旧版 Pages 存档可导出，再到 fallstar.online 导入。'),
+        button('导出旧版 Pages 存档',() => attempt(() => download(new ProgressStore(window.localStorage)))));
+    }
   }
 
   private debug(): void {

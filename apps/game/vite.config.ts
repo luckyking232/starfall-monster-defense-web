@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
+import { gameVersion } from './scripts/build-version';
 
 export default defineConfig({
+  plugins: [gameVersion()],
   base: './',
   server: {
     host: '127.0.0.1',
