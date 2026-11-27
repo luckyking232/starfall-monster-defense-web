@@ -7,7 +7,7 @@ import { createFullscreenButton } from '../platform/fullscreen';
 import { renderStressDetails } from './stress-report';
 import { STRESS_STAGE, stressMonsterTarget } from '../content/stress-stage';
 import { RULES_FPS } from '../engine/protocol';
-import type { StressSummary } from '../presentation/stress-metrics';
+import type { StressRunSummary } from '../presentation/stress-session';
 import { element } from '../scenes/dom';
 import '../styles/web-settings.css';
 
@@ -23,7 +23,7 @@ interface WebControls {
   startStress(renderer: 'canvas' | 'webgl'): Promise<void>;
   canFinishStress(): boolean;
   finishStress(): Promise<void>;
-  stressSummary(): StressSummary | null;
+  stressSummary(): StressRunSummary | null;
   stressLoadout(): UiStressLoadoutReport | null;
   modalChanged(open: boolean): void;
 }
@@ -178,7 +178,9 @@ export class WebSettings {
     const details = renderStressDetails(summary);
     this.body.append(details,button('复制压测结果',async () => {
       const preset = loadout ? `${loadout.cards.length} 名角色 · ${loadout.upgrades} 次强化` : '';
-      const report = [`全技能怪海压测 · 活怪目标 ${STRESS_STAGE.maxMonsters}`,preset,details.innerText].filter(Boolean).join('\n');
+      const revision = document.querySelector<HTMLMetaElement>('meta[name="game-build"]')?.content;
+      const report = [`全技能怪海压测 · 活怪目标 ${STRESS_STAGE.maxMonsters}`, revision && `构建 ${revision}`,
+        preset, navigator.userAgent, details.innerText].filter(Boolean).join('\n');
       try {
         await navigator.clipboard.writeText(report);
         this.feedback.textContent = '压测结果已复制';

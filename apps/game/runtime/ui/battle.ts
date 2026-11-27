@@ -30,7 +30,11 @@ PlayerPrefsUtil={GetInt=function(key,default) return __HostCall('prefs.get',key,
 PLAYER_PREF_ENUM={MINI_GAME_BATTLE_SPEED='speed'}
 PLAYER_PREF_DEFAULT_VALUE={MINI_GAME_BATTLE_SPEED=1}
 LoginData.gameTimescale=1
-LoginData.SetTimeScale=function(value) LoginData.gameTimescale=value end
+LoginData.SetTimeScale=function(value)
+  if LoginData.gameTimescale==value then return end
+  LoginData.gameTimescale=value
+  __HostCall('battle.clock',value)
+end
 SoundUtil={SetSfxSpeedInBattle=function(speed) __HostCall('audio.speed',speed) end, PlayLastMusic=noop,
   PlayMusic=function(id) local c=TableData.GetConfig(id,'BaseSoundPath'); __HostCall('audio.play','bgm',c.path) end,
   PlaySfxInBattle=function(path,bank,obj)
@@ -159,8 +163,9 @@ IsUITransPlaying=function(object,name) return __HostCall('transition.active',obj
 TimeUtil.GetTimeStr=require('TimeUtil').GetTimeStr
 WindowMsgEnum.MiniGameBattleUIWindow={E_MSG_UPDATE_PER_FRAME=1,E_MSG_CHANGE_WAVE=6}
 local fixed,display,accumulator
+local pendingGameMs,stepBudget,foregroundScale
 UpdateManager={
-  AddFixedUpdateHandler=function(callback) fixed=callback;accumulator=0 end,
+  AddFixedUpdateHandler=function(callback) fixed=callback;accumulator=0;pendingGameMs=nil end,
   AddUpdateHandler=function(callback) display=callback end,
   RemoveFixedUpdateHandler=function(callback) if fixed==callback then fixed=nil end end,
   RemoveUpdateHandler=function(callback) if display==callback then display=nil end end}
@@ -168,6 +173,7 @@ CardAttribute.InitAttrEnum()
 local originalInit=MiniGameBattleMgr.InitBattle
 function MiniGameBattleMgr.InitBattle(args)
   if MiniGameBattleCamera.enabled and not MiniGameBattleControl.isOver then return end
+  pendingGameMs=nil
   clearEffects()
   __HostCall('battle.init',args.stageId,args.stress==true)
   math.randomseed(__HostCall('rng.seed'),args.stageId)
@@ -267,18 +273,56 @@ local function collectWorld()
     data.curLevel or false,data.curExp or false,data.selfHp or false,data.selfMaxHp or false,data.speedIndex or false,
     control.isPause==true,units,modelState(MiniGameBattleBackground.model) or false,bullets,collectEffects()})
 end
+local originalPause=MiniGameBattleControl.Pause
+function MiniGameBattleControl.Pause()
+  if pendingGameMs and fixed and not MiniGameBattleControl.isPause and not MiniGameBattleSceneMgr.IsBattleOver() then
+    -- Only commit the part already executed before an external pause between slices.
+    local completedMs=math.max(0,pendingGameMs-accumulator)
+    pendingGameMs=false -- Acknowledge the outstanding continuation with the paused snapshot.
+    accumulator=0
+    if display then display() end
+    advanceWorld(completedMs/1000)
+  end
+  return originalPause()
+end
+local function clockScale(historicalScale)
+  local currentScale=LoginData.gameTimescale or 1
+  if historicalScale and currentScale>0 then return historicalScale end
+  return currentScale
+end
 function __WebBattleTick(milliseconds)
-  if __UiAdvanceTimers then __UiAdvanceTimers(milliseconds,LoginData.gameTimescale or 1) end
+  local gameMs=pendingGameMs
+  local continuing=gameMs~=nil
+  pendingGameMs=nil
+  if gameMs==false then return collectWorld() end
+  if not continuing then
+    if __UiAdvanceTimers then __UiAdvanceTimers(milliseconds,clockScale(foregroundScale)) end
+    gameMs=milliseconds*clockScale(foregroundScale)
+  end
   if fixed and not MiniGameBattleControl.isPause then
-    accumulator=accumulator+milliseconds*(LoginData.gameTimescale or 1)
+    if not continuing then accumulator=accumulator+gameMs end
     local step=1000/BATTLE_CONFIG_ENUM.FIXED_FPS
+    local advanced=0
     while fixed and accumulator+0.000001>=step and not MiniGameBattleControl.isPause do
       accumulator=accumulator-step
       fixed()
+      advanced=advanced+1
+      if advanced==stepBudget and fixed and not MiniGameBattleControl.isPause and accumulator+0.000001>=step then
+        pendingGameMs=gameMs
+        return ''
+      end
     end
     if display and not MiniGameBattleControl.isPause then display() end
   else accumulator=0 end
-  advanceWorld(fixed and not MiniGameBattleControl.isPause and milliseconds/1000*(LoginData.gameTimescale or 1) or 0)
+  advanceWorld(fixed and not MiniGameBattleControl.isPause and gameMs/1000 or 0)
   return collectWorld()
+end
+function __WebBattleSlice(milliseconds,limit,resume,historicalScale)
+  if resume and pendingGameMs==nil then return 'null' end
+  assert(resume or pendingGameMs==nil,'unfinished foreground tick')
+  stepBudget,foregroundScale=limit,historicalScale
+  local state=__WebBattleTick(milliseconds)
+  stepBudget,foregroundScale=nil,nil
+  return state
 end
 `;

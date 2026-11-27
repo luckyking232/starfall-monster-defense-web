@@ -1,0 +1,55 @@
+name: Original battle regression
+on:
+  pull_request:
+    paths:
+      - 'apps/game/runtime/ui/battle*.ts'
+      - 'apps/game/src/platform/foreground-clock.ts'
+      - '.github/workflows/battle-rules.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  rules:
+    name: 21 original stages
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/game
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/game/package-lock.json
+      - run: npm ci
+      - run: npm run check:inputs
+      - run: npx vitest run tests/unit/ui-host.test.ts -t 'extended matrix stage'
+        env:
+          STARFALL_FULL_MATRIX: '1'
+  presentation:
+    name: Battle playback and player controls
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/game
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/game/package-lock.json
+      - run: npm ci
+      - run: npm run build:qa
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test replay stage18 natural-settlement original-lifecycle original-projectiles dina-boulder damage-number-pool stress-stage
+        env:
+          STARFALL_PLAYER_RUN: '1'
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: battle-regression-errors
+          path: apps/game/test-results/**/error-context.md
+          if-no-files-found: ignore
+          retention-days: 3

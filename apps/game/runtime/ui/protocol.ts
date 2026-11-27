@@ -71,6 +71,7 @@ export type UiEvent =
   | { name: 'audio-play'; id: number; kind: 'bgm' | 'sfx'; path: string; frame?: number; emitter?: number }
   | { name: 'audio-stop'; id: number | 'bgm' }
   | { name: 'audio-speed'; speed: number }
+  | { name: 'battle-clock'; timeScale: number; at: number }
 
   | { name: 'warn-tips'; text: string }
   | { name: 'souvenir'; kind: 'gift' | 'task' | 'return' }
@@ -125,6 +126,7 @@ export interface UiSettledMessage extends Envelope {
   type: 'settled';
   requestId: number;
   levelUp?: UiLevelUpResult;
+  moreSteps?: true;
 }
 
 export interface UiErrorMessage {
@@ -185,7 +187,7 @@ export interface UiPresentationRequest {
   session: string;
   requestId: number;
   signal: { kind: 'shown'; rootId: number } | { kind: 'transition'; playId: number; label?: string }
-    | { kind: 'tick'; ms: number } | { kind: 'background' } | { kind: 'debug-level' }
+    | { kind: 'tick'; ms: number; stepBudget?: number; resume?: boolean; timeScale?: number } | { kind: 'background' } | { kind: 'debug-level' }
     | { kind: 'start-stress' } | { kind: 'finish-stress' }
     | { kind: 'progress'; clearedStageIds: number[]; assistedStageIds: number[] };
 }
