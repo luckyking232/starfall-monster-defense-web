@@ -276,16 +276,20 @@ async function run(browser, origin, variant) {
     const bounds=await canvas.boundingBox();
     await page.mouse.click(bounds.x+x/1334*bounds.width,bounds.y+y/750*bounds.height);
   };
+  const recordFailure = async phase => {
+    await page.screenshot({path:path.join(evidence,`${runId}-${variant}-${phase}-failed.png`)});
+    const details = await page.evaluate(() => ({errors:window.gamePerf.errors, text:document.body.innerText,
+      stage:window.gamePerf.stage, frame:window.gamePerf.frame, speed:window.gamePerf.speedIndex,
+      screen:[innerWidth,innerHeight], canvas:[...document.querySelectorAll('canvas')].map(canvas=>canvas.getBoundingClientRect().toJSON())}));
+    console.error({phase, pageErrors:errors, ...details});
+  };
   await page.getByRole('region',{name:'魔物抵御战活动主页'}).waitFor({timeout:45000});
   try {
     await page.locator('#startup').waitFor({state:'hidden',timeout:30000});
     await click(1147,679);
     await page.getByRole('region',{name:'选择关卡',exact:true}).waitFor({timeout:25000});
   } catch (error) {
-    await page.screenshot({path:path.join(evidence,`${runId}-${variant}-startup-failed.png`)});
-    const details = await page.evaluate(() => ({errors:window.gamePerf.errors, text:document.body.innerText,
-      screen:[innerWidth,innerHeight], canvas:[...document.querySelectorAll('canvas')].map(canvas=>canvas.getBoundingClientRect().toJSON())}));
-    console.error({ pageErrors:errors, ...details });
+    await recordFailure('startup');
     throw error;
   }
   await page.waitForFunction(()=>window.gamePerf.scroll===-3230);
@@ -300,7 +304,12 @@ async function run(browser, origin, variant) {
   const scroll=Math.max(-(map.width-list.width),-3230);
   await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
   await click(list.x+scroll+stage.x+button.width/2,list.y+stage.y+button.height/2);
-  await page.getByRole('region',{name:'魔物抵御战战场',exact:true}).waitFor({timeout:35000});
+  try {
+    await page.getByRole('region',{name:'魔物抵御战战场',exact:true}).waitFor({timeout:35000});
+  } catch (error) {
+    await recordFailure('entry');
+    throw error;
+  }
   const picks=[];
   let pauseCheck;
   if (clockMode === 'real') {
