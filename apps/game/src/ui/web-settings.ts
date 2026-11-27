@@ -183,13 +183,17 @@ export class WebSettings {
       return;
     }
     if (!state.slots.some(slot => slot.id === this.selected)) this.selected = current.id;
+    const inBattle = this.controls.inBattle();
+    const visibleNames = inBattle ? current.name : state.slots.map(slot => slot.name).join(' ');
+    // Request the faces matching visible names without depending on layout of a native select.
+    void this.body.ownerDocument.fonts.load('16px SourceHanSans', visibleNames).catch(() => {});
     const passed = snap.clearedStageIds.length + snap.assistedStageIds.length;
     this.body.replaceChildren(element('p', 'web-current', '当前存档 · ' + current.name),
       element('p', 'web-meta', '已通关 ' + passed + ' 关'));
     if (snap.assistedStageIds.length) this.body.append(element('p', 'web-meta', '其中 ' + snap.assistedStageIds.length + ' 关为辅助通关'));
     if (snap.allUnlocked) this.body.append(element('p', 'web-meta', '已启用全解锁'));
     if (!state.persistent || state.unreadable || snap.unreadable) this.body.append(element('p','web-meta','浏览器存储不可用或有记录无法读取。'));
-    if (this.controls.inBattle()) {
+    if (inBattle) {
       this.body.append(element('p','web-meta','返回活动主页或选关后可以管理存档。'));
       return;
     }
