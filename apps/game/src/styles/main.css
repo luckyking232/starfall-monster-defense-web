@@ -1,11 +1,6 @@
 @import './viewport.css';
 @import './battle.css';
-
-@font-face {
-  font-family: 'SourceHanSans';
-  src: url('/assets/fonts/source-han-sans.otf') format('opentype');
-  font-display: swap;
-}
+@import '../fonts/source-han-sans.css';
 
 :root {
   color-scheme: dark;
@@ -116,6 +111,7 @@ button:focus-visible {
   text-align: center;
 }
 .game-notice:empty { display: none; }
+.endless-record-accessible { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 
 .home-title {
   position: absolute;

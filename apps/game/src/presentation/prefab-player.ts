@@ -7,6 +7,7 @@ import {
   type Size,
   type SpriteQuad,
 } from './orthographic';
+import { compareSpriteOrder } from './world-layers';
 
 type Quaternion = Point3 & { w: number };
 
@@ -247,7 +248,7 @@ export function compilePrefabPlayer(document: PrefabDocument, {
       pose,
       animation,
       sortingOrderOffset = 0,
-    }: PrefabSampleOptions = {}): PrefabSpriteCommand[] {
+    }: PrefabSampleOptions = {}, commands: PrefabSpriteCommand[] = []): PrefabSpriteCommand[] {
       const placement = pose && affine(pose);
       const clip = animation && clips.get(animation.clipName);
       const elapsed = animation && Number.isFinite(animation.elapsedSeconds)
@@ -256,7 +257,6 @@ export function compilePrefabPlayer(document: PrefabDocument, {
       const time = clip
         ? (clip.loop && clip.duration > 0 ? elapsed % clip.duration : Math.min(elapsed, clip.duration))
         : 0;
-      const commands = [];
       for (const renderer of renderers) {
         const transform = transforms.get(renderer.gameObject);
         if (!transform) continue;
@@ -305,10 +305,19 @@ export function drawPrefabSprites(
   commands: readonly PrefabSpriteCommand[],
   resolveFrame: (file: string) => CanvasImageSource | undefined,
 ): number {
-  const sorted = [...commands].sort((a, b) => a.sortingLayer - b.sortingLayer
-    || a.sortingOrder - b.sortingOrder || b.sortDepth - a.sortDepth);
+  return drawPrefabSpriteRange(context, [...commands].sort(compareSpriteOrder), resolveFrame, 0, commands.length);
+}
+
+export function drawPrefabSpriteRange(
+  context: SpriteContext,
+  commands: readonly PrefabSpriteCommand[],
+  resolveFrame: (file: string) => CanvasImageSource | undefined,
+  start: number,
+  end: number,
+): number {
   let drawn = 0;
-  for (const command of sorted) {
+  for (let index = start; index < end; index++) {
+    const command = commands[index]!;
     const { file, width, height } = command.frame;
     const image = resolveFrame(file);
     if (!image) continue;

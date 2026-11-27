@@ -32,6 +32,19 @@ describe('original FGUI package data', () => {
     expect(layout.contentHeight).toBe(750);
   });
 
+  it('prepares only the textures referenced by the home window and its dynamic background', () => {
+    const registry = new PackageRegistry([load('ActivityDungeon1017'), load('ActivityDungeon1017Battle'), load('CommonResource'), load('Loading')]);
+    const home = registry.component('MiniGame2Window', 'ActivityDungeon1017');
+    const background = registry.item('MiniGame1_1000', 'ActivityDungeon1017');
+    const assets = registry.dependencies({ ...home, url: `ui://aonql508${background.id}` }, 'ActivityDungeon1017');
+    expect([...assets.atlases].sort()).toEqual([
+      'ActivityDungeon1017_atlas0.png',
+      'ActivityDungeon1017_atlas0_1.png',
+      'ActivityDungeon1017_atlas0_5.png',
+      'CommonResource_atlas0.png',
+    ]);
+  });
+
   it('centers an unscaled original loader image without stretching it', () => {
     const registry = new PackageRegistry([load('CommonResource')]);
     const loader = registry.components['kszmrlya']!.children!.find((child) => child.name === 'BackGroundLoader')!;

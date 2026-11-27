@@ -22,8 +22,8 @@ export default defineConfig({
     actionTimeout: 10000,
     trace: 'retain-on-failure',
   },
-  webServer: archivedSite ? [] : {
-    command: `npm run preview -- --port ${port} --strictPort`,
+  webServer: archivedSite || process.env['STARFALL_ROLLOUT_NEW_DIST'] ? [] : {
+    command: `npm run preview -- --mode qa --port ${port} --strictPort`,
     url,
     reuseExistingServer: !process.env['CI'],
     timeout: 120000,

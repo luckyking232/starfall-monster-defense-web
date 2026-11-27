@@ -1,16 +1,30 @@
 """Package the playable static site. Run the build first."""
 import argparse
+import json
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 
 def package(build, output):
     build = build.resolve(strict=True)
-    if not (build / 'index.html').is_file() or not (build / 'assets/ui-host-worker.js').is_file():
-        raise ValueError('Expected the compiled game and its UI worker')
     if output.resolve().is_relative_to(build):
         raise ValueError('The output must be outside the build directory')
     files = sorted(path for path in build.rglob('*') if path.is_file() and path.suffix != '.map')
+    inventory = build / 'asset-inventory.json'
+    if inventory.is_file():
+        metadata = json.loads(inventory.read_text(encoding='utf-8'))
+        if not isinstance(metadata, dict) or metadata.get('schema') != 1 or not isinstance(metadata.get('files'), dict):
+            raise ValueError('Expected the current asset inventory')
+        current_assets = metadata['files']
+        available = {path.relative_to(build).as_posix() for path in files if path.relative_to(build).parts[0] == 'assets'}
+        missing = current_assets.keys() - available
+        if missing:
+            raise ValueError(f'Current asset inventory is missing {min(missing)}')
+        files = [path for path in files if path.relative_to(build).parts[0] != 'assets'
+                 or path.relative_to(build).as_posix() in current_assets]
+    worker = any(path.name == 'ui-host-worker.js' for path in files)
+    if not (build / 'index.html').is_file() or not worker:
+        raise ValueError('Expected the compiled game and its UI worker')
     with ZipFile(output, 'x', compression=ZIP_DEFLATED) as archive:
         for path in files:
             if path.is_symlink() or not path.resolve().is_relative_to(build):

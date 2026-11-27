@@ -2,7 +2,73 @@ import { expect, test } from '@playwright/test';
 import type { UiHostMessage } from '../../runtime/ui/protocol';
 import { openChooser, originalClick } from './navigation';
 
-const musicTrack = /\/assets\/audio\/02_B02-O\.(wav|flac)$/;
+const musicTrack = /\/assets\/(?:release-[a-f0-9]+\/)?audio\/02_B02-O\.(wav|flac)$/;
+
+test('选关只预取推荐关，改选第二关时增量准备所需资源', async ({ page }) => {
+  test.setTimeout(90000);
+  await page.addInitScript(() => {
+    for (const prefix of ['', 'starfall.web-test:']) {
+      localStorage.setItem(prefix + 'starfall.monster-defense.progress/2/default/all-unlocked', '1');
+      localStorage.setItem(prefix + 'starfall.monster-defense.settings/3', '{"music":0,"effects":0}');
+    }
+  });
+  const requests: string[] = [];
+  page.on('request', request => requests.push(new URL(request.url()).pathname));
+  const count = (ending: string) => requests.filter(path => path.endsWith(ending)).length;
+  const map = (index: number) => `/native/frames/MiniGame022_map${index}.png`;
+  await page.goto('./');
+  await openChooser(page);
+  await expect.poll(() => count(map(1))).toBe(1);
+  await page.waitForLoadState('networkidle');
+  expect(count(map(2))).toBe(0);
+  expect(count(map(3))).toBe(0);
+  expect(count('/native/units/minigamespine_20108_pixel.json')).toBe(0);
+  await originalClick(page, 525, 274);
+  await expect(page.getByRole('region', { name: '魔物抵御战战场' })).toBeVisible({ timeout: 30000 });
+  await expect(page.locator('body')).toHaveAttribute('data-map', 'map2');
+  expect(count(map(2))).toBe(1);
+  expect(count(map(3))).toBe(0);
+  expect(count('/native/units/minigamespine_10000118_pixel.json')).toBe(1);
+
+  const exit = page.getByRole('region', { name: '确认退出战斗' });
+  await expect(async () => {
+    await originalClick(page, 79, 47);
+    await expect(exit).toBeVisible({ timeout: 700 });
+  }).toPass({ timeout: 15000 });
+  await originalClick(page, 977, 575);
+  await expect(page.getByRole('region', { name: '战斗结算' })).toBeVisible();
+  await originalClick(page, 667, 575);
+  await expect(page.getByRole('region', { name: '选择关卡' })).toBeVisible();
+  await originalClick(page, 145, 274);
+  await expect(page.getByRole('region', { name: '魔物抵御战战场' })).toBeVisible({ timeout: 30000 });
+  await expect(page.locator('body')).toHaveAttribute('data-map', 'map1');
+  expect(count(map(1))).toBe(1);
+  expect(count('/native/units/minigamespine_10000118_pixel.json')).toBe(1);
+});
+
+test('首页跳过战斗图集，并等待首战界面在选关时预取的贴图', async ({page}) => {
+  let allow!: () => void;
+  let requests = 0;
+  const gate = new Promise<void>(done => { allow = done; });
+  await page.route('**/ActivityDungeon1017Battle_atlas0.webp', async route => {
+    requests++;
+    await gate;
+    await route.continue();
+  });
+  try {
+    await page.goto('./');
+    await expect(page.getByRole('region', {name:'魔物抵御战活动主页'})).toBeVisible({timeout:45000});
+    expect(requests).toBe(0);
+    await openChooser(page);
+    await expect.poll(() => requests).toBe(1);
+    await originalClick(page,145,274);
+    await expect(page.locator('.battle-wait')).toContainText('战斗界面');
+    await expect(page.getByRole('region', {name:'魔物抵御战战场'})).toHaveCount(0);
+  } finally { allow(); }
+  await expect(page.getByRole('region', {name:'魔物抵御战战场'})).toBeVisible({timeout:30000});
+  await expect(page.locator('.battle-wait')).toBeHidden();
+  expect(requests).toBe(1);
+});
 
 test('选关预载音乐，慢请求期间显示原过场，开战前音乐已完成解码', async ({page}) => {
   test.setTimeout(90000);
@@ -72,8 +138,8 @@ test('音乐不可用时可重试，也能选择无音乐进入', async({page})=
 
 test('角色帧预取遇到短暂 503 时只重取失败的帧，并自动进入战斗', async ({ page }, info) => {
   test.setTimeout(60000);
-  const frameAsset = /\/assets\/native\/frames\/[^/]+\.png$/;
-  const interruptedFrame = '/assets/native/frames/battlespine_20108_pixel_5.png';
+  const frameAsset = /\/assets\/(?:release-[a-f0-9]+\/)?native\/frames\/[^/]+\.png$/;
+  const interruptedFrame = '/native/frames/battlespine_20302_pixel_5.png';
   const requests = new Map<string, number>();
   const loaded = new Set<string>();
   const interrupted: { afterEntry: boolean; status: number }[] = [];
@@ -128,7 +194,7 @@ test('角色帧预取遇到短暂 503 时只重取失败的帧，并自动进入
     await page.goto('./');
     await openChooser(page);
     await expect.poll(() => interrupted.some(request => !request.afterEntry && request.status === 503)).toBe(true);
-    await expect.poll(() => [...loaded].some(path => path.endsWith('/battlespine_20108_pixel_4.png'))).toBe(true);
+    await expect.poll(() => [...loaded].some(path => path.endsWith('/battlespine_20302_pixel_4.png'))).toBe(true);
     prefetched = [...loaded];
     await originalClick(page, 145, 274);
     const battlefield = page.getByRole('region', { name: '魔物抵御战战场' });

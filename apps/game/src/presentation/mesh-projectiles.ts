@@ -1,7 +1,8 @@
-import { GlMeshRenderer, type GlMeshTexture } from './gl-mesh';
+import { GlMeshRenderer, loadBattleImage, type GlMeshTexture } from './gl-mesh';
 import type { NativeModel } from './native-world';
 import type { Point3 } from './orthographic';
 import { evaluateCurve, particleSamples, rotationAxes, type ParticleEmitter, type ParticleSample } from './particle-sampling';
+import { assetUrl } from '../platform/assets';
 
 type Mesh = Parameters<GlMeshRenderer['createMesh']>[0];
 type Draw = Parameters<GlMeshRenderer['render']>[0][number];
@@ -54,7 +55,7 @@ interface Layer { order: number; depth: number; additive: boolean; command: Draw
 interface MatrixPose { pose: ArrayLike<number>; inverse: ArrayLike<number> }
 interface PositionHistory { age: number; position: Point3 }
 
-const root = () => new URL('assets/effects/', document.baseURI);
+const root = () => assetUrl('effects/');
 const wrap = ['repeat','clamp','mirror','mirror'] as const;
 // Unity BlendMode values correspond to the original GLES material pass state.
 const blend = [0, 1, 0x0306, 0x0300, 0x0307, 0x0302, 0x0301, 0x0304, 0x0305, 0x0308, 0x0303] as const;
@@ -72,6 +73,31 @@ function loadCatalog(): Promise<Catalog> {
     throw error;
   });
   return library;
+}
+
+function effectEntries(catalog: Catalog, group: 'battle' | 'loading', paths?: ReadonlySet<string>) {
+  return Object.entries(catalog.prefabs).filter(([path]) =>
+    (path in catalog.cameras) === (group === 'loading') && (!paths || paths.has(path)));
+}
+
+function materialKeys(layers: readonly SourceLayer[]): Set<string> {
+  return new Set(layers.flatMap(layer => layer.trailMaterial ? [layer.material, layer.trailMaterial] : [layer.material]));
+}
+
+function materialTextures(catalog: Catalog, key: string): Record<string, GlMeshTexture> {
+  const material = catalog.materials[key]!, program = catalog.shaders[material.shader]!;
+  const textures: Record<string, GlMeshTexture> = {};
+  for (const match of (program.vertex + program.fragment).matchAll(/uniform\s+(?:(?:lowp|mediump|highp)\s+)?sampler2D\s+(\w+)/g)) {
+    const name = match[1]!, id = material.textures[name]!;
+    if (id === 'white' || id === 'black') textures[name] = id;
+    else {
+      const source = catalog.textures[id];
+      if (!source) throw new Error(`原特效材质缺纹理 ${name} (${key})`);
+      textures[name] = { url: new URL(source.url, root()).href, filter: source.filter === 0 ? 'point' : 'bilinear',
+        wrapU: wrap[source.wrapU]!, wrapV: wrap[source.wrapV]! };
+    }
+  }
+  return textures;
 }
 
 function multiply(a: ArrayLike<number>, b: ArrayLike<number>): Float32Array {
@@ -157,30 +183,51 @@ function drawPose(layer: SourceLayer, world: MatrixPose, sample: ParticleSample,
 }
 
 export class MeshProjectiles {
-  private readonly canvas = document.createElement('canvas');
-  private readonly renderer: GlMeshRenderer;
+  private readonly canvas: HTMLCanvasElement;
+  readonly renderer: GlMeshRenderer;
   private readonly meshes = new Map<string, ReturnType<GlMeshRenderer['createMesh']>>();
   private readonly materials = new Map<string, Material>();
+  private readonly materialLoads = new Map<string, Promise<void>>();
   private readonly additive = new Set<string>();
   private readonly history = new Map<number, PositionHistory[]>();
+  private readonly draws: Layer[] = [];
+  private readonly live = new Set<number>();
   private prefabs: Catalog['prefabs'] = {};
   private cameras: Catalog['cameras'] = {};
   readonly ready: Promise<void>;
 
-  constructor(width: number, height: number, group: 'battle' | 'loading' = 'battle') {
+  static async prefetch(paths?: ReadonlySet<string>): Promise<HTMLImageElement[]> {
+    const catalog = await loadCatalog();
+    const layers = effectEntries(catalog, 'battle', paths).flatMap(([, layers]) => layers);
+    const urls = new Set<string>();
+    for (const key of materialKeys(layers)) for (const texture of Object.values(materialTextures(catalog, key))) {
+      if (typeof texture !== 'string') urls.add(texture.url);
+    }
+    return Promise.all([...urls].map(loadBattleImage));
+  }
+
+  resize(width: number, height: number): void {
+    if (this.canvas.width !== width) this.canvas.width = width;
+    if (this.canvas.height !== height) this.canvas.height = height;
+  }
+
+  constructor(width: number, height: number, group: 'battle' | 'loading' = 'battle', canvas = document.createElement('canvas')) {
+    this.canvas = canvas;
     this.canvas.width = width;
     this.canvas.height = height;
     this.renderer = new GlMeshRenderer(this.canvas, true);
-    this.ready = this.load(group);
+    this.ready = group === 'loading' ? this.load(group) : Promise.resolve();
   }
 
-  private async load(group: 'battle' | 'loading'): Promise<void> {
+  prepare(paths?: ReadonlySet<string>): Promise<void> { return this.load('battle', paths); }
+
+  private async load(group: 'battle' | 'loading', paths?: ReadonlySet<string>): Promise<void> {
     const catalog = await loadCatalog();
-    const entries = Object.entries(catalog.prefabs).filter(([path]) => (path in catalog.cameras) === (group === 'loading'));
+    const entries = effectEntries(catalog, group, paths).filter(([path]) => !(path in this.prefabs));
     const layers = entries.flatMap(([, layers]) => layers);
     const meshes = new Set(layers.flatMap(layer => layer.trailMesh ? [layer.mesh, layer.trailMesh] : [layer.mesh]));
-    const materialKeys = new Set(layers.flatMap(layer => layer.trailMaterial ? [layer.material, layer.trailMaterial] : [layer.material]));
     for (const key of meshes) {
+      if (this.meshes.has(key)) continue;
       const mesh = catalog.meshes[key]!;
       const vertices = mesh.vertices.length / 3;
       const zero = new Float32Array(vertices * 4);
@@ -191,32 +238,31 @@ export class MeshProjectiles {
         texcoord1: zero, texcoord2: zero,
       }));
     }
-    await Promise.all([...materialKeys].map(async key => {
+    await Promise.all([...materialKeys(layers)].map(key => this.loadMaterial(catalog, key)));
+    for (const [path, layers] of entries) this.prefabs[path] = layers;
+    this.cameras = catalog.cameras;
+  }
+
+  private loadMaterial(catalog: Catalog, key: string): Promise<void> | undefined {
+    if (this.materials.has(key)) return;
+    const cached = this.materialLoads.get(key);
+    if (cached) return cached;
+    const load = (async () => {
       const material = catalog.materials[key]!, program = catalog.shaders[material.shader]!;
-      const textures: Record<string, GlMeshTexture> = {};
-      for (const match of (program.vertex + program.fragment).matchAll(/uniform\s+(?:(?:lowp|mediump|highp)\s+)?sampler2D\s+(\w+)/g)) {
-        const name = match[1]!, id = material.textures[name]!;
-        if (id === 'white' || id === 'black') textures[name] = id;
-        else {
-          const source = catalog.textures[id];
-          if (!source) throw new Error(`原特效材质缺纹理 ${name} (${key})`);
-          textures[name] = { url: new URL(source.url, root()).href, filter: source.filter === 0 ? 'point' : 'bilinear',
-            wrapU: wrap[source.wrapU]!, wrapV: wrap[source.wrapV]! };
-        }
-      }
       const [src, dst] = material.blend;
       if (dst === 1) this.additive.add(key);
       const cull = material.cull === 1 ? 'front' : material.cull === 2 ? 'back' : undefined;
-      this.materials.set(key, await this.renderer.createMaterial({
-        vertexShader: program.vertex, fragmentShader: program.fragment, textures,
+      const ready = await this.renderer.createMaterial({
+        vertexShader: program.vertex, fragmentShader: program.fragment, textures: materialTextures(catalog, key),
         uniforms: { _ImageExporterRenderShaderBlendMASK: 0, _WorldSpaceLightPos0: [0,0,0,0],
           _ClipBox: [0,0,0,0], ...material.scalars, ...material.vectors },
         blend: { src: blend[src]!, dst: blend[dst]! },
         ...(cull ? { cull } : {}),
-      }));
-    }));
-    this.prefabs = Object.fromEntries(entries);
-    this.cameras = catalog.cameras;
+      });
+      this.materials.set(key, ready);
+    })().finally(() => this.materialLoads.delete(key));
+    this.materialLoads.set(key, load);
+    return load;
   }
 
   private modelHistory(model: NativeModel, layers: SourceLayer[]): PositionHistory[] {
@@ -235,9 +281,11 @@ export class MeshProjectiles {
     return samples;
   }
 
-  layers(models: NativeModel[], seconds: number): Layer[] {
-    const draws: Layer[] = [];
-    const live = new Set<number>();
+  layers(models: readonly NativeModel[], seconds: number): Layer[] {
+    const { draws, live } = this;
+    draws.length = 0;
+    live.clear();
+    const time = [seconds/20,seconds,seconds*2,seconds*3];
     for (const model of models) {
       const layers = this.prefabs[model.path];
       if (!layers) continue;
@@ -259,7 +307,7 @@ export class MeshProjectiles {
             additive: this.additive.has(material),
             command: { mesh: this.meshes.get(mesh)!, material: this.materials.get(material)!,
               objectToWorld: pose.pose, worldToObject: pose.inverse, viewProjection, cameraPosition,
-              time: [seconds/20,seconds,seconds*2,seconds*3], vertexColor: color,
+              time, vertexColor: color,
               ...(particle?.uv ? { uvRect: particle.uv } : {}), ...(particle?.custom1 ? { custom1: particle.custom1 } : {}),
             },
           });
@@ -292,16 +340,18 @@ export class MeshProjectiles {
     return draws.sort((a,b) => a.order-b.order || b.depth-a.depth);
   }
 
-  draw(context: CanvasRenderingContext2D, layers: Layer[]): void {
-    if (!layers.length) return;
+  draw(context: CanvasRenderingContext2D, layers: readonly Layer[], from = 0, to = layers.length): void {
+    if (from === to) return;
     context.save();
     try {
-      let start = 0;
-      while (start < layers.length) {
+      let start = from;
+      while (start < to) {
         const additive = layers[start]!.additive;
         let end = start + 1;
-        while (end < layers.length && layers[end]!.additive === additive) end++;
-        this.renderer.render(layers.slice(start, end).map(layer => layer.command));
+        while (end < to && layers[end]!.additive === additive) end++;
+        this.renderer.beginFrame();
+        this.drawRange(layers, start, end);
+        this.renderer.endFrame();
         context.globalCompositeOperation = additive ? 'lighter' : 'source-over';
         context.drawImage(this.canvas,0,0);
         start = end;
@@ -309,6 +359,10 @@ export class MeshProjectiles {
     } finally {
       context.restore();
     }
+  }
+
+  drawRange(layers: readonly Layer[], start: number, end: number): void {
+    for (let i = start; i < end; i++) this.renderer.draw(layers[i]!.command);
   }
 
   dispose(): void { this.renderer.dispose(); }

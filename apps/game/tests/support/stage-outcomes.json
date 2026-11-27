@@ -1,0 +1,174 @@
+{
+  "seed": 70441022,
+  "selection": "first original displayed card",
+  "results": [
+    {
+      "stage": 1,
+      "frame": 3622,
+      "wave": 2,
+      "kills": 205,
+      "choices": 12,
+      "outcome": "胜利"
+    },
+    {
+      "stage": 2,
+      "frame": 3693,
+      "wave": 2,
+      "kills": 183,
+      "choices": 11,
+      "outcome": "胜利"
+    },
+    {
+      "stage": 3,
+      "frame": 4361,
+      "wave": 2,
+      "kills": 286,
+      "choices": 14,
+      "outcome": "胜利"
+    },
+    {
+      "stage": 4,
+      "frame": 4093,
+      "wave": 2,
+      "kills": 286,
+      "choices": 14,
+      "outcome": "胜利"
+    },
+    {
+      "stage": 5,
+      "frame": 7264,
+      "wave": 3,
+      "kills": 1015,
+      "choices": 30,
+      "outcome": "失败"
+    },
+    {
+      "stage": 6,
+      "frame": 7488,
+      "wave": 3,
+      "kills": 885,
+      "choices": 32,
+      "outcome": "胜利"
+    },
+    {
+      "stage": 7,
+      "frame": 2752,
+      "wave": 2,
+      "kills": 87,
+      "choices": 6,
+      "outcome": "失败"
+    },
+    {
+      "stage": 8,
+      "frame": 2605,
+      "wave": 2,
+      "kills": 70,
+      "choices": 5,
+      "outcome": "失败"
+    },
+    {
+      "stage": 9,
+      "frame": 7426,
+      "wave": 3,
+      "kills": 933,
+      "choices": 33,
+      "outcome": "胜利"
+    },
+    {
+      "stage": 10,
+      "frame": 4469,
+      "wave": 3,
+      "kills": 422,
+      "choices": 17,
+      "outcome": "失败"
+    },
+    {
+      "stage": 11,
+      "frame": 5952,
+      "wave": 3,
+      "kills": 668,
+      "choices": 26,
+      "outcome": "失败"
+    },
+    {
+      "stage": 12,
+      "frame": 3148,
+      "wave": 3,
+      "kills": 145,
+      "choices": 9,
+      "outcome": "失败"
+    },
+    {
+      "stage": 13,
+      "frame": 2764,
+      "wave": 2,
+      "kills": 89,
+      "choices": 6,
+      "outcome": "失败"
+    },
+    {
+      "stage": 14,
+      "frame": 2684,
+      "wave": 2,
+      "kills": 97,
+      "choices": 6,
+      "outcome": "失败"
+    },
+    {
+      "stage": 15,
+      "frame": 2774,
+      "wave": 2,
+      "kills": 98,
+      "choices": 6,
+      "outcome": "失败"
+    },
+    {
+      "stage": 16,
+      "frame": 2719,
+      "wave": 2,
+      "kills": 80,
+      "choices": 6,
+      "outcome": "失败"
+    },
+    {
+      "stage": 17,
+      "frame": 3085,
+      "wave": 3,
+      "kills": 243,
+      "choices": 11,
+      "outcome": "失败"
+    },
+    {
+      "stage": 18,
+      "frame": 3816,
+      "wave": 3,
+      "kills": 301,
+      "choices": 14,
+      "outcome": "失败"
+    },
+    {
+      "stage": 19,
+      "frame": 5877,
+      "wave": 3,
+      "kills": 688,
+      "choices": 26,
+      "outcome": "失败"
+    },
+    {
+      "stage": 20,
+      "frame": 3426,
+      "wave": 2,
+      "kills": 270,
+      "choices": 13,
+      "outcome": "失败"
+    },
+    {
+      "stage": 21,
+      "frame": 6586,
+      "wave": 4,
+      "kills": 573,
+      "choices": 16,
+      "outcome": "结束"
+    }
+  ]
+}

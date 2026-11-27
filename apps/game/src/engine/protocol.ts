@@ -9,7 +9,7 @@ export interface RuleUnitState {
   y: number;
   z: number;
   camp: number;
-  stateName: string;
+  stateName?: string;
   flipped: boolean;
   model?: import('../presentation/native-world').NativeModel;
 }

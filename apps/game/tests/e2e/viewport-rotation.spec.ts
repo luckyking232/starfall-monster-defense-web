@@ -73,7 +73,7 @@ test('manual portrait mode releases on rotation and keeps touch aligned after th
   await expect(page.locator('canvas')).toBeInViewport({ratio:0.99});
   const rect = (await page.locator('canvas').boundingBox())!;
   await page.touchscreen.tap(rect.x + rect.width * targets[1]!.x / DESIGN_WIDTH,rect.y + rect.height * targets[1]!.y / DESIGN_HEIGHT);
-  await expect.poll(() => page.evaluate(() => (window as Window & {viewportHits:string[]}).viewportHits)).toEqual(['lower-right']);
+  await expect.poll(() => page.evaluate(() => (window as Window & {viewportHits?:string[]}).viewportHits)).toEqual(['lower-right']);
   await page.setViewportSize({width:390,height:844});
   await expect(root).toHaveAttribute('data-frame-rotation','90');
   await page.getByRole('button',{name:'恢复自然方向'}).click();

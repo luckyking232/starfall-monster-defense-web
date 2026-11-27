@@ -1,10 +1,10 @@
 import Phaser from 'phaser';
 import { layoutList, layoutLoader } from './layout';
-import type { UiTreeNode } from '../../runtime/ui/protocol';
+import type { UiOp, UiTreeNode } from '../../runtime/ui/protocol';
 import { installPhaserViewport } from '../platform/viewport';
 import { toFguiChild } from '../ui/tree';
 import {
-  PackageRegistry, type FguiBitmapFont, type FguiChild, type FguiComponent, type FguiPackage, type FguiSprite,
+  PackageRegistry, type FguiBitmapFont, type FguiChild, type FguiComponent, type FguiDependencies, type FguiPackage, type FguiSprite,
   type FguiTransitionTrack, type FguiTransitionValue,
 } from './package';
 import { FguiTransitionPlayback, type FguiTransitionCallbacks } from './transition';
@@ -61,6 +61,9 @@ interface PointerPress {
   dragged: boolean;
 }
 
+const DAMAGE_NUMBERS = new Set(['NormalHitNumberTips', 'CritHitNumberTips', 'GreenHpNumberTips']);
+const DAMAGE_NUMBER_POOL_LIMIT = 96;
+
 function nineSliceAxis(
   sourceSize: number,
   startBorder: number,
@@ -100,10 +103,14 @@ export class FguiRuntime {
   private nodes = new Map<string, FguiNode>();
   private readonly windowViews = new Map<string, { root: FguiNode; nodes: Map<string, FguiNode> }>();
   private readonly windowLayers = new Map<string, number>();
+  private readonly annotations = new WeakMap<FguiNode, Phaser.GameObjects.Text>();
   private readonly componentIds = new Map<number, { view: string; node: FguiNode }>();
   private readonly transitions = new Map<FguiNode, Map<string, FguiTransitionPlayback<FguiNode>>>();
+  private readonly damageNumbers = new Map<string, FguiNode[]>();
   private readonly presses = new Map<number, PointerPress>();
   private readonly transitionBeganAt = new WeakMap<FguiTransitionPlayback<FguiNode>, number>();
+  private readonly atlasLoads = new Map<string, Promise<void>>();
+  private readonly loadedCharacters = new Set<string>();
   private activeView = '';
   private disposed = false;
   private nextCanvasSlice = 0;
@@ -118,6 +125,7 @@ export class FguiRuntime {
     private readonly onAction: (action: FguiAction) => void,
     private readonly transparent = false,
     private readonly atlasProgress?: (fraction: number) => void,
+    private readonly lazyAssets = false,
   ) {}
 
   get views(): ReadonlyMap<string, { root: FguiNode }> {
@@ -144,6 +152,19 @@ export class FguiRuntime {
     this.windowViews.get(window)?.root.container.setDepth(depth);
   }
 
+  setAnnotation(node: FguiNode, value: string, centerX: number, top: number, fontSize: number): void {
+    let label = this.annotations.get(node);
+    if (!label) {
+      label = this.scene!.add.text(centerX, top, value, {
+        fontFamily: 'SourceHanSans, Microsoft YaHei, sans-serif',
+        fontSize: `${fontSize}px`, align: 'center', lineSpacing: 4,
+        color: '#fff1cf', stroke: '#211811', strokeThickness: 4,
+      }).setOrigin(0.5, 0);
+      node.container.add(label);
+      this.annotations.set(node, label);
+    } else if (label.text !== value) label.setText(value);
+  }
+
   async show(packageName: string, componentName: string): Promise<FguiNode> {
     await this.prepare();
     return this.mount('preview', this.registry!.component(componentName, packageName), packageName);
@@ -152,7 +173,74 @@ export class FguiRuntime {
   async showTree(window: string, tree: UiTreeNode): Promise<FguiNode> {
     await this.prepare();
     const packageName = this.registry!.packageById(tree.packageId).package.name;
-    return this.mount(window, toFguiChild(tree), packageName);
+    const source = toFguiChild(tree);
+    if (this.lazyAssets) await this.loadDependencies(this.registry!.dependencies(source, packageName), this.atlasProgress);
+    if (this.disposed) throw new Error('FGUI 已关闭');
+    return this.mount(window, source, packageName);
+  }
+
+  async prepareWindows(windows: ReadonlyArray<readonly [packageName: string, componentName: string]>): Promise<void> {
+    await this.prepare();
+    const atlases = new Set<string>();
+    let text = '';
+    for (const [packageName, componentName] of windows) {
+      const registry = this.registry!;
+      const group = registry.dependencies(registry.component(componentName, packageName), packageName);
+      for (const atlas of group.atlases) atlases.add(atlas);
+      text += group.text;
+    }
+    await this.loadDependencies({ atlases, text });
+  }
+
+  prepareOps(ops: readonly UiOp[]): Promise<void> | undefined {
+    if (!this.lazyAssets) return;
+    const registry = this.registry!;
+    const atlases = new Set<string>();
+    let text = '';
+    for (const op of ops) {
+      if (op.op === 'set' && op.key === 'text') text += String(op.value);
+      else if (op.op === 'set' && op.key === 'url' && op.value) {
+        const { item } = registry.itemByUrl(String(op.value));
+        if (item.sprite) atlases.add(item.sprite.atlasFile);
+      } else if (op.op === 'child-add' || op.op === 'list-add' || op.op === 'list-items') {
+        for (const item of op.op === 'list-items' ? op.items : [op.item]) {
+          const group = registry.dependencies(toFguiChild(item), registry.packageById(item.packageId).package.name);
+          for (const atlas of group.atlases) atlases.add(atlas);
+          text += group.text;
+        }
+      }
+    }
+    return this.loadDependencies({ atlases, text });
+  }
+
+  private loadDependencies({ atlases, text }: FguiDependencies,
+    progress?: (fraction: number) => void): Promise<void> | undefined {
+    const tasks: Promise<void>[] = [];
+    for (const file of atlases) {
+      if (this.scene!.textures.exists(`fgui:${file}`)) continue;
+      let load = this.atlasLoads.get(file);
+      if (!load) {
+        const image = new Image();
+        image.src = this.registry!.atlasUrl(file);
+        load = image.decode().then(() => {
+          if (!this.disposed) this.scene!.textures.addImage(`fgui:${file}`, image);
+        }).catch((error: unknown) => {
+          throw new Error(`FGUI 图集加载失败：${file}`, { cause: error });
+        }).finally(() => this.atlasLoads.delete(file));
+        this.atlasLoads.set(file, load);
+      }
+      tasks.push(load);
+    }
+    const characters = [...new Set(text)].filter(char => !this.loadedCharacters.has(char));
+    if (characters.length) {
+      tasks.push(document.fonts.load('16px SourceHanSans', characters.join('')).then(() => {
+        for (const char of characters) this.loadedCharacters.add(char);
+      }));
+    }
+    if (!tasks.length) return;
+    let loaded = 0;
+    const pending = progress ? tasks.map(task => task.then(() => progress(++loaded / tasks.length))) : tasks;
+    return Promise.all(pending).then(() => undefined);
   }
 
   private async prepare(): Promise<void> {
@@ -181,6 +269,10 @@ export class FguiRuntime {
     this.unregister(current.root, current.nodes);
     current.root.container.destroy(true);
     this.windowViews.delete(view);
+    if (view === 'MiniGameBattleUIWindow') {
+      for (const pool of this.damageNumbers.values()) for (const node of pool) node.container.destroy(true);
+      this.damageNumbers.clear();
+    }
   }
 
   private unregister(node: FguiNode, nodes = this.nodes): void {
@@ -221,7 +313,12 @@ export class FguiRuntime {
     const parent = this.find(this.componentPath(parentId));
     const pkg = this.registry!.packageById(item.packageId);
     const name = parent.children.has(item.name) ? `${item.name}:${item.id}` : item.name;
-    const node = this.instantiate(toFguiChild(item), pkg.package.name, this.childPath(parent, name), parent);
+    const source = toFguiChild(item);
+    const path = this.childPath(parent, name);
+    const reused = this.activeView === 'MiniGameBattleUIWindow' && DAMAGE_NUMBERS.has(item.name)
+      ? this.damageNumbers.get(`${item.packageId}:${item.componentId}`)?.pop() : undefined;
+    const node = reused ?? this.instantiate(source, pkg.package.name, path, parent);
+    if (reused) this.rebindDamageNumber(reused, source, path, parent);
     parent.children.set(name, node);
     parent.container.add(node.container);
     this.updateGears(node);
@@ -236,7 +333,38 @@ export class FguiRuntime {
       if (child === node) parent.children.delete(key);
     }
     this.unregister(node);
+    if (this.activeView === 'MiniGameBattleUIWindow' && DAMAGE_NUMBERS.has(node.source.name)) {
+      const key = `${node.source.packageId}:${node.source.src}`;
+      const pool = this.damageNumbers.get(key) ?? [];
+      if (pool.length < DAMAGE_NUMBER_POOL_LIMIT) {
+        parent.container.remove(node.container);
+        node.container.removeFromDisplayList();
+        node.container.setVisible(false);
+        node.parent = undefined;
+        pool.push(node);
+        this.damageNumbers.set(key, pool);
+        return;
+      }
+    }
     node.container.destroy(true);
+  }
+
+  private rebindDamageNumber(node: FguiNode, source: FguiChild, path: string, parent: FguiNode): void {
+    // These three authored popup types have fixed component trees and no input handlers.
+    // The Worker still issues fresh IDs and owns transitions for each hit.
+    node.parent = parent;
+    node.path = path;
+    node.source = source;
+    node.explicitVisible = source.visible ?? true;
+    this.nodes.set(path, node);
+    if (typeof source.id === 'number') this.componentIds.set(source.id, { view: this.activeView, node });
+    node.container.setAlpha(source.alpha ?? 1).setAngle(source.rotation ?? 0)
+      .setScale(...(source.scale ?? [1, 1])).setVisible(node.explicitVisible);
+    this.positionNode(node, source.x ?? 0, source.y ?? 0);
+    node.bitmapText?.draw(source.text ?? '');
+    for (const child of source.children ?? []) {
+      this.rebindDamageNumber(node.children.get(child.name)!, child, this.childPath(node, child.name), node);
+    }
   }
 
   private childPath(parent: FguiNode, name: string): string {
@@ -388,8 +516,9 @@ export class FguiRuntime {
     class ViewScene extends Phaser.Scene {
       private readonly failures: string[] = [];
 
-        preload(): void {
-          if (runtime.atlasProgress) this.load.on('progress', runtime.atlasProgress);
+      preload(): void {
+        if (runtime.lazyAssets) return;
+        if (runtime.atlasProgress) this.load.on('progress', runtime.atlasProgress);
         for (const atlas of registry.atlasEntries()) this.load.image(atlas.key, atlas.url);
         this.load.on('loaderror', (file: Phaser.Loader.File) => this.failures.push(file.key));
       }
@@ -641,19 +770,34 @@ export class FguiRuntime {
     const tint = Number.parseInt(format.color.slice(1, 7), 16);
     let top = format.verticalAlign === 'Middle' ? (node.height - height) / 2
       : format.verticalAlign === 'Bottom' ? node.height - height - 2 : 2;
-    container.removeAll(true);
+    let index = 0;
     for (const line of lines) {
       const width = line.reduce((total, glyph) => total + glyph.advance * scale, 0) + Math.max(0, line.length - 1) * format.letterSpacing;
       let left = format.align === 'Center' ? (node.width - width) / 2 : format.align === 'Right' ? node.width - width - 2 : 2;
       for (const glyph of line) {
         const image = pkg.items[glyph.image]!;
-        const sprite = this.createImage({ ...node.source, src: glyph.image }, pkg, image.width * scale, image.height * scale);
+        const width = image.width * scale, height = image.height * scale;
+        const previous = container.list[index];
+        let sprite;
+        if (previous instanceof Phaser.GameObjects.Image && image.sprite && !image.scale9Grid && !image.scaleByTile) {
+          const frame = this.imageFrame(image.sprite, image.id);
+          sprite = previous.setTexture(frame.texture.key, frame.name).setDisplaySize(width, height);
+        } else {
+          if (previous) container.remove(previous, true);
+          sprite = this.createImage({ ...node.source, src: glyph.image }, pkg, width, height);
+          container.addAt(sprite, index);
+        }
+        sprite.setVisible(true);
         sprite.setPosition(left + glyph.x * scale, top + glyph.y * scale);
         if (font.tintable) sprite.setTint(tint);
-        container.add(sprite);
+        index++;
         left += glyph.advance * scale + format.letterSpacing;
       }
       top += lineHeight + format.lineSpacing;
+    }
+    for (; index < container.list.length; index++) {
+      const glyph = container.list[index] as Phaser.GameObjects.Image;
+      glyph.setVisible(false);
     }
   }
 

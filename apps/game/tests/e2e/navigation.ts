@@ -16,6 +16,7 @@ export async function originalClick(page: Page, x: number, y: number, pointer: C
 
 export async function openChooser(page: Page, pointer: CanvasPointer = 'mouse'): Promise<void> {
   await expect(page.getByRole('region', { name: '魔物抵御战活动主页' })).toBeVisible({ timeout: 30000 });
+  await expect(page.locator('#startup')).toHaveCount(0, { timeout: 30000 });
   await originalClick(page, 1147, 679, pointer);
   await expect(page.getByRole('region', { name: '选择关卡', exact: true })).toBeVisible({ timeout: 15000 });
 }

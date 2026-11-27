@@ -6,5 +6,6 @@
 *.wav binary
 *.wasm binary
 *.otf binary
+*.woff2 binary
 *.bytes binary
 apps/game/public/assets/** -text -whitespace

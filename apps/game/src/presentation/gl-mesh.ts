@@ -168,6 +168,7 @@ function reflectProgram(gl: WebGLRenderingContext, program: WebGLProgram) {
 
 // Frames and effect textures share the same burst of requests when the chooser opens.
 const imageLoads = new Map<string,Promise<HTMLImageElement>>();
+const decodedImages = new Map<string, WeakRef<HTMLImageElement>>();
 const imageQueue: (() => void)[] = [];
 const maxImageRequests = 8;
 let activeImageRequests = 0;
@@ -198,12 +199,14 @@ async function readBattleImage(url: string): Promise<HTMLImageElement> {
 }
 
 export function loadBattleImage(url: string): Promise<HTMLImageElement> {
+  const decoded = decodedImages.get(url)?.deref();
+  if (decoded) return Promise.resolve(decoded);
   const cached = imageLoads.get(url);
   if (cached) return cached;
-  const pending = readBattleImage(url).catch(error => {
-    imageLoads.delete(url);
-    throw error;
-  });
+  const pending = readBattleImage(url).then(image => {
+    decodedImages.set(url, new WeakRef(image));
+    return image;
+  }).finally(() => imageLoads.delete(url));
   imageLoads.set(url,pending);
   return pending;
 }
@@ -343,7 +346,7 @@ function writeUniform(gl: WebGLRenderingContext, info: ShaderUniform, material: 
 
 /** Dedicated transparent WebGL1 renderer for static triangle meshes, in caller-supplied draw order. */
 export class GlMeshRenderer {
-  private readonly gl: WebGLRenderingContext;
+  readonly gl: WebGLRenderingContext;
   private readonly meshes = new Map<GlMesh, MeshBuffers>();
   private readonly materials = new Map<GlMeshMaterialHandle, MaterialProgram>();
   private disposed = false;
@@ -507,6 +510,12 @@ export class GlMeshRenderer {
   }
 
   render(instances: readonly GlMeshInstance[]): void {
+    this.beginFrame();
+    for (const instance of instances) this.draw(instance);
+    this.endFrame();
+  }
+
+  beginFrame(): void {
     this.assertReady();
     const gl = this.gl;
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
@@ -517,10 +526,14 @@ export class GlMeshRenderer {
     gl.colorMask(true, true, true, true);
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
-    for (const instance of instances) this.draw(instance);
   }
 
-  private draw(instance: GlMeshInstance): void {
+  endFrame(): void {
+    const error = this.gl.getError();
+    if (error !== this.gl.NO_ERROR) throw new Error(`Mesh draw failed with WebGL error ${error}.`);
+  }
+
+  draw(instance: GlMeshInstance): void {
     const gl = this.gl;
     const mesh = this.meshes.get(instance.mesh);
     const program = this.materials.get(instance.material);
@@ -579,8 +592,6 @@ export class GlMeshRenderer {
       } else {
         gl.drawArrays(gl.TRIANGLES, 0, instance.mesh.vertexCount);
       }
-      const error = gl.getError();
-      if (error !== gl.NO_ERROR) throw new Error(`Mesh draw failed with WebGL error ${error}.`);
     } finally {
       for (const location of enabled) gl.disableVertexAttribArray(location);
     }
