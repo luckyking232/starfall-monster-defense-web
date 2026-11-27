@@ -11,6 +11,13 @@ const activityStartStamp = 1_700_000_000;
 const serverNowStamp = 1_764_000_000;
 const stage1Picks = [0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1];
 const stage1PickFrames = [344, 654, 1052, 1660, 1842, 2022, 2308, 2645, 3042, 3423, 3822];
+const endlessControls = [
+  { frame: 48, action: 'speed' },
+  { frame: 600, action: 'pause' },
+  { frame: 1800, action: 'speed' },
+  { frame: 3000, action: 'pause-resume' },
+  { frame: 4200, action: 'exit-cancel' },
+];
 const stageId = stage => 78000000 + (stage === 'stress' ? 21 : stage);
 const find = (node, ...names) => names.reduce((parent, name) => {
   const child = parent?.children.find(entry => entry.name === name);
@@ -24,11 +31,15 @@ export async function replayRules({
 }) {
   const dir = mkdtempSync(path.join(tmpdir(), 'starfall-rule-replay-'));
   const records = [], inputs = {}, choices = [];
+  const controls = stage === 21 ? endlessControls : [];
   const messages = [];
   const windows = new Map(), lists = new Map(), transitions = new Map();
   const summary = {
     frames: 0, fixedCallbacks: 0, peakAliveMonsters: 0, tierFrames: {}, events: {}, usedSkills: {}, choices, settlement: null,
+    attackSpeedChanges: 0, freezeFrames: 0, unitTimeStopFrames: 0,
   };
+  const attackSpeeds = new Map();
+  let gameSpeed = stage === 'stress' ? 2 : 1, nextControl = 0;
   let engine, drain, host, previousFrame = 0, requestId = 0, seedCalls = 0;
   function save(record, raw = JSON.stringify(record)) {
     if (writeRecord) writeRecord(raw);
@@ -45,6 +56,15 @@ export async function replayRules({
       if (record.state.wave && summary.tierFrames[record.state.wave] === undefined) {
         summary.tierFrames[record.state.wave] = record.frame;
       }
+      let frozen = false, timeStopped = false;
+      for (const unit of record.state.units) {
+        if (attackSpeeds.has(unit.uid) && attackSpeeds.get(unit.uid) !== unit.attackSpeed) summary.attackSpeedChanges++;
+        attackSpeeds.set(unit.uid, unit.attackSpeed);
+        frozen ||= unit.frozen;
+        timeStopped ||= unit.stopped;
+      }
+      if (frozen) summary.freezeFrames++;
+      if (timeStopped) summary.unitTimeStopFrames++;
     }
     for (const event of record.events) {
       summary.events[event.type] = (summary.events[event.type] ?? 0) + 1;
@@ -108,6 +128,27 @@ export async function replayRules({
   }
   const finishTransition = (playId, name, label) => present({ kind: 'transition', playId, label }, name);
 
+  async function performControl(control, hud) {
+    const top = find(hud.tree, 'Main', 'Top');
+    if (control.action === 'speed') {
+      gameSpeed = gameSpeed === 1 ? 2 : 1;
+      await click(find(top, 'SpeedBtn'), 'speed', { speed: gameSpeed });
+      return;
+    }
+    if (control.action === 'exit-cancel') {
+      await click(find(top, 'ReturnBtn'), 'open-exit');
+      await click(find(open('MiniGameBattleExitWindow').tree, 'Main', 'CancelBtn'), 'cancel-exit');
+      return;
+    }
+    await click(find(top, 'PauseBtn'), 'pause');
+    const pause = open('MiniGameBattlePauseWindow');
+    if (control.action === 'pause') {
+      await tick(250, 'hold-pause');
+      if (previousFrame !== control.frame) throw new Error(`pause advanced rules to ${previousFrame}`);
+    }
+    await click(find(pause.tree, 'Main', 'TouchScreenBtn'), 'resume');
+  }
+
   try {
     const io = {
       async loadBytes(relative) {
@@ -149,7 +190,7 @@ export async function replayRules({
     } else {
       const list = find(open('Activity17MiniGameChoice2Window').tree, 'Main', 'TipsList');
       const [map] = lists.get(list.id);
-      await click(find(map, `Tips${stage}Btn`), 'choose-stage', { stage });
+      await click(find(map, stage === 21 ? 'SpecialBtn' : `Tips${stage}Btn`), 'choose-stage', { stage });
     }
 
     await finishTransition(lastTransition('in1'), 'loading-in');
@@ -175,8 +216,14 @@ export async function replayRules({
         await click(find(choice.tree, 'Main', 'Time', 'SureBtn'), 'confirm-card');
         continue;
       }
-      const speed = stage === 'stress' ? 2 : 1;
-      const ms = Math.min(250, (lastFrame - previousFrame) * (1000 / 30) / speed);
+      const control = controls[nextControl];
+      if (control?.frame === previousFrame) {
+        await performControl(control, hud);
+        nextControl++;
+        continue;
+      }
+      const limit = Math.min(lastFrame, control?.frame ?? lastFrame);
+      const ms = Math.min(250, (limit - previousFrame) * (1000 / 30) / gameSpeed);
       await tick(ms);
     }
     if (summary.frames !== lastFrame || (watch === 'settlement' && !summary.settlement)) {
@@ -187,11 +234,19 @@ export async function replayRules({
         JSON.stringify(choices) !== JSON.stringify(stage1PickFrames))) {
       throw new Error(`stage 1 historical replay changed: ${JSON.stringify(summary)}`);
     }
+    if (stage === 21 && (summary.settlement?.kills !== 573 || summary.settlement?.wave !== 4 || choices.length !== 16 ||
+        summary.settlement?.endless?.source !== 'natural' || summary.settlement?.endless?.endedBy !== 'natural' ||
+        nextControl !== controls.length)) {
+      throw new Error(`ordinary endless replay changed: ${JSON.stringify(summary)}`);
+    }
     if (stage === 'stress') {
       const { heroes, unlockedSkills, upgrades } = summary.loadout ?? {};
       if (heroes !== 5 || unlockedSkills !== 15 || upgrades !== 135) throw new Error('stress loadout changed');
       if (lastFrame === 780 && summary.peakAliveMonsters !== 300) {
         throw new Error(`stress replay did not peak at 300 alive: ${summary.peakAliveMonsters}`);
+      }
+      if (lastFrame === 780 && (!summary.attackSpeedChanges || !summary.unitTimeStopFrames)) {
+        throw new Error('stress replay did not observe native attack speed changes and time stop');
       }
     }
     return { records, seedCalls, inputs, summary };

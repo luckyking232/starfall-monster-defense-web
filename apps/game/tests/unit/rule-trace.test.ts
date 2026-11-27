@@ -32,6 +32,14 @@ test('reports the stable identity and field of the first different state object'
   });
 });
 
+test('reports a different UID before comparing the properties of different entities', () => {
+  const reference = [fixed(1, { units: [{ uid: 15, hp: 49 }] })];
+  const candidate = [fixed(1, { units: [{ uid: 16, hp: 48 }] })];
+  expect(firstRuleDifference(reference, candidate)).toMatchObject({
+    frame: 1, object: 'unit:15', field: 'units[0].uid', reference: 15, candidate: 16,
+  });
+});
+
 test('accepts equivalent state regardless of property insertion order', () => {
   expect(firstRuleDifference(
     [fixed(1, { units: [{ uid: 15, x: 300, hp: 49 }] })],

@@ -13,6 +13,7 @@ export interface RuleDifference {
 }
 
 const identityGroups: Record<string, string> = { units: 'unit', bullets: 'bullet', buffs: 'buff' };
+const identityFields = ['uid', 'object', 'type'];
 
 function fields(value: unknown): Record<string, unknown> | undefined {
   return value !== null && typeof value === 'object' && !Array.isArray(value)
@@ -41,7 +42,9 @@ function compare(
   }
   const referenceFields = fields(reference), candidateFields = fields(candidate);
   if (referenceFields && candidateFields) {
-    const keys = [...new Set([...Object.keys(referenceFields), ...Object.keys(candidateFields)])].sort();
+    const remaining = [...new Set([...Object.keys(referenceFields), ...Object.keys(candidateFields)])]
+      .filter(key => !identityFields.includes(key)).sort();
+    const keys = [...identityFields, ...remaining];
     for (const key of keys) {
       const child = field ? `${field}.${key}` : key;
       const difference = compare(referenceFields[key], candidateFields[key], frame, child, object);

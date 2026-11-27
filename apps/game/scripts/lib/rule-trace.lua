@@ -13,6 +13,7 @@ end
 
 -- Preserve enough digits to distinguish adjacent floating-point values. The
 -- presentation bridge's JSON encoder rounds some rule coordinates.
+local encodedKeys = {}
 local function encode(value)
   if type(value) == 'number' then
     assert(value == value and value < math.huge and value > -math.huge, 'non-finite rule state')
@@ -28,7 +29,10 @@ local function encode(value)
   local keys = {}
   for key in pairs(value) do keys[#keys + 1] = key end
   table.sort(keys)
-  for i, key in ipairs(keys) do parts[i] = __JsonEncode(key) .. ':' .. encode(value[key]) end
+  for i, key in ipairs(keys) do
+    if not encodedKeys[key] then encodedKeys[key] = __JsonEncode(key) end
+    parts[i] = encodedKeys[key] .. ':' .. encode(value[key])
+  end
   return '{' .. table.concat(parts, ',') .. '}'
 end
 
@@ -47,13 +51,14 @@ end
 local casters = setmetatable({}, {__mode = 'k'})
 local function state()
   local control, data, scene = MiniGameBattleControl, MiniGameBattleData, MiniGameBattleScene
-  local units, bullets, buffs = {}, {}, {}
+  local units, bullets, buffs, aliveMonsterUids = {}, {}, {}, {}
+  for index, unit in ipairs(scene.aliveMonsterList) do aliveMonsterUids[index] = unit.uid end
   for _, unit in ipairs(scene.allUnit or {}) do
     if unit.id and not unit:IsDestroy() then
       units[#units + 1] = {uid = unit.uid, id = unit.id, position = vector(unit.position), hp = unit:GetHp(),
         target = unit.attackTargetUid, state = unit.curState, buffs = sortedIds(unit.buffUidList), camp = unit.camp,
         nextAttackFrame = unit.nextAttackFrame, lastSkillFrame = unit.lastSkillFrame,
-        frozen = unit.isFreeze, stopped = unit.isTimePause}
+        attackSpeed = unit:GetSpdAtk(), skillFrame = unit.curSkillFrame, frozen = unit.isFreeze, stopped = unit.isTimePause}
     end
   end
   for _, bullet in ipairs(scene.allBullet or {}) do
@@ -71,7 +76,8 @@ local function state()
   table.sort(bullets, uidOrder)
   table.sort(buffs, uidOrder)
   return {units = units, bullets = bullets, buffs = buffs, stage = data.stageId, wave = scene.curMonsterWave,
-    aliveMonsters = #scene.aliveMonsterList, kills = data.killEnemyCount, wallHp = data.selfHp, level = data.curLevel,
+    aliveMonsters = #aliveMonsterUids, aliveMonsterUids = aliveMonsterUids,
+    kills = data.killEnemyCount, wallHp = data.selfHp, level = data.curLevel,
     exp = data.curExp, randomIndex = data.curRandomIndex, paused = control.isPause, over = control.isOver,
     speed = data.speedIndex}
 end

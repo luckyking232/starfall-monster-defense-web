@@ -27,7 +27,8 @@ fs.mkdirSync(evidence, { recursive: true });
 const dist = fs.mkdtempSync(path.join(evidence, 'site-'));
 
 function replace(code, before, after) {
-  if (!code.includes(before)) throw new Error(`Missing replay marker ${before}`);
+  const found = typeof before === 'string' ? code.includes(before) : before.test(code);
+  if (!found) throw new Error(`Missing replay marker ${before}`);
   return code.replace(before, after);
 }
 
@@ -82,12 +83,12 @@ const bundle = await rolldown({input:path.join(root,'runtime/ui/host-worker.ts')
         [`const state = ${decode}(tickBattle(signal.ms));`, `const data = self.__perfLua = {start:performance.now()}; const raw = tickBattle(signal.ms); data.luaEnd=performance.now(); const state = ${decode}(raw); data.parseEnd=performance.now(); data.rawBytes=raw.length; if (state) state.samplePerf=data;`],
         ['options.postMessage(message);', 'options.postMessage({...message, perfSent: performance.timeOrigin + performance.now()});'],
       ]) source = replace(source,before,after);
-      const sliced = 'const raw=tickSlice!(signal.ms,signal.stepBudget,signal.resume===true);';
-      if (source.includes(sliced)) {
-        source = replace(source, sliced,
-          `const data = self.__perfLua = {start:performance.now()}; ${sliced} data.luaEnd=performance.now(); data.rawBytes=raw.length;`);
-        source = replace(source, 'const state=moreSteps ? null : decodeBattleSnapshot(raw);',
-          'const state=moreSteps ? null : decodeBattleSnapshot(raw); data.parseEnd=performance.now(); if (state) state.samplePerf=data;');
+      if (/\btickSlice!\s*\(/.test(source)) {
+        source = replace(source,
+          /const\s+raw\s*=\s*tickSlice!\(\s*signal\.ms\s*,\s*signal\.stepBudget\s*,\s*signal\.resume\s*===\s*true\s*\)\s*;/,
+          'const data = self.__perfLua = {start:performance.now()}; $& data.luaEnd=performance.now(); data.rawBytes=raw.length;');
+        source = replace(source, /const\s+state\s*=\s*moreSteps\s*\?\s*null\s*:\s*decodeBattleSnapshot\(\s*raw\s*\)\s*;/,
+          '$& data.parseEnd=performance.now(); if (state) state.samplePerf=data;');
       }
       return source;
     }
@@ -115,6 +116,7 @@ const manifests = [
   'runtime/manifest.json', 'runtime/ui/manifest.json', 'effects/manifest.json', 'native/manifest.json',
   'fgui/ActivityDungeon1017.json', 'fgui/ActivityDungeon1017Battle.json', 'fgui/CommonResource.json', 'fgui/Loading.json',
 ];
+const runtimeSources = fs.readdirSync(path.join(root, 'runtime/ui')).filter(name => /^(battle|host)(-.*)?\.ts$/.test(name));
 const provenance = {
   commit: git('rev-parse', 'HEAD'),
   tree: git('rev-parse', 'HEAD^{tree}'),
@@ -123,6 +125,7 @@ const provenance = {
   dist,
   replaySeed,
   workerSha256: sha256(fs.readFileSync(workerPath)),
+  runtimeSourceSha256: Object.fromEntries(runtimeSources.map(name => [name, sha256(fs.readFileSync(path.join(root, 'runtime/ui', name)))])),
   inputManifests: Object.fromEntries(manifests.map(name => [name, sha256(fs.readFileSync(path.join(root, 'public/assets', name)))])),
 };
 fs.writeFileSync(path.join(evidence,`${runId}-provenance.json`),JSON.stringify(provenance,null,2));

@@ -13,12 +13,13 @@ import { compareRuleRecord } from './lib/rule-trace-diff.ts';
 
 const [referenceRoot, candidateRoot, outputDir, scenarioSelection] = process.argv.slice(2);
 if (!referenceRoot || !candidateRoot || !outputDir) {
-  throw new Error('Usage: node --experimental-strip-types scripts/compare-rule-replays.mjs <reference> <candidate> <output-directory> [stage1,stage2,stage18,stress]');
+  throw new Error('Usage: node --experimental-strip-types scripts/compare-rule-replays.mjs <reference> <candidate> <output-directory> [stage1,stage2,stage18,endless,stress]');
 }
 const scenarios = {
   stage1: { stage: 1 },
   stage2: { stage: 2, lastFrame: 3693, watch: 'settlement' },
   stage18: { stage: 18 },
+  endless: { stage: 21, lastFrame: 6586, watch: 'settlement' },
   stress: { stage: 'stress' },
 };
 const names = scenarioSelection?.split(',') ?? Object.keys(scenarios);
