@@ -21,7 +21,7 @@ export class OriginalUiWindow {
     this.runtime = new FguiRuntime(parent, (action) => {
       if (action.componentId === undefined || this.disposed) return;
       void this.client.click(action.componentId).catch((error: unknown) => this.fail(error));
-    }, true, atlasProgress);
+    }, true, atlasProgress, true);
     this.unsubscribe = client.onMessage((message) => {
       this.chain = this.chain.then(() => this.receive(message));
     });
@@ -58,6 +58,9 @@ export class OriginalUiWindow {
         await this.runtime.showTree(message.window, message.tree);
         if (!this.disposed) void this.client.windowShown(message.rootId).catch((error: unknown) => this.fail(error));
       } else if (message.type === 'ops') {
+        const assets = this.runtime.prepareOps(message.ops);
+        if (assets) await assets;
+        if (this.disposed) return;
         for (const op of message.ops) this.apply(op);
       } else if (message.type === 'close') this.runtime.close(message.window);
       else if (message.type === 'event') this.onEvent(message.event);

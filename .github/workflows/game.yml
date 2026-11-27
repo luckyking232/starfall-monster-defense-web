@@ -7,6 +7,9 @@ on:
 permissions:
   contents: read
   statuses: read
+concurrency:
+  group: game-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
   build:
     name: public-preflight
@@ -41,14 +44,16 @@ jobs:
           npm run preview -- --outDir dist --port 4173 --strictPort > /tmp/starfall-preview.log 2>&1 &
           trap 'kill $!' EXIT
           curl --retry 20 --retry-connrefused --retry-delay 1 -fsS "$STARFALL_TEST_BASE_URL" > /dev/null
-          npx playwright test startup-screen product-entry standalone-settings battle-preparation save-transfer
+          npx playwright test startup-screen product-entry standalone-settings battle-preparation save-transfer viewport-rotation economy-mode endless-records
       - name: Prepare Pages
+        if: github.ref == 'refs/heads/test' && github.event_name != 'pull_request'
         working-directory: .
         run: |
           mkdir -p _site/play
           cp index.html _site/
           touch _site/.nojekyll
           rsync -a --exclude='*.map' apps/game/dist/ _site/play/
+          node apps/game/scripts/hosted-release.mjs retain _site/play https://luckyking232.github.io/starfall-monster-defense-web/play/
           sed -i 's/name="game-channel" content="production"/name="game-channel" content="test"/' _site/play/index.html
           grep -q 'name="game-channel" content="test"' _site/play/index.html
       - uses: actions/upload-pages-artifact@v3

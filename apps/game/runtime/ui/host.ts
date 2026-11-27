@@ -1,7 +1,9 @@
 import { UI_PRELUDE_LUA } from './prelude';
+import { decodeBattleSnapshot } from './battle-snapshot';
 import { BATTLE_BASE, BATTLE_COMBAT, BATTLE_PLATFORM } from './battle';
 import { UI_TIMERS_LUA } from './timers';
 import { STAGES } from '../../src/content/stages';
+import { readNativeModelMetadata } from './native-model-metadata';
 import {
   UI_PROTOCOL,
   type UiEvent,
@@ -155,12 +157,13 @@ interface UiManifest {
   schema: string;
   entryPoint: string;
   loadOrder: string[];
-  files: Record<string, { file: string; sha256: string }>;
+  files: Record<string, { file: string; sha256: string; gzipFile?: string; rawFile?: string; payloadSha256?: string }>;
 }
 
 interface RuntimeManifest {
   schema: string;
   files: Record<string, { sha256: string }>;
+  nativeModels?: {file: string; sha256: string};
 }
 
 interface FNode {
@@ -214,11 +217,15 @@ async function sha256Hex(bytes: Uint8Array): Promise<string> {
 function defaultIo(runtimeBase: string): UiHostIo {
   return {
     async loadBytes(path: string): Promise<Uint8Array> {
-      const url = new URL(path, runtimeBase);
+      const url = new URL(path.slice('assets/'.length), runtimeBase);
       if (url.origin !== new URL(runtimeBase).origin) fail('runtime-origin', 'Runtime must share the app origin');
-      const response = await fetch(url, { cache: 'no-store', redirect: 'error' });
+      const response = await fetch(url, { redirect: 'error' });
       if (!response.ok) fail('runtime-missing', `${path}: HTTP ${response.status}`);
-      return new Uint8Array(await response.arrayBuffer());
+      const bytes = await response.arrayBuffer();
+      const view = new Uint8Array(bytes);
+      if (!path.endsWith('.gz') || view[0] !== 0x1f || view[1] !== 0x8b) return view;
+      const decompressed = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+      return new Uint8Array(await new Response(decompressed).arrayBuffer());
     },
     async createLuaEngine(vendor: Uint8Array, wasm: Uint8Array): Promise<LuaEngineLike> {
       const scope = globalThis as {
@@ -672,7 +679,7 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
     return value;
   }
 
-  function hostCall(op: string, a?: unknown, b?: unknown, c?: unknown): unknown {
+  function hostCall(op: string, a?: unknown, b?: unknown, c?: unknown, d?: unknown): unknown {
     if (disposed) fail('disposed', 'host is disposed');
     switch (op) {
       case 'native.models': return modelMetadata;
@@ -681,7 +688,14 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
         const stageId = requireNumber(a, 'stageId');
         if (stageId !== activeStage || battleFinished) return 0;
         battleFinished = true;
-        const result = JSON.parse(String(b)) as Omit<Extract<UiEvent, { name: 'settlement' }>, 'name' | 'stageId'>;
+        const result = JSON.parse(String(b)) as Omit<Extract<UiEvent, { name: 'settlement' }>, 'name' | 'stageId' | 'endless'>;
+        if (stageId === ENDLESS_STAGE) {
+          postEvent({ name: 'settlement', stageId, ...result, endless: {
+            source: battleUsedDebug ? 'practice' : 'natural',
+            endedBy: currentWindow?.key === 'MiniGameBattleExitWindow' ? 'exit' : 'natural',
+          } });
+          return 0;
+        }
         if (result.win === true && result.loss === false) {
           const previous = highestCompletedStage();
           const marks = battleUsedDebug ? assisted : cleared;
@@ -697,7 +711,8 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
       case 'audio.speed': postEvent({ name: 'audio-speed', speed: Number(a) }); return 0;
       case 'audio.play': {
         const id = ++nextSound;
-        postEvent({ name:'audio-play', id, kind: a === 'bgm' ? 'bgm' : 'sfx', path: String(b) });
+        postEvent({ name:'audio-play', id, kind: a === 'bgm' ? 'bgm' : 'sfx', path: String(b),
+          ...(typeof c === 'number' ? { frame:c } : {}), ...(typeof d === 'number' ? { emitter:d } : {}) });
         return id;
       }
       case 'audio.stop': postEvent({ name:'audio-stop',id: a === 'bgm' ? 'bgm' : Number(a) }); return 0;
@@ -1132,7 +1147,9 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
     const decoder = new TextDecoder('utf-8', { fatal: true });
     await Promise.all(
       Object.entries(uiManifest.files).map(async ([name, entry]) => {
-        const bytes = await loadVerified(`assets/runtime/ui/${entry.file}`, entry.sha256);
+        const rawPath = entry.rawFile ?? entry.file;
+        const file = typeof DecompressionStream === 'function' ? entry.gzipFile ?? rawPath : rawPath;
+        const bytes = await loadVerified(`assets/runtime/ui/${file}`, entry.payloadSha256 ?? entry.sha256);
         const module = name.replace(/\.lua$/, '');
         const source = decoder.decode(bytes);
         sources.set(module, options.allUnlocked && module === STAGE_CHOOSER ? allowStagePractice(source) : source);
@@ -1173,23 +1190,23 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
       await Promise.all(Object.entries(uiManifest.platformModules).map(async ([name,item])=>{
         sources.set(name.replace(/\.lua$/, ''),decoder.decode(await loadVerified('assets/runtime/ui/'+item.file,item.sha256)));
       }));
-      const [native, effects] = await Promise.all([
-        loadJson('assets/native/manifest.json') as Promise<{
-          prefabs: { container: string; json: string; jsonSha256: string }[];
-        }>,
-        loadJson('assets/effects/manifest.json') as Promise<{ lifetimes?: Record<string, { seconds: number; loop: boolean }> }>,
-      ]);
+      const effects = await loadJson('assets/effects/manifest.json') as { lifetimes?: Record<string, { seconds: number; loop: boolean }> };
       effectLifetimes = JSON.stringify(effects.lifetimes ?? {});
-      beginBatch(48,60,native.prefabs.length,'正在读取角色与场景');
-      const definitions = await Promise.all(native.prefabs.map(async (entry) => {
-        const prefab = JSON.parse(decoder.decode(await loadVerified('assets/native/' + entry.json, entry.jsonSha256)));
-        const sockets: Record<string, unknown> = {};
-        for (const t of prefab.objects.transforms) {
-          if (t.name === 'hit' || t.name === 'bullet' || t.name === 'HeadInfo') sockets[t.name] = t.localPosition;
-        }
-        return [entry.container.toLowerCase(), { sockets, clips: prefab.animations.clips.map((clip: {name: string; duration: number}) => ({name: clip.name,length: clip.duration})) }];
-      }));
-      modelMetadata = JSON.stringify(Object.fromEntries(definitions));
+      if (runtimeManifest.nativeModels) {
+        const { file, sha256 } = runtimeManifest.nativeModels;
+        beginBatch(48,60,1,'正在读取角色与场景');
+        modelMetadata = decoder.decode(await loadVerified('assets/' + file, sha256));
+      } else {
+        const native = await loadJson('assets/native/manifest.json') as {
+          prefabs: { container: string; json: string; jsonSha256: string }[];
+        };
+        beginBatch(48,60,native.prefabs.length,'正在读取角色与场景');
+        const definitions = await Promise.all(native.prefabs.map(async (entry) => {
+          const prefab = JSON.parse(decoder.decode(await loadVerified('assets/native/' + entry.json, entry.jsonSha256)));
+          return [entry.container.toLowerCase(), readNativeModelMetadata(prefab)];
+        }));
+        modelMetadata = JSON.stringify(Object.fromEntries(definitions));
+      }
       const paths = [
         ...BATTLE_BASE.map((name) => 'core-worker/inputs/lua/' + name + '.lua'),
         ...BATTLE_COMBAT.map((name) => 'core-worker/combat-prefix/inputs/' + name + '.lua'),
@@ -1295,13 +1312,14 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
             return "请在战斗进行中使用"
           end
           if d.levelMax then return "已达到本关等级上限" end
-          local need = d.stageConfig.level_time[d.curLevel + 1] - d.curExp - d.waitDealExpAdd
+          local before = d.curLevel
+          local need = d.stageConfig.level_time[before + 1] - d.curExp - d.waitDealExpAdd
           MiniGameBattleDataMgr.AddExp(math.max(0, need))
           MiniGameBattleDataMgr.DealExpAdd()
-          return "已升一级"
+          return d.curLevel > before and "已升一级" or "本次未提升等级"
         `);
-        await drain();
         if (result === '已升一级') battleUsedDebug = true;
+        await drain();
         postEvent({name: 'warn-tips', text: String(result || '请在战斗进行中使用')});
         post({ protocol: UI_PROTOCOL, session, type: 'settled', requestId });
         return;
@@ -1312,13 +1330,8 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
             await lua.doString("if MiniGameBattleMgr.isBattleStart and not MiniGameBattleControl.isPause and not MiniGameBattleControl.isOver then require('MiniGameBattleUIWindow').ClickPauseBtn() end");
           } else {
             if (!Number.isFinite(signal.ms) || signal.ms < 0 || signal.ms > 1000) fail('bad-clock', String(signal.ms));
-            const state = JSON.parse(tickBattle(signal.ms));
-            if (state.stageId) {
-              state.bullets = Array.isArray(state.bullets) ? state.bullets : [];
-              state.units = Array.isArray(state.units) ? state.units : [];
-              state.effects = Array.isArray(state.effects) ? state.effects : [];
-              postEvent({ name: 'world', state: { ...state, elapsedMs: 0, terminal: null, choice: null } });
-            }
+            const state = decodeBattleSnapshot(tickBattle(signal.ms));
+            if (state) postEvent({ name: 'world', state });
           }
           await drain();
         }

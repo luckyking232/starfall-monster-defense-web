@@ -9,6 +9,8 @@ export interface GameAudioCue {
   url: string;
   kind: 'bgm' | 'sfx';
   loop?: boolean;
+  frame?: number;
+  impactFamily?: string;
 }
 
 export interface GameAudioMusicLayer {
@@ -37,7 +39,7 @@ interface AudioSource {
   connect(destination: AudioNode): unknown;
   disconnect(): void;
   start(when: number, offset: number, duration?: number): void;
-  stop(): void;
+  stop(when?: number): void;
 }
 
 interface PlaybackContext extends Pick<AudioContext, 'currentTime' | 'destination' | 'state' | 'resume' | 'suspend' | 'close'> {
@@ -60,9 +62,17 @@ interface Voice {
   sources: Map<AudioSource, GainNode | undefined>;
   starting: boolean;
   keepBuffers: boolean;
+  oneShot?: { frame: number; requestedAt: number; family?: string; when?: number };
+  retiring?: true;
 }
 
 const MAX_SFX_GAIN = 0.10;
+const SFX_FRAME_HZ = 30;
+const SFX_SCHEDULING_LEAD = 0.010;
+const SFX_MAX_AGE_MS = 120;
+const SFX_LATE_SECONDS = 0.025;
+const IMPACT_TAILS = 3;
+const IMPACT_FADE_SECONDS = 0.015;
 
 async function fetchAudio(url: string, signal: AbortSignal): Promise<ArrayBuffer> {
   const response = await fetch(url, { signal });
@@ -96,6 +106,8 @@ export class GameAudio {
   private unlocked = false;
   private backgrounded: boolean;
   private sfxRate = 1;
+  private sfxAnchor: { frame: number; when: number } | undefined;
+  private readonly latestImpactFrame = new Map<string, number>();
   private readonly volumes = { bgm: 1, sfx: MAX_SFX_GAIN };
   private readonly outputs = new Map<GameAudioCue['kind'], GainNode>();
 
@@ -154,11 +166,21 @@ export class GameAudio {
   }
 
   async play(cue: GameAudioCue): Promise<void> {
+    const { frame, impactFamily: family } = cue;
+    let oneShot: Voice['oneShot'];
+    if (cue.kind === 'sfx' && !cue.loop && frame !== undefined) {
+      if (family) {
+        const previous = this.latestImpactFrame.get(family);
+        if (previous !== undefined && frame <= previous) return;
+        this.latestImpactFrame.set(family, frame);
+      }
+      oneShot = { frame, requestedAt: performance.now(), ...(family ? { family } : {}) };
+    }
     return this.playVoice(cue.id, cue.kind, [{
       ...cue,
       startOffsetSeconds: 0,
       loop: cue.loop ?? (cue.kind === 'bgm'),
-    }]);
+    }], false, oneShot);
   }
 
   async playMusic(cue: GameAudioMusicCue): Promise<void> {
@@ -177,12 +199,14 @@ export class GameAudio {
     await Promise.all(cue.layers.map(layer => this.bufferFor(context, layer.url, true)));
   }
 
-  private async playVoice(id: GameAudioId, kind: GameAudioCue['kind'], layers: readonly GameAudioMusicLayer[], keepBuffers = false): Promise<void> {
+  private async playVoice(id: GameAudioId, kind: GameAudioCue['kind'], layers: readonly GameAudioMusicLayer[],
+    keepBuffers = false, oneShot?: Voice['oneShot']): Promise<void> {
     if (this.closing) return;
     if (kind === 'bgm' && this.bgm !== null) this.stop(this.bgm);
     this.stop(id);
     if (kind === 'bgm') this.bgm = id;
-    const voice: Voice = { id, kind, layers, sources: new Map(), starting: false, keepBuffers };
+    const voice: Voice = { id, kind, layers, sources: new Map(), starting: false, keepBuffers,
+      ...(oneShot ? { oneShot } : {}) };
     this.voices.set(id, voice);
     await this.start(voice);
   }
@@ -194,6 +218,7 @@ export class GameAudio {
 
   setSpeed(rate: number): void {
     if (!Number.isFinite(rate) || rate <= 0) throw new RangeError('Audio playback rate must be positive');
+    if (rate !== this.sfxRate) this.sfxAnchor = undefined;
     this.sfxRate = rate;
     for (const voice of this.voices.values()) {
       if (voice.kind === 'sfx') {
@@ -209,6 +234,8 @@ export class GameAudio {
 
   stopAll(): void {
     for (const voice of this.voices.values()) this.remove(voice);
+    this.sfxAnchor = undefined;
+    this.latestImpactFrame.clear();
     this.sceneLoads.abort();
     this.sceneLoads = new AbortController();
     this.buffers.clear();
@@ -254,9 +281,38 @@ export class GameAudio {
     return this.canPlay() && (voice.kind === 'sfx' || this.volumes.bgm > 0);
   }
 
+  private scheduleSfx(context: PlaybackContext, frame: number): number | undefined {
+    const now = context.currentTime;
+    const anchor = this.sfxAnchor;
+    if (anchor?.frame === frame) return anchor.when;
+    const gap = anchor ? frame - anchor.frame : 0;
+    const next = anchor && gap > 0 && gap <= 4 ? anchor.when + gap / (SFX_FRAME_HZ * this.sfxRate) : 0;
+    if (next - now > SFX_MAX_AGE_MS / 1000) return undefined;
+    const when = Math.max(now + SFX_SCHEDULING_LEAD, next);
+    this.sfxAnchor = { frame, when };
+    return when;
+  }
+
+  private expired(voice: Voice): boolean {
+    return voice.oneShot !== undefined && performance.now() - voice.oneShot.requestedAt > SFX_MAX_AGE_MS;
+  }
+
   private async start(voice: Voice): Promise<void> {
     const context = this.context;
     if (!context || !this.canStart(voice) || voice.starting || voice.sources.size) return;
+    const cue = voice.oneShot;
+    if (cue) {
+      if (this.expired(voice)) {
+        this.remove(voice);
+        return;
+      }
+      const when = cue.when ?? this.scheduleSfx(context, cue.frame);
+      if (when === undefined) {
+        this.remove(voice);
+        return;
+      }
+      cue.when = when;
+    }
     voice.starting = true;
     try {
       const layers = await Promise.all(voice.layers.map(async (layer) => ({
@@ -264,16 +320,42 @@ export class GameAudio {
         buffer: await this.bufferFor(context, layer.url, voice.keepBuffers),
       })));
       if (this.voices.get(voice.id) !== voice || !this.canStart(voice)) return;
-      const anchor = context.currentTime;
+      const now = context.currentTime;
+      const planned = cue?.when ?? now;
+      // A cold sample can resolve several requests together. Keep the newest
+      // impact if their intended onsets already passed while it was decoding.
+      if (this.expired(voice) || (cue?.family && now - planned > SFX_LATE_SECONDS &&
+          (this.latestImpactFrame.get(cue.family) ?? cue.frame) > cue.frame)) {
+        this.remove(voice);
+        return;
+      }
+      const anchor = Math.max(now, planned);
+      if (cue) cue.when = anchor;
       for (const { layer, buffer } of layers) {
         this.startLayer(context, voice, layer, buffer, anchor + layer.startOffsetSeconds);
       }
+      if (cue?.family) this.fadeExcessImpact(cue.family);
     } catch (error) {
       if (this.voices.get(voice.id) !== voice) return;
       this.remove(voice);
       throw error;
     } finally {
       voice.starting = false;
+    }
+  }
+
+  private fadeExcessImpact(family: string): void {
+    const active = [...this.voices.values()]
+      .filter(voice => voice.oneShot?.family === family && !voice.retiring && voice.sources.size > 0)
+      .sort((a, b) => a.oneShot!.when! - b.oneShot!.when!);
+    if (active.length <= IMPACT_TAILS) return;
+    const oldest = active[0]!;
+    const when = active[IMPACT_TAILS]!.oneShot!.when!;
+    oldest.retiring = true;
+    for (const [source, gain] of oldest.sources) {
+      gain?.gain.setValueAtTime(gain.gain.value, when);
+      gain?.gain.linearRampToValueAtTime(0, when + IMPACT_FADE_SECONDS);
+      source.stop(when + IMPACT_FADE_SECONDS);
     }
   }
 
@@ -286,10 +368,10 @@ export class GameAudio {
     source.loopStart = layer.loopStartSeconds ?? 0;
     source.loopEnd = layer.loopEndSeconds ?? 0;
     source.playbackRate.value = voice.kind === 'sfx' ? this.sfxRate : 1;
-    const gain = layer.gainDb !== undefined ? context.createGain?.() : undefined;
+    const gain = layer.gainDb !== undefined || voice.oneShot?.family ? context.createGain?.() : undefined;
     const output = this.output(context, voice.kind);
     if (gain) {
-      gain.gain.value = Math.pow(10,layer.gainDb!/20);
+      gain.gain.value = Math.pow(10, (layer.gainDb ?? 0) / 20);
       gain.connect(output);
     }
     source.connect(gain ?? output);

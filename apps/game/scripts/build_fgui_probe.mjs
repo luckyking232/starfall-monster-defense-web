@@ -8,7 +8,6 @@ const bundle = await rolldown({ input: resolve(root, 'src/fgui/probe.ts'), platf
 const output = await bundle.generate({ format: 'esm', minify: true });
 const file = output.output[0];
 if (!file || file.type !== 'chunk') throw new Error('FGUI probe build failed');
-for (const directory of ['public/assets', 'dist/assets']) {
-  mkdirSync(resolve(root, directory), { recursive: true });
-  writeFileSync(resolve(root, directory, 'fgui-probe.js'), file.code);
-}
+const directory = resolve(root, 'dist-qa/assets');
+mkdirSync(directory, { recursive: true });
+writeFileSync(resolve(directory, 'fgui-probe.js'), file.code);

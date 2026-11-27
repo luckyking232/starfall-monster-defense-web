@@ -27,6 +27,7 @@ it('restores multiple slots and the active choice into fresh slots alongside exi
   const id = oldStore.createSlot('云岚');
   oldStore.commitClear(78000002,id,'assisted');
   oldStore.unlockAll(id);
+  oldStore.commitEndless({version:1,runId:'first',source:'natural',kills:573,wave:4,settledAt:1,endedBy:'exit'},id);
   const next = memory(), store = new ProgressStore(next);
   store.renameSlot('default','已有存档');
   importSaves(next,exportSaves(oldStore));
@@ -35,6 +36,7 @@ it('restores multiple slots and the active choice into fresh slots alongside exi
   expect(index.activeSlotId).toBe(index.slots[2]!.id);
   expect(store.load(index.slots[1]!.id).clearedStageIds).toEqual([78000001]);
   expect(store.load()).toMatchObject({assistedStageIds:[78000002],allUnlocked:true});
+  expect(store.loadEndless().natural?.kills).toBe(573);
   expect(store.load('default').clearedStageIds).toEqual([]);
 });
 it('never publishes a partial import after quota failure or malformed input', () => {
@@ -45,4 +47,17 @@ it('never publishes a partial import after quota failure or malformed input', ()
   storage.setItem = (k,v) => { if (k === SLOT_INDEX_KEY) throw Error('quota'); write(k,v); };
   expect(() => importSaves(storage,json)).toThrow();
   expect(storage.length).toBe(0);
+});
+it('preserves a tab that creates a slot while new import markers are being prepared', () => {
+  const source = new ProgressStore(memory());
+  source.commitClear(78000001);
+  const destination = memory();
+  const write = destination.setItem;
+  let other = '';
+  destination.setItem = (key,value) => {
+    write(key,value);
+    if (key.endsWith('/clear/78000001')) other = new ProgressStore(destination).createSlot('另一个标签页');
+  };
+  importSaves(destination,exportSaves(source));
+  expect(new ProgressStore(destination).listSlots().slots.map(slot => slot.id)).toContain(other);
 });

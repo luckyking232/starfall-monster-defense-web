@@ -4,6 +4,8 @@ export interface StorageLike {
   getItem(key: string): string | null;
   setItem(key: string, value: string): void;
   removeItem?(key: string): void;
+  readonly length?: number;
+  key?(index: number): string | null;
 }
 
 export interface ProgressSnapshot {
@@ -26,6 +28,27 @@ export interface SaveSlotsSnapshot {
   persistent: boolean;
 }
 
+export interface EndlessRecord {
+  version: 1;
+  runId: string;
+  source: 'natural' | 'practice';
+  kills: number;
+  wave: number;
+  endedBy: 'natural' | 'exit';
+  settledAt: number;
+}
+
+export interface EndlessSnapshot {
+  natural: EndlessRecord | null;
+  practice: EndlessRecord | null;
+  unreadable: boolean;
+  persistent: boolean;
+}
+
+export interface EndlessCommit extends EndlessSnapshot {
+  newRecord: boolean;
+}
+
 const LEGACY_SCHEMA = 'starfall.monster-defense.progress/1';
 const LEGACY_REPLICA_SCHEMA = 'starfall.offline-cleared-stage/1';
 const LEGACY_REPLICA_RELEASE = '134377281279792758-r6-local-clearance-1';
@@ -40,6 +63,28 @@ const CLEAR_SOURCES: readonly ClearSource[] = ['natural', 'assisted'];
 const slotPrefix = (id: string) => SCHEMA + '/' + id + '/';
 const clearKey = (id: string, stageId: number, source: ClearSource) => slotPrefix(id) + (source === 'natural' ? 'clear/' : 'assisted/') + stageId;
 const unlockKey = (id: string) => slotPrefix(id) + 'all-unlocked';
+const endlessPrefix = (id: string) => slotPrefix(id) + 'endless/';
+const endlessSources = ['natural', 'practice'] as const;
+
+export function isEndlessRecord(value: unknown): value is EndlessRecord {
+  if (!value || typeof value !== 'object') return false;
+  const { version, runId, source, kills, wave, endedBy, settledAt } = value as Partial<EndlessRecord>;
+  return version === 1 && typeof runId === 'string' && /^[A-Za-z0-9-]{1,80}$/.test(runId) &&
+    (source === 'natural' || source === 'practice') && typeof kills === 'number' && Number.isSafeInteger(kills) && kills >= 0 &&
+    typeof wave === 'number' && Number.isSafeInteger(wave) && wave >= 1 &&
+    (endedBy === 'natural' || endedBy === 'exit') && typeof settledAt === 'number' && Number.isSafeInteger(settledAt) && settledAt >= 0;
+}
+
+function compareEndless(first: EndlessRecord, second: EndlessRecord | null): number {
+  return second ? first.kills - second.kills || first.wave - second.wave : 1;
+}
+
+function earliestBest(first: EndlessRecord, second: EndlessRecord | null): boolean {
+  const score = compareEndless(first, second);
+  if (score !== 0) return score > 0;
+  return second !== null && (first.settledAt < second.settledAt ||
+    (first.settledAt === second.settledAt && first.runId < second.runId));
+}
 
 function parse(raw: string): Record<string, unknown> | null {
   try {
@@ -81,6 +126,7 @@ function mountUrl(): string | undefined {
 export class ProgressStore {
   // Only unpersisted wins live here. A new read still sees all other tabs' saved wins.
   private readonly pending = new Map<string, PendingClears>();
+  private readonly pendingEndless = new Map<string, Map<EndlessRecord['source'], EndlessRecord>>();
   private lastIndex = { activeSlotId: DEFAULT_ID, slots: [DEFAULT_SLOT] };
   private readonly replicaPrefix: string | undefined;
 
@@ -153,14 +199,114 @@ export class ProgressStore {
     const activeSlotId = index.activeSlotId === id ? slots[0]!.id : index.activeSlotId;
     this.saveIndex({ ...index, activeSlotId, slots });
     this.pending.delete(id);
+    this.pendingEndless.delete(id);
     // The index is authoritative, so a stale tab cannot restore a deleted slot.
     // Legacy bytes remain available to the older app version.
     try {
       this.storage?.removeItem?.(unlockKey(id));
       for (const stage of STAGES) for (const source of CLEAR_SOURCES) this.storage?.removeItem?.(clearKey(id, stage.id, source));
+      for (const key of this.endlessKeys(id)) this.storage?.removeItem?.(key);
     } catch {
       // Failure to remove an unreachable per-slot marker cannot roll back deletion.
     }
+  }
+
+  private endlessKeys(id: string): string[] {
+    const keys: string[] = [];
+    const prefix = endlessPrefix(id);
+    const length = this.storage?.length ?? 0;
+    for (let i = 0; i < length; i++) {
+      const key = this.storage?.key?.(i);
+      if (key?.startsWith(prefix)) keys.push(key);
+    }
+    return keys;
+  }
+
+  private readEndless(id: string, index: SaveSlotsSnapshot) {
+    const stored = new Map<string, EndlessRecord>();
+    const best: EndlessSnapshot = { natural: null, practice: null,
+      persistent: index.persistent,
+      unreadable: index.unreadable };
+    if (!index.slots.some(slot => slot.id === id)) {
+      this.pendingEndless.delete(id);
+      return { best: { ...best, persistent: false }, stored, present: false };
+    }
+    try {
+      best.persistent &&= typeof this.storage?.key === 'function' && typeof this.storage.length === 'number';
+      for (const key of this.endlessKeys(id)) {
+        const raw = this.storage!.getItem(key);
+        if (raw === null) continue;
+        const value = parse(raw);
+        if (!isEndlessRecord(value) || key !== endlessPrefix(id) + value.runId) {
+          best.unreadable = true;
+          continue;
+        }
+        stored.set(key, value);
+        if (earliestBest(value, best[value.source])) best[value.source] = value;
+      }
+    } catch {
+      best.unreadable = true;
+      best.persistent = false;
+    }
+    return { best, stored, present: true };
+  }
+
+  private includePendingEndless(id: string, best: EndlessSnapshot): EndlessSnapshot {
+    const pending = this.pendingEndless.get(id);
+    for (const source of endlessSources) {
+      const record = pending?.get(source);
+      if (record && compareEndless(record, best[source]) > 0) {
+        best[source] = { ...record };
+        best.persistent = false;
+      } else pending?.delete(source);
+    }
+    if (!pending?.size) this.pendingEndless.delete(id);
+    return best;
+  }
+
+  loadEndless(slotId?: string): EndlessSnapshot {
+    const index = this.listSlots();
+    const id = slotId ?? index.activeSlotId;
+    return this.includePendingEndless(id, this.readEndless(id, index).best);
+  }
+
+  commitEndless(record: EndlessRecord, slotId?: string): EndlessCommit {
+    if (!isEndlessRecord(record)) throw new Error('无尽纪录格式错误。');
+    const index = this.listSlots();
+    const id = slotId ?? index.activeSlotId;
+    const before = this.readEndless(id, index);
+    if (!before.present) return { ...before.best, newRecord: false };
+    const previous = this.includePendingEndless(id, { ...before.best });
+    const pending = this.pendingEndless.get(id) ?? new Map();
+    const key = endlessPrefix(id) + record.runId;
+    const duplicate = before.stored.has(key) || [...pending.values()].some(old => old.runId === record.runId);
+    const contender = !duplicate && compareEndless(record, previous[record.source]) > 0;
+    if (contender) {
+      pending.set(record.source, { ...record });
+      this.pendingEndless.set(id, pending);
+    }
+    if (this.storage && before.best.persistent) {
+      for (const candidate of pending.values()) {
+        try {
+          // Each run owns its key, so competing writes cannot overwrite a stronger run.
+          const candidateKey = endlessPrefix(id) + candidate.runId;
+          if (this.storage.getItem(candidateKey) === null) this.storage.setItem(candidateKey, JSON.stringify(candidate));
+          if (!this.listSlots().slots.some(slot => slot.id === id)) this.storage.removeItem?.(candidateKey);
+        } catch {
+          // Keep the record in this session and retry at the next settlement.
+        }
+      }
+    }
+    const after = this.readEndless(id, this.listSlots());
+    if (after.present && after.best.persistent && this.storage?.removeItem) {
+      for (const [oldKey, old] of after.stored) {
+        if (old.runId === after.best[old.source]?.runId) continue;
+        // Only prune a run when a stronger immutable key is already durable.
+        try { this.storage.removeItem(oldKey); } catch { /* Redundant records can stay. */ }
+      }
+    }
+    const best = this.includePendingEndless(id, after.best);
+    return { ...best, newRecord: contender && best[record.source]?.runId === record.runId };
   }
 
   load(slotId?: string): ProgressSnapshot {
@@ -262,4 +408,8 @@ export function isProgressStorageEvent(key: string | null, slotId: string): bool
   return key === null || key.startsWith(slotPrefix(slotId) + 'clear/') || key.startsWith(slotPrefix(slotId) + 'assisted/') ||
     (slotId === DEFAULT_ID && (key.startsWith(LEGACY_SCHEMA + '/') ||
       key.startsWith('starfall-monster-defense:' + LEGACY_REPLICA_RELEASE + ':')));
+}
+
+export function isEndlessStorageEvent(key: string | null, slotId: string): boolean {
+  return key === null || key === SLOT_INDEX_KEY || key.startsWith(endlessPrefix(slotId));
 }

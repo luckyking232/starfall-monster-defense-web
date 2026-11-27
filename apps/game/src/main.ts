@@ -1,8 +1,10 @@
-import { ACTIVITY_START_STAMP, getStage } from './content/stages';
+import { ACTIVITY_START_STAMP, getStage, isStageUnlocked, STAGES } from './content/stages';
 import { ProgressStore } from './platform/progress';
 import { scopedStorage } from './platform/channel';
 import { installViewportTracking } from './platform/viewport';
 import { NativeBattlefield } from './presentation/native-world';
+import { WorldFrameTime } from './presentation/world-frame-time';
+import type { RuleState } from './engine/protocol';
 import { BattleAudio } from './presentation/battle-audio';
 import { LoadingEffect } from './presentation/loading-effect';
 import { OriginalUiClient } from './ui/client';
@@ -10,6 +12,7 @@ import { OriginalUiWindow } from './ui/original-window';
 import { element } from './scenes/dom';
 import { WebSettings } from './ui/web-settings';
 import { BattleWait } from './ui/battle-wait';
+import { EndlessRecordView } from './ui/endless-record-view';
 import type { UiEvent } from '../runtime/ui/protocol';
 import { showStartup, finishStartup, failStartup } from './app/startup';
 import './styles/main.css';
@@ -25,6 +28,12 @@ const names: Record<string,string> = {
   BattleLoadingWindow: '战斗加载中',
 };
 
+const loadingWindow = [['Loading', 'BattleLoadingWindow']] as const;
+const battleWindows = [
+  ['ActivityDungeon1017Battle', 'BattleUIWindow'],
+  ['ActivityDungeon1017Battle', 'SkillChoiceWindow'],
+] as const;
+
 async function bootstrap(root: HTMLElement): Promise<void> {
   root.className = 'game-frame';
   installViewportTracking();
@@ -37,12 +46,16 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   let storage = null;
   try { storage = scopedStorage(window.localStorage); } catch { /* Private browsing can disable storage. */ }
   const progress = new ProgressStore(storage);
+  const progressSlotId = progress.listSlots().activeSlotId;
   const client = new OriginalUiClient(undefined,progress);
   const audio = new BattleAudio();
+  const frameTime = new WorldFrameTime();
   const battleWait = new BattleWait();
+  const endlessRecords = new EndlessRecordView(root);
   root.append(battleWait.root);
   worldLayer.hidden = true;
   let world: NativeBattlefield | null = null;
+  let economy = false;
   let generation = 0;
   let running = false;
   let entering = false;
@@ -50,6 +63,8 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   let queuedMusic: Extract<UiEvent,{name:'audio-play'}> | undefined;
   let modalOpen = false;
   let scheduled = 0;
+  let worldFrame = 0;
+  let pendingWorld: RuleState | undefined;
   let clockEpoch = 0;
   let last = 0;
   let noticeTimer = 0;
@@ -57,10 +72,12 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   let activeKey = '';
   let waitingForWorld: Promise<void> = Promise.resolve();
   let waitingForCurtain: Promise<void> = Promise.resolve();
-  function prepareWorld(): Promise<void> {
+  function prepareWorld(stageId: number): Promise<void> {
+    const preparedGeneration = generation;
     const prepared = world ??= new NativeBattlefield(worldLayer);
-    return prepared.ready.catch(error => {
-      if (world === prepared) {
+    prepared.setEconomy(economy);
+    return prepared.prepareStage(stageId).catch(error => {
+      if (world === prepared && generation === preparedGeneration) {
         prepared.dispose();
         world = null;
       }
@@ -68,11 +85,21 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     });
   }
 
+  async function prepareCurtain(): Promise<void> {
+    await Promise.all([loading.prepare(), view.runtime.prepareWindows(loadingWindow)]);
+  }
+
   function prefetchBattle(): void {
     // A failed speculative request is retried by the foreground loading screen.
+    const save = progress.load(progressSlotId);
+    const completed = [...save.clearedStageIds, ...save.assistedStageIds];
+    const next = STAGES.find(stage => stage.endless || !completed.includes(stage.id))!;
+    const previous = STAGES.find(stage => stage.id === next.pre);
+    const suggested = save.allUnlocked || isStageUnlocked(next, completed, Date.now() / 1000) ? next : previous;
     void Promise.allSettled([
-      Promise.resolve().then(() => loading.prepare()),
-      Promise.resolve().then(prepareWorld),
+      Promise.resolve().then(prepareCurtain),
+      suggested ? NativeBattlefield.prefetch(suggested.id) : undefined,
+      Promise.resolve().then(() => view.runtime.prepareWindows(battleWindows)),
       Promise.resolve().then(() => audio.prepareMusic()),
     ]);
   }
@@ -80,6 +107,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     if (stopped) return;
     stopped = true;
     cancelAnimationFrame(scheduled);
+    cancelAnimationFrame(worldFrame);
     battleWait.close();
     world?.dispose();
     loading.dispose();
@@ -109,6 +137,10 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     }
     if (activeKey) uiLayer.setAttribute('aria-label',names[activeKey] ?? activeKey);
     else uiLayer.removeAttribute('aria-label');
+    syncEndlessRecords();
+  }
+  function syncEndlessRecords(): void {
+    endlessRecords.sync(view.runtime, () => client.endlessRecords());
   }
   async function tick(now: number): Promise<void> {
     if (!running || stopped || document.hidden || modalOpen) return;
@@ -121,16 +153,43 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       if (running && epoch === clockEpoch && !document.hidden && !modalOpen && !stopped) scheduled = requestAnimationFrame(tick);
     } catch (error) { fail(error); }
   }
+  function scheduleWorldFrame(): void {
+    if (worldFrame || !pendingWorld || !running || stopped || document.hidden || modalOpen) return;
+    worldFrame = requestAnimationFrame(() => {
+      worldFrame = 0;
+      const state = pendingWorld;
+      pendingWorld = undefined;
+      if (!state || !running || stopped || document.hidden || modalOpen) return;
+      try {
+        world?.render(state);
+        if (state.paused) frameTime.reset();
+        else frameTime.rendered(performance.now());
+      }
+      catch (error) { fail(error); }
+    });
+  }
+  function stopWorldFrame(): void {
+    frameTime.reset();
+    cancelAnimationFrame(worldFrame);
+    worldFrame = 0;
+  }
   const view = new OriginalUiWindow(uiLayer,client,(event) => {
     if (event.name === 'audio-play' && event.kind === 'bgm' && entering && !running) queuedMusic = event;
     else if (!(event.name === 'audio-play' && event.kind === 'bgm' && musicSkipped)) audio.handle(event);
     if (event.name === 'souvenir') {
       settings.souvenir(event.kind);
+    } else if (event.name === 'endless-record') {
+      endlessRecords.setResult(event);
+      syncEndlessRecords();
+    } else if (event.name === 'endless-record-change') {
+      syncEndlessRecords();
     } else if (event.name === 'warn-tips' || event.name === 'progress-save-failed') {
-      notice.textContent = event.name === 'warn-tips' ? event.text : '本次通关已生效，但浏览器未能保存进度。';
+      notice.textContent = event.name === 'warn-tips' ? event.text :
+        event.endless ? '浏览器未能保存本次无尽纪录。' : '本次通关已生效，但浏览器未能保存进度。';
       clearTimeout(noticeTimer);
       noticeTimer = window.setTimeout(() => { notice.textContent = ''; },2200);
     } else if (event.name === 'start-battle') {
+      endlessRecords.setResult(undefined);
       root.ownerDocument.body.dataset['map'] = getStage(event.stageId).map;
       const id = ++generation;
       notice.textContent = '';
@@ -138,10 +197,11 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       musicSkipped = false;
       queuedMusic = undefined;
       battleWait.open();
-      waitingForCurtain = battleWait.prepare({label:'过场画面',prepare:() => loading.prepare()});
+      waitingForCurtain = battleWait.prepare({label:'过场画面',prepare:prepareCurtain});
       waitingForWorld = Promise.all([
         waitingForCurtain,
-        battleWait.prepare({label:'战场画面',prepare:prepareWorld}),
+        battleWait.prepare({label:'战场画面',prepare:() => prepareWorld(event.stageId)}),
+        battleWait.prepare({label:'战斗界面',prepare:() => view.runtime.prepareWindows(battleWindows)}),
         battleWait.prepare({label:'战斗音乐',prepare:() => audio.prepareMusic(),skip:() => { musicSkipped = true; }}),
       ]).then(() => {
         if (id !== generation || stopped) return;
@@ -151,12 +211,15 @@ async function bootstrap(root: HTMLElement): Promise<void> {
         queuedMusic = undefined;
         if (view.runtime.views.has('BattleLoadingWindow')) battleWait.close();
         last = performance.now();
+        scheduleWorldFrame();
         if (!document.hidden && !modalOpen) scheduled = requestAnimationFrame(tick);
       }).catch(fail);
     } else if (event.name === 'world') {
       view.setTransitionTimeScale(event.state.paused ? 0 : event.state.speedIndex ?? 1);
-      world?.render(event.state);
+      pendingWorld = event.state;
+      scheduleWorldFrame();
     } else if (event.name === 'battle-close') {
+      endlessRecords.setResult(undefined);
       delete root.ownerDocument.body.dataset['map'];
       ++generation;
       ++clockEpoch;
@@ -166,6 +229,8 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       musicSkipped = false;
       battleWait.close();
       cancelAnimationFrame(scheduled);
+      stopWorldFrame();
+      pendingWorld = undefined;
       worldLayer.hidden = true;
       world?.reset();
       audio.clear();
@@ -180,7 +245,9 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   root.insertBefore(loading.canvas,notice);
   const settings = new WebSettings(root,storage,progress,{
     applyVolume: (music,effects) => audio.setVolumes(music,effects),
+    applyEconomy: enabled => { economy = enabled; world?.setEconomy(enabled); },
     getFps: () => view.runtime.renderFps,
+    battleFrameTime: () => running ? frameTime.summary() : null,
     inBattle: () => entering || activeKey === 'BattleLoadingWindow',
     canLevel: () => running && activeKey === 'MiniGameBattleUIWindow',
     levelUp: () => client.levelUp(),
@@ -190,9 +257,11 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       worldLayer.inert = open;
       clockEpoch++;
       cancelAnimationFrame(scheduled);
+      stopWorldFrame();
       view.setPaused(open || document.hidden);
       if (!open && running && !document.hidden && !stopped) {
         last = performance.now();
+        scheduleWorldFrame();
         scheduled = requestAnimationFrame(tick);
       }
     },
@@ -201,6 +270,8 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   view.runtime.setWindowLayer('BattleLoadingWindow', 1);
   client.onMessage((message) => {
     if (message.type === 'startup') showStartup(message.percent,message.phase);
+    if (message.type === 'ops' && activeKey === 'Activity17MiniGameChoice2Window' &&
+        message.ops.some(op => op.op === 'list-items')) void view.idle().then(syncEndlessRecords).catch(fail);
     if (message.type !== 'open' && message.type !== 'close') return;
     void view.idle().then(syncLayers).catch(fail);
   });
@@ -209,10 +280,12 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     clockEpoch++;
     view.setPaused(document.hidden || modalOpen);
     cancelAnimationFrame(scheduled);
+    stopWorldFrame();
     if (!running) return;
     if (document.hidden) { void client.background().catch(fail); return; }
     if (modalOpen) return;
     last = performance.now();
+    scheduleWorldFrame();
     scheduled = requestAnimationFrame(tick);
   });
   await view.init({gameplay:true,activityStartStamp:ACTIVITY_START_STAMP,serverNowStamp:Math.floor(Date.now()/1000)}).catch(fail);

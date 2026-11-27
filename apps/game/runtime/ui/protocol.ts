@@ -44,14 +44,18 @@ export type UiOp =
   | { op: 'scroll'; id: number; x: number }
   | { op: 'click-handlers'; id: number; count: number };
 
+export type EndlessRunOrigin = Pick<import('../../src/platform/progress').EndlessRecord, 'source' | 'endedBy'>;
+
 export type UiEvent =
   | { name: 'start-battle'; stageId: number }
   | { name: 'battle-close' }
   | { name: 'world'; state: import('../../src/engine/protocol').RuleState }
   | { name: 'clear-earned'; stageId: number; assisted?: true }
-  | { name: 'progress-save-failed' }
-  | { name: 'settlement'; stageId: number; frame: number; win: boolean; loss: boolean; wave: number; kills: number }
-  | { name: 'audio-play'; id: number; kind: 'bgm' | 'sfx'; path: string }
+  | { name: 'progress-save-failed'; endless?: true }
+  | { name: 'settlement'; stageId: number; frame: number; win: boolean; loss: boolean; wave: number; kills: number; endless?: EndlessRunOrigin }
+  | { name: 'endless-record'; newRecord: boolean; runId: string; source: EndlessRunOrigin['source'] }
+  | { name: 'endless-record-change' }
+  | { name: 'audio-play'; id: number; kind: 'bgm' | 'sfx'; path: string; frame?: number; emitter?: number }
   | { name: 'audio-stop'; id: number | 'bgm' }
   | { name: 'audio-speed'; speed: number }
 

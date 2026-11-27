@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { GameAudio } from '../../src/presentation/game-audio';
+import { BattleAudio } from '../../src/presentation/battle-audio';
 
 class TestSource {
   buffer: AudioBuffer | null = null;
@@ -181,6 +182,101 @@ describe('GameAudio', () => {
     expect(context.sources[3]?.stop).not.toHaveBeenCalled();
     expect(context.sources[3]?.disconnect).toHaveBeenCalledOnce();
     await audio.dispose();
+  });
+
+  it('merges simultaneous impacts by family and schedules adjacent 2× onsets apart', async () => {
+    const { audio, context } = createAudio();
+    await audio.unlock();
+    audio.setSpeed(2);
+    await Promise.all([
+      ...Array.from({ length: 9 }, (_, id) => audio.play({ ...chime(id), frame: 4828, impactFamily: 'nilisha' })),
+      audio.play({ ...chime(10), frame: 4828, impactFamily: 'dina' }),
+      audio.play({ ...chime(11), frame: 4829, impactFamily: 'nilisha' }),
+    ]);
+    expect(context.sources).toHaveLength(3);
+    const times = context.sources.map(source => Number(source.start.mock.calls[0]?.[0]));
+    expect(times[1]).toBe(times[0]);
+    expect(times[2]! - times[0]!).toBeCloseTo(1 / 60, 6);
+    expect(context.sources.map(source => source.playbackRate.value)).toEqual([2, 2, 2]);
+    await audio.dispose();
+  });
+
+  it('keeps the newest three impact voices and fades the oldest tail at the next onset', async () => {
+    const { audio, context } = createAudio();
+    const nodes: { gain: { value: number; cancelScheduledValues: ReturnType<typeof vi.fn>;
+      setValueAtTime: ReturnType<typeof vi.fn>; linearRampToValueAtTime: ReturnType<typeof vi.fn> };
+      connect: ReturnType<typeof vi.fn>; disconnect: ReturnType<typeof vi.fn> }[] = [];
+    Object.assign(context, { createGain: () => {
+      const node = { gain: { value: 1, cancelScheduledValues: vi.fn(), setValueAtTime: vi.fn(), linearRampToValueAtTime: vi.fn() },
+        connect: vi.fn(), disconnect: vi.fn() };
+      nodes.push(node);
+      return node;
+    } });
+    await audio.unlock();
+    for (let id = 1; id <= 4; id++) {
+      await audio.play({ ...chime(id), frame: id, impactFamily: 'nilisha' });
+    }
+    const fourth = Number(context.sources[3]?.start.mock.calls[0]?.[0]);
+    expect(context.sources).toHaveLength(4);
+    expect(nodes[0]?.gain.linearRampToValueAtTime).toHaveBeenCalledWith(0, fourth + 0.015);
+    expect(context.sources[0]?.stop).toHaveBeenCalledWith(fourth + 0.015);
+    expect(context.sources.slice(1).every(source => source.stop.mock.calls.length === 0)).toBe(true);
+    await audio.dispose();
+  });
+
+  it('drops one-shots that expire during decode, then plays the next fresh impact from cache', async () => {
+    const { audio, context, loadBytes } = createAudio();
+    let now = 0;
+    const time = vi.spyOn(performance, 'now').mockImplementation(() => now);
+    try {
+      let finish!: (buffer: AudioBuffer) => void;
+      context.decodeAudioData.mockImplementationOnce(() => new Promise(resolve => { finish = resolve; }));
+      await audio.unlock();
+      const requests = Array.from({ length: 12 }, (_, i) => audio.play({ ...chime(i), frame: i + 1, impactFamily: 'nilisha' }));
+      await vi.waitFor(() => expect(context.decodeAudioData).toHaveBeenCalledOnce());
+      now = 150;
+      context.clock.mockReturnValue(0.150);
+      finish({} as AudioBuffer);
+      await Promise.all(requests);
+      expect(context.sources).toHaveLength(0);
+      await audio.play({ ...chime(13), frame: 13, impactFamily: 'nilisha' });
+      expect(context.sources).toHaveLength(1);
+      expect(loadBytes).toHaveBeenCalledOnce();
+    } finally {
+      time.mockRestore();
+      await audio.dispose();
+    }
+  });
+
+  it('stops a loop by its original stop cue before decode and by id after it starts', async () => {
+    const context = new TestContext();
+    const document = Object.assign(new TestDocument(), { baseURI: 'http://game.test/' });
+    const response = () => new Response(new ArrayBuffer(8));
+    const fetch = vi.fn(async () => response());
+    vi.stubGlobal('document', document);
+    vi.stubGlobal('AudioContext', function () { return context; });
+    vi.stubGlobal('fetch', fetch);
+    const audio = new BattleAudio();
+    try {
+      let finish!: (buffer: AudioBuffer) => void;
+      context.decodeAudioData.mockImplementationOnce(() => new Promise(resolve => { finish = resolve; }));
+      document.dispatchEvent(new Event('pointerdown'));
+      await vi.waitFor(() => expect(context.state).toBe('running'));
+      const prefix = 'event:/sfx/sfx_btl/MiniGame022/MiniGame022_10000101_tianfu_';
+      audio.handle({name: 'audio-play', id: 1, kind: 'sfx', path: prefix + 'loop', frame: 1});
+      await vi.waitFor(() => expect(context.decodeAudioData).toHaveBeenCalledOnce());
+      audio.handle({name: 'audio-play', id: 2, kind: 'sfx', path: prefix + 'stop', frame: 2});
+      finish({} as AudioBuffer);
+      audio.handle({name: 'audio-play', id: 3, kind: 'sfx', path: prefix + 'loop', frame: 3});
+      await vi.waitFor(() => expect(context.sources).toHaveLength(1));
+      expect(context.sources[0]?.loop).toBe(true);
+      audio.handle({name: 'audio-stop', id: 3});
+      expect(context.sources[0]?.stop).toHaveBeenCalledOnce();
+      expect(fetch).toHaveBeenCalledOnce();
+    } finally {
+      audio.dispose();
+      vi.unstubAllGlobals();
+    }
   });
 
   it('suspends when the document hides and applies the current rate only to live and queued effects', async () => {

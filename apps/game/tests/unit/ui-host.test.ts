@@ -2,6 +2,7 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { gunzipSync } from 'node:zlib';
 import { afterAll, beforeAll, describe, expect, test } from 'vitest';
 import {
   createOriginalUiHost,
@@ -18,6 +19,7 @@ import type {
   UiTreeNode,
 } from '../../runtime/ui/protocol';
 import { UI_PROTOCOL, type UiHostMessage } from '../../runtime/ui/protocol';
+import stageOracle from '../support/stage-outcomes.json';
 
 // 显式测试时间（仅测试用，不代表产品排期）：活动开始于 2023-11-14T22:13:20Z，
 // “服务器现在”为 2025-11-25T09:20:00Z，相对开始时间的全部 unlock_day(0..10) 均已到期。
@@ -25,11 +27,16 @@ const TEST_ACTIVITY_START = 1_700_000_000;
 const TEST_SERVER_NOW = 1_764_000_000;
 
 const PUBLIC_DIR = path.resolve(import.meta.dirname, '../../public');
+const PLAYER_ASSETS = process.env['STARFALL_TEST_PLAYER_ASSETS'];
 
 function nodeIo(): UiHostIo {
   return {
     async loadBytes(filePath: string): Promise<Uint8Array> {
-      return new Uint8Array(readFileSync(path.join(PUBLIC_DIR, filePath)));
+      const file = PLAYER_ASSETS
+        ? path.join(PLAYER_ASSETS, filePath.slice('assets/'.length))
+        : path.join(PUBLIC_DIR, filePath);
+      const bytes = readFileSync(file);
+      return new Uint8Array(filePath.endsWith('.gz') ? gunzipSync(bytes) : bytes);
     },
     async createLuaEngine(vendor: Uint8Array, wasm: Uint8Array): Promise<LuaEngineLike> {
       const dir = mkdtempSync(path.join(tmpdir(), 'ui-host-lua-'));
@@ -324,6 +331,64 @@ test('an original stage-two victory after LEVELUP still opens stage three', asyn
       { name: 'clear-earned', stageId: 78000002, assisted: true },
       { name: 'clear-earned', stageId: 78000003 },
     ]);
+  } finally {
+    await host.dispose();
+  }
+}, 30000);
+
+test('endless classifies a real debug level as practice and distinguishes cancelling, exiting and a natural end', async () => {
+  const collector = new Collector();
+  const io = nodeIo(), create = io.createLuaEngine;
+  let engine!: LuaEngineLike;
+  io.createLuaEngine = async (vendor, wasm) => engine = await create(vendor, wasm);
+  const host = await enterGameplay(collector, 21, io);
+  try {
+    const hud = collector.lastOpen('MiniGameBattleUIWindow');
+    const hudExit = pathOf(hud.tree, 'Main', 'Top', 'ReturnBtn');
+    const clickExit = () => host.click(20, host.session, hudExit.id);
+    const settlement = () => collector.events().filter(event => event.name === 'settlement');
+    await clickExit();
+    await host.present(21, host.session, {kind: 'debug-level'});
+    const firstPrompt = collector.lastOpen('MiniGameBattleExitWindow');
+    await host.click(22, host.session, pathOf(firstPrompt.tree, 'Main', 'CancelBtn').id);
+    expect(settlement()).toEqual([]);
+    await clickExit();
+    const secondPrompt = collector.lastOpen('MiniGameBattleExitWindow');
+    await host.click(23, host.session, pathOf(secondPrompt.tree, 'Main', 'ExitBtn').id);
+    expect(settlement()).toMatchObject([{ stageId: 78000021, endless: {source: 'natural', endedBy: 'exit'}, wave: 1 }]);
+
+    await host.click(24, host.session, pathOf(collector.lastOpen('MiniGameBattleEndWindow').tree, 'Main', 'EndBtn').id);
+    const list = pathOf(collector.lastOpen('Activity17MiniGameChoice2Window').tree, 'Main', 'TipsList');
+    await host.click(25, host.session, child(collector.lastListItems(list.id)[0]!, 'SpecialBtn').id);
+    await finishIntro(collector, host);
+    await host.present(26, host.session, {kind: 'debug-level'});
+    expect(collector.events()).toContainEqual({ name: 'warn-tips', text: '已升一级' });
+    await engine.doString('MiniGameBattleData.killEnemyCount=45; MiniGameBattleScene.curMonsterWave=4; MiniGameBattleControl.Continue(); MiniGameBattleScene.isBattleLoss=true');
+    await host.present(27, host.session, {kind: 'tick', ms: 34});
+    expect(settlement()).toMatchObject([
+      { endless: {source: 'natural', endedBy: 'exit'} },
+      { stageId: 78000021, endless: {source: 'practice', endedBy: 'natural'}, kills: 45, wave: 4 },
+    ]);
+  } finally {
+    await host.dispose();
+  }
+}, 120000);
+
+test('the original audio bridge supplies the fixed rule frame and emitting model', async () => {
+  const collector = new Collector();
+  const io = nodeIo(), create = io.createLuaEngine;
+  let engine!: LuaEngineLike;
+  io.createLuaEngine = async (vendor, wasm) => engine = await create(vendor, wasm);
+  const host = await enterGameplay(collector, 1, io);
+  try {
+    await host.present(8, host.session, {kind: 'tick', ms: 34});
+    const fixedFrame = collector.events().filter(event => event.name === 'world').at(-1)?.state.fixedFrame;
+    await engine.doString(`
+      local model = {instance=729}
+      MiniGameBattleActionDisplay.PlaySound(70940032, model)
+    `);
+    expect(collector.events().filter(event => event.name === 'audio-play' && event.kind === 'sfx').at(-1))
+      .toMatchObject({ frame: fixedFrame, emitter: 729 });
   } finally {
     await host.dispose();
   }
@@ -626,7 +691,8 @@ test.runIf(process.env['STARFALL_FULL_MATRIX']==='1').each(Array.from({length:21
         await host.click(3000,session,child(main,'EndBtn').id);
         expect(collector.byType('error')).toEqual([]);
         expect(collector.events().some(e=>e.name==='clear-earned')).toBe(outcome==='胜利' && stage!==21);
-        console.log(JSON.stringify({stage,frame,wave,kills,choices,outcome})); return;
+        expect({stage,frame,wave,kills,choices,outcome}).toEqual(stageOracle.results[stage-1]);
+        return;
       }
       const choice=opens.find(w=>w.window==='MiniGameSkillChoiceWindow');
       if(choice){
@@ -642,7 +708,8 @@ test.runIf(process.env['STARFALL_FULL_MATRIX']==='1').each(Array.from({length:21
       }
       if(stage===21 && frame>=15000) {
         expect(wave).toBeGreaterThan(1);
-        console.log(JSON.stringify({stage,frame,wave,kills,choices,outcome:'endless-observation'}));return;
+        expect({stage,frame,wave,kills,choices,outcome:'endless-observation'}).toEqual(stageOracle.results[stage-1]);
+        return;
       }
     }
     throw new Error('test observation horizon without outcome at frame '+frame);

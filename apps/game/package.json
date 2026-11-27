@@ -7,16 +7,20 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "predev": "node scripts/build_ui_host.mjs",
     "dev": "vite --host 127.0.0.1",
     "preview": "vite preview --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
     "check:inputs": "node scripts/check_local_inputs.mjs",
     "prebuild": "npm run check:inputs",
-    "build": "npm run typecheck && vite build && node scripts/build_engine_api.mjs && node scripts/build_fgui_probe.mjs && node scripts/build_ui_host.mjs",
+    "build": "npm run typecheck && vite build",
+    "postbuild": "node scripts/hosted-release.mjs inventory dist",
+    "prebuild:qa": "npm run check:inputs",
+    "build:qa": "npm run typecheck && vite build --mode qa && node scripts/build_engine_api.mjs && node scripts/build_fgui_probe.mjs && node scripts/build_ui_host.mjs dist-qa",
     "test:unit": "vitest run tests/unit",
-    "test:inputs": "node --test tests/check-local-inputs.test.mjs",
+    "test:inputs": "node --test tests/check-local-inputs.test.mjs tests/hosted-release.test.mjs",
     "test:content": "node scripts/run_content_tests.mjs",
-    "test:e2e": "npm run build && playwright test",
+    "test:e2e": "npm run build:qa && playwright test",
     "test": "npm run test:unit && npm run test:inputs && npm run test:e2e",
     "check": "npm run typecheck && npm run test && npm run build"
   },

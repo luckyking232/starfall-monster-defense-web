@@ -1,0 +1,13 @@
+{
+  "buildCommand": "npm run build && node scripts/hosted-release.mjs retain dist https://fallstar.online/",
+  "headers": [
+    {
+      "source": "/asset-inventory.json",
+      "headers": [{"key": "Cache-Control", "value": "no-store"}]
+    },
+    {
+      "source": "/assets/release-*",
+      "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]
+    }
+  ]
+}

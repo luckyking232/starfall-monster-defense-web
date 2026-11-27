@@ -1,13 +1,15 @@
 import { ProgressStore } from '../platform/progress';
 import { isTestSite } from '../platform/channel';
-import { exportSaves, importSaves, MAX_BACKUP_BYTES } from '../platform/save-transfer';
+import { editSaveIndex, exportSaves, importSaves, MAX_BACKUP_BYTES } from '../platform/save-transfer';
 import { readPreferences, savePreferences, type Preferences } from '../platform/preferences';
 import { element } from '../scenes/dom';
 import '../styles/web-settings.css';
 
 interface WebControls {
   applyVolume(music: number, effects: number): void;
+  applyEconomy(enabled: boolean): void;
   getFps(): number;
+  battleFrameTime(): {fps:number; p95:number; slow:number} | null;
   inBattle(): boolean;
   canLevel(): boolean;
   levelUp(): Promise<void>;
@@ -60,6 +62,7 @@ export class WebSettings {
     root.append(this.fps, this.launcher);
     root.ownerDocument.body.append(this.backdrop);
     this.controls.applyVolume(this.prefs.music, this.prefs.effects);
+    this.controls.applyEconomy(this.prefs.economy);
     this.updateFps();
   }
 
@@ -90,7 +93,7 @@ export class WebSettings {
   }
 
   private showSettings(): void {
-    this.open('网页设置');
+    this.open(isTestSite() ? '网页设置 · 测试版' : '网页设置');
     const nav = element('nav');
     nav.setAttribute('aria-label','设置分类');
     const tabs = [['设置', () => this.preferences()], ['存档', () => this.saves()], ['调试', () => this.debug()]] as const;
@@ -114,8 +117,13 @@ export class WebSettings {
     this.fps.hidden = !this.prefs.fps;
     if (!this.prefs.fps) return;
     const paint = () => {
-      const fps = Math.round(this.controls.getFps());
-      this.fps.textContent = fps > 0 ? fps + ' FPS' : '… FPS';
+      const sample = this.controls.battleFrameTime();
+      if (sample) {
+        this.fps.textContent = `战场 ${sample.fps} FPS · P95 ${sample.p95} ms · >100 ms ${sample.slow} 帧`;
+      } else {
+        const fps = Math.round(this.controls.getFps());
+        this.fps.textContent = fps > 0 ? '界面 ' + fps + ' FPS' : '… FPS';
+      }
     };
     paint();
     this.fpsTimer = window.setInterval(paint, 600);
@@ -143,6 +151,17 @@ export class WebSettings {
     toggle.onchange = () => { this.prefs.fps = toggle.checked; this.updateFps(); this.persist(); };
     row.append(toggle, '显示帧率');
     this.body.append(row);
+    const quality = element('label','web-check');
+    const economy = element('input');
+    economy.type = 'checkbox';
+    economy.checked = this.prefs.economy;
+    economy.onchange = () => {
+      this.prefs.economy = economy.checked;
+      this.controls.applyEconomy(economy.checked);
+      this.persist();
+    };
+    quality.append(economy,'省电画质（降低战场分辨率）');
+    this.body.append(quality);
   }
 
   private saves(): void {
@@ -174,8 +193,8 @@ export class WebSettings {
     select.value = this.selected;
     const name = element('input');
     name.type = 'text'; name.maxLength = 40; name.placeholder = '新档名或新名称'; name.setAttribute('aria-label','存档名称');
-    const attempt = (action: () => void) => {
-      try { action(); } catch (error) { this.feedback.textContent = error instanceof Error ? error.message : String(error); }
+    const attempt = async (action: () => void) => {
+      try { await editSaveIndex(action); } catch (error) { this.feedback.textContent = error instanceof Error ? error.message : String(error); }
     };
     const actions = element('div', 'web-actions');
     const change = button('切换存档', () => attempt(() => { this.progress.switchSlot(select.value); location.reload(); }));
@@ -224,7 +243,9 @@ export class WebSettings {
         const chosen = file.files?.[0];
         if (!chosen) return;
         if (!this.storage || chosen.size > MAX_BACKUP_BYTES) throw new Error('无法导入，请选择 1 MB 以内的备份。');
-        importSaves(this.storage,await chosen.text());
+        const json = await chosen.text();
+        const destination = this.storage;
+        await editSaveIndex(() => importSaves(destination,json));
         location.reload();
       } catch (error) {
         this.feedback.textContent = error instanceof Error ? error.message : String(error);
@@ -250,7 +271,9 @@ export class WebSettings {
           case 'ALLSTAGES': case '全解锁':
             if (this.controls.inBattle()) { this.feedback.textContent = '返回选关或主页后可全解锁当前存档。'; return; }
             this.progress.unlockAll(this.slotId);
-            if (this.progress.listSlots().activeSlotId !== this.slotId) this.progress.switchSlot(this.slotId);
+            await editSaveIndex(() => {
+              if (this.progress.listSlots().activeSlotId !== this.slotId) this.progress.switchSlot(this.slotId);
+            });
             location.reload(); return;
           case 'LEVELUP': case '升一级':
             if (!this.controls.canLevel()) { this.feedback.textContent = '请在战斗进行中使用。'; return; }
@@ -262,7 +285,7 @@ export class WebSettings {
     code.onkeydown = event => { if (event.key === 'Enter') { event.preventDefault(); void run(code.value); } };
     const actions = element('div','web-actions');
     actions.append(button('全解锁',() => void run('ALLSTAGES')),button('升一级',() => void run('LEVELUP')));
-    this.body.append(code,button('执行',() => void run(code.value)), element('p','web-meta','ALLSTAGES 开放当前档的关卡与随关角色。LEVELUP 在战斗中升一级，胜利后记为辅助通关并开放下一关。'),actions);
+    this.body.append(code,button('执行',() => void run(code.value)), element('p','web-meta','ALLSTAGES 开放当前档的关卡与随关角色。LEVELUP 在战斗中升一级，普通关胜利后记为辅助通关，无尽成绩计入练习纪录。'),actions);
   }
 
   souvenir(kind: 'gift' | 'task' | 'return'): void {

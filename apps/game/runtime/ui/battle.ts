@@ -33,7 +33,9 @@ LoginData.gameTimescale=1
 LoginData.SetTimeScale=function(value) LoginData.gameTimescale=value end
 SoundUtil={SetSfxSpeedInBattle=function(speed) __HostCall('audio.speed',speed) end, PlayLastMusic=noop,
   PlayMusic=function(id) local c=TableData.GetConfig(id,'BaseSoundPath'); __HostCall('audio.play','bgm',c.path) end,
-  PlaySfxInBattle=function(path,bank,obj) return __HostCall('audio.play','sfx',path) end,
+  PlaySfxInBattle=function(path,bank,obj)
+    return __HostCall('audio.play','sfx',path,MiniGameBattleControl.curFixedFrame or 0,obj and obj.instance)
+  end,
   StopCurMusic=function() __HostCall('audio.stop','bgm') end,
   StopSoundEvent=function(id) __HostCall('audio.stop',id) end}
 SkeletonAnimationUtil={TwinkleColor=noop}
@@ -79,7 +81,8 @@ local transformMetatable={__newindex=function(transform,key,value)
   end
 end}
 function ResourceManager.Instantiate(path)
-  local source=prefabs[path:lower()]
+  local worldPath=path:lower()
+  local source=prefabs[worldPath]
   local clips={Length=0}
   local sockets={}
   if source then
@@ -88,7 +91,7 @@ function ResourceManager.Instantiate(path)
   end
   local animator=source and #source.clips>0 and {speed=1,runtimeAnimatorController={animationClips=clips}} or nil
   resourceInstance=resourceInstance+1
-  local object={path=path,instance=resourceInstance,bornFrame=fixedFrame(),
+  local object={path=path,worldPath=worldPath,instance=resourceInstance,bornFrame=fixedFrame(),
     transform={localPosition=vector(),localScale=scale(1,1,1)}, sockets=sockets, animator=animator,
     SetActive=function(self,visible) self.visible=visible end,
     GetComponentInChildren=function(_,kind) if kind=='Animator' then return animator end end,
@@ -135,6 +138,7 @@ ResourceManager.Instantiate=function(path)
         local ui=__WebCreateFromUrl(UIMgr:GetItemUrl('CommonResource','Activity17_MonsterHP'))
         __WebHudRoot():AddChild(ui)
         model.headUi=ui
+        model.headX,model.headY=nil,nil
         return {ui=ui}
       end}
     end
@@ -201,11 +205,12 @@ end
 local function modelState(obj)
   local position,size,right=worldPose(obj)
   if not position then return nil end
-  return {path=obj.path:lower(),position=position,scale=size,
-    clip=obj.animation,time=obj.animationTime or 0,order=obj.order or 0,right=right,
-    age=math.max(0,fixedFrame()-obj.bornFrame)/BATTLE_CONFIG_ENUM.FIXED_FPS,instance=obj.instance}
+  -- See battle-snapshot.ts for the private Lua-to-Worker record format.
+  return {obj.worldPath,position.x,position.y,position.z,size.x,size.y,size.z,
+    obj.animation or false,obj.animationTime or 0,obj.order or 0,right and {right.x,right.y,right.z} or false,
+    math.max(0,fixedFrame()-obj.bornFrame)/BATTLE_CONFIG_ENUM.FIXED_FPS,obj.instance}
 end
-local function collectEffects()
+local function expireEffects()
   local expired={}
   for _,effect in pairs(effects) do
     if effect.endFrame and fixedFrame()>=effect.endFrame then expired[#expired+1]=effect end
@@ -216,27 +221,41 @@ local function collectEffects()
     effect.onComplete=nil
     if callback then callback() end
   end
+end
+local function collectEffects()
   local live={}
   for _,effect in pairs(effects) do
     local model=modelState(effect)
     if model then live[#live+1]=model end
   end
-  table.sort(live,function(a,b) return a.instance<b.instance end)
+  table.sort(live,function(a,b) return a[13]<b[13] end)
   return live
 end
-local function collectWorld(seconds)
-  local units={}
-  local data,scene,control=MiniGameBattleData,MiniGameBattleScene,MiniGameBattleControl
-  for _,u in ipairs(scene.allUnit or {}) do
+local function advanceWorld(seconds)
+  for _,u in ipairs(MiniGameBattleScene.allUnit or {}) do
     if u.id and not u:IsDestroy() then
       if u.model and u.model.headUi and u.UIPosition then
-        u.model.headUi:SetXY(u.UIPosition.x,u.UIPosition.y)
+        local x,y=u.UIPosition.x,u.UIPosition.y
+        if x~=u.model.headX or y~=u.model.headY then
+          u.model.headUi:SetXY(x,y)
+          u.model.headX,u.model.headY=x,y
+        end
       end
       if u.model and u.model.animation then
         u.model.animationTime=(u.model.animationTime or 0)+seconds*(u.modelTimeScale or 1)
       end
-      table.insert(units,{uid=u.uid,cardId=u.id,model=modelState(u.model),x=u.position.x,y=u.position.y,z=u.position.z,
-        camp=u.camp,stateName=u.curState,flipped=u.isFlip==true})
+    end
+  end
+  expireEffects()
+end
+local function collectWorld()
+  local units={}
+  local data,scene,control=MiniGameBattleData,MiniGameBattleScene,MiniGameBattleControl
+  if not data.stageId or data.stageId==0 then return 'null' end
+  for _,u in ipairs(scene.allUnit or {}) do
+    if u.id and not u:IsDestroy() then
+      table.insert(units,{u.uid,u.id,u.position.x,u.position.y,u.position.z,u.camp,u.curState or false,
+        u.isFlip==true,modelState(u.model) or false})
     end
   end
   local bullets={}
@@ -244,11 +263,9 @@ local function collectWorld(seconds)
     local m=modelState(b.model)
     if m then table.insert(bullets,m) end
   end
-  return __JsonEncode({fixedFrame=control.curFixedFrame or 0,curMonsterWave=scene.curMonsterWave,
-    background=modelState(MiniGameBattleBackground.model),bullets=bullets,effects=collectEffects(),
-    killEnemyCount=data.killEnemyCount,stageId=data.stageId,curLevel=data.curLevel,curExp=data.curExp,
-    selfHp=data.selfHp,selfMaxHp=data.selfMaxHp,speedIndex=data.speedIndex,
-    paused=control.isPause==true,units=units})
+  return __JsonEncode({control.curFixedFrame or 0,data.stageId,scene.curMonsterWave,data.killEnemyCount,
+    data.curLevel or false,data.curExp or false,data.selfHp or false,data.selfMaxHp or false,data.speedIndex or false,
+    control.isPause==true,units,modelState(MiniGameBattleBackground.model) or false,bullets,collectEffects()})
 end
 function __WebBattleTick(milliseconds)
   if __UiAdvanceTimers then __UiAdvanceTimers(milliseconds,LoginData.gameTimescale or 1) end
@@ -261,6 +278,7 @@ function __WebBattleTick(milliseconds)
     end
     if display and not MiniGameBattleControl.isPause then display() end
   else accumulator=0 end
-  return collectWorld(fixed and not MiniGameBattleControl.isPause and milliseconds/1000*(LoginData.gameTimescale or 1) or 0)
+  advanceWorld(fixed and not MiniGameBattleControl.isPause and milliseconds/1000*(LoginData.gameTimescale or 1) or 0)
+  return collectWorld()
 end
 `;

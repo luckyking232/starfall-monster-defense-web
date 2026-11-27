@@ -164,6 +164,34 @@ describe('OriginalUiClient', () => {
     await reopened.dispose();
   });
 
+  test('binds an endless record to its starting slot and persists it before presenting the result', async () => {
+    const storage = new MemoryStorage();
+    const progress = new ProgressStore(storage);
+    const client = new OriginalUiClient('https://app.test/assets/ui-host-worker.js', progress);
+    const worker = FakeWorker.instances[0]!;
+    const emit = (event: Extract<UiHostMessage, {type: 'event'}>['event']) =>
+      worker.emit({ protocol: UI_PROTOCOL, session: SESSION, type: 'event', event });
+    const startingSlot = progress.listSlots().activeSlotId;
+    await client.init({ activityStartStamp: 1, serverNowStamp: 2 });
+    emit({ name: 'start-battle', stageId: 78000021 });
+    const nextSlot = new ProgressStore(storage).createSlot('另一档');
+    const results: UiHostMessage[] = [];
+    client.onMessage(message => {
+      if (message.type === 'event' && message.event.name === 'endless-record') {
+        results.push(message);
+        expect(new ProgressStore(storage).loadEndless(startingSlot).practice?.kills).toBe(45);
+      }
+    });
+    const event = { name: 'settlement', stageId: 78000021, frame: 800, win: false, loss: false, wave: 5, kills: 45,
+      endless: { source: 'practice', endedBy: 'exit' } } as const;
+    emit(event);
+    emit(event);
+    expect(results).toHaveLength(1);
+    expect(results[0]).toMatchObject({event: {newRecord: true}});
+    expect(progress.loadEndless(nextSlot).practice).toBeNull();
+    await client.dispose();
+  });
+
   test('view messages reach listeners while stale-session messages are dropped', async () => {
     const client = new OriginalUiClient('https://app.test/assets/ui-host-worker.js');
     const worker = FakeWorker.instances[0]!;

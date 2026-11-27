@@ -1,4 +1,5 @@
 import evidence from '../../runtime/audio-cues.json';
+import { assetUrl } from '../platform/assets';
 import type { UiEvent } from '../../runtime/ui/protocol';
 import { GameAudio, type GameAudioMusicCue } from './game-audio';
 
@@ -6,7 +7,7 @@ interface Sample { file:string; offset:number; weight:number }
 interface EventCue { samples?:Sample[]; duration?:number; loop?:number[]; stop?:string }
 const effects: Record<string,EventCue> = evidence.effects;
 const hz=evidence.clockHz;
-const asset=(file:string)=>new URL('assets/audio/'+file,document.baseURI).href;
+const asset=(file:string)=>assetUrl('audio/'+file).href;
 
 function musicCue(): GameAudioMusicCue {
   return { id:'bgm', layers:evidence.music.layers.map(l=>({ url:asset(l.file), startOffsetSeconds:l.start/hz,
@@ -56,7 +57,11 @@ export class BattleAudio {
       ids.add(event.id);
       this.loops.set(event.path,ids);
     }
+    // Hit events use the target model as their emitter, so their original cue
+    // path identifies the attack sound shared by all targets of the impact.
     void this.player.play({id:event.id,url:asset(sample.file),kind:'sfx',sourceOffsetSeconds:sample.offset/hz,
+      ...(event.frame !== undefined ? {frame:event.frame} : {}),
+      ...(!cue.loop && event.path.endsWith('_hit') ? {impactFamily:event.path} : {}),
       ...(cue.duration ? {durationSeconds:cue.duration/hz} : {}),
       ...(cue.loop ? {loop:true,loopStartSeconds:(cue.loop[0]!+sample.offset)/hz,loopEndSeconds:(cue.loop[1]!+sample.offset)/hz} : {})}).catch(this.report);
   }

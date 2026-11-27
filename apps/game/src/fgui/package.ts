@@ -1,3 +1,5 @@
+import { assetUrl } from '../platform/assets';
+
 export interface FguiTextFormat {
   font: string;
   fontSize: number;
@@ -177,12 +179,17 @@ export interface FguiPackage {
   unsupported?: unknown;
 }
 
+export interface FguiDependencies {
+  atlases: Set<string>;
+  text: string;
+}
+
 export class PackageRegistry {
   private readonly byName = new Map<string, FguiPackage>();
   private readonly byId = new Map<string, FguiPackage>();
   readonly components: Record<string, FguiComponent> = {};
 
-  constructor(packages: FguiPackage[]) {
+  constructor(packages: FguiPackage[], private readonly atlasFormats: Readonly<Record<string, string>> = {}) {
     for (const pkg of packages) {
       if (pkg.schema !== 'starfall-fgui-package/1') throw new Error(`不支持的 FGUI 数据版本：${pkg.package.name}`);
       this.byName.set(pkg.package.name, pkg);
@@ -192,18 +199,21 @@ export class PackageRegistry {
   }
 
   static async load(): Promise<PackageRegistry> {
-    const manifestResponse = await fetch(new URL('assets/fgui/fgui-manifest.json', document.baseURI));
+    const manifestResponse = await fetch(assetUrl('fgui/fgui-manifest.json'));
     if (!manifestResponse.ok) throw new Error('FGUI 索引加载失败');
-    const manifest = await manifestResponse.json() as { packages: { name: string; json: string; jsonSha256: string }[] };
+    const manifest = await manifestResponse.json() as {
+      packages: { name: string; json: string; jsonSha256: string }[];
+      atlasFormats?: Record<string, string>;
+    };
     const packages = await Promise.all(manifest.packages.map(async (entry) => {
-      const response = await fetch(new URL(`assets/fgui/${entry.json}`, document.baseURI));
+      const response = await fetch(assetUrl(`fgui/${entry.json}`));
       if (!response.ok) throw new Error(`FGUI 包加载失败：${entry.name}`);
       const bytes = new Uint8Array(await response.arrayBuffer());
       const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)), (value) => value.toString(16).padStart(2, '0')).join('');
       if (digest !== entry.jsonSha256) throw new Error(`FGUI 包校验失败：${entry.name}`);
       return JSON.parse(new TextDecoder().decode(bytes)) as FguiPackage;
     }));
-    return new PackageRegistry(packages);
+    return new PackageRegistry(packages, manifest.atlasFormats);
   }
 
   package(name: string): FguiPackage {
@@ -255,11 +265,53 @@ export class PackageRegistry {
     return { pkg, item };
   }
 
+  atlasUrl(file: string): string {
+    return assetUrl(`fgui/${this.atlasFormats[file] ?? file}`).href;
+  }
+
   atlasEntries(): { key: string; url: string }[] {
     const files = new Set<string>();
     for (const pkg of this.byName.values()) {
       for (const atlas of Object.values(pkg.atlases)) files.add(atlas.file);
     }
-    return [...files].map((file) => ({ key: `fgui:${file}`, url: new URL(`assets/fgui/${file}`, document.baseURI).href }));
+    return [...files].map((file) => ({ key: `fgui:${file}`, url: this.atlasUrl(file) }));
+  }
+
+  dependencies(source: FguiChild, packageName: string): FguiDependencies {
+    const atlases = new Set<string>();
+    const text = new Set<string>();
+    const visited = new Set<string>();
+    const collectItem = (pkg: FguiPackage, id: string): void => {
+      const key = pkg.package.id + id;
+      if (visited.has(key)) return;
+      visited.add(key);
+      const item = pkg.items[id];
+      if (item?.sprite) atlases.add(item.sprite.atlasFile);
+      for (const glyph of Object.values(item?.bitmapFont?.glyphs ?? {})) collectItem(pkg, glyph.image);
+      const component = pkg.components[id];
+      if (component) collectNode(pkg, component);
+    };
+    const collectValues = (value: unknown): void => {
+      if (typeof value === 'string' && value.startsWith('ui://')) {
+        const pkg = this.byId.get(value.slice(5, 13));
+        // Unavailable references may belong to inactive templates in the original package.
+        if (pkg) collectItem(pkg, value.slice(13));
+      } else if (typeof value === 'object' && value !== null) {
+        for (const child of Object.values(value)) collectValues(child);
+      }
+    };
+    const collectNode = (pkg: FguiPackage, node: FguiChild): void => {
+      const owner = node.packageId ? this.byId.get(node.packageId) ?? pkg : pkg;
+      if (node.src) collectItem(owner, node.src);
+      if (node.text && node.textFormat?.font === 'SOURCEHANSANSSC-NORMAL-2') {
+        for (const char of node.text) text.add(char);
+      }
+      for (const [key, value] of Object.entries(node)) {
+        if (key !== 'children') collectValues(value);
+      }
+      for (const child of node.children ?? []) collectNode(owner, child);
+    };
+    collectNode(this.package(packageName), source);
+    return { atlases, text: [...text].join('') };
   }
 }
