@@ -27,7 +27,7 @@ const find = (node, ...names) => names.reduce((parent, name) => {
 
 export async function replayRules({
   createHost, publicDir, stage, lastFrame = stage === 1 ? 4181 : stage === 18 ? 1550 : 780,
-  seed, watch = stage === 1 ? 'settlement' : 'frame', stepBudget, extraRandomFrame, writeRecord,
+  seed, watch = stage === 1 ? 'settlement' : 'frame', stepBudget, extraRandomFrame, writeRecord, observeEvent,
 }) {
   const dir = mkdtempSync(path.join(tmpdir(), 'starfall-rule-replay-'));
   const records = [], inputs = {}, choices = [];
@@ -76,6 +76,7 @@ export async function replayRules({
   }
   function collect(message) {
     messages.push(message);
+    if (message.type === 'event') observeEvent?.(message.event);
     if (message.type === 'open') windows.set(message.window, message);
     if (message.type === 'close') windows.delete(message.window);
     if (message.type === 'ops') for (const op of message.ops) {

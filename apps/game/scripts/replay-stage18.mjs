@@ -1,4 +1,4 @@
-// Local Stage 18 A/B using the original buttons and Lua. No instrumentation enters a player build.
+// Local battle replays using the original buttons and Lua. No instrumentation enters a player build.
 import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
@@ -14,14 +14,24 @@ const app = fileURLToPath(new URL('../', import.meta.url));
 const root = path.resolve(process.env.STARFALL_BENCH_SOURCE ?? app);
 const evidence = path.resolve(process.argv[2] ?? 'test-results/stage18-replay');
 const variants = (process.argv[3] ?? 'canvas,webgl').split(',');
-const endFrame = Number(process.argv[4] ?? 1550);
-const captureFrames = process.argv[5]?.split(',').map(Number) ?? [];
+const stressClip = process.env.STARFALL_BENCH_STRESS_CLIP?.split(',').map(Number);
 const clockMode = process.env.STARFALL_BENCH_CLOCK ?? 'fixed';
 const speed = Number(process.env.STARFALL_BENCH_SPEED ?? 1);
 const replaySeed = 70441022;
+const requireAudio = process.env.STARFALL_BENCH_REQUIRE_AUDIO === '1';
+if (stressClip && (stressClip.length !== 2 || stressClip.some(frame => !Number.isSafeInteger(frame) || frame <= 0) ||
+    stressClip[1] <= stressClip[0] || clockMode !== 'fixed')) {
+  throw new Error('STARFALL_BENCH_STRESS_CLIP requires a first,last fixed-frame range with 0 < first < last');
+}
 if (!['fixed', 'real'].includes(clockMode) || ![1, 2].includes(speed) || (speed === 2 && clockMode !== 'real')) {
   throw new Error('Use STARFALL_BENCH_CLOCK=fixed|real and STARFALL_BENCH_SPEED=1|2 (2× requires real mode)');
 }
+const endFrame = stressClip?.[1] ?? Number(process.argv[4] ?? 1550);
+const captureFrames = stressClip ? Array.from({length:endFrame - stressClip[0] + 1}, (_, index) => stressClip[0] + index)
+  : process.argv[5]?.split(',').map(Number) ?? [];
+const targetStageId = stressClip ? 78000021 : 78000018;
+const gameSpeed = stressClip ? 2 : speed;
+const fixedTickMs = 1000 / (30 * gameSpeed);
 const runId = new Date().toISOString().replace(/[:.]/g, '-');
 fs.mkdirSync(evidence, { recursive: true });
 const dist = fs.mkdtempSync(path.join(evidence, 'site-'));
@@ -64,6 +74,13 @@ await build({ configFile:false, root, publicDir:false, base:'./',
     if (id.replaceAll('\\', '/').endsWith('/src/ui/original-window.ts')) {
       return replace(source, 'for (const op of message.ops) this.apply(op);',
         'const started = performance.now(); for (const op of message.ops) this.apply(op); window.perfOps(message.ops, performance.now() - started);');
+    }
+    if (id.replaceAll('\\', '/').endsWith('/src/presentation/game-audio.ts')) {
+      return replace(source, 'else source.start(when, layer.sourceOffsetSeconds ?? 0);',
+        `else source.start(when, layer.sourceOffsetSeconds ?? 0);
+      window.perfAudioStart?.({id:voice.id, kind:voice.kind, frame:voice.oneShot?.frame,
+        asset:new URL(layer.url).pathname, atMs:performance.now(), when, contextTime:context.currentTime,
+        offset:layer.sourceOffsetSeconds ?? 0, loop:source.loop, rate:source.playbackRate.value, samples:buffer.length});`);
     }
   } }],
 });
@@ -121,6 +138,9 @@ const provenance = {
   source: root,
   dist,
   replaySeed,
+  targetStageId,
+  fixedTickMs: clockMode === 'fixed' ? fixedTickMs : undefined,
+  stressClip,
   workerSha256: sha256(fs.readFileSync(workerPath)),
   runtimeSourceSha256: Object.fromEntries(runtimeSources.map(name => [name, sha256(fs.readFileSync(path.join(root, 'runtime/ui', name)))])),
   inputManifests: Object.fromEntries(manifests.map(name => [name, sha256(fs.readFileSync(path.join(root, 'public/assets', name)))])),
@@ -129,7 +149,8 @@ fs.writeFileSync(path.join(evidence,`${runId}-provenance.json`),JSON.stringify(p
 
 const mime = {
   '.html':'text/html', '.js':'text/javascript', '.css':'text/css', '.json':'application/json',
-  '.wasm':'application/wasm','.png':'image/png','.webp':'image/webp','.mp3':'audio/mpeg','.ogg':'audio/ogg',
+  '.wasm':'application/wasm','.png':'image/png','.webp':'image/webp',
+  '.mp3':'audio/mpeg','.ogg':'audio/ogg','.flac':'audio/flac','.wav':'audio/wav',
   '.woff2':'font/woff2','.lua':'text/plain',
 };
 const server = http.createServer((req, res) => {
@@ -150,19 +171,33 @@ const server = http.createServer((req, res) => {
 async function run(browser, origin, variant) {
   const renderer = variant.replace(/-overlap$/, '');
   const overlap = variant !== renderer;
+  const label = clockMode === 'fixed' ? `${runId}-${variant}` : `${runId}-${speed}x-${variant}`;
   const context = await browser.newContext({viewport:{width:1334,height:750}});
   const page = await context.newPage();
   const errors = [];
+  const audioWarnings = [];
   page.on('pageerror', error => errors.push(error.message));
-  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
-  await page.addInitScript(({captureFrames, clockMode}) => {
+  page.on('console', message => {
+    if (message.type() === 'error') errors.push(message.text());
+    if (message.type() === 'warning' && message.text().includes('战斗声音播放失败')) audioWarnings.push(message.text());
+  });
+  await page.exposeFunction('persistReplayCapture', (frame, url) => {
+    const filename = `${label}-frame-${frame}.png`;
+    fs.writeFileSync(path.join(evidence, filename), Buffer.from(url.split(',')[1], 'base64'));
+    return filename;
+  });
+  await page.addInitScript(({captureFrames, clockMode, targetStageId, fixedTickMs, stressClip}) => {
     const schema = 'starfall.monster-defense.progress/1';
-    for (let stageId=78000001; stageId<78000018; stageId++) {
+    for (let stageId=78000001; !stressClip && stageId<targetStageId; stageId++) {
       const value = JSON.stringify({schema, stageId, settlement:'confirmed_natural_win'});
       localStorage.setItem(`${schema}/${stageId}`, value);
       localStorage.setItem(`starfall.web-test:${schema}/${stageId}`, value);
     }
-    const perf = window.gamePerf = {ticks:[], errors:[], cards:[], graphics:[], rAF:[], longTasks:[], captures:{}, chooser:null, battle:false};
+    const perf = window.gamePerf = {ticks:[], errors:[], cards:[], graphics:[], rAF:[], longTasks:[],
+      captures:{}, captureWrites:[], audioCues:[], audioStarts:[], chooser:null, battle:false};
+    window.perfAudioStart = start => {
+      if (perf.stage === targetStageId) perf.audioStarts.push(start);
+    };
     new PerformanceObserver(list => {
       if (perf.battle) for (const item of list.getEntries()) perf.longTasks.push([perf.frame,item.duration]);
     }).observe({type:'longtask'});
@@ -214,9 +249,11 @@ async function run(browser, origin, variant) {
       record.worldGl=countGl-prevGl;
       record.world2d=countDraw2d-prev2d;
       record.fullCopies=countFullCanvas-prevCopies;
-      if (!state.paused && captureFrames.includes(state.fixedFrame) && !perf.captures[state.fixedFrame]) {
+      if (!state.paused && captureFrames.includes(state.fixedFrame) && !Object.hasOwn(perf.captures,state.fixedFrame)) {
         const canvas = document.querySelector('canvas[aria-label="战场画面"]');
-        perf.captures[state.fixedFrame] = canvas.toDataURL('image/png');
+        perf.captures[state.fixedFrame] = null;
+        perf.captureWrites.push(window.persistReplayCapture(state.fixedFrame, canvas.toDataURL('image/png'))
+          .then(filename => { perf.captures[state.fixedFrame] = filename; }));
       }
     };
     window.perfOps=(ops,ms)=> {
@@ -255,8 +292,14 @@ async function run(browser, origin, variant) {
               if(card) card.revealed=true;
             }
           }
-          if (d.type==='event' && d.event.name==='start-battle') perf.stage=d.event.stageId;
-          if (d.type==='event' && d.event.name==='world' && d.event.state.stageId===78000018 && rec) {
+          if (d.type==='event' && d.event.name==='start-battle') {
+            perf.stage=d.event.stageId;
+            perf.stress=d.event.stress===true;
+          }
+          if (d.type==='event' && d.event.name==='audio-play' && perf.stage===targetStageId) {
+            perf.audioCues.push({ event:d.event, receivedAtMs:performance.now() });
+          }
+          if (d.type==='event' && d.event.name==='world' && d.event.state.stageId===targetStageId && rec) {
             perf.battle=true;
             const state=d.event.state;
             frameRecords.set(state, rec);
@@ -292,13 +335,13 @@ async function run(browser, origin, variant) {
       postMessage(message,...extra){
         if (message.type==='presentation' && message.signal.kind==='tick') {
           rec={requestId:message.requestId,started:performance.now(),realDelta:message.signal.ms};
-          if (clockMode === 'fixed' && !message.signal.resume) message.signal.ms=1000/30;
+          if (clockMode === 'fixed' && !message.signal.resume) message.signal.ms=fixedTickMs;
           rec.inputMs = message.signal.ms;
         }
         return super.postMessage(message,...extra);
       }
     };
-  },{captureFrames, clockMode});
+  },{captureFrames, clockMode, targetStageId, fixedTickMs, stressClip});
   await page.goto(`${origin}?world=${renderer}${overlap ? '&probeOverlap' : ''}`);
   const click=async(x,y)=> {
     const canvas=page.locator('#app canvas:visible').last();
@@ -314,26 +357,34 @@ async function run(browser, origin, variant) {
     console.error({phase, pageErrors:errors, ...details});
   };
   await page.getByRole('region',{name:'魔物抵御战活动主页'}).waitFor({timeout:45000});
+  let battlePkg, offers, offerCard;
   try {
     await page.locator('#startup').waitFor({state:'hidden',timeout:30000});
-    await click(1147,679);
-    await page.getByRole('region',{name:'选择关卡',exact:true}).waitFor({timeout:25000});
+    if (stressClip) {
+      await page.getByRole('button',{name:'网页设置', exact:true}).click();
+      await page.getByRole('button',{name:'压测', exact:true}).click();
+      await page.getByLabel('压测渲染方式',{exact:true}).selectOption(renderer);
+      await page.getByRole('button',{name:'开始怪海压测', exact:true}).click();
+    } else {
+      await click(1147,679);
+      await page.getByRole('region',{name:'选择关卡',exact:true}).waitFor({timeout:25000});
+      await page.waitForFunction(()=>window.gamePerf.scroll===-3230);
+      const choicePkg=await (await page.request.get(`${origin}assets/fgui/ActivityDungeon1017.json`)).json();
+      battlePkg=await (await page.request.get(`${origin}assets/fgui/ActivityDungeon1017Battle.json`)).json();
+      const list=choicePkg.components[choicePkg.componentIndex.MiniGameChoice2].children.find(node=>node.name==='TipsList');
+      const map=choicePkg.components[list.defaultItem.slice(13)];
+      const stage=map.children.find(node=>node.name==='Tips18Btn');
+      const button=choicePkg.components[stage.src];
+      offers=battlePkg.components[battlePkg.componentIndex.SkillChoice].children.find(node=>node.name==='TipsList');
+      offerCard=battlePkg.components[offers.defaultItem.slice(13)];
+      const scroll=Math.max(-(map.width-list.width),-3230);
+      await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
+      await click(list.x+scroll+stage.x+button.width/2,list.y+stage.y+button.height/2);
+    }
   } catch (error) {
     await recordFailure('startup');
     throw error;
   }
-  await page.waitForFunction(()=>window.gamePerf.scroll===-3230);
-  const choicePkg=await (await page.request.get(`${origin}assets/fgui/ActivityDungeon1017.json`)).json();
-  const battlePkg=await (await page.request.get(`${origin}assets/fgui/ActivityDungeon1017Battle.json`)).json();
-  const list=choicePkg.components[choicePkg.componentIndex.MiniGameChoice2].children.find(node=>node.name==='TipsList');
-  const map=choicePkg.components[list.defaultItem.slice(13)];
-  const stage=map.children.find(node=>node.name==='Tips18Btn');
-  const button=choicePkg.components[stage.src];
-  const offers=battlePkg.components[battlePkg.componentIndex.SkillChoice].children.find(node=>node.name==='TipsList');
-  const offerCard=battlePkg.components[offers.defaultItem.slice(13)];
-  const scroll=Math.max(-(map.width-list.width),-3230);
-  await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
-  await click(list.x+scroll+stage.x+button.width/2,list.y+stage.y+button.height/2);
   try {
     await page.getByRole('region',{name:'魔物抵御战战场',exact:true}).waitFor({timeout:35000});
   } catch (error) {
@@ -369,6 +420,7 @@ async function run(browser, origin, variant) {
     await page.waitForFunction(limit=>window.gamePerf.frame>=limit || window.gamePerf.cards.length && window.gamePerf.cards.every(card=>card.revealed),endFrame,{timeout:100000,polling:100});
     const {frame,cards}=await page.evaluate(()=>({frame:window.gamePerf.frame,cards:window.gamePerf.cards}));
     if(frame>=endFrame) break;
+    if (!offers) throw new Error('The stress run unexpectedly opened a skill choice');
     const width=cards.length*offerCard.width+(cards.length-1)*offers.columnGap;
     await click(offers.x+Math.floor((offers.width-width)/2)+offerCard.width/2,offers.y+offerCard.height/2);
     await click(667,654);
@@ -376,30 +428,37 @@ async function run(browser, origin, variant) {
     await page.waitForFunction(()=>!window.gamePerf.cards.length || !window.gamePerf.cards.every(card=>card.revealed));
   }
   await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-  const data=await page.evaluate(()=>({...window.gamePerf,userAgent:navigator.userAgent,dpr:window.devicePixelRatio,
-    screen:[innerWidth,innerHeight],worldRenderer:document.querySelector('canvas[aria-label="战场画面"]').dataset.renderer ?? 'baseline'}));
+  const data=await page.evaluate(async()=>{
+    const {captureWrites, ...recorded} = window.gamePerf;
+    await Promise.all(captureWrites);
+    return {...recorded,userAgent:navigator.userAgent,dpr:window.devicePixelRatio,
+      screen:[innerWidth,innerHeight],worldRenderer:document.querySelector('canvas[aria-label="战场画面"]').dataset.renderer ?? 'baseline'};
+  });
   data.picks=picks;
   data.clockMode=clockMode;
-  data.requestedSpeed=speed;
+  data.requestedSpeed=gameSpeed;
+  data.stressClip=stressClip;
   data.overlap=overlap;
   data.pauseCheck=pauseCheck;
   data.pageErrors=errors;
-  const label = clockMode === 'fixed' ? `${runId}-${variant}` : `${runId}-${speed}x-${variant}`;
-  for (const [frame,url] of Object.entries(data.captures)) {
-    const filename = `${label}-frame-${frame}.png`;
-    fs.writeFileSync(path.join(evidence, filename), Buffer.from(url.split(',')[1], 'base64'));
-    data.captures[frame] = filename;
-  }
+  data.audioWarnings=audioWarnings;
   fs.writeFileSync(path.join(evidence, `${label}.json`),JSON.stringify(data));
   console.log(variant, 'complete', {ticks:data.ticks.length, frame:data.frame,picks, errors:data.errors,pageErrors:errors,renderers:data.graphics});
   await context.close();
   const missingCaptures = captureFrames.filter(frame => !data.captures[frame]);
   const reachedRenderer = data.worldRenderer === renderer ||
     (renderer === 'canvas' && data.worldRenderer === 'baseline' && data.ticks.some(tick => tick.world2d > 0));
+  const soundChecked = data.audioStarts.some(start => start.kind === 'sfx' && start.samples > 0) &&
+    data.audioStarts.some(start => start.kind === 'bgm' && start.loop && start.samples > 0);
   if (errors.length || data.errors.length || data.frame < endFrame || !reachedRenderer ||
+      (stressClip && (!data.stress || data.speedIndex !== gameSpeed)) ||
+      (requireAudio && (!soundChecked || audioWarnings.length)) ||
       (clockMode === 'fixed' && missingCaptures.length)) {
     if (missingCaptures.length) console.error(variant, 'missing captures', missingCaptures);
-    throw new Error('Stage 18 replay did not reach the requested frame and renderer without errors');
+    if (!soundChecked || audioWarnings.length) console.error(variant, 'audio evidence', {
+      cues:data.audioCues.length, starts:data.audioStarts.length, warnings:audioWarnings,
+    });
+    throw new Error('Battle replay did not reach the requested frame and renderer without errors');
   }
   return data;
 }
@@ -421,7 +480,15 @@ function compareFixedReplays(reference, candidate) {
     }
   }
   if (JSON.stringify(reference.picks) !== JSON.stringify(candidate.picks)) throw new Error('Stage 18 choice frames differ');
-  return { comparedFrames: endFrame, fields, picks: reference.picks, captureFrames };
+  const cues = replay => replay.audioCues.map(({ event }) => event)
+    .filter(event => event.frame === undefined || event.frame <= endFrame);
+  const originalCues = cues(reference), secondCues = cues(candidate);
+  if (JSON.stringify(originalCues) !== JSON.stringify(secondCues)) {
+    const mismatch = Array.from({length:Math.max(originalCues.length,secondCues.length)},(_,index)=>index)
+      .find(index=>JSON.stringify(originalCues[index])!==JSON.stringify(secondCues[index]));
+    throw new Error(`Stage 18 backends first disagree at audio cue ${mismatch}: ${JSON.stringify([originalCues[mismatch],secondCues[mismatch]])}`);
+  }
+  return { comparedFrames: endFrame, fields, audioCues: originalCues.length, picks: reference.picks, captureFrames };
 }
 
 (async()=> {
