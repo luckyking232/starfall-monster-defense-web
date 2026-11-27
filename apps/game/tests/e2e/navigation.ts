@@ -7,7 +7,7 @@ export async function originalClick(page: Page, x: number, y: number, pointer: C
   await expect(surface).toBeVisible();
   const bounds = await surface.boundingBox();
   if (!bounds) throw new Error('Original window has no visible canvas');
-  const portrait = await page.evaluate(() => matchMedia('(orientation: portrait)').matches);
+  const portrait = await page.evaluate(() => document.documentElement.dataset['frameRotation'] === '90');
   const clientX = bounds.x + (portrait ? 1 - y / 750 : x / 1334) * bounds.width;
   const clientY = bounds.y + (portrait ? x / 1334 : y / 750) * bounds.height;
   if (pointer === 'touch') await page.touchscreen.tap(clientX, clientY);

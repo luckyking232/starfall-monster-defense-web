@@ -57,7 +57,8 @@ export class WebSettings {
       if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
       if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
     };
-    root.append(this.fps, this.launcher, this.backdrop);
+    root.append(this.fps, this.launcher);
+    root.ownerDocument.body.append(this.backdrop);
     this.controls.applyVolume(this.prefs.music, this.prefs.effects);
     this.updateFps();
   }
