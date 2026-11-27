@@ -4,6 +4,7 @@ import { scopedStorage } from './platform/channel';
 import { installViewportTracking } from './platform/viewport';
 import { NativeBattlefield } from './presentation/native-world';
 import { WorldFrameTime } from './presentation/world-frame-time';
+import { ForegroundClock } from './platform/foreground-clock';
 import { StressSession } from './presentation/stress-session';
 import { StressReport } from './ui/stress-report';
 import type { RuleState } from './engine/protocol';
@@ -74,7 +75,9 @@ async function bootstrap(root: HTMLElement): Promise<void> {
   let worldFrame = 0;
   let pendingWorld: RuleState | undefined;
   let clockEpoch = 0;
-  let last = 0;
+  const clock = new ForegroundClock();
+  let tickBusy = false;
+  let unfinishedTick = false;
   let noticeTimer = 0;
   let stopped = false;
   let activeKey = '';
@@ -161,15 +164,24 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     endlessRecords.sync(view.runtime, () => client.endlessRecords());
   }
   async function tick(now: number): Promise<void> {
-    if (!running || stopped || document.hidden || modalOpen) return;
+    scheduled = 0;
+    if (tickBusy || !running || stopped || document.hidden || modalOpen) return;
+    tickBusy = true;
+    const battle = generation;
     const epoch = clockEpoch;
-    const elapsed = Math.min(250,Math.max(0,now-last));
-    last = now;
     try {
-      await client.tick(elapsed);
+      do {
+        const elapsed = unfinishedTick ? 0 : clock.take(now, activeKey === 'MiniGameBattleUIWindow');
+        const more = await client.tick(elapsed, 2, unfinishedTick);
+        if (generation !== battle) return;
+        unfinishedTick = more === true;
+      } while (unfinishedTick && epoch === clockEpoch && !document.hidden && !modalOpen && running);
       await view.idle();
-      if (running && epoch === clockEpoch && !document.hidden && !modalOpen && !stopped) scheduled = requestAnimationFrame(tick);
     } catch (error) { fail(error); }
+    finally {
+      tickBusy = false;
+      if (!scheduled && running && !document.hidden && !modalOpen && !stopped) scheduled = requestAnimationFrame(tick);
+    }
   }
   function scheduleWorldFrame(): void {
     if (worldFrame || !pendingWorld || !running || stopped || document.hidden || modalOpen) return;
@@ -255,7 +267,8 @@ async function bootstrap(root: HTMLElement): Promise<void> {
         if (queuedMusic && !musicSkipped) audio.handle(queuedMusic);
         queuedMusic = undefined;
         if (view.runtime.views.has('BattleLoadingWindow')) battleWait.close();
-        last = performance.now();
+        clock.reset(performance.now());
+        unfinishedTick = false;
         scheduleWorldFrame();
         if (!document.hidden && !modalOpen) scheduled = requestAnimationFrame(tick);
       }).catch(fail);
@@ -277,6 +290,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       delete root.ownerDocument.body.dataset['map'];
       ++generation;
       ++clockEpoch;
+      unfinishedTick = false;
       running = false;
       entering = false;
       queuedMusic = undefined;
@@ -322,6 +336,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     stressSummary: () => stress.summary(),
     modalChanged(open) {
       modalOpen = open;
+      if (open && running) clock.suspend(performance.now(), activeKey === 'MiniGameBattleUIWindow');
       uiLayer.inert = open;
       worldLayer.inert = open;
       clockEpoch++;
@@ -329,7 +344,7 @@ async function bootstrap(root: HTMLElement): Promise<void> {
       stopWorldFrame();
       view.setPaused(open || document.hidden);
       if (!open && running && !document.hidden && !stopped) {
-        last = performance.now();
+        clock.resume(performance.now());
         scheduleWorldFrame();
         scheduled = requestAnimationFrame(tick);
       }
@@ -354,9 +369,13 @@ async function bootstrap(root: HTMLElement): Promise<void> {
     cancelAnimationFrame(scheduled);
     stopWorldFrame();
     if (!running) return;
-    if (document.hidden) { void client.background().catch(fail); return; }
+    if (document.hidden) {
+      clock.suspend(performance.now(), activeKey === 'MiniGameBattleUIWindow');
+      void client.background().catch(fail);
+      return;
+    }
     if (modalOpen) return;
-    last = performance.now();
+    clock.resume(performance.now());
     scheduleWorldFrame();
     scheduled = requestAnimationFrame(tick);
   });

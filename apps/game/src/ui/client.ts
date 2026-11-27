@@ -101,7 +101,7 @@ export class OriginalUiClient {
       const pending = this.pending.get(message.requestId);
       if (!pending) return;
       this.pending.delete(message.requestId);
-      (pending.resolve as (value: UiReadyMessage | UiLevelUpResult | void) => void)(pending.ready ?? message.levelUp);
+      (pending.resolve as (value: UiReadyMessage | UiLevelUpResult | true | void) => void)(pending.ready ?? message.levelUp ?? message.moreSteps);
       return;
     }
     if (message.type === 'disposed') {
@@ -189,8 +189,8 @@ export class OriginalUiClient {
     return this.request('click', { session: this.session, componentId }) as Promise<void>;
   }
 
-  tick(ms: number): Promise<void> {
-    return this.request('presentation', { session: this.session, signal: { kind: 'tick', ms } });
+  tick(ms: number, stepBudget?: number, resume = false): Promise<true | undefined> {
+    return this.request('presentation', { session: this.session, signal: { kind: 'tick', ms, stepBudget, resume } });
   }
 
   startStress(): Promise<void> {

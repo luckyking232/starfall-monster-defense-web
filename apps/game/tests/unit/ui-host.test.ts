@@ -251,6 +251,64 @@ async function enterGameplay(collector: Collector, stage: number, io = nodeIo())
   return host;
 }
 
+test('a bounded tick yields between fixed steps, advances timers and display once, and resumes precisely', async () => {
+  async function sample(bounded:boolean) {
+    const collector=new Collector();
+    const io=nodeIo();
+    let engine!:LuaEngineLike;
+    const host=await enterGameplay(collector,1,{...io,async createLuaEngine(vendor,wasm){
+      engine=await io.createLuaEngine(vendor,wasm); return engine;
+    }});
+    try {
+      await engine.doString(`
+        local timer,display=__UiAdvanceTimers,MiniGameBattleSceneMgr.UpdateDisplay
+        TimerCalls,DisplayCalls=0,0
+        __UiAdvanceTimers=function(...) TimerCalls=TimerCalls+1; return timer(...) end
+        MiniGameBattleSceneMgr.UpdateDisplay=function(...) DisplayCalls=DisplayCalls+1; return display(...) end
+      `);
+      const send=(id:number,ms:number,resume=false)=>host.present(id,host.session,
+        {kind:'tick',ms,...(bounded?{stepBudget:2,resume}:{})});
+      await send(810,250);
+      if(bounded) {
+        expect(collector.byType('settled').at(-1)).toMatchObject({moreSteps:true});
+        expect(await engine.doString('return MiniGameBattleControl.curFixedFrame')).toBe(2);
+        for(let id=811;collector.byType('settled').at(-1)?.moreSteps;id++) {
+          expect(id).toBeLessThan(820);
+          await send(id,0,true);
+        }
+      }
+      const world=collector.events().filter(event=>event.name==='world').at(-1)?.state;
+      expect(world?.fixedFrame).toBe(7);
+      expect(await engine.doString('return TimerCalls*10+DisplayCalls')).toBe(11);
+      await send(822,17);
+      expect(collector.events().filter(event=>event.name==='world').at(-1)?.state.fixedFrame).toBe(8);
+      return world;
+    } finally { await host.dispose(); }
+  }
+  expect(await sample(true)).toEqual(await sample(false));
+},30000);
+
+test('a native pause takes effect between slices and no suspended battle steps run while paused', async () => {
+  const collector = new Collector();
+  const host = await enterGameplay(collector,1);
+  try {
+    const hud = collector.lastOpen('MiniGameBattleUIWindow').tree;
+    await host.present(901,host.session,{kind:'tick',ms:250,stepBudget:2});
+    expect(collector.byType('settled').at(-1)?.moreSteps).toBe(true);
+    await host.click(902,host.session,pathOf(hud,'Main','Top','PauseBtn').id);
+    const pause = collector.lastOpen('MiniGameBattlePauseWindow').tree;
+    await host.present(903,host.session,{kind:'tick',ms:0,stepBudget:2,resume:true});
+    const world = () => collector.events().filter(event=>event.name==='world').at(-1)?.state;
+    expect(world()).toMatchObject({fixedFrame:2,paused:true});
+    expect(collector.byType('settled').at(-1)?.moreSteps).toBeUndefined();
+    await host.present(904,host.session,{kind:'tick',ms:500,stepBudget:2});
+    expect(world()?.fixedFrame).toBe(2);
+    await host.click(905,host.session,pathOf(pause,'Main','TouchScreenBtn').id);
+    await host.present(906,host.session,{kind:'tick',ms:34,stepBudget:2});
+    expect(world()).toMatchObject({fixedFrame:3,paused:false});
+  } finally { await host.dispose(); }
+},30000);
+
 async function finishIntro(collector: Collector, host: OriginalUiHost): Promise<void> {
   const session = host.session;
   expect(collector.byType('error')).toEqual([]);

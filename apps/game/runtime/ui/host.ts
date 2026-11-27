@@ -2,6 +2,9 @@ import { UI_PRELUDE_LUA } from './prelude';
 import { decodeBattleSnapshot } from './battle-snapshot';
 import { BATTLE_BASE, BATTLE_COMBAT, BATTLE_PLATFORM } from './battle';
 import { STRESS_ARENA_LUA } from './stress-arena';
+import { BATTLE_PROJECTILE_OPTIMIZATION } from './battle-projectile-optimization';
+import { BATTLE_UNIT_OPTIMIZATION } from './battle-unit-optimization';
+import { BATTLE_UNIT_HP_LISTENERS } from './battle-unit-hp-listeners';
 import { STRESS_LOADOUT_LUA } from './stress-loadout';
 import { UI_TIMERS_LUA } from './timers';
 import { STAGES } from '../../src/content/stages';
@@ -329,6 +332,7 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
   let modelMetadata = '{}';
   let effectLifetimes = '{}';
   let tickBattle: ((ms: number) => string) | undefined;
+  let tickSlice: ((ms: number, stepBudget: number, resume: boolean) => string) | undefined;
   const preferences = new Map<string, number>();
   let nextSound = 0;
   let activeStage: number | null = null;
@@ -1247,10 +1251,14 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
       }
       await engine.doString(UI_TIMERS_LUA);
       await engine.doString(BATTLE_PLATFORM);
+      await engine.doString(BATTLE_PROJECTILE_OPTIMIZATION);
+      await engine.doString(BATTLE_UNIT_OPTIMIZATION);
+      await engine.doString(BATTLE_UNIT_HP_LISTENERS);
       await engine.doString(STRESS_LOADOUT_LUA);
       await engine.doString(STRESS_ARENA_LUA);
       await engine.doString("__UiSetTimerContext(function() return __HostCall('window.current') end, function(owner,callback,...) local prev=__HostCall('window.enter',owner); if prev~=nil then callback(...); __HostCall('window.enter',prev) end end)");
       tickBattle = engine.global.get('__WebBattleTick') as (ms: number) => string;
+      tickSlice = engine.global.get('__WebBattleSlice') as NonNullable<typeof tickSlice>;
     }
     const bind = lua.global.get('__HostBindActivity');
     if (typeof bind !== 'function') fail('host-prelude', '__HostBindActivity missing');
@@ -1386,17 +1394,26 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
         return;
       }
       if (signal.kind === 'tick' || signal.kind === 'background') {
+        let moreSteps = false;
         if (tickBattle && activeStage !== null && lua) {
           if (signal.kind === 'background') {
             await lua.doString("if MiniGameBattleMgr.isBattleStart and not MiniGameBattleControl.isPause and not MiniGameBattleControl.isOver then require('MiniGameBattleUIWindow').ClickPauseBtn() end");
           } else {
             if (!Number.isFinite(signal.ms) || signal.ms < 0 || signal.ms > 1000) fail('bad-clock', String(signal.ms));
-            const state = decodeBattleSnapshot(tickBattle(signal.ms));
-            if (state) postEvent({ name: 'world', state });
+            if (signal.stepBudget !== undefined) {
+              if (!Number.isSafeInteger(signal.stepBudget) || signal.stepBudget < 1) fail('bad-clock', 'invalid step budget');
+              const raw = tickSlice!(signal.ms, signal.stepBudget, signal.resume === true);
+              moreSteps = raw === '';
+              const state = moreSteps ? null : decodeBattleSnapshot(raw);
+              if (state) postEvent({ name: 'world', state });
+            } else {
+              const state = decodeBattleSnapshot(tickBattle(signal.ms));
+              if (state) postEvent({ name: 'world', state });
+            }
           }
           await drain();
         }
-        post({ protocol: UI_PROTOCOL, session, type: 'settled', requestId });
+        post({ protocol: UI_PROTOCOL, session, type: 'settled', requestId, ...(moreSteps ? {moreSteps:true} : {}) });
         return;
       }
       const animation = signal.kind === 'transition' ? animations.get(signal.playId) : undefined;

@@ -125,6 +125,7 @@ export interface UiSettledMessage extends Envelope {
   type: 'settled';
   requestId: number;
   levelUp?: UiLevelUpResult;
+  moreSteps?: true;
 }
 
 export interface UiErrorMessage {
@@ -185,7 +186,7 @@ export interface UiPresentationRequest {
   session: string;
   requestId: number;
   signal: { kind: 'shown'; rootId: number } | { kind: 'transition'; playId: number; label?: string }
-    | { kind: 'tick'; ms: number } | { kind: 'background' } | { kind: 'debug-level' }
+    | { kind: 'tick'; ms: number; stepBudget?: number; resume?: boolean } | { kind: 'background' } | { kind: 'debug-level' }
     | { kind: 'start-stress' } | { kind: 'finish-stress' }
     | { kind: 'progress'; clearedStageIds: number[]; assistedStageIds: number[] };
 }
