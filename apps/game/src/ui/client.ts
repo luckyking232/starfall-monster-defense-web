@@ -2,6 +2,7 @@ import {
   UI_PROTOCOL,
   type UiEvent,
   type UiHostMessage,
+  type UiLevelUpResult,
   type UiReadyMessage,
 } from '../../runtime/ui/protocol';
 import { STAGES } from '../content/stages';
@@ -99,7 +100,7 @@ export class OriginalUiClient {
       const pending = this.pending.get(message.requestId);
       if (!pending) return;
       this.pending.delete(message.requestId);
-      (pending.resolve as (value: UiReadyMessage | void) => void)(pending.ready as UiReadyMessage);
+      (pending.resolve as (value: UiReadyMessage | UiLevelUpResult | void) => void)(pending.ready ?? message.levelUp);
       return;
     }
     if (message.type === 'disposed') {
@@ -188,8 +189,10 @@ export class OriginalUiClient {
     return this.request('presentation', { session: this.session, signal: { kind: 'tick', ms } });
   }
 
-  levelUp(): Promise<void> {
-    return this.request('presentation', { session: this.session, signal: { kind: 'debug-level' } });
+  async levelUp(): Promise<UiLevelUpResult> {
+    const result = await this.request('presentation', { session: this.session, signal: { kind: 'debug-level' } }) as UiLevelUpResult | undefined;
+    if (!result) throw new Error('战斗未返回调试结果。');
+    return result;
   }
 
   background(): Promise<void> {

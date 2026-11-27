@@ -103,9 +103,15 @@ export interface UiEventMessage extends Envelope {
   event: UiEvent;
 }
 
+export interface UiLevelUpResult {
+  applied: boolean;
+  text: string;
+}
+
 export interface UiSettledMessage extends Envelope {
   type: 'settled';
   requestId: number;
+  levelUp?: UiLevelUpResult;
 }
 
 export interface UiErrorMessage {

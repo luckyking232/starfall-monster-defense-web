@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import type { UiClientRequest, UiHostMessage } from '../../runtime/ui/protocol';
 import { originalClick, openChooser } from './navigation';
 
 test('网页设置记住音量和帧率，新旧档独立并能删除', async ({ page }) => {
@@ -78,14 +79,97 @@ test('原主页礼包和参与任务按钮打开不同彩蛋', async ({page}) =>
   await expect(page.getByRole('button',{name:'已交班'})).toBeDisabled();
 });
 
-test('战斗调试升一级进入原版选卡', async ({ page }) => {
+interface LevelupObservation {
+  frame: number;
+  paused: boolean;
+  choices: number;
+  releaseIntro?: () => void;
+}
+
+test('战斗调试开场及暂停时保留提示，开始推进后升一级进入原版选卡', async ({ page }) => {
+  test.setTimeout(90000);
+  await page.addInitScript(() => {
+    const state: LevelupObservation = { frame: 0, paused: false, choices: 0 };
+    Object.assign(window, { levelupObservation: state });
+    const NativeWorker = window.Worker;
+    let introTransition: number | undefined;
+    window.Worker = class extends NativeWorker {
+      constructor(url: string | URL, options?: WorkerOptions) {
+        super(url, options);
+        this.addEventListener('message', ({ data }: MessageEvent<UiHostMessage>) => {
+          if (data.type === 'ops') {
+            const intro = data.ops.find(op => op.op === 'transition-play' && op.name === 'up');
+            if (intro?.op === 'transition-play') introTransition = intro.playId;
+          }
+          if (data.type === 'event' && data.event.name === 'world') {
+            state.frame = data.event.state.fixedFrame;
+            state.paused = data.event.state.paused === true;
+          }
+          if (data.type === 'open' && data.window === 'MiniGameSkillChoiceWindow') state.choices++;
+        });
+      }
+
+      override postMessage(message: UiClientRequest, options?: StructuredSerializeOptions | Transferable[]): void {
+        const signal = message.type === 'presentation' ? message.signal : undefined;
+        if (signal?.kind === 'transition' && signal.playId === introTransition && signal.label === undefined) {
+          // Hold the real HUD entrance callback while settings is used at rule frame zero.
+          state.releaseIntro = () => super.postMessage(message, options as StructuredSerializeOptions);
+          return;
+        }
+        super.postMessage(message, options as StructuredSerializeOptions);
+      }
+    };
+  });
+  const observed = () => page.evaluate(() => {
+    const { frame, paused, choices, releaseIntro } = (window as Window & { levelupObservation?: LevelupObservation }).levelupObservation!;
+    return { frame, paused, choices, introHeld: Boolean(releaseIntro) };
+  });
+  const hud = page.getByRole('region', { name: '魔物抵御战战场' });
+  const choice = page.getByRole('region', { name: '选择强化' });
+  const dialog = page.getByRole('dialog');
+  const debugLevel = async () => {
+    await page.getByRole('button', { name: '网页设置' }).click();
+    await page.getByRole('button', { name: '调试', exact: true }).click();
+    await page.getByLabel('调试码').fill('levelup');
+    await page.getByRole('button', { name: '执行' }).click();
+  };
+  const expectBlocked = async () => {
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByText('请在战斗进行中使用')).toBeVisible();
+    await expect(choice).toHaveCount(0);
+    await dialog.getByRole('button', { name: '关闭', exact: true }).click();
+  };
+
   await page.goto('./');
   await openChooser(page);
   await originalClick(page, 145, 274);
-  await expect(page.getByRole('region',{name:'魔物抵御战战场'})).toBeVisible({timeout:30000});
-  await page.getByRole('button',{name:'网页设置'}).click();
-  await page.getByRole('button',{name:'调试',exact:true}).click();
-  await page.getByLabel('调试码').fill('levelup');
-  await page.getByRole('button',{name:'执行'}).click();
-  await expect(page.getByRole('region',{name:'选择强化'})).toBeVisible({timeout:15000});
+  await expect(hud).toBeVisible({ timeout: 30000 });
+  await expect.poll(observed, { timeout: 15000 }).toMatchObject({ introHeld: true, frame: 0 });
+  await debugLevel();
+  await expectBlocked();
+  await page.evaluate(() => (window as Window & { levelupObservation?: LevelupObservation }).levelupObservation!.releaseIntro!());
+  await expect.poll(async () => {
+    const state = await observed();
+    return state.paused ? 0 : state.frame;
+  }, { timeout: 15000 }).toBeGreaterThan(0);
+  expect((await observed()).choices).toBe(0);
+
+  await originalClick(page, 163, 47);
+  await expect(page.getByRole('region', { name: '战斗暂停' })).toBeVisible();
+  await expect.poll(async () => (await observed()).paused).toBe(true);
+  await debugLevel();
+  await expectBlocked();
+  const pausedFrame = (await observed()).frame;
+  await originalClick(page, 660, 380);
+  await expect(hud).toBeVisible();
+  await expect.poll(async () => {
+    const state = await observed();
+    return state.paused ? pausedFrame : state.frame;
+  }, { timeout: 15000 }).toBeGreaterThan(pausedFrame);
+  expect((await observed()).choices).toBe(0);
+
+  await debugLevel();
+  await expect(dialog).toHaveCount(0);
+  await expect(choice).toBeVisible({ timeout: 15000 });
+  expect((await observed()).choices).toBe(1);
 });

@@ -1318,10 +1318,11 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
           MiniGameBattleDataMgr.DealExpAdd()
           return d.curLevel > before and "已升一级" or "本次未提升等级"
         `);
-        if (result === '已升一级') battleUsedDebug = true;
+        const levelUp = { applied: result === '已升一级', text: String(result || '请在战斗进行中使用') };
+        if (levelUp.applied) battleUsedDebug = true;
         await drain();
-        postEvent({name: 'warn-tips', text: String(result || '请在战斗进行中使用')});
-        post({ protocol: UI_PROTOCOL, session, type: 'settled', requestId });
+        postEvent({name: 'warn-tips', text: levelUp.text });
+        post({ protocol: UI_PROTOCOL, session, type: 'settled', requestId, levelUp });
         return;
       }
       if (signal.kind === 'tick' || signal.kind === 'background') {

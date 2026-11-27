@@ -1,3 +1,4 @@
+import type { UiLevelUpResult } from '../../runtime/ui/protocol';
 import { ProgressStore } from '../platform/progress';
 import { isTestSite } from '../platform/channel';
 import { editSaveIndex, exportSaves, importSaves, MAX_BACKUP_BYTES } from '../platform/save-transfer';
@@ -13,7 +14,7 @@ interface WebControls {
   battleFrameTime(): {fps:number; p95:number; slow:number} | null;
   inBattle(): boolean;
   canLevel(): boolean;
-  levelUp(): Promise<void>;
+  levelUp(): Promise<UiLevelUpResult>;
   modalChanged(open: boolean): void;
 }
 
@@ -273,6 +274,7 @@ export class WebSettings {
   private debug(): void {
     const code = element('input');
     code.placeholder = 'ALLSTAGES / LEVELUP'; code.setAttribute('aria-label','调试码');
+    let levelUpPending = false;
     const run = async (raw: string) => {
       try {
         switch (raw.trim().toUpperCase()) {
@@ -283,9 +285,21 @@ export class WebSettings {
               if (this.progress.listSlots().activeSlotId !== this.slotId) this.progress.switchSlot(this.slotId);
             });
             location.reload(); return;
-          case 'LEVELUP': case '升一级':
+          case 'LEVELUP': case '升一级': {
+            if (levelUpPending) return;
             if (!this.controls.canLevel()) { this.feedback.textContent = '请在战斗进行中使用。'; return; }
-            this.close(); await this.controls.levelUp(); return;
+            levelUpPending = true;
+            try {
+              const result = await this.controls.levelUp();
+              if (code.isConnected && !this.backdrop.hidden) {
+                if (result.applied) this.close();
+                else this.feedback.textContent = result.text;
+              }
+            } finally {
+              levelUpPending = false;
+            }
+            return;
+          }
           default: this.feedback.textContent = '未识别的调试码';
         }
       } catch (error) { this.feedback.textContent = error instanceof Error ? error.message : String(error); }

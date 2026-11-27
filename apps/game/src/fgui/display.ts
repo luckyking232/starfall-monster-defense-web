@@ -917,11 +917,12 @@ export class FguiRuntime {
         this.insideListClips(node, localX, localY) && this.insideStageSign(node, localX, localY);
     });
     node.container.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-      if (pointer.primaryDown) this.beginPress(node, pointer);
+      // Window events may clean up a drag outside the canvas. Only a canvas press starts one.
+      if (pointer.primaryDown && pointer.downElement === this.game?.canvas) this.beginPress(node, pointer);
     });
     node.container.on('pointerup', (pointer: Phaser.Input.Pointer) => {
       const press = this.presses.get(pointer.id);
-      if (!press || press.dragged || pointer.wasCanceled || !this.canInteract(node)) return;
+      if (!press || press.dragged || pointer.wasCanceled || pointer.upElement !== this.game?.canvas || !this.canInteract(node)) return;
       const target = this.clickTarget(node);
       if (!target || target !== press.action) return;
       const action: FguiAction = { path: target.path, sourceId: String(target.source.id), objectType: target.source.objectType };
