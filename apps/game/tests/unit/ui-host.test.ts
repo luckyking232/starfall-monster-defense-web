@@ -11,6 +11,9 @@ import {
   type UiHostIo,
 } from '../../runtime/ui/host';
 import { UI_PRELUDE_LUA } from '../../runtime/ui/prelude';
+import { STRESS_LOADOUT_LUA } from '../../runtime/ui/stress-loadout';
+import { stressMonsterTarget } from '../../src/content/stress-stage';
+import type { RuleState } from '../../src/engine/protocol';
 import { UI_TIMERS_LUA } from '../../runtime/ui/timers';
 import type {
   UiEvent,
@@ -266,6 +269,79 @@ async function finishIntro(collector: Collector, host: OriginalUiHost): Promise<
   await host.present(7,session,{kind:'transition',playId:latest('up')});
 }
 
+test('the stress loadout applies all 135 original enhancements and their combat effects before the first tick', async () => {
+  const collector = new Collector();
+  const io = nodeIo(), create = io.createLuaEngine;
+  let engine!: LuaEngineLike;
+  io.createLuaEngine = async (vendor, wasm) => engine = await create(vendor, wasm);
+  const host = await enterGameplay(collector, 21, io);
+  try {
+    await engine.doString(STRESS_LOADOUT_LUA);
+    const result = await engine.doString(`
+      local scene = MiniGameBattleScene
+      local buffs = MiniGameBattleBuffMgr
+      local function assertLiveBuffs(unit, skillId, level)
+        for _, spec in ipairs(BaseShootSkill[skillId].active_buff_list or {}) do
+          local buffId, targetId = spec:match('^(%d+):(%d+):10000$')
+          local buff = BaseShootSkillBuff[tonumber(buffId)]
+          if buff.deduce_type ~= MINI_GAME_BUFF_DEDUCE_TYPE.NOW then
+            local targets = MiniGameBattleChoose.GetBuffTargetUnitList({unitUid=unit.uid}, nil, tonumber(targetId), buff)
+            assert(#targets > 0, 'no live targets for skill ' .. skillId)
+            for _, target in ipairs(targets) do
+              local liveTarget = MiniGameBattleSceneMgr.GetUnitByUid(target.uid)
+              assert(buffs.GetSettledBuffByUnitAndId(liveTarget, buff.id) == level,
+                'settled combat buff stack mismatch: ' .. skillId)
+            end
+          end
+        end
+      end
+      assert(#scene.cardList == 5 and MiniGameBattleControl.curFixedFrame == 0)
+      for _, unit in ipairs(scene.cardList) do
+        assert(unit:GetTotalSkillLevel() == 1, 'the original Endless battle should start with the normal skill')
+      end
+      local wall = scene.wallUnit
+      local maxHp = wall:GetAttr(ATTR_ENUM.max_hp)
+      wall:ChangeAttr(ATTR_ENUM.hp, -math.floor(maxHp / 2))
+      local hpBefore = wall:GetHp()
+      local report = StressLoadoutApply()
+      local expected = {{16,2,1},{1,2,1},{1,1,2}}
+      local expectedHud = {20,5,5}
+      for i, unit in ipairs(scene.cardList) do
+        assert(unit.id == 78000100 + i and report.cards[i].id == unit.id)
+        assert(unit:GetTotalSkillLevel() == 30, 'the three base skill unlocks count separately')
+        local hud = unit:GetSkillListForUI()
+        for j, skill in ipairs(report.cards[i].skills) do
+          local config = BaseShootSkill[skill.id]
+          assert(skill.unlocked and unit:GetSkillLevel(skill.id) == 1)
+          assert(hud[j].id == skill.id and hud[j].level == expectedHud[j])
+          assertLiveBuffs(unit, skill.id, 1)
+          for _, condition in ipairs(config.trigger_condition or {}) do
+            local registered = false
+            for _, trigger in ipairs(unit.skillTriggerTable[condition] or {}) do
+              if trigger.skillId == skill.id and trigger.enable then registered = true end
+            end
+            assert(registered, 'base skill trigger was not registered: ' .. skill.id)
+          end
+          for k, option in ipairs(skill.options) do
+            local level = expected[j][k]
+            assert(option.level == level and unit:GetSkillLevel(option.id) == level)
+            assertLiveBuffs(unit, option.id, level)
+          end
+        end
+        assert(unit:GetAttr(ATTR_ENUM.atk) == unit:GetBaseAttr(ATTR_ENUM.atk) + 480,
+          '16 uncapped upgrades should each add 30% of the original 100 ATK')
+        assert(unit:GetAttr(ATTR_ENUM.crt) == unit:GetBaseAttr(ATTR_ENUM.crt) + 1500,
+          'talent team critical chance should apply to all five heroes')
+      end
+      assert(wall:GetHp() - hpBefore == math.ceil(maxHp * 2000 / 10000), 'instant wall heal did not apply')
+      return report.upgrades
+    `);
+    expect(result).toBe(135);
+  } finally {
+    await host.dispose();
+  }
+}, 30000);
+
 test('the original chooser advances through all twenty ordinary victories and exposes the loop', async () => {
   const collector = new Collector();
   const io = nodeIo(), create = io.createLuaEngine;
@@ -335,6 +411,163 @@ test('an original stage-two victory after LEVELUP still opens stage three', asyn
     await host.dispose();
   }
 }, 30000);
+
+test('stress starts on a fresh save, respects pause and exit, and leaves the normal chooser intact', async () => {
+  const collector = new Collector();
+  const io = nodeIo(), create = io.createLuaEngine;
+  let engine!: LuaEngineLike;
+  io.createLuaEngine = async (vendor, wasm) => engine = await create(vendor, wasm);
+  const host = await makeHost(collector, { gameplay: true, io });
+  const present = (signal: Parameters<OriginalUiHost['present']>[2]) => host.present(9, host.session, signal);
+  let requestId = 10;
+  const click = (node: UiTreeNode) => host.click(requestId++, host.session, node.id);
+  // The worker queues commands in posting order even if the renderer still shows the old window.
+  const queueClicks = (...targets: UiTreeNode[]) =>
+    targets.reduce((pending, target) => pending.then(() => click(target)), Promise.resolve());
+  try {
+    const start = pathOf(collector.lastOpen('Activity17MiniGame2MainWindow').tree, 'Main', 'StartBtn');
+    await present({ kind: 'start-stress' });
+    expect(collector.events()).toContainEqual({ name: 'start-battle', stageId: 78000021, stress: true });
+    await finishIntro(collector, host);
+    expect(collector.events().find(event => event.name === 'stress-loadout')).toMatchObject({
+      name: 'stress-loadout',
+      report: { upgrades: 135, cards: [78000101, 78000102, 78000103, 78000104, 78000105].map(id => ({ id })) },
+    });
+    await present({ kind: 'tick', ms: 200 });
+    const latest = () => collector.events().filter(event => event.name === 'world').at(-1)!.state;
+    const entrants = () => latest().units.filter(unit => unit.camp === 2).map(({ cardId, x, y }) => [cardId, x, y]);
+    expect(latest()).toMatchObject({ fixedFrame: 12, speedIndex: 2, curLevel: 0 });
+    const firstEntrants = entrants();
+    expect(firstEntrants.length).toBeGreaterThan(40);
+    expect(await engine.doString(`
+      local wall = MiniGameBattleScene.wallUnit
+      MiniGameBattleAction.DealHurt(MiniGameBattleScene.aliveMonsterList[1], wall, wall:GetHp() + 100)
+      return wall:GetHp() == wall:GetAttr(ATTR_ENUM.max_hp)
+    `)).toBe(true);
+    const hud = collector.lastOpen('MiniGameBattleUIWindow').tree;
+    await click(start);
+    expect(collector.byType('open').some(message => message.window === 'Activity17MiniGameChoice2Window')).toBe(false);
+    await expect(present({ kind: 'start-stress' })).rejects.toThrow(/stress-unavailable/);
+    await present({ kind: 'debug-level' });
+    expect(collector.byType('settled').at(-1)?.levelUp?.applied).toBe(false);
+
+    const hudExit = pathOf(hud, 'Main', 'Top', 'ReturnBtn');
+    const speed = pathOf(hud, 'Main', 'Top', 'SpeedBtn');
+    await queueClicks(hudExit, hudExit, speed);
+    expect(collector.byType('open').filter(message => message.window === 'MiniGameBattleExitWindow')).toHaveLength(1);
+    await present({ kind: 'tick', ms: 200 });
+    expect(latest()).toMatchObject({ fixedFrame: 12, paused: true, speedIndex: 2 });
+    const cancel = pathOf(collector.lastOpen('MiniGameBattleExitWindow').tree, 'Main', 'CancelBtn');
+    await queueClicks(cancel, cancel);
+    await present({ kind: 'tick', ms: 200 });
+    expect(latest()).toMatchObject({ fixedFrame: 24, paused: false });
+
+    // The speed control remains available, with an independent preference.
+    await click(speed);
+    await present({ kind: 'tick', ms: 200 });
+    expect(latest()).toMatchObject({ fixedFrame: 30, speedIndex: 1 });
+    await click(speed);
+    await click(hudExit);
+    const confirm = pathOf(collector.lastOpen('MiniGameBattleExitWindow').tree, 'Main', 'ExitBtn');
+    await queueClicks(confirm, confirm, speed);
+    expect(collector.events().filter(event => event.name === 'battle-close')).toHaveLength(1);
+    expect(collector.events().filter(event => event.name === 'settlement' || event.name === 'clear-earned')).toEqual([]);
+    expect(collector.byType('open').some(message => message.window === 'MiniGameBattleEndWindow')).toBe(false);
+
+    await click(start);
+    const chooser = pathOf(collector.lastOpen('Activity17MiniGameChoice2Window').tree, 'Main', 'TipsList');
+    const map = collector.lastListItems(chooser.id)[0]!;
+    expect(collector.controllerOps(child(map, 'SpecialBtn').id, 'lock').at(-1)?.index).toBe(1);
+    await present({ kind: 'start-stress' });
+    await finishIntro(collector, host);
+    await present({ kind: 'tick', ms: 200 });
+    expect(entrants()).toEqual(firstEntrants);
+    await present({ kind: 'finish-stress' });
+    await click(child(map, 'Tips1Btn'));
+    expect(collector.events().filter(event => event.name === 'start-battle').at(-1)).toEqual({
+      name: 'start-battle', stageId: 78000001,
+    });
+    await finishIntro(collector, host);
+    await present({ kind: 'tick', ms: 200 });
+    expect(latest()).toMatchObject({ fixedFrame: 6, speedIndex: 1 });
+    expect(latest().units.filter(unit => unit.camp === 1)).toHaveLength(3);
+    expect(collector.byType('error')).toEqual([]);
+  } finally {
+    await host.dispose();
+  }
+}, 120000);
+
+test('stress from the chooser fills, replenishes and caps native active monsters while attacks continue', async () => {
+  const collector = new Collector();
+  const io = nodeIo(), create = io.createLuaEngine;
+  let engine!: LuaEngineLike;
+  io.createLuaEngine = async (vendor, wasm) => engine = await create(vendor, wasm);
+  const host = await makeHost(collector, { gameplay: true, io });
+  const present = (signal: Parameters<OriginalUiHost['present']>[2]) => host.present(9, host.session, signal);
+  try {
+    await engine.doString(`
+      local paths, instantiate = {}, ResourceManager.Instantiate
+      local enemyHits, dealHurt = 0, MiniGameBattleAction.DealHurt
+      function ResourceManager.Instantiate(path)
+        local key = path:lower()
+        if key:find('minigame022_10000', 1, true) then paths[key] = true end
+        return instantiate(path)
+      end
+      function MiniGameBattleAction.DealHurt(from, target, ...)
+        local hurt = dealHurt(from, target, ...)
+        if from and from.camp == BATTLE_CAMP_FLAG.RIGHT and target == MiniGameBattleScene.wallUnit and hurt > 0 then
+          enemyHits = enemyHits + 1
+        end
+        return hurt
+      end
+      function __TestStressModels() return __JsonEncode(paths) end
+      function __TestStressEnemyHits() return enemyHits end
+    `);
+    await host.click(2, host.session, pathOf(collector.lastOpen('Activity17MiniGame2MainWindow').tree, 'Main', 'StartBtn').id);
+    await present({ kind: 'start-stress' });
+    await finishIntro(collector, host);
+    const states: RuleState[] = [];
+    const counts: number[] = [];
+    for (let i = 0; i < 13; i += 1) {
+      await present({ kind: 'tick', ms: 1000 });
+      states.push(collector.events().filter(event => event.name === 'world').at(-1)!.state);
+      counts.push(Number(await engine.doString('return #MiniGameBattleScene.aliveMonsterList')));
+      expect(collector.byType('error')).toEqual([]);
+      expect(collector.byType('open').some(message => message.window === 'MiniGameSkillChoiceWindow')).toBe(false);
+      collector.messages.length = 0;
+    }
+    expect(counts[0]).toBe(100);
+    expect(counts.every((count, index) => count <= stressMonsterTarget(states[index]!.fixedFrame)), String(counts)).toBe(true);
+    expect(counts.slice(4, 7).every(count => count >= 190), String(counts)).toBe(true);
+    expect(counts.slice(8).every(count => count >= 200), String(counts)).toBe(true);
+    expect(counts.slice(8).filter(count => count >= 285).length, String(counts)).toBeGreaterThanOrEqual(3);
+    const peak = states[8]!;
+    expect(peak.units.filter(unit => unit.camp === 2 && unit.model && Math.abs(unit.x) < 600 && Math.abs(unit.y) < 350).length)
+      .toBeGreaterThanOrEqual(280);
+    const earlyMaxUid = Math.max(...peak.units.map(unit => unit.uid));
+    const last = states.at(-1)!;
+    expect(last.killEnemyCount).toBeGreaterThan(peak.killEnemyCount);
+    expect(last.units.some(unit => unit.camp === 2 && unit.uid > earlyMaxUid)).toBe(true);
+    expect(await engine.doString('return __TestStressEnemyHits()')).toBeGreaterThan(0);
+    expect(states.some(state => (state.bullets?.length ?? 0) > 0)).toBe(true);
+    expect(states.some(state => (state.effects?.length ?? 0) > 0)).toBe(true);
+    const paths = Object.keys(JSON.parse(String(await engine.doString('return __TestStressModels()'))));
+    const skills = effectRoles.flatMap(({ normal, passive, talent }) => [normal, passive, talent]);
+    expect(skills.filter(skill => !paths.some(path => path.endsWith(`minigame022_${skill}.prefab`)))).toEqual([]);
+    expect(states.some(state => (state.selfHp ?? 0) < (state.selfMaxHp ?? 0))).toBe(true);
+    expect(last.selfHp).toBeGreaterThan(0);
+    expect(last.curLevel).toBe(0);
+    expect(last.fixedFrame).toBe(780);
+    await present({ kind: 'finish-stress' });
+    await present({ kind: 'finish-stress' });
+    expect(collector.events().filter(event => event.name === 'battle-close')).toHaveLength(1);
+    expect(collector.events().filter(event => event.name === 'settlement' || event.name === 'clear-earned')).toEqual([]);
+    expect(collector.byType('close').map(message => message.window)).toContain('MiniGameBattleUIWindow');
+    expect(collector.byType('close').map(message => message.window)).not.toContain('Activity17MiniGameChoice2Window');
+  } finally {
+    await host.dispose();
+  }
+}, 120000);
 
 test('endless classifies a real debug level as practice and distinguishes cancelling, exiting and a natural end', async () => {
   const collector = new Collector();

@@ -40,4 +40,11 @@
 .web-actions { flex-wrap:wrap; margin-top:7px; }
 .web-meta,.web-feedback { color:#d9c9ae; font-size:.92em; }
 .web-feedback:empty { display:none; }
+.game-frame[data-stress-active="true"] .web-fps { display:none; }
+.web-stress-backend { display:block; margin-top:10px; }
+.web-stress-build { margin:12px 0; }
+.web-stress-build summary { cursor:pointer; }
+.web-stress-build table { width:100%; margin-top:6px; text-align:center; font-variant-numeric:tabular-nums; }
+.web-stress-build td,.web-stress-build th { padding:2px; }
+.web-feedback textarea { box-sizing:border-box; width:100%; min-height:6em; }
 .web-letter { min-height:4.7em; line-height:1.8; }

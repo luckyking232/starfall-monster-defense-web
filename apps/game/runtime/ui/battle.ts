@@ -169,16 +169,16 @@ local originalInit=MiniGameBattleMgr.InitBattle
 function MiniGameBattleMgr.InitBattle(args)
   if MiniGameBattleCamera.enabled and not MiniGameBattleControl.isOver then return end
   clearEffects()
-  __HostCall('battle.init',args.stageId)
+  __HostCall('battle.init',args.stageId,args.stress==true)
   math.randomseed(__HostCall('rng.seed'),args.stageId)
   originalInit(args)
-
+  MiniGameBattleData.stress=args.stress==true
 end
 local sendResult=MiniGameBattleMgr.SendBattleOverMsg
 function MiniGameBattleMgr.SendBattleOverMsg(stageId,param)
-  __HostCall('battle.result',stageId,__JsonEncode({frame=MiniGameBattleControl.curFixedFrame,
+  local skipResult=__HostCall('battle.result',stageId,__JsonEncode({frame=MiniGameBattleControl.curFixedFrame,
     win=param.isBattleWin,loss=param.isBattleLoss,wave=param.wave,kills=param.killCount}))
-  sendResult(stageId,param)
+  if skipResult~=true then sendResult(stageId,param) end
 end
 local function worldPose(obj)
   if not obj or obj.destroyed or obj.visible==false then return nil end

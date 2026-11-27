@@ -44,6 +44,7 @@ export class OriginalUiClient {
   private session = '';
   private progressSlotId = '';
   private endlessRun: { runId: string; slotId: string } | null = null;
+  private stress = false;
   private closed = false;
   private readonly onStorage = (event: StorageEvent): void => {
     const key = localEventKey(event.key);
@@ -124,11 +125,12 @@ export class OriginalUiClient {
     if (this.session && message.session && message.session !== this.session) return;
     if (message.type === 'event' && this.session && this.progressSlotId) {
       const event = message.event;
-      if (event.name === 'clear-earned') {
+      if (event.name === 'clear-earned' && !this.stress) {
         const saved = this.progressStore.commitClear(event.stageId, this.progressSlotId, event.assisted ? 'assisted' : 'natural');
         if (!saved.persistent) this.notify({ name: 'progress-save-failed' });
       } else if (event.name === 'start-battle') {
-        this.endlessRun = event.stageId === ENDLESS_STAGE ? {
+        this.stress = event.stress === true;
+        this.endlessRun = event.stageId === ENDLESS_STAGE && !this.stress ? {
           runId: newRunId(), slotId: this.progressSlotId,
         } : null;
       } else if (event.name === 'settlement' && event.stageId === ENDLESS_STAGE && event.endless && this.endlessRun) {
@@ -141,6 +143,7 @@ export class OriginalUiClient {
         if (!saved.persistent) this.notify({ name: 'progress-save-failed', endless: true });
       } else if (event.name === 'battle-close') {
         this.endlessRun = null;
+        this.stress = false;
       }
     }
     for (const listener of this.listeners) listener(message);
@@ -167,6 +170,7 @@ export class OriginalUiClient {
     if (this.closed) return Promise.reject(new Error('OriginalUiClient is disposed'));
     this.session = '';
     this.endlessRun = null;
+    this.stress = false;
     this.progressSlotId = this.progressStore.listSlots().activeSlotId;
     const progress = this.progressStore.load(this.progressSlotId);
     const fields: Record<string, unknown> = {
@@ -187,6 +191,14 @@ export class OriginalUiClient {
 
   tick(ms: number): Promise<void> {
     return this.request('presentation', { session: this.session, signal: { kind: 'tick', ms } });
+  }
+
+  startStress(): Promise<void> {
+    return this.request('presentation', { session: this.session, signal: { kind: 'start-stress' } });
+  }
+
+  finishStress(): Promise<void> {
+    return this.request('presentation', { session: this.session, signal: { kind: 'finish-stress' } });
   }
 
   async levelUp(): Promise<UiLevelUpResult> {

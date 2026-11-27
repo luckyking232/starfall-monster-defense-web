@@ -234,10 +234,12 @@ export class NativeBattlefield {
   }
 
   dispose(): void {
+    if (this.disposed) return;
     this.disposed = true;
     this.resources = undefined;
     this.sprites?.dispose();
     this.effects?.dispose();
+    this.effects?.renderer.gl.getExtension('WEBGL_lose_context')?.loseContext();
     this.canvas.remove();
   }
 }

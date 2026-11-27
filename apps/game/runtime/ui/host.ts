@@ -1,8 +1,11 @@
 import { UI_PRELUDE_LUA } from './prelude';
 import { decodeBattleSnapshot } from './battle-snapshot';
 import { BATTLE_BASE, BATTLE_COMBAT, BATTLE_PLATFORM } from './battle';
+import { STRESS_ARENA_LUA } from './stress-arena';
+import { STRESS_LOADOUT_LUA } from './stress-loadout';
 import { UI_TIMERS_LUA } from './timers';
 import { STAGES } from '../../src/content/stages';
+import { STRESS_STAGE } from '../../src/content/stress-stage';
 import { readNativeModelMetadata } from './native-model-metadata';
 import {
   UI_PROTOCOL,
@@ -10,6 +13,7 @@ import {
   type UiHostMessage,
   type UiOp,
   type UiPresentationRequest,
+  type UiStressLoadoutReport,
   type UiTreeNode,
 } from './protocol';
 
@@ -77,6 +81,7 @@ const STAGE_CHOOSER = 'Activity17MiniGameChoice2Window';
 const ENDLESS_STAGE = STAGES.find((stage) => stage.endless)!.id;
 const DESIGN_WIDTH = 1334;
 const DESIGN_HEIGHT = 750;
+const STRESS_CLICK_WINDOWS = ['MiniGameBattleExitWindow', 'MiniGameBattlePauseWindow', 'MiniGameBattleUIWindow'];
 
 const EXCLUDED_CAPABILITIES = [
   'red-dot',
@@ -327,6 +332,8 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
   const preferences = new Map<string, number>();
   let nextSound = 0;
   let activeStage: number | null = null;
+  let activeStress = false;
+  const retiredStressClicks = new Map<string, Set<number>>();
   let battleFinished = false;
   let battleUsedDebug = false;
   let advanceChooserAfterBattle = false;
@@ -522,12 +529,13 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
     return removeNodeTrees(removed);
   }
 
-  function removeNodeTrees(ids: Iterable<number>): string {
+  function removeNodeTrees(ids: Iterable<number>, retiredClicks?: Set<number>): string {
     const removed = new Set<number>();
     function remove(id: number): void {
       const record = nodes.get(id);
       if (!record) return;
       for (const childId of record.children) remove(childId);
+      if (record.clickHandlerCount > 0) retiredClicks?.add(id);
       shown.delete(id);
       nodes.delete(id);
       removed.add(id);
@@ -541,7 +549,10 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
 
   async function releaseWindowTree(record: WindowRecord): Promise<void> {
     if (record.rootId === null) return;
-    const removed = removeNodeTrees([record.rootId]);
+    // The renderer can still post gestures from the window the worker just closed.
+    const retiredClicks = activeStress && STRESS_CLICK_WINDOWS.includes(record.key) ? new Set<number>() : undefined;
+    const removed = removeNodeTrees([record.rootId], retiredClicks);
+    if (retiredClicks) retiredStressClicks.set(record.key, retiredClicks);
     record.rootId = null;
     if (removed) await dispatch?.('nodes.release', removed);
   }
@@ -613,7 +624,11 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
         await releaseWindowTree(task.record);
         flushOps();
         post({ protocol: UI_PROTOCOL, session, type: 'close', window: task.record.key });
-        if (task.record.key === 'MiniGameBattleEndWindow') {
+        if (activeStress && task.record.key === 'MiniGameBattleUIWindow') {
+          activeStage = null;
+          activeStress = false;
+          postEvent({ name: 'battle-close' });
+        } else if (task.record.key === 'MiniGameBattleEndWindow') {
           activeStage = null;
           if (advanceChooserAfterBattle && windows.get(STAGE_CHOOSER)?.state === 'open') {
             await lua!.doString(`require(${JSON.stringify(STAGE_CHOOSER)}).UpdateInfo()`);
@@ -684,7 +699,11 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
     switch (op) {
       case 'native.models': return modelMetadata;
       case 'native.effectLifetimes': return effectLifetimes;
+      case 'battle.stressLoadout':
+        if (activeStress) postEvent({ name: 'stress-loadout', report: JSON.parse(String(a)) as UiStressLoadoutReport });
+        return 0;
       case 'battle.result': {
+        if (activeStress) return true;
         const stageId = requireNumber(a, 'stageId');
         if (stageId !== activeStage || battleFinished) return 0;
         battleFinished = true;
@@ -717,9 +736,13 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
       }
       case 'audio.stop': postEvent({ name:'audio-stop',id: a === 'bgm' ? 'bgm' : Number(a) }); return 0;
 
-      case 'rng.seed': return io.randomSeed?.() ?? (crypto.getRandomValues(new Uint32Array(1))[0]! & 0x7fffffff);
-      case 'prefs.get': return preferences.get(String(a)) ?? b;
-      case 'prefs.set': preferences.set(String(a), Number(b)); return 0;
+      case 'rng.seed': return activeStress ? STRESS_STAGE.seed :
+        io.randomSeed?.() ?? (crypto.getRandomValues(new Uint32Array(1))[0]! & 0x7fffffff);
+      case 'prefs.get':
+        return activeStress && a === 'speed' ? STRESS_STAGE.initialSpeed : preferences.get(String(a)) ?? b;
+      case 'prefs.set':
+        if (!activeStress || a !== 'speed') preferences.set(String(a), Number(b));
+        return 0;
       case 'lua.source': {
         const source = sources.get(String(a));
         if (source === undefined) fail('module-not-found', `no original Lua module named ${String(a)}`);
@@ -1081,10 +1104,11 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
         const stageId = requireNumber(a, 'stageId');
         if (!Number.isInteger(stageId) || stageId <= 0) fail('bad-argument', `stageId must be a positive integer, got ${stageId}`);
         activeStage = stageId;
+        activeStress = b === true;
         battleFinished = false;
         battleUsedDebug = false;
         advanceChooserAfterBattle = false;
-        postEvent({ name: 'start-battle', stageId });
+        postEvent(activeStress ? { name: 'start-battle', stageId, stress: true } : { name: 'start-battle', stageId });
         return 0;
       }
       case 'battle.close': {
@@ -1223,6 +1247,8 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
       }
       await engine.doString(UI_TIMERS_LUA);
       await engine.doString(BATTLE_PLATFORM);
+      await engine.doString(STRESS_LOADOUT_LUA);
+      await engine.doString(STRESS_ARENA_LUA);
       await engine.doString("__UiSetTimerContext(function() return __HostCall('window.current') end, function(owner,callback,...) local prev=__HostCall('window.enter',owner); if prev~=nil then callback(...); __HostCall('window.enter',prev) end end)");
       tickBattle = engine.global.get('__WebBattleTick') as (ms: number) => string;
     }
@@ -1261,12 +1287,23 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
       if (requestSession !== session) fail('stale-session', 'click targets a previous host session');
       if (!Number.isInteger(componentId)) fail('bad-argument', 'componentId must be an integer');
       const target = nodes.get(componentId);
-      if (!target) fail('unknown-component', `no live component with id ${componentId}`);
-      const record = windows.get(target.window);
-      if (!record || record.state !== 'open') {
+      const record = target && windows.get(target.window);
+      if (!target || record?.state !== 'open') {
+        if ([...retiredStressClicks.values()].some(ids => ids.has(componentId))) {
+          post({ protocol: UI_PROTOCOL, session, type: 'settled', requestId });
+          return;
+        }
+        if (!target) fail('unknown-component', `no live component with id ${componentId}`);
         fail('unknown-component', `component ${componentId} belongs to a closed window`);
       }
       if (!dispatch) fail('host-not-ready', 'Lua engine is not initialised');
+      if (activeStress) {
+        const combatWindow = STRESS_CLICK_WINDOWS.find(key => windows.get(key)?.state === 'open');
+        if (record.key !== combatWindow || windows.get('BattleLoadingWindow')?.state === 'open') {
+          post({ protocol: UI_PROTOCOL, session, type: 'settled', requestId });
+          return;
+        }
+      }
       if (options.gameplay && record.key === 'Activity17MiniGame2MainWindow') {
         let ancestor: FNode | undefined = target;
         while (ancestor) {
@@ -1295,6 +1332,29 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
 
     async present(requestId, requestSession, signal): Promise<void> {
       if (disposed || requestSession !== session) fail('stale-session', 'presentation belongs to a previous session');
+      if (signal.kind === 'start-stress') {
+        const menuOpen = [entryPoint, STAGE_CHOOSER].some(key => windows.get(key)?.state === 'open');
+        const infoOpen = windows.get('Activity17MiniGameChoice2_InfoSkillWindow')?.state === 'open';
+        if (!options.gameplay || !lua || activeStage !== null || !menuOpen || infoOpen) {
+          fail('stress-unavailable', 'stress must start from the home or stage chooser');
+        }
+        await lua.doString(`MiniGameBattleMgr.InitBattle({stageId=${STRESS_STAGE.id}, stress=true})`);
+        await drain();
+        post({ protocol: UI_PROTOCOL, session, type: 'settled', requestId });
+        return;
+      }
+      if (signal.kind === 'finish-stress') {
+        if (activeStress) {
+          if (!lua || windows.get('MiniGameBattleUIWindow')?.state !== 'open' ||
+              windows.get('BattleLoadingWindow')?.state === 'open') {
+            fail('stress-loading', 'wait for the stress battle HUD before exiting');
+          }
+          await lua.doString('MiniGameBattleMgr.CloseBattle()');
+          await drain();
+        }
+        post({ protocol: UI_PROTOCOL, session, type: 'settled', requestId });
+        return;
+      }
       if (signal.kind === 'progress') {
         const newNatural = addProgress(signal.clearedStageIds);
         const newAssisted = addProgress(signal.assistedStageIds, assisted);
@@ -1306,7 +1366,7 @@ export function createOriginalUiHost(options: OriginalUiHostOptions): OriginalUi
         return;
       }
       if (signal.kind === 'debug-level') {
-        const result = options.gameplay && activeStage !== null && lua && await lua.doString(`
+        const result = activeStress ? '压测关已预设完整技能，无法升级' : options.gameplay && activeStage !== null && lua && await lua.doString(`
           local d = MiniGameBattleData
           if not MiniGameBattleMgr.isBattleStart or MiniGameBattleControl.isPause or MiniGameBattleControl.isOver then
             return "请在战斗进行中使用"

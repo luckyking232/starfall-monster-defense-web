@@ -46,8 +46,21 @@ export type UiOp =
 
 export type EndlessRunOrigin = Pick<import('../../src/platform/progress').EndlessRecord, 'source' | 'endedBy'>;
 
+export interface UiStressLoadoutReport {
+  upgrades: number;
+  cards: {
+    id: number;
+    skills: {
+      id: number;
+      unlocked: boolean;
+      options: { id: number; level: number; maxLevel?: number }[];
+    }[];
+  }[];
+}
+
 export type UiEvent =
-  | { name: 'start-battle'; stageId: number }
+  | { name: 'start-battle'; stageId: number; stress?: true }
+  | { name: 'stress-loadout'; report: UiStressLoadoutReport }
   | { name: 'battle-close' }
   | { name: 'world'; state: import('../../src/engine/protocol').RuleState }
   | { name: 'clear-earned'; stageId: number; assisted?: true }
@@ -173,6 +186,7 @@ export interface UiPresentationRequest {
   requestId: number;
   signal: { kind: 'shown'; rootId: number } | { kind: 'transition'; playId: number; label?: string }
     | { kind: 'tick'; ms: number } | { kind: 'background' } | { kind: 'debug-level' }
+    | { kind: 'start-stress' } | { kind: 'finish-stress' }
     | { kind: 'progress'; clearedStageIds: number[]; assistedStageIds: number[] };
 }
 
