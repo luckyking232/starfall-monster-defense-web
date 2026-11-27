@@ -24,7 +24,8 @@ function options() {
     dist: { type: 'string', default: path.join(app, 'dist') }, label: { type: 'string' },
     base: { type: 'string' }, proxy: { type: 'string' }, profile: { type: 'string' }, 'expect-commit': { type: 'string' },
     output: {type:'string',default:path.join(app,'test-results','stress-benchmark')},
-    'expect-tree': {type:'string'}, 'pause-samples': {type:'string',default:'0'}, help: { type: 'boolean' },
+    'expect-tree': {type:'string'}, 'pause-samples': {type:'string',default:'0'},
+    resources: {type:'boolean'}, help: { type: 'boolean' },
   } });
   if (values.help) {
     console.log([
@@ -32,6 +33,7 @@ function options() {
       '                     [--dist PATH | --base URL] [--expect-commit SHA] [--expect-tree TREE] [--output DIR]',
       '                     [--proxy URL|direct] [--profile TEST_PROFILE_PATH]',
       '                     [--pause-samples N] (a separate input-latency run after warmup)',
+      '                     [--resources] (separate heap, Wasm and resource lifecycle diagnostics)',
       'Uses this game project and its locked Playwright dependency; local builds stay on loopback.',
       'An optional persistent profile must be a dedicated directory inside the evidence output directory.',
     ].join('\n'));
@@ -65,7 +67,8 @@ function options() {
   }
   const pauseSamples=Number(values['pause-samples']);
   assert(Number.isSafeInteger(pauseSamples) && pauseSamples>=0, 'Expected a non-negative pause sample count');
-  return { backend: values.backend, durationMs, label, base, proxy, profile, pauseSamples, outputDir:path.resolve(values.output),
+  return { backend: values.backend, durationMs, label, base, proxy, profile, pauseSamples, resources: values.resources,
+    outputDir:path.resolve(values.output),
     dist:path.resolve(values.dist), expectedCommit:values['expect-commit'], expectedTree:values['expect-tree'] };
 }
 
@@ -368,6 +371,12 @@ async function main(settings) {
   let browser;
   let context;
   let page;
+  let resourceProbe;
+  const sampleResources = async (phase, inventory, frame = null) => {
+    const sample = await resourceProbe.sample(phase, { inventory });
+    result.resourceDiagnostics.samples.push({ ...sample, frame });
+    flush();
+  };
   const capture = async (name, screenshot) => {
     const image = output(`-${name}.png`);
     try {
@@ -429,6 +438,11 @@ async function main(settings) {
 
     await page.addInitScript(installObserver);
     if (settings.pauseSamples) await page.addInitScript(installPauseProbe);
+    if (settings.resources) {
+      const { createBrowserResourcesProbe, resourceMeasurement } = require('./lib/browser-resources.cjs');
+      resourceProbe = createBrowserResourcesProbe(page);
+      result.resourceDiagnostics = { timingIncludesProbes: true, measurement: resourceMeasurement, samples: [] };
+    }
     await page.goto(base.href, { waitUntil: 'domcontentloaded' });
     result.channel = await page.locator('meta[name="game-channel"]').getAttribute('content');
     if (settings.base?.hostname.endsWith('.github.io')) assert.equal(result.channel, 'test', 'Expected the isolated Pages test game');
@@ -451,12 +465,21 @@ async function main(settings) {
       await page.getByRole('button', { name: '网页设置', exact: true }).click();
       await page.getByRole('button', { name: '压测', exact: true }).click();
     };
+    const enterBattle = async () => {
+      await page.getByLabel('压测渲染方式', { exact: true }).selectOption(backend);
+      await page.getByRole('button', { name: '开始怪海压测', exact: true }).click();
+      await page.getByRole('region', { name: '魔物抵御战战场', exact: true }).waitFor();
+      await page.locator('.battle-wait').waitFor({ state: 'hidden' });
+      await page.locator('.stress-live').waitFor({ state: 'visible' });
+    };
+    const exitBattle = async () => {
+      await page.getByRole('button', { name: '结束压测', exact: true }).click();
+      await page.getByText('上次采样', { exact: true }).waitFor();
+      await page.getByRole('button', { name: '开始怪海压测', exact: true }).waitFor();
+    };
     await openTab();
-    await page.getByLabel('压测渲染方式', { exact: true }).selectOption(backend);
-    await page.getByRole('button', { name: '开始怪海压测', exact: true }).click();
-    await page.getByRole('region', { name: '魔物抵御战战场', exact: true }).waitFor();
-    await page.locator('.battle-wait').waitFor({ state: 'hidden' });
-    await page.locator('.stress-live').waitFor({ state: 'visible' });
+    if (resourceProbe) await sampleResources('before-first-battle', true);
+    await enterBattle();
     const first = await page.evaluate(observePage);
     assert(first.stressActive && first.hudVisible && first.canvas, 'Stress did not reach live world rendering');
     assert.deepEqual(first.starts, [{ stageId, stress: true }], 'Unexpected start event or stage');
@@ -464,6 +487,7 @@ async function main(settings) {
     flush();
     const activeStart = performance.now();
     let checkpointMs = Math.min(durationMs, 15000);
+    let sampledMidpoint = false;
 
     while (true) {
       await sleep(Math.max(0, activeStart + checkpointMs - performance.now()));
@@ -478,6 +502,11 @@ async function main(settings) {
       console.log(JSON.stringify({ checkpointMs, elapsedWallMs: Math.round(sample.elapsedWallMs), frame: lastFrame,
         hudText, maxOpponents, workerTickRoundTrip }));
       flush();
+      if (resourceProbe && result.samples.length === 1) await sampleResources('first-battle-warm', false, lastFrame);
+      if (resourceProbe && durationMs >= 60000 && checkpointMs >= durationMs / 2 && !sampledMidpoint) {
+        await sampleResources('first-battle-midpoint', false, lastFrame);
+        sampledMidpoint = true;
+      }
       if (checkpointMs === durationMs) break;
       checkpointMs = Math.min(durationMs, checkpointMs + 15000);
     }
@@ -489,12 +518,11 @@ async function main(settings) {
     await openTab();
     await page.getByText('本次采样', { exact: true }).waitFor();
     result.elapsedWallMs = performance.now() - activeStart;
+    if (resourceProbe) await sampleResources('first-battle-paused', true, (await page.evaluate(observePage)).lastFrame);
     // Settings has already frozen the world. Restore the onscreen HUD only for the screenshot.
     await capture('hud', image => page.screenshot({ path: image, timeout: 10000,
       style: '.web-backdrop { visibility: hidden !important; } .stress-live[hidden] { display: block !important; }' }));
-    await page.getByRole('button', { name: '结束压测', exact: true }).click();
-    await page.getByText('上次采样', { exact: true }).waitFor();
-    await page.getByRole('button', { name: '开始怪海压测', exact: true }).waitFor();
+    await exitBattle();
     const report = page.getByRole('region', { name: '压测统计' });
     result.report = await readReport(report);
     const loadout = page.getByText('实际配置 · 15 项技能 · 135 次强化', { exact: true });
@@ -505,6 +533,7 @@ async function main(settings) {
     result.scoresUnchanged = JSON.stringify(result.progressAfter) === JSON.stringify(result.progressBefore);
     result.backendFallback = result.report.latestConfig.renderer !== backend;
     flush();
+    if (resourceProbe) await sampleResources('after-first-exit', true, result.final.lastFrame);
 
     await capture('report', async image => {
       const dialog = page.getByRole('dialog');
@@ -535,6 +564,23 @@ async function main(settings) {
     assert(result.scoresUnchanged && result.final.scoreEvents.length === 0, 'The stress run changed gameplay records');
     assert(!result.final.workerErrors.length && !result.pageErrors.length && !result.requestErrors.length && !result.otherOrigins.length,
       'The run observed worker, browser, HTTP or external request errors');
+    if (resourceProbe) {
+      await page.setViewportSize(viewport);
+      await enterBattle();
+      await page.waitForFunction(() => window.builtinSoak().lastFrame >= 90);
+      await openTab();
+      const second = await page.evaluate(observePage);
+      assert(second.starts.length === 2 && second.closes === 1 && second.stressActive, 'Second resource battle did not start');
+      await sampleResources('second-battle-paused', true, second.lastFrame);
+      await exitBattle();
+      await page.waitForFunction(() => window.builtinSoak().closes === 2);
+      const secondExit = await page.evaluate(observePage);
+      assert(secondExit.closes === 2 && !secondExit.stressActive && !secondExit.workerErrors.length,
+        'Second resource battle did not close cleanly');
+      await sampleResources('after-second-exit', true, secondExit.lastFrame);
+      result.resourceDiagnostics.lifecycle = { starts: secondExit.starts.length, closes: secondExit.closes,
+        secondBattleFrame: second.lastFrame };
+    }
     result.complete = true;
     result.screenshotsComplete = Object.keys(result.screenshotErrors).length === 0;
     console.log(JSON.stringify({ result: output('.json'), report: result.report, backendFallback: result.backendFallback,
@@ -546,6 +592,7 @@ async function main(settings) {
   } finally {
     result.endUtc = new Date().toISOString();
     flush();
+    resourceProbe?.close();
     try {
       if (profile) await context?.close();
       else await browser?.close();
