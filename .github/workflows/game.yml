@@ -45,6 +45,16 @@ jobs:
           trap 'kill $!' EXIT
           curl --retry 20 --retry-connrefused --retry-delay 1 -fsS "$STARFALL_TEST_BASE_URL" > /dev/null
           npx playwright test startup-screen product-entry standalone-settings battle-preparation save-transfer viewport-rotation mobile-fullscreen economy-mode endless-records
+      - name: Preserve failed player interaction traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: player-interaction-errors
+          path: |
+            apps/game/test-results/**/error-context.md
+            apps/game/test-results/**/trace.zip
+          if-no-files-found: ignore
+          retention-days: 3
       - name: Prepare Pages
         if: github.ref == 'refs/heads/test' && github.event_name != 'pull_request'
         working-directory: .

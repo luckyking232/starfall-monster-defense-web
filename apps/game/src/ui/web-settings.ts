@@ -1,3 +1,4 @@
+import type { UiLevelUpResult } from '../../runtime/ui/protocol';
 import { ProgressStore } from '../platform/progress';
 import { isTestSite } from '../platform/channel';
 import { editSaveIndex, exportSaves, importSaves, MAX_BACKUP_BYTES } from '../platform/save-transfer';
@@ -13,7 +14,7 @@ interface WebControls {
   battleFrameTime(): {fps:number; p95:number; slow:number} | null;
   inBattle(): boolean;
   canLevel(): boolean;
-  levelUp(): Promise<void>;
+  levelUp(): Promise<UiLevelUpResult>;
   modalChanged(open: boolean): void;
 }
 
@@ -182,13 +183,17 @@ export class WebSettings {
       return;
     }
     if (!state.slots.some(slot => slot.id === this.selected)) this.selected = current.id;
+    const inBattle = this.controls.inBattle();
+    const visibleNames = inBattle ? current.name : state.slots.map(slot => slot.name).join(' ');
+    // Request the faces matching visible names without depending on layout of a native select.
+    void this.body.ownerDocument.fonts.load('16px SourceHanSans', visibleNames).catch(() => {});
     const passed = snap.clearedStageIds.length + snap.assistedStageIds.length;
     this.body.replaceChildren(element('p', 'web-current', '当前存档 · ' + current.name),
       element('p', 'web-meta', '已通关 ' + passed + ' 关'));
     if (snap.assistedStageIds.length) this.body.append(element('p', 'web-meta', '其中 ' + snap.assistedStageIds.length + ' 关为辅助通关'));
     if (snap.allUnlocked) this.body.append(element('p', 'web-meta', '已启用全解锁'));
     if (!state.persistent || state.unreadable || snap.unreadable) this.body.append(element('p','web-meta','浏览器存储不可用或有记录无法读取。'));
-    if (this.controls.inBattle()) {
+    if (inBattle) {
       this.body.append(element('p','web-meta','返回活动主页或选关后可以管理存档。'));
       return;
     }
@@ -273,6 +278,7 @@ export class WebSettings {
   private debug(): void {
     const code = element('input');
     code.placeholder = 'ALLSTAGES / LEVELUP'; code.setAttribute('aria-label','调试码');
+    let levelUpPending = false;
     const run = async (raw: string) => {
       try {
         switch (raw.trim().toUpperCase()) {
@@ -283,9 +289,21 @@ export class WebSettings {
               if (this.progress.listSlots().activeSlotId !== this.slotId) this.progress.switchSlot(this.slotId);
             });
             location.reload(); return;
-          case 'LEVELUP': case '升一级':
+          case 'LEVELUP': case '升一级': {
+            if (levelUpPending) return;
             if (!this.controls.canLevel()) { this.feedback.textContent = '请在战斗进行中使用。'; return; }
-            this.close(); await this.controls.levelUp(); return;
+            levelUpPending = true;
+            try {
+              const result = await this.controls.levelUp();
+              if (code.isConnected && !this.backdrop.hidden) {
+                if (result.applied) this.close();
+                else this.feedback.textContent = result.text;
+              }
+            } finally {
+              levelUpPending = false;
+            }
+            return;
+          }
           default: this.feedback.textContent = '未识别的调试码';
         }
       } catch (error) { this.feedback.textContent = error instanceof Error ? error.message : String(error); }

@@ -1,6 +1,11 @@
 import { expect, test } from '@playwright/test';
 
 const uiManifest = /\/assets\/(?:release-[a-f0-9]+\/)?runtime\/ui\/manifest\.json$/;
+const commonFontUrl = /\/source-han-sans-common-[^/]+\.woff2$/;
+const fullFontUrl = /\/source-han-sans-full-[^/]+\.woff2$/;
+// U+20BB7 is in the original full face and outside the generated common face.
+const rareSaveName = '夜巡𠮷';
+const rareFontRange = 'U+20BB7';
 
 test('首次启动在脚本和资源等待时保持可见并显示真实进度', async ({ page }) => {
   let resume!: () => void;
@@ -35,28 +40,45 @@ test('资源失败可从加载页重试', async ({page}) => {
 });
 
 test('冷首页只载入常用字形，罕见字存档名使用完整原字体', async ({page}) => {
-  const fonts: string[] = [];
-  const fullFaces = new Set<string>();
+  const fontRequests: string[] = [];
   page.on('request', request => {
-    if (request.url().endsWith('.woff2')) fonts.push(request.url());
-  });
-  page.on('response',response => {
-    if (response.ok() && /source-han-sans-full-.*\.woff2$/.test(response.url())) fullFaces.add(response.url());
+    if (request.url().endsWith('.woff2')) fontRequests.push(request.url());
   });
   await page.goto('./');
   await expect(page.getByRole('region', {name:'魔物抵御战活动主页'})).toBeVisible({timeout:45000});
-  expect(fonts.some(url => url.includes('source-han-sans-common'))).toBe(true);
-  expect(fonts.some(url => url.includes('source-han-sans-full'))).toBe(false);
-  await page.getByRole('button', {name:'网页设置'}).click();
-  await page.getByRole('button', {name:'存档',exact:true}).click();
-  await page.getByLabel('存档名称').fill('夜巡𠮷');
-  await page.getByRole('button', {name:'新建并切换'}).click();
-  await expect(page.getByRole('dialog')).toHaveCount(0);
-  await page.getByRole('button', {name:'网页设置'}).click();
-  await page.getByRole('button', {name:'存档',exact:true}).click();
-  await expect(page.getByText('当前存档 · 夜巡𠮷')).toBeVisible();
-  await expect.poll(() => fullFaces.size).toBe(1);
-  await expect.poll(() => page.evaluate(() => document.fonts.check('16px SourceHanSans','𠮷'))).toBe(true);
+  await expect(page.locator('#startup')).toHaveCount(0);
+  expect(fontRequests, '冷首页请求常用字体').toEqual(expect.arrayContaining([expect.stringMatching(commonFontUrl)]));
+  expect(fontRequests.filter(url => fullFontUrl.test(url)), '冷首页完整字体请求').toEqual([]);
+
+  let resume!: () => void;
+  const gate = new Promise<void>(done => { resume = done; });
+  await page.route(fullFontUrl, async route => { await gate; await route.continue(); });
+  await page.evaluate(() => {
+    const requests = document.createElement('output');
+    requests.id = 'font-load-requests';
+    requests.hidden = true;
+    document.body.append(requests);
+    const load = document.fonts.load.bind(document.fonts);
+    document.fonts.load = (font, text) => {
+      requests.value += `${font} ${text ?? ''}\n`;
+      return load(font, text);
+    };
+  });
+  const rareFaceStatus = () => page.evaluate(range => [...document.fonts]
+    .filter(face => face.family === 'SourceHanSans' && face.unicodeRange.split(',').some(item => item.trim().toUpperCase() === range))
+    .map(face => face.status), rareFontRange);
+  try {
+    await page.getByRole('button', {name:'网页设置'}).click();
+    await page.getByRole('button', {name:'存档',exact:true}).click();
+    await page.getByLabel('存档名称').fill(rareSaveName);
+    await page.getByRole('button', {name:'重命名'}).click();
+    await expect(page.getByText(`当前存档 · ${rareSaveName}`)).toBeVisible();
+    await expect(page.locator('#font-load-requests')).toContainText(rareSaveName);
+    await expect.poll(rareFaceStatus, {message:'完整原字体在响应被延迟时处于加载状态'}).toEqual(['loading']);
+  } finally {
+    resume();
+  }
+  await expect.poll(rareFaceStatus, {message:'U+20BB7 对应的 SourceHanSans 已完成加载'}).toEqual(['loaded']);
 });
 
 test('没有浏览器解压 API 时，使用相同的原格式词条进入游戏', async ({page}) => {
