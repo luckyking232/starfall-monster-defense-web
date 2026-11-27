@@ -2,16 +2,22 @@ import { expect, type Page } from '@playwright/test';
 
 type CanvasPointer = 'mouse' | 'touch';
 
-export async function originalClick(page: Page, x: number, y: number, pointer: CanvasPointer = 'mouse'): Promise<void> {
+export async function originalPointMapper(page: Page): Promise<(x: number, y: number) => { x: number; y: number }> {
   const surface = page.locator('#app canvas:visible').last();
   await expect(surface).toBeVisible();
   const bounds = await surface.boundingBox();
   if (!bounds) throw new Error('Original window has no visible canvas');
-  const portrait = await page.evaluate(() => document.documentElement.dataset['frameRotation'] === '90');
-  const clientX = bounds.x + (portrait ? 1 - y / 750 : x / 1334) * bounds.width;
-  const clientY = bounds.y + (portrait ? x / 1334 : y / 750) * bounds.height;
-  if (pointer === 'touch') await page.touchscreen.tap(clientX, clientY);
-  else await page.mouse.click(clientX, clientY);
+  const rotated = await page.evaluate(() => document.documentElement.dataset['frameRotation'] === '90');
+  return (x, y) => ({
+    x: bounds.x + (rotated ? 1 - y / 750 : x / 1334) * bounds.width,
+    y: bounds.y + (rotated ? x / 1334 : y / 750) * bounds.height,
+  });
+}
+
+export async function originalClick(page: Page, x: number, y: number, pointer: CanvasPointer = 'mouse'): Promise<void> {
+  const point = (await originalPointMapper(page))(x, y);
+  if (pointer === 'touch') await page.touchscreen.tap(point.x, point.y);
+  else await page.mouse.click(point.x, point.y);
 }
 
 export async function openChooser(page: Page, pointer: CanvasPointer = 'mouse'): Promise<void> {

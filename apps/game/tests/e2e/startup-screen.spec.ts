@@ -36,14 +36,17 @@ test('资源失败可从加载页重试', async ({page}) => {
 
 test('冷首页只载入常用字形，罕见字存档名使用完整原字体', async ({page}) => {
   const fonts: string[] = [];
+  const fullFaces = new Set<string>();
   page.on('request', request => {
     if (request.url().endsWith('.woff2')) fonts.push(request.url());
+  });
+  page.on('response',response => {
+    if (response.ok() && /source-han-sans-full-.*\.woff2$/.test(response.url())) fullFaces.add(response.url());
   });
   await page.goto('./');
   await expect(page.getByRole('region', {name:'魔物抵御战活动主页'})).toBeVisible({timeout:45000});
   expect(fonts.some(url => url.includes('source-han-sans-common'))).toBe(true);
   expect(fonts.some(url => url.includes('source-han-sans-full'))).toBe(false);
-  const full = page.waitForResponse(response => /source-han-sans-full-.*\.woff2$/.test(response.url()) && response.ok());
   await page.getByRole('button', {name:'网页设置'}).click();
   await page.getByRole('button', {name:'存档',exact:true}).click();
   await page.getByLabel('存档名称').fill('夜巡𠮷');
@@ -52,7 +55,8 @@ test('冷首页只载入常用字形，罕见字存档名使用完整原字体',
   await page.getByRole('button', {name:'网页设置'}).click();
   await page.getByRole('button', {name:'存档',exact:true}).click();
   await expect(page.getByText('当前存档 · 夜巡𠮷')).toBeVisible();
-  await full;
+  await expect.poll(() => fullFaces.size).toBe(1);
+  await expect.poll(() => page.evaluate(() => document.fonts.check('16px SourceHanSans','𠮷'))).toBe(true);
 });
 
 test('没有浏览器解压 API 时，使用相同的原格式词条进入游戏', async ({page}) => {

@@ -991,6 +991,8 @@ export class FguiRuntime {
   }
 
   private canInteract(node: FguiNode): boolean {
+    // Phaser also listens for touch events on the window, beyond the inert canvas subtree.
+    if (this.parent.inert) return false;
     for (let candidate: FguiNode | undefined = node; candidate; candidate = candidate.parent) {
       if (!candidate.container.visible || candidate.container.alpha === 0 || candidate.source.touchable === false) return false;
       if (!candidate.parent) return this.windowViews.get(this.topWindow ?? '')?.root === candidate;
